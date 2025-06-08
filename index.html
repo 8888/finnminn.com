@@ -24,5 +24,15 @@
 </head>
 <body>
     <img src="finn.jpg" alt="Finn">
+
+    <script>
+        let clicks = 0;
+        document.querySelector('img').addEventListener('click', () => {
+            clicks++;
+            if (clicks === 3) {
+                window.location.href = 'https://app.finnminn.com';
+            }
+        });
+    </script>
 </body>
 </html>
