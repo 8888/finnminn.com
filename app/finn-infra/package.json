@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "deploy-prod": "cdk deploy --profile 001812633811_AWSAdministratorAccess --region us-east-1",
+    "deploy-staging": "cdk deploy --profile 420925299194_AWSAdministratorAccess --region us-east-1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
