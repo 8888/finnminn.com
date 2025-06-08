@@ -25,10 +25,14 @@ export class FinnInfraStack extends cdk.Stack {
       defaultRootObject: 'index.html',
     });
 
-    // Output the CloudFront distribution domain name
     new cdk.CfnOutput(this, 'DistributionDomainName', {
       value: distribution.distributionDomainName,
       description: 'The domain name of the CloudFront distribution',
+    });
+
+    new cdk.CfnOutput(this, 'StaticAssetsBucketName', {
+      value: staticAssetsBucket.bucketName,
+      description: 'The name of the S3 bucket',
     });
   }
 }
