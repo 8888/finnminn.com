@@ -1,3 +1,8 @@
+# Finn
+Cloudfront:  
+* Prod: https://dbo1hba6cpso4.cloudfront.net/
+* Staging: https://ds8b55soyb766.cloudfront.net/
+
 # sv
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
