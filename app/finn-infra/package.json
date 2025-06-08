@@ -1,8 +1,8 @@
 {
-  "name": "infra",
+  "name": "finn-infra",
   "version": "0.1.0",
   "bin": {
-    "infra": "bin/infra.js"
+    "finn-infra": "bin/finn-infra.js"
   },
   "scripts": {
     "build": "tsc",
