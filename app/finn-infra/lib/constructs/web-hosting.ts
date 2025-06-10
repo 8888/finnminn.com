@@ -4,14 +4,25 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import { Tags } from 'aws-cdk-lib';
+
+export interface WebHostingProps {
+  /**
+   * Whether to create and use an SSL certificate for the CloudFront distribution
+   */
+  readonly useCustomDomain?: boolean;
+}
 
 export class WebHosting extends Construct {
   public readonly bucket: s3.Bucket;
   public readonly distribution: cloudfront.Distribution;
+  public readonly certificate?: acm.Certificate;
 
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, props: WebHostingProps = {}) {
     super(scope, id);
+
+    const useCustomDomain = !!props.useCustomDomain;
 
     // Create an S3 bucket for static assets
     this.bucket = new s3.Bucket(this, 'StaticAssetsBucket', {
@@ -26,6 +37,14 @@ export class WebHosting extends Construct {
     // Create Origin Access Identity for CloudFront
     const originAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'OriginAccessIdentity');
 
+    // Create SSL certificate if custom domain is enabled
+    if (useCustomDomain) {
+      this.certificate = new acm.Certificate(this, 'Certificate', {
+        domainName: 'app.finnminn.com',
+        validation: acm.CertificateValidation.fromDns(),
+      });
+    }
+
     // Create a CloudFront distribution
     this.distribution = new cloudfront.Distribution(this, 'StaticAssetsDistribution', {
       defaultBehavior: {
@@ -36,6 +55,8 @@ export class WebHosting extends Construct {
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
       },
       defaultRootObject: 'index.html',
+      domainNames: useCustomDomain ? ['app.finnminn.com'] : undefined,
+      certificate: useCustomDomain ? this.certificate : undefined,
     });
 
     Tags.of(this.distribution).add('Project', 'finnminn');

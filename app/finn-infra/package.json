@@ -9,7 +9,9 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "deploy-prod": "cdk deploy --profile 001812633811_AWSAdministratorAccess --region us-east-1",
+    "diff-prod": "cdk diff --context prod=true --profile 001812633811_AWSAdministratorAccess --region us-east-1",
+    "diff-staging": "cdk diff --profile 420925299194_AWSAdministratorAccess --region us-east-1",
+    "deploy-prod": "cdk deploy --context prod=true --profile 001812633811_AWSAdministratorAccess --region us-east-1",
     "deploy-staging": "cdk deploy --profile 420925299194_AWSAdministratorAccess --region us-east-1"
   },
   "devDependencies": {

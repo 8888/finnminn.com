@@ -6,6 +6,8 @@ export class FinnInfraStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const webHosting = new WebHosting(this, 'WebHosting');
+    const webHosting = new WebHosting(this, 'WebHosting', {
+      useCustomDomain: !!this.node.tryGetContext('prod')
+    });
   }
 }
