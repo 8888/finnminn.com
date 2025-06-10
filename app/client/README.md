@@ -1,7 +1,7 @@
 # Finn
 Cloudfront:  
 * Prod: https://dbo1hba6cpso4.cloudfront.net/
-* Staging: https://ds8b55soyb766.cloudfront.net/
+* Staging: https://dcqz8jobbekl8.cloudfront.net
 
 # sv
 
