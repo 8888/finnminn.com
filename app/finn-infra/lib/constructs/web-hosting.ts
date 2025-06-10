@@ -23,20 +23,15 @@ export class WebHosting extends Construct {
     Tags.of(this.bucket).add('Project', 'finnminn');
     Tags.of(this.bucket).add('Resource', 'static-assets-bucket');
 
-    // Create Origin Access Control for CloudFront
-    const originAccessControl = new cloudfront.CfnOriginAccessControl(this, 'OriginAccessControl', {
-      originAccessControlConfig: {
-        name: 'StaticAssetsOAC',
-        originAccessControlOriginType: 's3',
-        signingBehavior: 'always',
-        signingProtocol: 'sigv4',
-      },
-    });
+    // Create Origin Access Identity for CloudFront
+    const originAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'OriginAccessIdentity');
 
     // Create a CloudFront distribution
     this.distribution = new cloudfront.Distribution(this, 'StaticAssetsDistribution', {
       defaultBehavior: {
-        origin: new origins.S3Origin(this.bucket),
+        origin: new origins.S3Origin(this.bucket, {
+          originAccessIdentity,
+        }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
       },
@@ -50,13 +45,8 @@ export class WebHosting extends Construct {
     const bucketPolicy = new iam.PolicyStatement({
       actions: ['s3:GetObject'],
       effect: iam.Effect.ALLOW,
-      principals: [new iam.ServicePrincipal('cloudfront.amazonaws.com')],
+      principals: [new iam.CanonicalUserPrincipal(originAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
       resources: [this.bucket.arnForObjects('*')],
-      conditions: {
-        StringEquals: {
-          'AWS:SourceArn': this.distribution.distributionArn,
-        },
-      },
     });
 
     this.bucket.addToResourcePolicy(bucketPolicy);
