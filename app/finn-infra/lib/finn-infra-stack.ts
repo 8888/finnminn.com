@@ -1,13 +1,16 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { WebHosting } from './constructs/web-hosting';
+import { CognitoAuth } from './constructs/cognito-auth';
 
 export class FinnInfraStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const webHosting = new WebHosting(this, 'WebHosting', {
-      useCustomDomain: !!this.node.tryGetContext('prod')
-    });
+    const useCustomDomain = !!this.node.tryGetContext('prod');
+
+    const webHosting = new WebHosting(this, 'WebHosting', { useCustomDomain });
+
+    const cognitoAuth = new CognitoAuth(this, 'CognitoAuth', { useCustomDomain });
   }
 }
