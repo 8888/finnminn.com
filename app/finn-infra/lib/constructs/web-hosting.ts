@@ -4,6 +4,7 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import { Tags } from 'aws-cdk-lib';
 
 export class WebHosting extends Construct {
   public readonly bucket: s3.Bucket;
@@ -18,6 +19,9 @@ export class WebHosting extends Construct {
       removalPolicy: cdk.RemovalPolicy.DESTROY, // For development - change to RETAIN for production
       autoDeleteObjects: true, // For development - remove for production
     });
+
+    Tags.of(this.bucket).add('Project', 'finnminn');
+    Tags.of(this.bucket).add('Resource', 'static-assets-bucket');
 
     // Create Origin Access Control for CloudFront
     const originAccessControl = new cloudfront.CfnOriginAccessControl(this, 'OriginAccessControl', {
@@ -38,6 +42,9 @@ export class WebHosting extends Construct {
       },
       defaultRootObject: 'index.html',
     });
+
+    Tags.of(this.distribution).add('Project', 'finnminn');
+    Tags.of(this.distribution).add('Resource', 'cloudfront-distribution');
 
     // Add bucket policy to allow CloudFront access
     const bucketPolicy = new iam.PolicyStatement({
