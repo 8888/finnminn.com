@@ -37,13 +37,10 @@ export class WebHosting extends Construct {
     // Create Origin Access Identity for CloudFront
     const originAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'OriginAccessIdentity');
 
-    // Create SSL certificate if custom domain is enabled
-    if (isProd) {
-      this.certificate = new acm.Certificate(this, 'Certificate', {
-        domainName: 'app.finnminn.com',
-        validation: acm.CertificateValidation.fromDns(),
-      });
-    }
+    this.certificate = new acm.Certificate(this, 'Certificate', {
+      domainName: isProd ? '*.finnminn.com' : '*.dev.finnminn.com',
+      validation: acm.CertificateValidation.fromDns(),
+    });
 
     // Create a CloudFront distribution
     this.distribution = new cloudfront.Distribution(this, 'StaticAssetsDistribution', {
