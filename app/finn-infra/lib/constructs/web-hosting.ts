@@ -11,7 +11,7 @@ export interface WebHostingProps {
   /**
    * Whether to create and use an SSL certificate for the CloudFront distribution
    */
-  readonly useCustomDomain?: boolean;
+  readonly isProd?: boolean;
 }
 
 export class WebHosting extends Construct {
@@ -22,7 +22,7 @@ export class WebHosting extends Construct {
   constructor(scope: Construct, id: string, props: WebHostingProps = {}) {
     super(scope, id);
 
-    const useCustomDomain = !!props.useCustomDomain;
+    const isProd = !!props.isProd;
 
     // Create an S3 bucket for static assets
     this.bucket = new s3.Bucket(this, 'StaticAssetsBucket', {
@@ -38,7 +38,7 @@ export class WebHosting extends Construct {
     const originAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'OriginAccessIdentity');
 
     // Create SSL certificate if custom domain is enabled
-    if (useCustomDomain) {
+    if (isProd) {
       this.certificate = new acm.Certificate(this, 'Certificate', {
         domainName: 'app.finnminn.com',
         validation: acm.CertificateValidation.fromDns(),
@@ -55,8 +55,8 @@ export class WebHosting extends Construct {
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
       },
       defaultRootObject: 'index.html',
-      domainNames: useCustomDomain ? ['app.finnminn.com'] : undefined,
-      certificate: useCustomDomain ? this.certificate : undefined,
+      domainNames: isProd ? ['app.finnminn.com'] : undefined,
+      certificate: isProd ? this.certificate : undefined,
     });
 
     Tags.of(this.distribution).add('Project', 'finnminn');

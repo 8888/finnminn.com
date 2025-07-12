@@ -3,7 +3,7 @@ import * as cognito from 'aws-cdk-lib/aws-cognito';
 import { Construct } from 'constructs';
 
 export interface CognitoAuthProps {
-  useCustomDomain: boolean;
+  isProd: boolean;
 }
 
 export class CognitoAuth extends Construct {
@@ -36,7 +36,7 @@ export class CognitoAuth extends Construct {
     });
 
     // Create the app client
-    const callbackUrl = props.useCustomDomain
+    const callbackUrl = props.isProd
       ? 'https://app.finnminn.com'
       : 'http://localhost:5173/';
 
