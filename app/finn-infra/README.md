@@ -1,3 +1,18 @@
+# Finn
+## Urls
+App:  
+* Prod: https://app.finnminn.com (https://d2wx66qk2896tj.cloudfront.net)
+* Dev: https://app.dev.finnminn.com (https://dcqz8jobbekl8.cloudfront.net)
+
+Login:
+* Prod: https://auth.finnminn.com
+* Dev: https://auth.dev.finnminn.com
+
+## Manual configs
+* Route52 in main account
+  * CNAME records to validate prod and dev certs
+  * A alias records for prod and dev cloudfront distros for `app.`
+
 # Welcome to your CDK TypeScript project
 
 This is a blank project for CDK development with TypeScript.
