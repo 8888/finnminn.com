@@ -61,17 +61,13 @@ export class CognitoAuth extends Construct {
       ],
     });
 
-    // Construct the hosted UI URL
-    const region = cdk.Stack.of(this).region;
-    const userPoolId = this.userPool.userPoolId;
-    const clientId = this.userPoolClient.userPoolClientId;
-
-    this.hostedUiUrl = `https://${userPoolId}.auth.${region}.amazoncognito.com/oauth2/authorize?client_id=${clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(callbackUrls[0])}`;
-
-    // Output the hosted UI URL
-    new cdk.CfnOutput(this, 'CognitoHostedUiUrl', {
-      value: this.hostedUiUrl,
-      description: 'URL for the Cognito hosted UI',
+    const domainPrefix = isProd ? 'auth.finnminn.com' : 'auth.dev.finnminn.com';
+    this.userPool.addDomain('UserPoolDomain', {
+      customDomain: {
+        domainName: domainPrefix,
+        certificate: this.certificate!,
+      },
+      managedLoginVersion: cognito.ManagedLoginVersion.NEWER_MANAGED_LOGIN,
     });
   }
 }
