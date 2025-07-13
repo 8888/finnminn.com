@@ -6,8 +6,10 @@ App:
 
 Login:
 * Prod: https://auth.finnminn.com
+  * https://auth.finnminn.com/login?client_id=2cqavh2vspck5p7b87kdeaqeh3&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fapp.finnminn.com
 * Dev: https://auth.dev.finnminn.com
-  * localhost: https://auth.dev.finnminn.com/login?client_id=642bvhtf4m9o5nngcu4bjfic11&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2F
+  * localhost: https://auth.dev.finnminn.com/login?client_id=3r7kua2l638820v324vesig0sm&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http%3A%2F%2Flocalhost%3A5173
+  * app.dev.finnminn.com: https://auth.dev.finnminn.com/login?client_id=3r7kua2l638820v324vesig0sm&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fapp.dev.finnminn.com
 
 ## Manual configs
 * Route52 in main account
@@ -15,6 +17,8 @@ Login:
   * A alias records for prod and dev cloudfront distros for `app.`
   * A alias records to point finnminn.com and dev.finnminn.com to something we own. This allows cognito to confirm we own the top domains for creating custom subdomains later. Currently both are pointing to cloudfront distro with a finn pic (d2e78oxnaxyz4a.cloudfront.net)
   * A alias records from auth.finnminn.com and auth.dev.finnminn.com to the cloudfront distro target alias the cognito custom domain
+* Cognito in both staging and prod account
+  * create a style for the managed login or else a 403 is received
 
 # Welcome to your CDK TypeScript project
 

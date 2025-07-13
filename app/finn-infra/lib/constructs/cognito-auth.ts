@@ -41,14 +41,24 @@ export class CognitoAuth extends Construct {
       },
     });
 
+    const domainName = isProd ? 'auth.finnminn.com' : 'auth.dev.finnminn.com';
+    this.userPool.addDomain('UserPoolDomain', {
+      customDomain: {
+        domainName,
+        certificate: this.certificate!,
+      },
+      managedLoginVersion: cognito.ManagedLoginVersion.NEWER_MANAGED_LOGIN,
+    });
+
     // Create the app client
     const callbackUrls = isProd
       ? [ 'https://app.finnminn.com' ]
-      : [ 'http://localhost:5173/', 'https://app.dev.finnminn.com' ];
+      : [ 'http://localhost:5173', 'https://app.dev.finnminn.com' ];
 
     const logoutUrls = callbackUrls; // TODO: Add logout URL to auth page
 
     this.userPoolClient = this.userPool.addClient('WebClient', {
+      generateSecret: false,
       oAuth: {
         flows: {
           authorizationCodeGrant: true,
@@ -59,15 +69,6 @@ export class CognitoAuth extends Construct {
       supportedIdentityProviders: [
         cognito.UserPoolClientIdentityProvider.COGNITO,
       ],
-    });
-
-    const domainPrefix = isProd ? 'auth.finnminn.com' : 'auth.dev.finnminn.com';
-    this.userPool.addDomain('UserPoolDomain', {
-      customDomain: {
-        domainName: domainPrefix,
-        certificate: this.certificate!,
-      },
-      managedLoginVersion: cognito.ManagedLoginVersion.NEWER_MANAGED_LOGIN,
     });
   }
 }

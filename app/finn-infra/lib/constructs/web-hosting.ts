@@ -36,6 +36,7 @@ export class WebHosting extends Construct {
 
     this.certificate = new acm.Certificate(this, 'Certificate', {
       domainName: isProd ? '*.finnminn.com' : '*.dev.finnminn.com',
+      subjectAlternativeNames: isProd ? ['auth.finnminn.com'] : ['auth.dev.finnminn.com'],
       validation: acm.CertificateValidation.fromDns(),
     });
 
