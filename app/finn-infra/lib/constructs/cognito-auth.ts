@@ -3,7 +3,7 @@ import * as cognito from 'aws-cdk-lib/aws-cognito';
 import { Construct } from 'constructs';
 
 export interface CognitoAuthProps {
-  isProd: boolean;
+  readonly isProd?: boolean;
 }
 
 export class CognitoAuth extends Construct {
@@ -13,6 +13,8 @@ export class CognitoAuth extends Construct {
 
   constructor(scope: Construct, id: string, props: CognitoAuthProps) {
     super(scope, id);
+
+    const isProd = !!props.isProd;
 
     // Create the user pool
     this.userPool = new cognito.UserPool(this, 'UserPool', {
@@ -36,19 +38,19 @@ export class CognitoAuth extends Construct {
     });
 
     // Create the app client
-    const callbackUrl = props.isProd
-      ? 'https://app.finnminn.com'
-      : 'http://localhost:5173/';
+    const callbackUrls = isProd
+      ? [ 'https://app.finnminn.com' ]
+      : [ 'http://localhost:5173/', 'https://app.dev.finnminn.com' ];
 
-    const logoutUrl = callbackUrl;
+    const logoutUrls = callbackUrls; // TODO: Add logout URL to auth page
 
     this.userPoolClient = this.userPool.addClient('WebClient', {
       oAuth: {
         flows: {
           authorizationCodeGrant: true,
         },
-        callbackUrls: [callbackUrl],
-        logoutUrls: [logoutUrl],
+        callbackUrls,
+        logoutUrls,
       },
       supportedIdentityProviders: [
         cognito.UserPoolClientIdentityProvider.COGNITO,
@@ -60,7 +62,7 @@ export class CognitoAuth extends Construct {
     const userPoolId = this.userPool.userPoolId;
     const clientId = this.userPoolClient.userPoolClientId;
 
-    this.hostedUiUrl = `https://${userPoolId}.auth.${region}.amazoncognito.com/oauth2/authorize?client_id=${clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(callbackUrl)}`;
+    this.hostedUiUrl = `https://${userPoolId}.auth.${region}.amazoncognito.com/oauth2/authorize?client_id=${clientId}&response_type=code&scope=email+openid+profile&redirect_uri=${encodeURIComponent(callbackUrls[0])}`;
 
     // Output the hosted UI URL
     new cdk.CfnOutput(this, 'CognitoHostedUiUrl', {

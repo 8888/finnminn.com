@@ -8,9 +8,6 @@ import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import { Tags } from 'aws-cdk-lib';
 
 export interface WebHostingProps {
-  /**
-   * Whether to create and use an SSL certificate for the CloudFront distribution
-   */
   readonly isProd?: boolean;
 }
 
@@ -52,8 +49,8 @@ export class WebHosting extends Construct {
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
       },
       defaultRootObject: 'index.html',
-      domainNames: isProd ? ['app.finnminn.com'] : undefined,
-      certificate: isProd ? this.certificate : undefined,
+      domainNames: isProd ? ['app.finnminn.com'] : ['app.dev.finnminn.com'],
+      certificate: this.certificate,
     });
 
     Tags.of(this.distribution).add('Project', 'finnminn');
