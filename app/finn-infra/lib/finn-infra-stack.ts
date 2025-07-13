@@ -10,6 +10,6 @@ export class FinnInfraStack extends cdk.Stack {
     const isProd = !!this.node.tryGetContext('prod');
 
     const webHosting = new WebHosting(this, 'WebHosting', { isProd });
-    const cognitoAuth = new CognitoAuth(this, 'CognitoAuth', { isProd });
+    const cognitoAuth = new CognitoAuth(this, 'CognitoAuth', { isProd, certificate: webHosting.certificate });
   }
 }
