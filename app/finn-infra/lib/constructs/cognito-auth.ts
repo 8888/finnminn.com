@@ -27,10 +27,9 @@ export class CognitoAuth extends Construct {
         email: true,
       },
       standardAttributes: {
-        nickname: {
-          required: true,
-          mutable: true,
-        },
+        nickname: { required: true, mutable: true },
+        email: { required: true, mutable: true },
+        phoneNumber: { required: false, mutable: true },
       },
       passwordPolicy: {
         minLength: 8,
