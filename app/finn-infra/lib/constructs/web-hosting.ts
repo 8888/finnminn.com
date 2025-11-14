@@ -11,6 +11,11 @@ export interface WebHostingProps {
   readonly isProd?: boolean;
 }
 
+const keyGroups = {
+  prod: '847576b2-3363-4f6d-9d7e-61e2c438a1bf',
+  dev: '51736cec-ec03-4d52-a127-1b5dbd3145e7',
+};
+
 export class WebHosting extends Construct {
   public readonly bucket: s3.Bucket;
   public readonly distribution: cloudfront.Distribution;
@@ -40,6 +45,8 @@ export class WebHosting extends Construct {
       validation: acm.CertificateValidation.fromDns(),
     });
 
+    const keyGroupId = isProd ? keyGroups.prod : keyGroups.dev;
+
     // Create a CloudFront distribution
     this.distribution = new cloudfront.Distribution(this, 'StaticAssetsDistribution', {
       defaultBehavior: {
@@ -48,6 +55,7 @@ export class WebHosting extends Construct {
         }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
+        trustedKeyGroups: [cloudfront.KeyGroup.fromKeyGroupId(this, 'PublicKey', keyGroupId)],
       },
       defaultRootObject: 'index.html',
       domainNames: isProd ? ['app.finnminn.com'] : ['app.dev.finnminn.com'],
