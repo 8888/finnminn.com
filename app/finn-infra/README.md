@@ -19,6 +19,10 @@ Login:
   * A alias records from auth.finnminn.com and auth.dev.finnminn.com to the cloudfront distro target alias the cognito custom domain
 * Cognito in both staging and prod account
   * create a style for the managed login or else a 403 is received
+* Cloudfront keypairs in both staging and prod accounts
+  * Create a public key pair
+  * Create a key group
+  * Import that into CDK to use when creating a distribution
 
 # Welcome to your CDK TypeScript project
 
