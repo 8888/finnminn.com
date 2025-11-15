@@ -6,10 +6,10 @@ App:
 
 Login:
 * Prod: https://auth.finnminn.com
-  * https://auth.finnminn.com/login?client_id=2cqavh2vspck5p7b87kdeaqeh3&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fapp.finnminn.com
+  * https://auth.finnminn.com/login?client_id=6aab6rcrd94r5d53qddfkdp2uu&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fapp.finnminn.com
 * Dev: https://auth.dev.finnminn.com
-  * localhost: https://auth.dev.finnminn.com/login?client_id=3r7kua2l638820v324vesig0sm&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http%3A%2F%2Flocalhost%3A5173
-  * app.dev.finnminn.com: https://auth.dev.finnminn.com/login?client_id=3r7kua2l638820v324vesig0sm&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fapp.dev.finnminn.com
+  * localhost: https://auth.dev.finnminn.com/login?client_id=sl5sobube30pv1budqn0ktbk4&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=http%3A%2F%2Flocalhost%3A5173
+  * app.dev.finnminn.com: https://auth.dev.finnminn.com/login?client_id=sl5sobube30pv1budqn0ktbk4&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fapp.dev.finnminn.com
 
 ## Manual configs
 * Route52 in main account
