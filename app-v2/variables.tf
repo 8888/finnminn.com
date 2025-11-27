@@ -10,3 +10,9 @@ variable "location" {
   default     = "eastus"
 }
 
+variable "storage_account_name" {
+  description = "The name of the storage account (must be globally unique, 3-24 characters, lowercase letters and numbers only)"
+  type        = string
+  default     = "finnminnstorage"
+}
+
