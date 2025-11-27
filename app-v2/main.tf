@@ -22,11 +22,3 @@ resource "azurerm_storage_account" "main" {
     index_document = "index.html"
   }
 }
-
-# Note: CDN is not included due to limitations with Free Trial accounts:
-# - Azure Front Door: Not available for Free Trial accounts
-# - Azure CDN Standard Microsoft (classic): No longer supports new profile creation
-# - Azure CDN Standard Akamai: Retired
-# The storage account static website endpoint will be used directly instead.
-# You can add CDN later when you upgrade your subscription.
-
