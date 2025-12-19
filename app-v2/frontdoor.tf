@@ -47,6 +47,7 @@ resource "azurerm_cdn_frontdoor_route" "main" {
   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.main.id
   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.main.id
   cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.static_site.id]
+  cdn_frontdoor_custom_domain_ids = [azurerm_cdn_frontdoor_custom_domain.root.id]
 
   patterns_to_match   = ["/*"]
   supported_protocols = ["Http", "Https"]
@@ -71,19 +72,3 @@ resource "azurerm_cdn_frontdoor_custom_domain" "root" {
     minimum_tls_version = "TLS12"
   }
 }
-
-resource "null_resource" "wait_for_custom_domain" {
-  depends_on = [azurerm_cdn_frontdoor_custom_domain.root]
-
-  provisioner "local-exec" {
-    command = "sleep 60"
-  }
-}
-
-resource "azurerm_cdn_frontdoor_custom_domain_association" "root" {
-  cdn_frontdoor_custom_domain_id = azurerm_cdn_frontdoor_custom_domain.root.id
-  cdn_frontdoor_route_ids        = [azurerm_cdn_frontdoor_route.main.id]
-  depends_on = [azurerm_cdn_frontdoor_route.main, null_resource.wait_for_custom_domain]
-}
-
-
