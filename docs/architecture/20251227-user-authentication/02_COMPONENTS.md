@@ -9,11 +9,11 @@ This document provides details on the primary component of the authentication ar
 
 ### Role in the System
 
-The Azure Static Web App is the central component of this architecture. It is responsible for:
-1.  **Hosting:** Storing and serving all static website files (HTML, CSS, JavaScript, images).
-2.  **Global Distribution:** Caching and delivering content from points-of-presence around the world for fast load times.
-3.  **Authentication:** Managing the entire user login and session lifecycle.
-4.  **Authorization:** Enforcing access control rules to protect specific routes.
+The Azure Static Web App is the central component of this architecture. It will host the **entire** website and is responsible for:
+1.  **Unified Hosting:** Storing and serving all website files, both the existing **public content** (e.g., `index.html`) and the new **private content**.
+2.  **Global Distribution:** Caching and delivering all content from points-of-presence around the world for fast load times.
+3.  **Authentication:** Managing the entire user login and session lifecycle for the private sections.
+4.  **Authorization:** Enforcing access control rules defined in `staticwebapp.config.json` to protect specific routes.
 
 ### Configuration Details
 

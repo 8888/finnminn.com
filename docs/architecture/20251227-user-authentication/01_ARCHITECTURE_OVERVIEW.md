@@ -61,3 +61,15 @@ graph TD
 *   **Service Choice:** We chose **Azure Static Web Apps** over extending the existing Storage Account + Front Door setup. While the existing setup works for public static content, adding robust authentication would require significantly more complex and custom components (e.g., Azure Functions for auth callbacks, a database for users, custom code to secure content). Static Web Apps provides all this functionality out-of-the-box in a more secure, integrated, and cost-effective manner.
 *   **Serverless-First:** This architecture is fully serverless. There are no virtual machines or application servers to manage, patch, or scale.
 *   **Configuration over Code:** Access control is primarily handled through a declarative JSON configuration file (`staticwebapp.config.json`), minimizing the need for custom application code to secure routes.
+
+## 5. Impact on Existing Public Website
+
+This architecture involves migrating the **entire** website, including the existing public pages (`index.html`, etc.), from the current Azure Storage Account to the new Azure Static Web App.
+
+**This does not mean the public content is being removed or changed.** From an end-user's perspective, the public website will look and function exactly as it does today. The URLs will remain the same.
+
+We are recommending this unified hosting approach for several key reasons:
+
+*   **Simplified Management:** It is significantly simpler to manage one hosting platform (Azure Static Web Apps) rather than splitting the site across two different services (Azure Storage for public content and Azure Static Web Apps for private content).
+*   **Unified Routing:** All routing and access control rules for both public and protected pages can be managed in a single `staticwebapp.config.json` file, providing a single source of truth for the site's behavior.
+*   **Seamless User Experience:** Hosting the entire site on one platform ensures a smooth, fast experience for users as they navigate between public and private sections of the website without any jarring redirects between different underlying services.
