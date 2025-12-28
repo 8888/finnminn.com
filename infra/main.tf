@@ -9,9 +9,16 @@ resource "azurerm_resource_group" "main" {
   location = var.location
 }
 
-# Azure Static Web App
-resource "azurerm_static_web_app" "main" {
-  name                = var.static_web_app_name
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
+# Storage Account with Static Website Hosting
+resource "azurerm_storage_account" "main" {
+  name                     = var.storage_account_name
+  resource_group_name      = azurerm_resource_group.main.name
+  location                 = azurerm_resource_group.main.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  account_kind             = "StorageV2"
+
+  static_website {
+    index_document = "index.html"
+  }
 }
