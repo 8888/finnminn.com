@@ -58,3 +58,36 @@ As documented in `app/README.md`, the first time you run `terraform apply`, it w
 - `app/variables.tf`: Contains the input variables for the Terraform configuration, such as resource names and location.
 - `app/outputs.tf`: Declares the output values from the Terraform deployment, such as the website URL and Front Door endpoint.
 - `app/README.md`: Detailed instructions for deploying the infrastructure.
+
+## Folder Structure
+```
+/Users/leecostello/Documents/code/lee/finnminn.com/
+├───.DS_Store
+├───GEMINI.md
+├───.git/...
+├───.github/
+│   └───workflows/
+│       └───azure-static-web-apps-white-water-0a6c7270f.yml
+├───app/
+│   ├───finn.jpg
+│   └───index.html
+├───docs/
+│   └───architecture/
+│       ├───20251225-private-section/
+│       │   ├───01_ARCHITECTURE_OVERVIEW.md
+│       │   ├───02_COMPONENTS.md
+│       │   └───03_DIAGRAM.md
+│       └───20251227-user-authentication/
+│           ├───01_ARCHITECTURE_OVERVIEW.md
+│           └───02_COMPONENTS.md
+└───infra/
+    ├───.gitignore
+    ├───.terraform.lock.hcl
+    ├───dns.tf
+    ├───frontdoor.tf
+    ├───main.tf
+    ├───outputs.tf
+    ├───README.md
+    ├───variables.tf
+    └───versions.tf
+```
