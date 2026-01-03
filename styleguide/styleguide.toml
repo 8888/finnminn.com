@@ -1,0 +1,68 @@
+# Finnminn Design System // CRYPTID CONSOLE
+# Version: 1.0.0
+# Last Updated: 2026-01-03
+# Role: System Contract for Frontend Architecture
+
+[meta]
+theme_name = "Cryptid Console"
+aesthetic = "8-bit Vampiric Retro-Tech"
+mood = ["Spooky", "Cute", "Technical", "High-Contrast"]
+
+[theme.colors]
+# The primary background. Not pure black to allow for depth perception.
+void = "#0d0208"        # Darkest Red-Black (Use for <body>)
+crypt = "#1a0b14"       # Surface color (Use for Cards/Modals)
+
+# Typography Colors
+bone = "#fbe9d0"        # Primary Text (Warm White)
+ash = "#8a7d85"         # Secondary Text (Muted Purple-Grey)
+
+# Semantic Accents
+radical = "#ff0055"     # Primary Action / Punk / Error (Hot Pink-Red)
+toxic = "#00ff41"       # Success / Terminal / Retro (Matrix Green)
+spirit = "#00f2ff"      # Info / Whimsy / Ghost (Cyan)
+gloom = "#4b0082"       # Borders / Disabled states (Indigo)
+
+[theme.typography]
+# Headers: Use for H1-H3.
+family_heading = "'VT323', monospace"
+scale_heading = "Pixelated, sharp, uppercase preferred."
+
+# Body: Use for paragraphs and UI elements.
+family_body = "'Space Mono', monospace"
+scale_body = "High readability, technical feel."
+
+[theme.shadows]
+# Shadows should be hard, 100% opacity, 0 blur.
+hard_pink = "4px 4px 0px 0px #ff0055"
+hard_green = "4px 4px 0px 0px #00ff41"
+hard_void = "4px 4px 0px 0px #0d0208"
+
+[components.rules]
+# General Component Rules
+border_radius = "0px"        # Strict sharp corners for 8-bit feel.
+border_width = "2px"         # Thick, visible borders are mandatory for structure.
+interaction = "Hover states must invert colors or shift the hard shadow."
+
+[components.buttons]
+padding = "px-6 py-2"
+text_style = "uppercase font-bold tracking-wider"
+default_bg = "bg-radical"
+default_text = "text-void"
+hover_behavior = "Invert to bg-void text-radical + shadow-hard"
+
+[components.cards]
+background = "bg-crypt"
+border = "border-2 border-gloom"
+shadow = "shadow-hard (optional)"
+spacing = "p-6"
+
+[accessibility.standards]
+contrast_ratio = "Check strictly against #0d0208 (Void)"
+focus_states = "Use 'toxic' or 'radical' outline-offset-2 for keyboard focus."
+motion = "Respect prefers-reduced-motion. Disable 'blink' animations if set."
+
+[layout.grid]
+max_width = "max-w-6xl"
+container_padding = "px-6"
+vertical_rhythm = "space-y-8" # Use significant whitespace (voidspace) between sections.

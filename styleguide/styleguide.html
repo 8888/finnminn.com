@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finnminn Design System // CRYPTID CONSOLE</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Design System Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // The Void: Backgrounds
+                        void: '#0d0208',      // Deepest Black-Red
+                        crypt: '#1a0b14',     // Slightly lighter for cards/surfaces
+                        
+                        // The Light: Text
+                        bone: '#fbe9d0',      // Warm white text (Retro)
+                        ash: '#8a7d85',       // Muted text
+                        
+                        // The Energy: Accents
+                        radical: '#ff0055',   // Hot Pink/Red (Punk/Vampire)
+                        toxic: '#00ff41',     // Terminal Green (Retro Tech)
+                        spirit: '#00f2ff',    // Cyan (Ghostly/Whimsical)
+                        gloom: '#4b0082',     // Deep Purple (Borders/Depth)
+                    },
+                    fontFamily: {
+                        pixel: ['"VT323"', 'monospace'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    boxShadow: {
+                        'hard': '4px 4px 0px 0px #ff0055', // Hard pink shadow
+                        'hard-green': '4px 4px 0px 0px #00ff41',
+                        'hard-void': '4px 4px 0px 0px #0d0208',
+                    },
+                    borderWidth: {
+                        '3': '3px',
+                    },
+                    animation: {
+                        'blink': 'blink 1s step-end infinite',
+                    },
+                    keyframes: {
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar for Webkit */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0208; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff0055; 
+            border: 2px solid #0d0208;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00ff41; 
+        }
+        
+        /* CRT Scanline Effect (Optional overlay class) */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+        }
+    </style>
+</head>
+<body class="bg-void text-bone font-mono min-h-screen selection:bg-toxic selection:text-void">
+
+    <!-- Navigation Mockup -->
+    <nav class="border-b-2 border-radical sticky top-0 bg-void/95 backdrop-blur z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-toxic text-xl animate-blink">█</span>
+                <h1 class="font-pixel text-4xl text-radical uppercase tracking-widest">Finn Minn.exe</h1>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm tracking-wider">
+                <a href="#" class="hover:text-toxic hover:underline decoration-2 underline-offset-4 transition-all">/HOME</a>
+                <a href="#" class="hover:text-toxic hover:underline decoration-2 underline-offset-4 transition-all">/LOGS</a>
+                <a href="#" class="hover:text-toxic hover:underline decoration-2 underline-offset-4 transition-all">/CRYPT</a>
+                <a href="#" class="text-radical border border-radical px-3 py-1 hover:bg-radical hover:text-void transition-colors">[ LOGIN ]</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-12 space-y-20">
+
+        <!-- 00. Introduction -->
+        <section class="space-y-6">
+            <div class="border-l-4 border-toxic pl-6">
+                <h2 class="font-pixel text-6xl mb-2 text-toxic">SYSTEM_DESIGN</h2>
+                <p class="text-xl max-w-2xl text-ash">
+                    Theme: <span class="text-radical">Cryptid Console</span>. <br>
+                    A fusion of 8-bit nostalgia, gothic aesthetics, and whimsical utility.
+                </p>
+            </div>
+        </section>
+
+        <!-- 01. Typography -->
+        <section class="grid md:grid-cols-2 gap-12">
+            <div class="p-6 border-2 border-gloom bg-crypt shadow-hard">
+                <div class="border-b-2 border-gloom pb-2 mb-4 flex justify-between text-xs text-ash uppercase">
+                    <span>Typeface 01</span>
+                    <span>Headings</span>
+                </div>
+                <h1 class="font-pixel text-6xl mb-2">Heading 1</h1>
+                <h2 class="font-pixel text-5xl mb-2 text-radical">Heading 2</h2>
+                <h3 class="font-pixel text-4xl mb-2 text-toxic">Heading 3</h3>
+                <p class="font-pixel text-2xl mt-4 text-ash">Font Family: 'VT323'</p>
+            </div>
+
+            <div class="p-6 border-2 border-gloom bg-crypt shadow-hard">
+                <div class="border-b-2 border-gloom pb-2 mb-4 flex justify-between text-xs text-ash uppercase">
+                    <span>Typeface 02</span>
+                    <span>Body / UI</span>
+                </div>
+                <p class="text-lg mb-4">
+                    This is the standard body text. It uses <span class="text-spirit">Space Mono</span> for optimal readability while maintaining a technical, terminal-like feel.
+                </p>
+                <p class="text-sm text-ash">
+                    The quick brown fox jumps over the lazy dog. 
+                    1234567890 <br>
+                    !@#$%^&*()
+                </p>
+                <p class="font-bold mt-4">Bold Weight 700</p>
+            </div>
+        </section>
+
+        <!-- 02. Color Palette -->
+        <section>
+            <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Color_Map.sys</h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                <!-- Void -->
+                <div class="space-y-2">
+                    <div class="h-24 w-full bg-void border-2 border-ash flex items-center justify-center"></div>
+                    <div class="text-xs uppercase">
+                        <span class="block font-bold">Void</span>
+                        <span class="text-ash">#0d0208</span>
+                        <span class="block text-[10px] mt-1">Background</span>
+                    </div>
+                </div>
+                <!-- Crypt -->
+                <div class="space-y-2">
+                    <div class="h-24 w-full bg-crypt border-2 border-ash flex items-center justify-center"></div>
+                    <div class="text-xs uppercase">
+                        <span class="block font-bold">Crypt</span>
+                        <span class="text-ash">#1a0b14</span>
+                        <span class="block text-[10px] mt-1">Surface</span>
+                    </div>
+                </div>
+                <!-- Radical -->
+                <div class="space-y-2">
+                    <div class="h-24 w-full bg-radical shadow-hard flex items-center justify-center text-void font-bold">AA</div>
+                    <div class="text-xs uppercase">
+                        <span class="block font-bold text-radical">Radical</span>
+                        <span class="text-ash">#ff0055</span>
+                        <span class="block text-[10px] mt-1">Primary/Punk</span>
+                    </div>
+                </div>
+                <!-- Toxic -->
+                <div class="space-y-2">
+                    <div class="h-24 w-full bg-toxic shadow-hard-green flex items-center justify-center text-void font-bold">AAA</div>
+                    <div class="text-xs uppercase">
+                        <span class="block font-bold text-toxic">Toxic</span>
+                        <span class="text-ash">#00ff41</span>
+                        <span class="block text-[10px] mt-1">Retro/Success</span>
+                    </div>
+                </div>
+                <!-- Spirit -->
+                <div class="space-y-2">
+                    <div class="h-24 w-full bg-spirit border-2 border-void flex items-center justify-center text-void font-bold">AAA</div>
+                    <div class="text-xs uppercase">
+                        <span class="block font-bold text-spirit">Spirit</span>
+                        <span class="text-ash">#00f2ff</span>
+                        <span class="block text-[10px] mt-1">Accent/Magic</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03. Components -->
+        <section>
+            <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Component_Library.lib</h3>
+
+            <!-- Grid of Components -->
+            <div class="grid lg:grid-cols-2 gap-12">
+                
+                <!-- Buttons & Interactions -->
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="text-sm uppercase text-ash mb-4">:: Buttons</h4>
+                        <div class="flex flex-wrap gap-4 items-start">
+                            <!-- Primary Button -->
+                            <button class="bg-radical text-void px-6 py-2 font-bold uppercase tracking-wider border-2 border-radical hover:bg-void hover:text-radical hover:shadow-hard transition-all active:translate-y-1 active:shadow-none">
+                                Execute
+                            </button>
+                            <!-- Secondary Button -->
+                            <button class="bg-transparent text-toxic px-6 py-2 font-bold uppercase tracking-wider border-2 border-toxic hover:bg-toxic hover:text-void transition-all shadow-hard-green">
+                                Connect
+                            </button>
+                            <!-- Disabled -->
+                            <button class="bg-gloom text-ash px-6 py-2 uppercase tracking-wider border-2 border-gloom opacity-50 cursor-not-allowed">
+                                Offline
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm uppercase text-ash mb-4">:: Inputs</h4>
+                        <div class="space-y-4 max-w-sm">
+                            <div class="relative">
+                                <label class="block text-xs uppercase mb-1 text-toxic">> Enter Command</label>
+                                <input type="text" placeholder="type here..." class="w-full bg-void border-b-2 border-ash text-bone p-2 focus:outline-none focus:border-toxic focus:bg-crypt transition-colors font-mono placeholder:text-gloom">
+                            </div>
+                            
+                            <div class="relative">
+                                <label class="block text-xs uppercase mb-1 text-radical">> Password</label>
+                                <input type="password" value="password123" class="w-full bg-crypt border-2 border-radical text-radical p-2 focus:outline-none focus:shadow-hard transition-all">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards & Alerts -->
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="text-sm uppercase text-ash mb-4">:: Data Card</h4>
+                        <div class="bg-crypt border-2 border-gloom p-6 relative shadow-hard">
+                            <div class="absolute -top-3 left-4 bg-void px-2 border-2 border-gloom text-xs text-spirit uppercase">
+                                System_Status
+                            </div>
+                            <div class="flex justify-between items-center mb-4 border-b border-gloom pb-4">
+                                <h5 class="font-pixel text-2xl text-bone">Server_01</h5>
+                                <span class="bg-toxic text-void text-xs px-2 py-0.5 font-bold animate-pulse">ONLINE</span>
+                            </div>
+                            <div class="space-y-2 font-mono text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-ash">Uptime:</span>
+                                    <span>99.9%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-ash">Load:</span>
+                                    <span class="text-radical">12%</span>
+                                </div>
+                                <div class="w-full bg-void h-2 mt-2 border border-gloom">
+                                    <div class="bg-spirit h-full w-[45%]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm uppercase text-ash mb-4">:: Alerts / Dialogs</h4>
+                        
+                        <!-- ASCII Alert -->
+                        <div class="border-2 border-radical bg-void p-4 flex gap-4 items-start shadow-hard">
+                            <div class="text-radical font-bold text-xl select-none">
+                                /!\
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-radical uppercase text-sm">Access Denied</h5>
+                                <p class="text-sm text-ash">You do not have permission to view the Bat_Cave directory.</p>
+                            </div>
+                        </div>
+
+                        <!-- Success Alert -->
+                        <div class="border-2 border-toxic bg-void p-4 flex gap-4 items-start mt-4">
+                            <div class="text-toxic font-bold text-xl select-none">
+                                [OK]
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-toxic uppercase text-sm">Upload Complete</h5>
+                                <p class="text-sm text-ash">Data successfully written to the void.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 04. Whimsical Elements -->
+        <section class="pb-20">
+             <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Whimsy.exe</h3>
+             
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                 <div class="p-8 border-2 border-dashed border-spirit text-spirit hover:bg-crypt transition-colors group cursor-pointer">
+                     <div class="text-4xl mb-2 group-hover:scale-125 transition-transform duration-300">
+                         ( ^..^)
+                     </div>
+                     <p class="text-sm uppercase">Pet_The_Cat</p>
+                 </div>
+
+                 <div class="p-8 border-2 border-dashed border-radical text-radical hover:bg-crypt transition-colors group cursor-pointer">
+                    <div class="text-4xl mb-2 group-hover:-rotate-12 transition-transform duration-300">
+                        /|\ ^._.^ /|\
+                    </div>
+                    <p class="text-sm uppercase">Summon_Bat</p>
+                </div>
+
+                <div class="p-8 border-2 border-dashed border-toxic text-toxic hover:bg-crypt transition-colors group cursor-pointer">
+                    <div class="text-4xl mb-2 animate-bounce">
+                        <3
+                    </div>
+                    <p class="text-sm uppercase">Give_Love</p>
+                </div>
+             </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
