@@ -1,4 +1,4 @@
-````mermaid
+```mermaid
 graph TD
     subgraph "User Interaction"
         U[User Browser] -->|1. Requests https://finnminn.com/app| AFD
