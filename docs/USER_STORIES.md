@@ -24,17 +24,76 @@
     *   Clicking the image 3 times redirects the user to `/app`.
     *   The "[ LOGIN ]" button redirects to `/app`.
 
-## User Story 2: Mobile Optimization for Landing Page
+## User Story 4: Secure Private Application Section
 
-**As a** mobile user,
-**I want** the landing page to be fully responsive and optimized for touch interactions
-**So that** I can easily navigate and view content on my phone without zooming or horizontal scrolling.
+
+
+**As a** site administrator,
+
+**I want** a secure, private section of the website accessible only after logging in
+
+**So that** I can host sensitive tools or content (like a dashboard) that isn't for the public.
+
+
 
 **Acceptance Criteria:**
 
-1.  **Mobile Navigation:** Implement a collapsible "System Tray" menu triggered by a `[ /// ]` button on mobile screens (< 768px). The menu should contain links to Home, Logs, Crypt, and Login.
-2.  **Desktop Navigation:** Ensure the desktop navigation remains horizontal with hover states as per the style guide.
-3.  **Typography:** Update heading sizes to be responsive (smaller on mobile, larger on desktop) using the `VT323` font.
-4.  **Layout:** Ensure the main container and the "Terminal Frame" (hero image viewer) resize fluidly to fit within the mobile viewport width, preventing overflow.
-5.  **Touch Targets:** Ensure all interactive elements (buttons, links) have a minimum height of 44px on mobile for accessibility.
-6.  **Style Consistency:** Apply the "Cryptid Console" theme colors and shadows consistently across mobile and desktop views, matching `styleguide/styleguide.html`.
+
+
+1.  **Private Directory:** Create a protected route/directory (e.g., `/app/`) that serves a distinct `index.html`.
+
+2.  **Authentication Check:** The page must automatically check for a valid active session upon loading.
+
+3.  **Redirects:**
+
+    *   If **unauthenticated**: Redirect the user immediately to the login flow (or back to home with a prompt).
+
+    *   If **authenticated**: Display the private content (Dashboard).
+
+4.  **Sign Out:** Include a "Sign Out" button within the private dashboard that clears the session and redirects to the home page.
+
+5.  **Identity Display:** Show the logged-in user's name or username on the dashboard to confirm identity.
+
+
+
+## User Story 5: Apply Cryptid Console Design System to Private App
+
+
+
+**As a** user,
+
+**I want** the private application dashboard to match the website's "Cryptid Console" theme
+
+**So that** I have a consistent, immersive experience across the entire platform.
+
+
+
+**Acceptance Criteria:**
+
+
+
+1.  **Framework Replacement:** Remove Bootstrap 5 and replace it with Tailwind CSS (via CDN).
+
+2.  **Typography:** Import and apply 'VT323' (headings) and 'Space Mono' (body) Google Fonts.
+
+3.  **Color Palette:** Apply the specific theme colors:
+
+    *   Background: Void (#0d0208)
+
+    *   Card Background: Crypt (#1a0b14)
+
+    *   Primary Text: Bone (#fbe9d0)
+
+    *   Accents: Radical Pink (#ff0055) and Toxic Green (#00ff41).
+
+4.  **Styling Rules:**
+
+    *   Remove all border radius (sharp corners).
+
+    *   Add 2px borders (Gloom #4b0082) to containers.
+
+    *   Style buttons with uppercase, bold text, and hard shadows.
+
+5.  **Layout:** Maintain the central card layout but aligned with the retro-tech aesthetic.
+
+6.  **Loading State:** Replace the Bootstrap spinner with a retro-themed loading indicator (e.g., blinking text or a simple CSS animation).
