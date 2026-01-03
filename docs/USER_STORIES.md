@@ -23,3 +23,18 @@
 3.  **Functionality:**
     *   Clicking the image 3 times redirects the user to `/app`.
     *   The "[ LOGIN ]" button redirects to `/app`.
+
+## User Story 2: Mobile Optimization for Landing Page
+
+**As a** mobile user,
+**I want** the landing page to be fully responsive and optimized for touch interactions
+**So that** I can easily navigate and view content on my phone without zooming or horizontal scrolling.
+
+**Acceptance Criteria:**
+
+1.  **Mobile Navigation:** Implement a collapsible "System Tray" menu triggered by a `[ /// ]` button on mobile screens (< 768px). The menu should contain links to Home, Logs, Crypt, and Login.
+2.  **Desktop Navigation:** Ensure the desktop navigation remains horizontal with hover states as per the style guide.
+3.  **Typography:** Update heading sizes to be responsive (smaller on mobile, larger on desktop) using the `VT323` font.
+4.  **Layout:** Ensure the main container and the "Terminal Frame" (hero image viewer) resize fluidly to fit within the mobile viewport width, preventing overflow.
+5.  **Touch Targets:** Ensure all interactive elements (buttons, links) have a minimum height of 44px on mobile for accessibility.
+6.  **Style Consistency:** Apply the "Cryptid Console" theme colors and shadows consistently across mobile and desktop views, matching `styleguide/styleguide.html`.
