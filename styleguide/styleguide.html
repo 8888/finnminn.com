@@ -365,6 +365,64 @@
             </div>
         </section>
 
+        <!-- 06. Imagery / Media -->
+        <section>
+            <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Media_Renderer.exe</h3>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                
+                <!-- Thumbnail Variant -->
+                <div>
+                    <h4 class="text-sm uppercase text-ash mb-4">:: Image_Thumbnail</h4>
+                    <div class="inline-block relative">
+                        <img src="../src/public/finn.jpg" alt="Finn" class="w-64 h-64 object-cover border-4 border-radical shadow-hard grayscale hover:grayscale-0 transition-all duration-500 cursor-crosshair">
+                        <div class="absolute -bottom-2 -right-2 bg-radical text-void px-2 py-1 font-pixel text-lg">
+                            FINN.PNG
+                        </div>
+                    </div>
+                    <p class="mt-6 text-sm text-ash italic">
+                        > Hover to restore color data. <br>
+                        > Note the hard 4px shadow and radical border.
+                    </p>
+                </div>
+
+                <!-- Hero / Terminal Window Variant -->
+                <div class="space-y-4">
+                    <h4 class="text-sm uppercase text-ash mb-4">:: Hero_Display (Terminal Frame)</h4>
+                    <div class="border-2 border-gloom bg-crypt shadow-hard-void overflow-hidden">
+                        <!-- Terminal Title Bar -->
+                        <div class="bg-gloom px-4 py-1 flex justify-between items-center">
+                            <span class="text-xs font-pixel uppercase tracking-widest text-bone">viewer.exe - "Good Boy"</span>
+                            <div class="flex gap-2">
+                                <div class="w-2 h-2 bg-bone opacity-50"></div>
+                                <div class="w-2 h-2 bg-bone opacity-50"></div>
+                                <div class="w-2 h-2 bg-radical"></div>
+                            </div>
+                        </div>
+                        <!-- Image Container with Scanlines -->
+                        <div class="relative group">
+                            <img src="../src/public/finn.jpg" alt="Finn Hero" class="w-full h-auto block opacity-90 group-hover:opacity-100 transition-opacity">
+                            <!-- Scanline Overlay Overlay -->
+                            <div class="absolute inset-0 pointer-events-none scanlines opacity-30"></div>
+                            <!-- Vignette -->
+                            <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-void/60 to-transparent"></div>
+                        </div>
+                        <!-- Footer Info -->
+                        <div class="p-4 border-t border-gloom flex justify-between items-center bg-void">
+                            <div class="text-[10px] font-mono text-toxic">
+                                PATH: C:/CRYPT/FINN_SMILE.DAT <br>
+                                SIZE: 1024 KB
+                            </div>
+                            <div class="text-spirit font-pixel text-xl animate-pulse">
+                                [ ENCRYPTED ]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- 04. Whimsical Elements -->
         <section class="pb-20">
              <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Whimsy.exe</h3>

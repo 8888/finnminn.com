@@ -64,6 +64,18 @@ icon_style = "text-4xl font-mono text-ash group-hover:text-toxic"
 status_indicator = "Top-right absolute, pulsing dot for online."
 typography = "Title: font-pixel 3xl. Desc: font-mono sm ash."
 
+[components.media]
+# Thumbnail Rules
+thumbnail_border = "4px solid var(--radical)"
+thumbnail_filter = "grayscale(100%) -> hover:grayscale(0%)"
+thumbnail_transition = "duration-500ms ease-in-out"
+
+# Terminal Frame Rules
+frame_container = "border-2 border-gloom shadow-hard-void"
+title_bar = "bg-gloom text-bone font-pixel uppercase text-xs"
+overlay = "Scanline pattern at 30% opacity mandatory for 'Hero' images."
+metadata_footer = "Display path and status in font-mono toxic/spirit."
+
 [accessibility.standards]
 contrast_ratio = "Check strictly against #0d0208 (Void)"
 focus_states = "Use 'toxic' or 'radical' outline-offset-2 for keyboard focus."
