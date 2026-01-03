@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finnminn Design System // CRYPTID CONSOLE</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Design System Configuration -->
     <script>
         tailwind.config = {
@@ -23,11 +23,11 @@
                         // The Void: Backgrounds
                         void: '#0d0208',      // Deepest Black-Red
                         crypt: '#1a0b14',     // Slightly lighter for cards/surfaces
-                        
+
                         // The Light: Text
                         bone: '#fbe9d0',      // Warm white text (Retro)
                         ash: '#8a7d85',       // Muted text
-                        
+
                         // The Energy: Accents
                         radical: '#ff0055',   // Hot Pink/Red (Punk/Vampire)
                         toxic: '#00ff41',     // Terminal Green (Retro Tech)
@@ -66,16 +66,16 @@
             width: 12px;
         }
         ::-webkit-scrollbar-track {
-            background: #0d0208; 
+            background: #0d0208;
         }
         ::-webkit-scrollbar-thumb {
-            background: #ff0055; 
+            background: #ff0055;
             border: 2px solid #0d0208;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #00ff41; 
+            background: #00ff41;
         }
-        
+
         /* CRT Scanline Effect (Optional overlay class) */
         .scanlines {
             background: linear-gradient(
@@ -96,7 +96,7 @@
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="text-toxic text-xl animate-blink">█</span>
-                <h1 class="font-pixel text-4xl text-radical uppercase tracking-widest">Finn Minn.exe</h1>
+                <h1 class="font-pixel text-4xl text-radical uppercase tracking-widest">FinnMinn.exe</h1>
             </div>
             <div class="hidden md:flex gap-6 text-sm tracking-wider">
                 <a href="#" class="hover:text-toxic hover:underline decoration-2 underline-offset-4 transition-all">/HOME</a>
@@ -142,7 +142,7 @@
                     This is the standard body text. It uses <span class="text-spirit">Space Mono</span> for optimal readability while maintaining a technical, terminal-like feel.
                 </p>
                 <p class="text-sm text-ash">
-                    The quick brown fox jumps over the lazy dog. 
+                    The quick brown fox jumps over the lazy dog.
                     1234567890 <br>
                     !@#$%^&*()
                 </p>
@@ -153,7 +153,7 @@
         <!-- 02. Color Palette -->
         <section>
             <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Color_Map.sys</h3>
-            
+
             <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
                 <!-- Void -->
                 <div class="space-y-2">
@@ -209,7 +209,7 @@
 
             <!-- Grid of Components -->
             <div class="grid lg:grid-cols-2 gap-12">
-                
+
                 <!-- Buttons & Interactions -->
                 <div class="space-y-8">
                     <div>
@@ -237,7 +237,7 @@
                                 <label class="block text-xs uppercase mb-1 text-toxic">> Enter Command</label>
                                 <input type="text" placeholder="type here..." class="w-full bg-void border-b-2 border-ash text-bone p-2 focus:outline-none focus:border-toxic focus:bg-crypt transition-colors font-mono placeholder:text-gloom">
                             </div>
-                            
+
                             <div class="relative">
                                 <label class="block text-xs uppercase mb-1 text-radical">> Password</label>
                                 <input type="password" value="password123" class="w-full bg-crypt border-2 border-radical text-radical p-2 focus:outline-none focus:shadow-hard transition-all">
@@ -276,7 +276,7 @@
 
                     <div>
                         <h4 class="text-sm uppercase text-ash mb-4">:: Alerts / Dialogs</h4>
-                        
+
                         <!-- ASCII Alert -->
                         <div class="border-2 border-radical bg-void p-4 flex gap-4 items-start shadow-hard">
                             <div class="text-radical font-bold text-xl select-none">
@@ -304,10 +304,71 @@
             </div>
         </section>
 
+        <!-- 05. App Tiles (SSO) -->
+        <section>
+            <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">App_Launcher.exe</h3>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- App Tile: Active -->
+                <a href="#" class="block bg-crypt border-2 border-gloom p-6 relative group hover:-translate-y-1 hover:shadow-hard-green hover:border-toxic transition-all duration-300">
+                    <!-- Status Indicator -->
+                    <div class="absolute top-4 right-4 flex items-center gap-2">
+                        <span class="text-[10px] uppercase text-ash group-hover:text-toxic transition-colors">Online</span>
+                        <div class="w-2 h-2 bg-toxic rounded-none animate-pulse"></div>
+                    </div>
+
+                    <!-- Icon Area -->
+                    <div class="text-4xl text-ash mb-4 group-hover:text-toxic transition-colors font-mono">
+                        [ $_$ ]
+                    </div>
+
+                    <!-- Content -->
+                    <h4 class="font-pixel text-3xl text-bone mb-2 group-hover:text-toxic transition-colors">Finance_App</h4>
+                    <p class="font-mono text-sm text-ash group-hover:text-bone transition-colors">
+                        Manage budget and expenses. <br>
+                        > version 2.0.1
+                    </p>
+
+                    <!-- Hover Arrow -->
+                    <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-toxic font-bold">
+                        ->
+                    </div>
+                </a>
+
+                <!-- App Tile: Maintenance -->
+                <a href="#" class="block bg-crypt border-2 border-gloom p-6 relative group hover:-translate-y-1 hover:shadow-hard hover:border-radical transition-all duration-300">
+                    <div class="absolute top-4 right-4 flex items-center gap-2">
+                        <span class="text-[10px] uppercase text-ash group-hover:text-radical transition-colors">Maint</span>
+                        <div class="w-2 h-2 bg-radical rounded-none"></div>
+                    </div>
+
+                    <div class="text-4xl text-ash mb-4 group-hover:text-radical transition-colors font-mono">
+                        [ ?_? ]
+                    </div>
+
+                    <h4 class="font-pixel text-3xl text-bone mb-2 group-hover:text-radical transition-colors">Secret_Project</h4>
+                    <p class="font-mono text-sm text-ash group-hover:text-bone transition-colors">
+                        Classified information. <br>
+                        > access_restricted
+                    </p>
+                </a>
+
+                <!-- App Tile: Add New -->
+                <a href="#" class="block bg-void border-2 border-dashed border-ash p-6 relative group hover:bg-crypt hover:border-spirit hover:shadow-hard transition-all duration-300 flex flex-col justify-center items-center text-center h-full min-h-[200px]">
+                    <div class="text-5xl text-ash mb-2 group-hover:text-spirit transition-colors font-mono">
+                        +
+                    </div>
+                    <h4 class="font-pixel text-2xl text-ash group-hover:text-spirit transition-colors">Deploy_New</h4>
+                </a>
+
+            </div>
+        </section>
+
         <!-- 04. Whimsical Elements -->
         <section class="pb-20">
              <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Whimsy.exe</h3>
-             
+
              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                  <div class="p-8 border-2 border-dashed border-spirit text-spirit hover:bg-crypt transition-colors group cursor-pointer">
                      <div class="text-4xl mb-2 group-hover:scale-125 transition-transform duration-300">

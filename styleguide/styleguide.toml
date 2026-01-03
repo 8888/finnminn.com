@@ -57,6 +57,13 @@ border = "border-2 border-gloom"
 shadow = "shadow-hard (optional)"
 spacing = "p-6"
 
+[components.app_tile]
+container = "block bg-crypt border-2 border-gloom relative group"
+hover_state = "translate-y-1 shadow-hard-green border-toxic"
+icon_style = "text-4xl font-mono text-ash group-hover:text-toxic"
+status_indicator = "Top-right absolute, pulsing dot for online."
+typography = "Title: font-pixel 3xl. Desc: font-mono sm ash."
+
 [accessibility.standards]
 contrast_ratio = "Check strictly against #0d0208 (Void)"
 focus_states = "Use 'toxic' or 'radical' outline-offset-2 for keyboard focus."
