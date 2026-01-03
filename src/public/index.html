@@ -78,25 +78,40 @@
 <body class="bg-void text-bone font-mono selection:bg-toxic selection:text-void flex flex-col">
 
     <!-- Navigation -->
-    <nav class="border-b-2 border-radical bg-void/95 backdrop-blur z-50 shrink-0">
-        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+    <nav class="border-b-2 border-radical bg-void/95 backdrop-blur z-50 shrink-0 relative">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <!-- Brand -->
             <div class="flex items-center gap-2">
                 <span class="text-toxic text-xl animate-blink">█</span>
-                <h1 class="font-pixel text-4xl text-radical uppercase tracking-widest">FinnMinn.exe</h1>
+                <h1 class="font-pixel text-3xl md:text-4xl text-radical uppercase tracking-widest">FinnMinn.exe</h1>
             </div>
-            <div>
+
+            <!-- Desktop Actions -->
+            <div class="hidden md:block">
                 <a href="/app" class="text-radical border border-radical px-4 py-1 font-bold uppercase tracking-widest hover:bg-radical hover:text-void transition-colors">
                     [ LOGIN ]
                 </a>
             </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-toxic font-pixel text-2xl border-2 border-toxic px-2 active:bg-toxic active:text-void transition-colors h-[44px] flex items-center justify-center">
+                [ /// ]
+            </button>
+        </div>
+
+        <!-- Mobile Menu (System Tray) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-void border-b-4 border-toxic shadow-hard-void p-6 flex flex-col gap-4 z-40">
+            <div class="text-xs text-ash uppercase mb-2 border-b border-gloom pb-2">:: System_Navigation</div>
+            <!-- Future links can go here -->
+            <a href="/app" class="block bg-radical text-void border border-radical p-3 text-lg font-bold text-center mt-2 active:shadow-none shadow-hard min-h-[44px] flex items-center justify-center">[ LOGIN ]</a>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow flex items-center justify-center p-6 min-h-0">
+    <main class="flex-grow flex items-center justify-center p-4 md:p-6 min-h-0">
 
         <!-- Terminal Frame (Hero Display) -->
-        <div class="border-2 border-gloom bg-crypt shadow-hard-void max-w-4xl w-full flex flex-col max-h-full">
+        <div class="border-2 border-gloom bg-crypt shadow-hard-void w-full max-w-4xl flex flex-col max-h-full">
 
             <!-- Terminal Title Bar -->
             <div class="bg-gloom px-4 py-1 flex justify-between items-center shrink-0">
@@ -109,8 +124,8 @@
             </div>
 
             <!-- Image Container -->
-            <div class="relative group overflow-hidden flex-grow flex items-center justify-center bg-void">
-                <img id="finn-img" src="finn.jpg" alt="Finn" class="max-w-full max-h-full object-contain cursor-crosshair opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="relative group overflow-hidden flex-grow flex items-center justify-center bg-void min-h-[200px]">
+                <img id="finn-img" src="finn.jpg" alt="Finn" class="w-full h-full max-h-[60vh] object-contain cursor-crosshair opacity-90 group-hover:opacity-100 transition-opacity duration-500">
 
                 <!-- Scanline Overlay -->
                 <div class="absolute inset-0 pointer-events-none scanlines opacity-30"></div>
@@ -136,6 +151,8 @@
     <script>
         let clicks = 0;
         const img = document.getElementById('finn-img');
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
         img.addEventListener('click', () => {
             clicks++;
@@ -143,6 +160,10 @@
             if (clicks === 3) {
                 window.location.href = '/app';
             }
+        });
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 </body>
