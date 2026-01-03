@@ -3,32 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finn</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f0f0f0;
-            overflow: hidden;
+    <title>Finnminn // Cryptid Console</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Design System Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#0d0208',
+                        crypt: '#1a0b14',
+                        bone: '#fbe9d0',
+                        ash: '#8a7d85',
+                        radical: '#ff0055',
+                        toxic: '#00ff41',
+                        spirit: '#00f2ff',
+                        gloom: '#4b0082',
+                    },
+                    fontFamily: {
+                        pixel: ['"VT323"', 'monospace'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    boxShadow: {
+                        'hard': '4px 4px 0px 0px #ff0055',
+                        'hard-green': '4px 4px 0px 0px #00ff41',
+                        'hard-void': '4px 4px 0px 0px #0d0208',
+                    },
+                    borderWidth: {
+                        '3': '3px',
+                    },
+                    animation: {
+                        'blink': 'blink 1s step-end infinite',
+                    },
+                    keyframes: {
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        }
+                    }
+                }
+            }
         }
-        img {
-            width: 100vw;
+    </script>
+
+    <style>
+        /* CRT Scanline Effect */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+        }
+
+        /* Prevent scrolling and ensure full height */
+        body {
             height: 100vh;
-            object-fit: contain;
+            overflow: hidden;
         }
     </style>
 </head>
-<body>
-    <img src="finn.jpg" alt="Finn">
+<body class="bg-void text-bone font-mono selection:bg-toxic selection:text-void flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="border-b-2 border-radical bg-void/95 backdrop-blur z-50 shrink-0">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-toxic text-xl animate-blink">█</span>
+                <h1 class="font-pixel text-4xl text-radical uppercase tracking-widest">FinnMinn.exe</h1>
+            </div>
+            <div>
+                <a href="/app" class="text-radical border border-radical px-4 py-1 font-bold uppercase tracking-widest hover:bg-radical hover:text-void transition-colors">
+                    [ LOGIN ]
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-6 min-h-0">
+        
+        <!-- Terminal Frame (Hero Display) -->
+        <div class="border-2 border-gloom bg-crypt shadow-hard-void max-w-4xl w-full flex flex-col max-h-full">
+            
+            <!-- Terminal Title Bar -->
+            <div class="bg-gloom px-4 py-1 flex justify-between items-center shrink-0">
+                <span class="text-xs font-pixel uppercase tracking-widest text-bone">viewer.exe - "Good Boy"</span>
+                <div class="flex gap-2">
+                    <div class="w-2 h-2 bg-bone opacity-50"></div>
+                    <div class="w-2 h-2 bg-bone opacity-50"></div>
+                    <div class="w-2 h-2 bg-radical"></div>
+                </div>
+            </div>
+
+            <!-- Image Container -->
+            <div class="relative group overflow-hidden flex-grow flex items-center justify-center bg-void">
+                <img id="finn-img" src="finn.jpg" alt="Finn" class="max-w-full max-h-full object-contain cursor-crosshair opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                
+                <!-- Scanline Overlay -->
+                <div class="absolute inset-0 pointer-events-none scanlines opacity-30"></div>
+                
+                <!-- Vignette -->
+                <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-void/60 to-transparent"></div>
+            </div>
+
+            <!-- Footer Info -->
+            <div class="p-3 border-t border-gloom flex justify-between items-center bg-void shrink-0">
+                <div class="text-[10px] font-mono text-toxic leading-tight">
+                    PATH: C:/CRYPT/FINN_SMILE.DAT <br>
+                    SIZE: 1024 KB
+                </div>
+                <div class="text-spirit font-pixel text-xl animate-pulse">
+                    [ ENCRYPTED ]
+                </div>
+            </div>
+        </div>
+
+    </main>
 
     <script>
         let clicks = 0;
-        document.querySelector('img').addEventListener('click', () => {
+        const img = document.getElementById('finn-img');
+        
+        img.addEventListener('click', () => {
             clicks++;
+            console.log(`System link attempt: ${clicks}/3`);
             if (clicks === 3) {
                 window.location.href = '/app';
             }

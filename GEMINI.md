@@ -17,6 +17,15 @@ This project contains the source code and configuration for the static website `
     - Redirects unauthenticated users to the Microsoft login flow.
 - **Cross-Resource Access:** The acquired Access Token can be used as a Bearer token to authorize requests to external/standalone Azure Functions.
 
+### Design System (Added 2026-01-03)
+- **Theme:** "Cryptid Console" - A fusion of 8-bit nostalgia, gothic aesthetics, and terminal-style retro-tech.
+- **Core Technologies:** Tailwind CSS (via CDN), Google Fonts (VT323, Space Mono).
+- **Styling Rules:**
+    - Background: `void` (#0d0208).
+    - Typography: Pixelated headers, Mono body.
+    - Accents: Radical Pink (#ff0055), Toxic Green (#00ff41), Spirit Cyan (#00f2ff).
+- **Implementation:** The landing page (`index.html`) utilizes this system for its navigation and hero image viewer.
+
 ## Deployment
 Deployment is automated using GitHub Actions.
 - **Workflow File:** `.github/workflows/azure-static-web-apps-mango-pebble-0e55b260f.yml`
