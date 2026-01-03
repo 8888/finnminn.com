@@ -1,5 +1,5 @@
 # Finnminn Design System // CRYPTID CONSOLE
-# Version: 1.0.0
+# Version: 1.1.0 (Mobile Optimized)
 # Last Updated: 2026-01-03
 # Role: System Contract for Frontend Architecture
 
@@ -7,6 +7,7 @@
 theme_name = "Cryptid Console"
 aesthetic = "8-bit Vampiric Retro-Tech"
 mood = ["Spooky", "Cute", "Technical", "High-Contrast"]
+responsive_strategy = "Mobile-First"
 
 [theme.colors]
 # The primary background. Not pure black to allow for depth perception.
@@ -27,6 +28,7 @@ gloom = "#4b0082"       # Borders / Disabled states (Indigo)
 # Headers: Use for H1-H3.
 family_heading = "'VT323', monospace"
 scale_heading = "Pixelated, sharp, uppercase preferred."
+# Mobile: Allow wrapping, scale down slightly (4xl vs 6xl).
 
 # Body: Use for paragraphs and UI elements.
 family_body = "'Space Mono', monospace"
@@ -37,6 +39,17 @@ scale_body = "High readability, technical feel."
 hard_pink = "4px 4px 0px 0px #ff0055"
 hard_green = "4px 4px 0px 0px #00ff41"
 hard_void = "4px 4px 0px 0px #0d0208"
+
+[layout.mobile]
+navigation = "System Tray Modal: Hidden by default, toggled via [ /// ] button."
+grid_behavior = "Stack vertically (grid-cols-1) by default."
+card_behavior = "Full width, comfortable touch targets (min-h 44px)."
+interaction = "Tap/Active state mimics Desktop Hover state (translate + shadow shift)."
+
+[layout.desktop]
+navigation = "Top Bar: Horizontal links with hover underline."
+grid_behavior = "Multi-column (grid-cols-2 or 3)."
+interaction = "Hover states heavily utilized for discovery (Grayscale -> Color)."
 
 [components.rules]
 # General Component Rules
@@ -50,6 +63,7 @@ text_style = "uppercase font-bold tracking-wider"
 default_bg = "bg-radical"
 default_text = "text-void"
 hover_behavior = "Invert to bg-void text-radical + shadow-hard"
+mobile_behavior = "Width: Full (w-full) for easier tapping."
 
 [components.cards]
 background = "bg-crypt"
@@ -67,7 +81,8 @@ typography = "Title: font-pixel 3xl. Desc: font-mono sm ash."
 [components.media]
 # Thumbnail Rules
 thumbnail_border = "4px solid var(--radical)"
-thumbnail_filter = "grayscale(100%) -> hover:grayscale(0%)"
+thumbnail_filter_desktop = "grayscale(100%) -> hover:grayscale(0%)"
+thumbnail_filter_mobile = "Always color (Decrypted)"
 thumbnail_transition = "duration-500ms ease-in-out"
 
 # Terminal Frame Rules
@@ -80,6 +95,7 @@ metadata_footer = "Display path and status in font-mono toxic/spirit."
 contrast_ratio = "Check strictly against #0d0208 (Void)"
 focus_states = "Use 'toxic' or 'radical' outline-offset-2 for keyboard focus."
 motion = "Respect prefers-reduced-motion. Disable 'blink' animations if set."
+touch_targets = "Min 44x44px for all clickable elements on mobile."
 
 [layout.grid]
 max_width = "max-w-6xl"

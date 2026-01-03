@@ -89,31 +89,48 @@
         }
     </style>
 </head>
-<body class="bg-void text-bone font-mono min-h-screen selection:bg-toxic selection:text-void">
+<body class="bg-void text-bone font-mono min-h-screen selection:bg-toxic selection:text-void flex flex-col">
 
     <!-- Navigation Mockup -->
     <nav class="border-b-2 border-radical sticky top-0 bg-void/95 backdrop-blur z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Brand -->
             <div class="flex items-center gap-2">
                 <span class="text-toxic text-xl animate-blink">█</span>
-                <h1 class="font-pixel text-4xl text-radical uppercase tracking-widest">FinnMinn.exe</h1>
+                <h1 class="font-pixel text-3xl md:text-4xl text-radical uppercase tracking-widest">FinnMinn.exe</h1>
             </div>
+
+            <!-- Desktop Menu -->
             <div class="hidden md:flex gap-6 text-sm tracking-wider">
                 <a href="#" class="hover:text-toxic hover:underline decoration-2 underline-offset-4 transition-all">/HOME</a>
                 <a href="#" class="hover:text-toxic hover:underline decoration-2 underline-offset-4 transition-all">/LOGS</a>
                 <a href="#" class="hover:text-toxic hover:underline decoration-2 underline-offset-4 transition-all">/CRYPT</a>
                 <a href="#" class="text-radical border border-radical px-3 py-1 hover:bg-radical hover:text-void transition-colors">[ LOGIN ]</a>
             </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-toxic font-pixel text-2xl border-2 border-toxic px-2 active:bg-toxic active:text-void transition-colors">
+                [ /// ]
+            </button>
+        </div>
+
+        <!-- Mobile Menu (System Tray Modal) -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-void border-b-4 border-toxic shadow-hard-void p-6 flex flex-col gap-4 z-40">
+            <div class="text-xs text-ash uppercase mb-2 border-b border-gloom pb-2">:: System_Navigation</div>
+            <a href="#" class="block bg-crypt border border-gloom p-3 text-lg hover:border-toxic hover:text-toxic transition-colors">/HOME</a>
+            <a href="#" class="block bg-crypt border border-gloom p-3 text-lg hover:border-toxic hover:text-toxic transition-colors">/LOGS</a>
+            <a href="#" class="block bg-crypt border border-gloom p-3 text-lg hover:border-toxic hover:text-toxic transition-colors">/CRYPT</a>
+            <a href="#" class="block bg-radical text-void border border-radical p-3 text-lg font-bold text-center mt-2 active:shadow-none shadow-hard">[ LOGIN ]</a>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-6 py-12 space-y-20">
+    <main class="max-w-6xl mx-auto px-6 py-8 md:py-12 space-y-16 md:space-y-20 flex-grow">
 
         <!-- 00. Introduction -->
         <section class="space-y-6">
             <div class="border-l-4 border-toxic pl-6">
-                <h2 class="font-pixel text-6xl mb-2 text-toxic">SYSTEM_DESIGN</h2>
-                <p class="text-xl max-w-2xl text-ash">
+                <h2 class="font-pixel text-4xl md:text-6xl mb-2 text-toxic break-words">SYSTEM_DESIGN</h2>
+                <p class="text-lg md:text-xl max-w-2xl text-ash">
                     Theme: <span class="text-radical">Cryptid Console</span>. <br>
                     A fusion of 8-bit nostalgia, gothic aesthetics, and whimsical utility.
                 </p>
@@ -121,16 +138,17 @@
         </section>
 
         <!-- 01. Typography -->
-        <section class="grid md:grid-cols-2 gap-12">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             <div class="p-6 border-2 border-gloom bg-crypt shadow-hard">
                 <div class="border-b-2 border-gloom pb-2 mb-4 flex justify-between text-xs text-ash uppercase">
                     <span>Typeface 01</span>
                     <span>Headings</span>
                 </div>
-                <h1 class="font-pixel text-6xl mb-2">Heading 1</h1>
-                <h2 class="font-pixel text-5xl mb-2 text-radical">Heading 2</h2>
-                <h3 class="font-pixel text-4xl mb-2 text-toxic">Heading 3</h3>
-                <p class="font-pixel text-2xl mt-4 text-ash">Font Family: 'VT323'</p>
+                <!-- Responsive text sizing -->
+                <h1 class="font-pixel text-4xl md:text-6xl mb-2">Heading 1</h1>
+                <h2 class="font-pixel text-3xl md:text-5xl mb-2 text-radical">Heading 2</h2>
+                <h3 class="font-pixel text-2xl md:text-4xl mb-2 text-toxic">Heading 3</h3>
+                <p class="font-pixel text-xl md:text-2xl mt-4 text-ash">Font Family: 'VT323'</p>
             </div>
 
             <div class="p-6 border-2 border-gloom bg-crypt shadow-hard">
@@ -138,8 +156,8 @@
                     <span>Typeface 02</span>
                     <span>Body / UI</span>
                 </div>
-                <p class="text-lg mb-4">
-                    This is the standard body text. It uses <span class="text-spirit">Space Mono</span> for optimal readability while maintaining a technical, terminal-like feel.
+                <p class="text-base md:text-lg mb-4">
+                    This is the standard body text. It scales for mobile readability while keeping the <span class="text-spirit">Space Mono</span> aesthetic.
                 </p>
                 <p class="text-sm text-ash">
                     The quick brown fox jumps over the lazy dog.
@@ -152,9 +170,9 @@
 
         <!-- 02. Color Palette -->
         <section>
-            <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Color_Map.sys</h3>
+            <h3 class="font-pixel text-3xl md:text-4xl mb-8 border-b-2 border-ash inline-block">Color_Map.sys</h3>
 
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
                 <!-- Void -->
                 <div class="space-y-2">
                     <div class="h-24 w-full bg-void border-2 border-ash flex items-center justify-center"></div>
@@ -205,10 +223,10 @@
 
         <!-- 03. Components -->
         <section>
-            <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Component_Library.lib</h3>
+            <h3 class="font-pixel text-3xl md:text-4xl mb-8 border-b-2 border-ash inline-block">Component_Library.lib</h3>
 
             <!-- Grid of Components -->
-            <div class="grid lg:grid-cols-2 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
 
                 <!-- Buttons & Interactions -->
                 <div class="space-y-8">
@@ -216,15 +234,15 @@
                         <h4 class="text-sm uppercase text-ash mb-4">:: Buttons</h4>
                         <div class="flex flex-wrap gap-4 items-start">
                             <!-- Primary Button -->
-                            <button class="bg-radical text-void px-6 py-2 font-bold uppercase tracking-wider border-2 border-radical hover:bg-void hover:text-radical hover:shadow-hard transition-all active:translate-y-1 active:shadow-none">
+                            <button class="bg-radical text-void px-6 py-2 font-bold uppercase tracking-wider border-2 border-radical hover:bg-void hover:text-radical hover:shadow-hard transition-all active:translate-y-1 active:shadow-none w-full md:w-auto">
                                 Execute
                             </button>
                             <!-- Secondary Button -->
-                            <button class="bg-transparent text-toxic px-6 py-2 font-bold uppercase tracking-wider border-2 border-toxic hover:bg-toxic hover:text-void transition-all shadow-hard-green">
+                            <button class="bg-transparent text-toxic px-6 py-2 font-bold uppercase tracking-wider border-2 border-toxic hover:bg-toxic hover:text-void transition-all shadow-hard-green active:shadow-none active:translate-y-1 w-full md:w-auto">
                                 Connect
                             </button>
                             <!-- Disabled -->
-                            <button class="bg-gloom text-ash px-6 py-2 uppercase tracking-wider border-2 border-gloom opacity-50 cursor-not-allowed">
+                            <button class="bg-gloom text-ash px-6 py-2 uppercase tracking-wider border-2 border-gloom opacity-50 cursor-not-allowed w-full md:w-auto">
                                 Offline
                             </button>
                         </div>
@@ -232,15 +250,15 @@
 
                     <div>
                         <h4 class="text-sm uppercase text-ash mb-4">:: Inputs</h4>
-                        <div class="space-y-4 max-w-sm">
+                        <div class="space-y-4 w-full max-w-sm">
                             <div class="relative">
                                 <label class="block text-xs uppercase mb-1 text-toxic">> Enter Command</label>
-                                <input type="text" placeholder="type here..." class="w-full bg-void border-b-2 border-ash text-bone p-2 focus:outline-none focus:border-toxic focus:bg-crypt transition-colors font-mono placeholder:text-gloom">
+                                <input type="text" placeholder="type here..." class="w-full bg-void border-b-2 border-ash text-bone p-2 focus:outline-none focus:border-toxic focus:bg-crypt transition-colors font-mono placeholder:text-gloom rounded-none">
                             </div>
 
                             <div class="relative">
                                 <label class="block text-xs uppercase mb-1 text-radical">> Password</label>
-                                <input type="password" value="password123" class="w-full bg-crypt border-2 border-radical text-radical p-2 focus:outline-none focus:shadow-hard transition-all">
+                                <input type="password" value="password123" class="w-full bg-crypt border-2 border-radical text-radical p-2 focus:outline-none focus:shadow-hard transition-all rounded-none">
                             </div>
                         </div>
                     </div>
@@ -299,6 +317,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
@@ -306,60 +325,62 @@
 
         <!-- 05. App Tiles (SSO) -->
         <section>
-            <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">App_Launcher.exe</h3>
+            <h3 class="font-pixel text-3xl md:text-4xl mb-8 border-b-2 border-ash inline-block">App_Launcher.exe</h3>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Responsive Grid: 1 col mobile, 2 col tablet, 3 col desktop -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
 
                 <!-- App Tile: Active -->
-                <a href="#" class="block bg-crypt border-2 border-gloom p-6 relative group hover:-translate-y-1 hover:shadow-hard-green hover:border-toxic transition-all duration-300">
+                <!-- Mobile: Active state mimics hover. Desktop: Hover state exists. -->
+                <a href="#" class="block bg-crypt border-2 border-gloom p-6 relative group active:translate-y-1 active:border-toxic active:shadow-none hover:md:-translate-y-1 hover:md:shadow-hard-green hover:md:border-toxic transition-all duration-300">
                     <!-- Status Indicator -->
                     <div class="absolute top-4 right-4 flex items-center gap-2">
-                        <span class="text-[10px] uppercase text-ash group-hover:text-toxic transition-colors">Online</span>
+                        <span class="text-[10px] uppercase text-ash group-hover:text-toxic group-active:text-toxic transition-colors">Online</span>
                         <div class="w-2 h-2 bg-toxic rounded-none animate-pulse"></div>
                     </div>
 
                     <!-- Icon Area -->
-                    <div class="text-4xl text-ash mb-4 group-hover:text-toxic transition-colors font-mono">
+                    <div class="text-4xl text-ash mb-4 group-hover:text-toxic group-active:text-toxic transition-colors font-mono">
                         [ $_$ ]
                     </div>
 
                     <!-- Content -->
-                    <h4 class="font-pixel text-3xl text-bone mb-2 group-hover:text-toxic transition-colors">Finance_App</h4>
-                    <p class="font-mono text-sm text-ash group-hover:text-bone transition-colors">
+                    <h4 class="font-pixel text-3xl text-bone mb-2 group-hover:text-toxic group-active:text-toxic transition-colors">Finance_App</h4>
+                    <p class="font-mono text-sm text-ash group-hover:text-bone group-active:text-bone transition-colors">
                         Manage budget and expenses. <br>
                         > version 2.0.1
                     </p>
 
-                    <!-- Hover Arrow -->
-                    <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-toxic font-bold">
+                    <!-- Hover Arrow (Hidden on mobile usually, or shown on active) -->
+                    <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity text-toxic font-bold">
                         ->
                     </div>
                 </a>
 
                 <!-- App Tile: Maintenance -->
-                <a href="#" class="block bg-crypt border-2 border-gloom p-6 relative group hover:-translate-y-1 hover:shadow-hard hover:border-radical transition-all duration-300">
+                <a href="#" class="block bg-crypt border-2 border-gloom p-6 relative group active:translate-y-1 active:border-radical active:shadow-none hover:md:-translate-y-1 hover:md:shadow-hard hover:md:border-radical transition-all duration-300">
                     <div class="absolute top-4 right-4 flex items-center gap-2">
-                        <span class="text-[10px] uppercase text-ash group-hover:text-radical transition-colors">Maint</span>
+                        <span class="text-[10px] uppercase text-ash group-hover:text-radical group-active:text-radical transition-colors">Maint</span>
                         <div class="w-2 h-2 bg-radical rounded-none"></div>
                     </div>
 
-                    <div class="text-4xl text-ash mb-4 group-hover:text-radical transition-colors font-mono">
+                    <div class="text-4xl text-ash mb-4 group-hover:text-radical group-active:text-radical transition-colors font-mono">
                         [ ?_? ]
                     </div>
 
-                    <h4 class="font-pixel text-3xl text-bone mb-2 group-hover:text-radical transition-colors">Secret_Project</h4>
-                    <p class="font-mono text-sm text-ash group-hover:text-bone transition-colors">
+                    <h4 class="font-pixel text-3xl text-bone mb-2 group-hover:text-radical group-active:text-radical transition-colors">Secret_Project</h4>
+                    <p class="font-mono text-sm text-ash group-hover:text-bone group-active:text-bone transition-colors">
                         Classified information. <br>
                         > access_restricted
                     </p>
                 </a>
 
                 <!-- App Tile: Add New -->
-                <a href="#" class="block bg-void border-2 border-dashed border-ash p-6 relative group hover:bg-crypt hover:border-spirit hover:shadow-hard transition-all duration-300 flex flex-col justify-center items-center text-center h-full min-h-[200px]">
-                    <div class="text-5xl text-ash mb-2 group-hover:text-spirit transition-colors font-mono">
+                <a href="#" class="block bg-void border-2 border-dashed border-ash p-6 relative group hover:bg-crypt hover:border-spirit hover:shadow-hard active:bg-crypt active:border-spirit transition-all duration-300 flex flex-col justify-center items-center text-center h-full min-h-[160px] md:min-h-[200px]">
+                    <div class="text-5xl text-ash mb-2 group-hover:text-spirit group-active:text-spirit transition-colors font-mono">
                         +
                     </div>
-                    <h4 class="font-pixel text-2xl text-ash group-hover:text-spirit transition-colors">Deploy_New</h4>
+                    <h4 class="font-pixel text-2xl text-ash group-hover:text-spirit group-active:text-spirit transition-colors">Deploy_New</h4>
                 </a>
 
             </div>
@@ -367,15 +388,16 @@
 
         <!-- 06. Imagery / Media -->
         <section>
-            <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Media_Renderer.exe</h3>
-            
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                
+            <h3 class="font-pixel text-3xl md:text-4xl mb-8 border-b-2 border-ash inline-block">Media_Renderer.exe</h3>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
                 <!-- Thumbnail Variant -->
                 <div>
                     <h4 class="text-sm uppercase text-ash mb-4">:: Image_Thumbnail</h4>
                     <div class="inline-block relative">
-                        <img src="../src/public/finn.jpg" alt="Finn" class="w-64 h-64 object-cover border-4 border-radical shadow-hard grayscale hover:grayscale-0 transition-all duration-500 cursor-crosshair">
+                        <!-- Mobile: Full color. Desktop: Grayscale -> Color on Hover. -->
+                        <img src="../src/public/finn.jpg" alt="Finn" class="w-64 h-64 object-cover border-4 border-radical shadow-hard lg:grayscale lg:hover:grayscale-0 transition-all duration-500 cursor-crosshair">
                         <div class="absolute -bottom-2 -right-2 bg-radical text-void px-2 py-1 font-pixel text-lg">
                             FINN.PNG
                         </div>
@@ -408,7 +430,7 @@
                             <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-void/60 to-transparent"></div>
                         </div>
                         <!-- Footer Info -->
-                        <div class="p-4 border-t border-gloom flex justify-between items-center bg-void">
+                        <div class="p-4 border-t border-gloom flex flex-col md:flex-row justify-between items-start md:items-center bg-void gap-2">
                             <div class="text-[10px] font-mono text-toxic">
                                 PATH: C:/CRYPT/FINN_SMILE.DAT <br>
                                 SIZE: 1024 KB
@@ -425,24 +447,24 @@
 
         <!-- 04. Whimsical Elements -->
         <section class="pb-20">
-             <h3 class="font-pixel text-4xl mb-8 border-b-2 border-ash inline-block">Whimsy.exe</h3>
+             <h3 class="font-pixel text-3xl md:text-4xl mb-8 border-b-2 border-ash inline-block">Whimsy.exe</h3>
 
              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                 <div class="p-8 border-2 border-dashed border-spirit text-spirit hover:bg-crypt transition-colors group cursor-pointer">
+                 <div class="p-8 border-2 border-dashed border-spirit text-spirit hover:bg-crypt active:bg-crypt transition-colors group cursor-pointer">
                      <div class="text-4xl mb-2 group-hover:scale-125 transition-transform duration-300">
                          ( ^..^)
                      </div>
                      <p class="text-sm uppercase">Pet_The_Cat</p>
                  </div>
 
-                 <div class="p-8 border-2 border-dashed border-radical text-radical hover:bg-crypt transition-colors group cursor-pointer">
+                 <div class="p-8 border-2 border-dashed border-radical text-radical hover:bg-crypt active:bg-crypt transition-colors group cursor-pointer">
                     <div class="text-4xl mb-2 group-hover:-rotate-12 transition-transform duration-300">
                         /|\ ^._.^ /|\
                     </div>
                     <p class="text-sm uppercase">Summon_Bat</p>
                 </div>
 
-                <div class="p-8 border-2 border-dashed border-toxic text-toxic hover:bg-crypt transition-colors group cursor-pointer">
+                <div class="p-8 border-2 border-dashed border-toxic text-toxic hover:bg-crypt active:bg-crypt transition-colors group cursor-pointer">
                     <div class="text-4xl mb-2 animate-bounce">
                         <3
                     </div>
@@ -453,5 +475,15 @@
 
     </main>
 
+    <script>
+        // Simple Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            // Basic animation idea for the future: slide down or fade in
+        });
+    </script>
 </body>
 </html>
