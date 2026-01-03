@@ -62,8 +62,14 @@ async function getToken() {
 }
 
 function signOut() {
+    const currentAccount = myMSALObj.getAllAccounts()[0];
+    if (!currentAccount) {
+        // Already signed out or no session
+        window.location.href = "/";
+        return;
+    }
     const logoutRequest = {
-        account: myMSALObj.getAccountByHomeId(myMSALObj.getAllAccounts()[0].homeAccountId),
+        account: myMSALObj.getAccountByHomeId(currentAccount.homeAccountId),
         postLogoutRedirectUri: window.location.origin,
     };
     myMSALObj.logoutRedirect(logoutRequest);
