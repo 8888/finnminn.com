@@ -94,7 +94,7 @@
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button id="menu-btn" class="md:hidden text-toxic font-pixel text-2xl border-2 border-toxic px-2 active:bg-toxic active:text-void transition-colors h-[44px] flex items-center justify-center">
+            <button id="menu-btn" class="md:hidden text-toxic font-pixel text-2xl border-2 border-toxic px-2 active:bg-toxic active:text-void transition-colors h-[44px] flex items-center justify-center" aria-label="Toggle navigation" aria-expanded="false">
                 [ /// ]
             </button>
         </div>
@@ -163,6 +163,8 @@
         });
 
         menuBtn.addEventListener('click', () => {
+            const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+            menuBtn.setAttribute('aria-expanded', !isExpanded);
             mobileMenu.classList.toggle('hidden');
         });
     </script>
