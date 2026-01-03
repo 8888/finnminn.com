@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finnminn // Cryptid Console</title>
+    <title>Finn</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,10 +94,10 @@
 
     <!-- Main Content -->
     <main class="flex-grow flex items-center justify-center p-6 min-h-0">
-        
+
         <!-- Terminal Frame (Hero Display) -->
         <div class="border-2 border-gloom bg-crypt shadow-hard-void max-w-4xl w-full flex flex-col max-h-full">
-            
+
             <!-- Terminal Title Bar -->
             <div class="bg-gloom px-4 py-1 flex justify-between items-center shrink-0">
                 <span class="text-xs font-pixel uppercase tracking-widest text-bone">viewer.exe - "Good Boy"</span>
@@ -111,10 +111,10 @@
             <!-- Image Container -->
             <div class="relative group overflow-hidden flex-grow flex items-center justify-center bg-void">
                 <img id="finn-img" src="finn.jpg" alt="Finn" class="max-w-full max-h-full object-contain cursor-crosshair opacity-90 group-hover:opacity-100 transition-opacity duration-500">
-                
+
                 <!-- Scanline Overlay -->
                 <div class="absolute inset-0 pointer-events-none scanlines opacity-30"></div>
-                
+
                 <!-- Vignette -->
                 <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-void/60 to-transparent"></div>
             </div>
@@ -136,7 +136,7 @@
     <script>
         let clicks = 0;
         const img = document.getElementById('finn-img');
-        
+
         img.addEventListener('click', () => {
             clicks++;
             console.log(`System link attempt: ${clicks}/3`);
