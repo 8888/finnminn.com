@@ -86,7 +86,7 @@
 
     *   Accents: Radical Pink (#ff0055) and Toxic Green (#00ff41).
 
-4.  **Styling Rules:**
+4.  Styling Rules:
 
     *   Remove all border radius (sharp corners).
 
@@ -94,6 +94,56 @@
 
     *   Style buttons with uppercase, bold text, and hard shadows.
 
-5.  **Layout:** Maintain the central card layout but aligned with the retro-tech aesthetic.
+5.  Layout: Maintain the central card layout but aligned with the retro-tech aesthetic.
 
-6.  **Loading State:** Replace the Bootstrap spinner with a retro-themed loading indicator (e.g., blinking text or a simple CSS animation).
+6.  Loading State: Replace the Bootstrap spinner with a retro-themed loading indicator (e.g., blinking text or a simple CSS animation).
+
+
+
+## User Story 6: Implement Cryptid Console Dashboard for Private App
+
+
+
+**As an** authenticated user,
+
+**I want** a functional dashboard with a top navigation bar, a utility tool box, and an app launcher,
+
+**So that** I can easily access connected applications and utilities in a unified "Cryptid Console" interface.
+
+
+
+**Acceptance Criteria:**
+
+
+
+1.  **Dashboard Layout:** The application layout is updated to a full-width dashboard structure, replacing the single centered card.
+
+2.  **Top Menu Bar:**
+
+    - A visible navigation bar at the top of the page.
+
+    - Displays the application title (e.g., "FINNMINN // CONSOLE").
+
+    - Displays the authenticated user's name.
+
+    - Includes a visible "Sign Out" button.
+
+3.  **Tool Box Module:**
+
+    - A dedicated UI section (e.g., a "Tools" card).
+
+    - Contains a "Get API Token" button.
+
+    - When clicked, displays the current Bearer token in a read-only text area with a "Copy" button.
+
+4.  **App Launcher:**
+
+    - A grid section displaying application tiles.
+
+    - **App 1:** "N-DIM" (https://n-dim.finnminn.com) - Opens in a new tab.
+
+    - **App 2:** "PIP" (https://pip.finnminn.com) - Opens in a new tab.
+
+    - Tiles adhere to the `components.app_tile` design specs (hover states, borders, fonts).
+
+5.  **Design Compliance:** All elements strictly follow the "Cryptid Console" design system (Colors: Void, Radical, Toxic, Spirit; Fonts: VT323, Space Mono; Hard shadows).
