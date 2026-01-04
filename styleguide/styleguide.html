@@ -33,6 +33,7 @@
                         toxic: '#00ff41',     // Terminal Green (Retro Tech)
                         spirit: '#00f2ff',    // Cyan (Ghostly/Whimsical)
                         gloom: '#4b0082',     // Deep Purple (Borders/Depth)
+                        pip: '#58a6ff',       // Pip Blue (Mascot Exclusive)
                     },
                     fontFamily: {
                         pixel: ['"VT323"', 'monospace'],
@@ -471,6 +472,111 @@
                     <p class="text-sm uppercase">Give_Love</p>
                 </div>
              </div>
+        </section>
+
+        <!-- 07. Character Entity -->
+        <section class="pb-20">
+            <h3 class="font-pixel text-3xl md:text-4xl mb-8 border-b-2 border-ash inline-block">Character_Entity.ai</h3>
+            
+            <div class="space-y-12">
+                
+                <!-- Static State -->
+                <div>
+                    <h4 class="text-sm uppercase text-ash mb-4">:: State_01 [Static]</h4>
+                    <div class="bg-void border-2 border-gloom p-4 overflow-hidden relative">
+                        <!-- Label -->
+                        <div class="absolute top-2 right-2 text-pip font-pixel text-lg">[ PIP_V1.0 ]</div>
+                        
+                        <!-- Pip Container - Scaling strategy:
+                             Mobile: Scale 0.4 (40%) to fit viewport.
+                             Desktop: Scale 1.0 (100%).
+                             Origin: Top-left to keep him anchored. -->
+                        <pre class="font-mono text-[8px] md:text-[10px] leading-[8px] md:leading-[10px] text-pip transform scale-[0.4] md:scale-100 origin-top-left transform-gpu antialiased">
+              --++++---.   ++                                        -+   .---++++--                  
+      -++++++++++++++#####+++-                                      -+++####+++++++++++++++-          
+   .++------------+###+++-+#++-                                    -+++#-++++##+-------------+.       
+ .#-----------+++--------+#+++++.        .++.        .++.        .+++--#+--------+++-----------+.     
+-----------++-----------+++---+#+-.       -+#++++-+++#+-       .-+#+---+++-----------++-----------    
+      .--++-------------++---+-++++--      -++-++++-+++      ---+++-+---+#--------------+--.          
+        ++-------------++-------+#++---.   -++++++++++-   .---++#+-------++-------------++            
+               .------++---------+#++++++++##++++++++##++++++++#+---------++------.                   
+                 .----+------------++#++++++++##++##++++++++#++------------+----.                     
+                   ---+---------------+++##++++++++++++##+++---------------+---                       
+                    -+-------------------++##++++++++##++-------------------+-                        
+                     -.     --------------++#+++++++++++--------------     .-                         
+                               .-----------+#++++++++++-----------.                                   
+                                  ---------++++++++++#+---------                                      
+                                    -------+#++++++++++-------                                        
+                                     -----++++++++++++++-----                                         
+                                      .---+++#+++-++#+++----                                          
+                                       .--++++.    .-+++--.                                           
+                                         +++-.       -++-.                                            
+                                      .++++.          .++++.                                          
+                                      .-+++            +++-.
+                        </pre>
+                    </div>
+                </div>
+
+                <!-- Active State (With Speech Bubble) -->
+                <div>
+                    <h4 class="text-sm uppercase text-ash mb-4">:: State_02 [Active / Interacting]</h4>
+                    <div class="bg-crypt border-2 border-gloom p-8 flex flex-col md:flex-row items-start gap-8">
+                        
+                        <!-- Avatar Pip (Full, Scaled to fit) -->
+                        <div class="relative w-32 h-32 md:w-48 md:h-48 shrink-0 border-2 border-pip bg-void shadow-hard-void flex items-center justify-center overflow-hidden">
+                            <!-- 
+                                Scaling Math:
+                                Pip is ~100 chars wide.
+                                At text-[10px], width is approx 600px.
+                                Container is w-32 (128px) / w-48 (192px).
+                                Scale Mobile: 128/600 ≈ 0.22
+                                Scale Desktop: 192/600 ≈ 0.32
+                            -->
+                            <pre class="font-mono text-[10px] leading-[10px] text-pip transform scale-[0.22] md:scale-[0.32] origin-center transform-gpu antialiased">
+              --++++---.   ++                                        -+   .---++++--                  
+      -++++++++++++++#####+++-                                      -+++####+++++++++++++++-          
+   .++------------+###+++-+#++-                                    -+++#-++++##+-------------+.       
+ .#-----------+++--------+#+++++.        .++.        .++.        .+++--#+--------+++-----------+.     
+-----------++-----------+++---+#+-.       -+#++++-+++#+-       .-+#+---+++-----------++-----------    
+      .--++-------------++---+-++++--      -++-++++-+++      ---+++-+---+#--------------+--.          
+        ++-------------++-------+#++---.   -++++++++++-   .---++#+-------++-------------++            
+               .------++---------+#++++++++##++++++++##++++++++#+---------++------.                   
+                 .----+------------++#++++++++##++##++++++++#++------------+----.                     
+                   ---+---------------+++##++++++++++++##+++---------------+---                       
+                    -+-------------------++##++++++++##++-------------------+-                        
+                     -.     --------------++#+++++++++++--------------     .-                         
+                               .-----------+#++++++++++-----------.                                   
+                                  ---------++++++++++#+---------                                      
+                                    -------+#++++++++++-------                                        
+                                     -----++++++++++++++-----                                         
+                                      .---+++#+++-++#+++----                                          
+                                       .--++++.    .-+++--.                                           
+                                         +++-.       -++-.                                            
+                                      .++++.          .++++.                                          
+                                      .-+++            +++-.
+                            </pre>
+                        </div>
+
+                        <!-- Speech Bubble Component -->
+                        <div class="relative bg-void border-2 border-pip p-6 shadow-hard animate-pulse">
+                            <!-- Connector Arrow (CSS Triangle hack or just a block) -->
+                            <div class="absolute top-full md:top-6 left-8 md:-left-3 w-4 h-4 bg-void border-l-2 border-b-2 border-pip transform rotate-45 md:rotate-45 z-10"></div>
+                            
+                            <h5 class="text-pip font-pixel text-xl mb-1">PIP SAYS:</h5>
+                            <p class="text-bone font-mono text-sm">
+                                "Greeting, User. I am the guardian of this console. <br>
+                                My hex code is <span class="text-pip font-bold">#58a6ff</span>."
+                            </p>
+                            <div class="mt-4 flex gap-2">
+                                <button class="text-[10px] border border-pip text-pip px-2 py-1 hover:bg-pip hover:text-void transition-colors uppercase">Acknowledgement</button>
+                                <button class="text-[10px] border border-ash text-ash px-2 py-1 hover:text-bone transition-colors uppercase">Ignore</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </section>
 
     </main>

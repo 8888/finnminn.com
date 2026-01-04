@@ -23,6 +23,7 @@ radical = "#ff0055"     # Primary Action / Punk / Error (Hot Pink-Red)
 toxic = "#00ff41"       # Success / Terminal / Retro (Matrix Green)
 spirit = "#00f2ff"      # Info / Whimsy / Ghost (Cyan)
 gloom = "#4b0082"       # Borders / Disabled states (Indigo)
+pip = "#58a6ff"         # Pip Blue (Mascot Exclusive)
 
 [theme.typography]
 # Headers: Use for H1-H3.
@@ -101,3 +102,12 @@ touch_targets = "Min 44x44px for all clickable elements on mobile."
 max_width = "max-w-6xl"
 container_padding = "px-6"
 vertical_rhythm = "space-y-8" # Use significant whitespace (voidspace) between sections.
+
+[components.character]
+name = "Pip the Bat"
+color = "pip (#58a6ff) - Exclusive Personal Branding"
+format = "ASCII Art (Pre-rendered text)"
+container = "pre tag with font-mono. Line-height must equal font-size for tight stacking (e.g., text-[10px] leading-[10px])."
+scaling_mobile = "Transform Scale 0.4 (40%) to fit width."
+scaling_desktop = "Scale 1.0 (100%)."
+interaction = "Speech Bubbles: Border-pip, bg-void, hard shadow. Pip should often 'speak' system messages."
