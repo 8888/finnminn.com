@@ -17,14 +17,18 @@ This project contains the source code and configuration for the static website `
     - Redirects unauthenticated users to the Microsoft login flow.
 - **Cross-Resource Access:** The acquired Access Token can be used as a Bearer token to authorize requests to external/standalone Azure Functions.
 
-### Design System (Added 2026-01-03)
+### Design System (Updated 2026-01-03)
+- **Source of Truth:** `styleguide/styleguide.toml` (Version 1.1.0).
 - **Theme:** "Cryptid Console" - A fusion of 8-bit nostalgia, gothic aesthetics, and terminal-style retro-tech.
+- **Strategy:** Mobile-First, Responsive.
 - **Core Technologies:** Tailwind CSS (via CDN), Google Fonts (VT323, Space Mono).
 - **Styling Rules:**
     - Background: `void` (#0d0208).
-    - Typography: Pixelated headers, Mono body.
+    - Typography: Pixelated headers (`VT323`), Mono body (`Space Mono`).
     - Accents: Radical Pink (#ff0055), Toxic Green (#00ff41), Spirit Cyan (#00f2ff).
-- **Implementation:** The landing page (`index.html`) utilizes this system for its navigation and hero image viewer.
+- **Implementation:**
+    - Landing Page (`src/public/index.html`): Mobile-optimized with "System Tray" navigation.
+    - App Console (`src/public/app/index.html`): Private dashboard with grid layout.
 
 ## Deployment
 Deployment is automated using GitHub Actions.
@@ -38,11 +42,14 @@ The Azure resources were created manually in the Azure Portal.
 - DNS Zone: `Finnminn.com`
 - **App Registration:** `Finnminn-Web` (Client ID: `5e24adce-63ed-4c99-86d3-d8b4d1dfb211`)
 
+## Testing & Validation
+- **HTML Validation:** `node test/validate_app_html.js` ensures the application's HTML structure adheres to expected standards (e.g., avoiding duplicate IDs).
+
 ## Key Files
-- `src/public/index.html`: The main landing page.
-- `src/public/finn.jpg`: Image asset.
+- `src/public/index.html`: The main landing page (Mobile-First).
+- `src/public/app/index.html`: The entry point for the private/protected application (Cryptid Console).
+- `styleguide/styleguide.toml`: The central configuration for the Design System.
 - `src/public/auth.js`: Handles MSAL configuration and login logic.
-- `src/public/app/index.html`: The entry point for the private/protected application.
 - `.github/workflows/...`: CI/CD pipeline definition.
 
 ## Folder Structure
@@ -55,23 +62,24 @@ The Azure resources were created manually in the Azure Portal.
 │   └───workflows/
 │       └───azure-static-web-apps-mango-pebble-0e55b260f.yml
 ├───docs/
-│   └───architecture/
-│       ├───20260103-auth-private-section/
-│       │   ├───01_ARCHITECTURE_OVERVIEW.md
-│       │   ├───02_COMPONENTS.md
-│       │   └───03_DEPLOYMENT_STRATEGY.md
-│       ├───20251225-private-section/
-│       │   ├───01_ARCHITECTURE_OVERVIEW.md
-│       │   ├───02_COMPONENTS.md
-│       │   └───03_DIAGRAM.md
-│       └───20251227-user-authentication/
-│           ├───01_ARCHITECTURE_OVERVIEW.md
-│           └───02_COMPONENTS.md
-└───src/
-    └───public/
-        ├───app/
-        │   └───index.html
-        ├───auth.js
-        ├───finn.jpg
-        └───index.html
+│   ├───architecture/
+│   │   ├───20260103-auth-private-section/
+│   │   └───...
+│   └───features/
+│       ├───apply-cryptid-console-to-app/
+│       ├───cryptid-console-dashboard/
+│       ├───implement-cryptid-design/
+│       └───mobile-optimization-landing-page/
+├───src/
+│   └───public/
+│       ├───app/
+│       │   └───index.html
+│       ├───auth.js
+│       ├───finn.jpg
+│       └───index.html
+├───styleguide/
+│   ├───styleguide.html
+│   └───styleguide.toml
+└───test/
+    └───validate_app_html.js
 ```
