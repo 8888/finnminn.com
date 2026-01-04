@@ -201,13 +201,25 @@
             const output = document.getElementById("token-output");
             const status = document.getElementById("copy-status");
             
-            output.select();
-            document.execCommand('copy');
-            
-            status.innerText = "> Copied to clipboard";
-            setTimeout(() => {
-                status.innerText = "";
-            }, 2000);
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(output.value).then(() => {
+                    status.innerText = "> Copied to clipboard";
+                    setTimeout(() => {
+                        status.innerText = "";
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    status.innerText = "> Copy failed";
+                });
+            } else {
+                // Fallback for older browsers
+                output.select();
+                document.execCommand('copy');
+                status.innerText = "> Copied to clipboard";
+                setTimeout(() => {
+                    status.innerText = "";
+                }, 2000);
+            }
         }
     </script>
 </body>
