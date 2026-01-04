@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD // FINN</title>
+    <title>CONSOLE // FINNMINN</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,52 +45,113 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@3.30.0/lib/msal-browser.min.js"></script>
     <script src="/auth.js"></script>
 </head>
-<body class="bg-void text-bone font-body min-h-[100dvh] w-full flex items-center justify-center p-4">
+<body class="bg-void text-bone font-body min-h-[100dvh] w-full flex flex-col">
 
-    <!-- Main Card -->
-    <div class="bg-crypt border-2 border-gloom shadow-hard-void w-full max-w-lg p-8 relative">
-        
-        <!-- Status Indicator (Top Right) -->
-        <div class="absolute top-4 right-4 flex items-center gap-2">
-            <div class="w-2 h-2 bg-toxic rounded-none animate-pulse"></div>
-            <span class="text-xs text-toxic uppercase tracking-widest">Online</span>
-        </div>
-
-        <!-- Loading State -->
-        <div id="loading" class="text-center py-12">
+    <!-- Loading State -->
+    <div id="loading" class="fixed inset-0 z-[100] bg-void flex items-center justify-center p-4">
+        <div class="text-center">
             <div class="text-4xl text-toxic font-heading uppercase animate-pulse mb-4">
                 > Authenticating...
             </div>
             <p class="text-ash text-sm uppercase tracking-widest">Establishing secure uplink</p>
         </div>
+    </div>
 
-        <!-- Protected Content -->
-        <div id="content" style="display:none">
-            <!-- Header -->
-            <div class="border-b-2 border-radical pb-4 mb-6">
-                <h1 class="text-4xl text-radical font-heading uppercase">Private Dashboard</h1>
+    <!-- Protected Content (Dashboard Shell) -->
+    <div id="content" style="display:none" class="flex-1 flex flex-col">
+        
+        <!-- Top Menu Bar -->
+        <nav class="bg-crypt border-b-2 border-gloom h-16 flex items-center justify-between px-6 sticky top-0 z-50">
+            <div class="flex items-center gap-4">
+                <span class="text-radical font-heading text-2xl tracking-tighter uppercase md:text-3xl">Finnminn // Console</span>
             </div>
-
-            <p class="text-ash mb-6">
-                Welcome back, <strong id="username" class="text-toxic">User</strong>.
-                <br>Security clearance verified.
-            </p>
-
-            <!-- Actions -->
-            <div class="space-y-4">
-                <button onclick="callApiExample()" class="w-full block bg-radical text-void border-2 border-radical font-bold uppercase py-3 px-6 tracking-wider hover:bg-void hover:text-radical hover:shadow-hard-radical hover:-translate-y-1 transition-all duration-100">
-                    Test API Auth Token
-                </button>
-                
-                <button onclick="signOut()" class="w-full block bg-transparent text-ash border-2 border-gloom font-bold uppercase py-3 px-6 tracking-wider hover:text-spirit hover:border-spirit hover:shadow-hard-spirit hover:-translate-y-1 transition-all duration-100">
+            
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex flex-col items-end leading-none">
+                    <span class="text-[10px] text-ash uppercase tracking-widest mb-1">Authenticated User</span>
+                    <span id="username" class="text-toxic text-sm">User</span>
+                </div>
+                <button onclick="signOut()" class="border-2 border-radical text-radical px-4 py-1 text-xs font-bold uppercase hover:bg-radical hover:text-void transition-all">
                     Sign Out
                 </button>
             </div>
+        </nav>
 
-            <p class="mt-8 text-xs text-gloom uppercase tracking-widest text-center">
-                System Version 2.0.4 // Cryptid Console
-            </p>
-        </div>
+        <!-- Main Dashboard Area -->
+        <main class="flex-1 p-6 max-w-6xl mx-auto w-full">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- App Launcher Section -->
+                <div class="md:col-span-2 space-y-6">
+                    <div class="flex items-center gap-3 border-b-2 border-gloom pb-2">
+                        <span class="text-toxic font-heading text-3xl uppercase">Launcher.exe</span>
+                        <div class="h-1 flex-1 bg-gloom opacity-20"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- N-DIM -->
+                        <a href="https://n-dim.finnminn.com" target="_blank" class="block bg-crypt border-2 border-gloom p-6 transition-all hover:border-toxic hover:shadow-hard-toxic group hover:-translate-y-1">
+                            <div class="text-4xl mb-4 group-hover:text-toxic transition-colors text-ash">⬢</div>
+                            <h3 class="font-heading text-3xl uppercase text-bone mb-1">N-DIM</h3>
+                            <p class="text-ash text-xs uppercase leading-relaxed">Multi-dimensional data visualization interface.</p>
+                            <div class="mt-4 text-[10px] text-toxic opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest">
+                                Launch Uplink >
+                            </div>
+                        </a>
+
+                        <!-- PIP -->
+                        <a href="https://pip.finnminn.com" target="_blank" class="block bg-crypt border-2 border-gloom p-6 transition-all hover:border-toxic hover:shadow-hard-toxic group hover:-translate-y-1">
+                            <div class="text-4xl mb-4 group-hover:text-toxic transition-colors text-ash">⚡</div>
+                            <h3 class="font-heading text-3xl uppercase text-bone mb-1">PIP</h3>
+                            <p class="text-ash text-xs uppercase leading-relaxed">Personal information processor & utility toolkit.</p>
+                            <div class="mt-4 text-[10px] text-toxic opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest">
+                                Launch Uplink >
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tool Box Sidebar -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 border-b-2 border-gloom pb-2">
+                        <span class="text-spirit font-heading text-3xl uppercase">Tools.sys</span>
+                        <div class="h-1 flex-1 bg-gloom opacity-20"></div>
+                    </div>
+
+                    <div class="bg-crypt border-2 border-gloom p-6 shadow-hard-void">
+                        <h4 class="text-xs text-ash uppercase tracking-widest mb-4">Identity & Auth</h4>
+                        
+                        <button id="btn-get-token" onclick="displayToken()" class="w-full bg-radical text-void border-2 border-radical font-bold uppercase py-2 px-4 text-sm tracking-wider hover:bg-void hover:text-radical hover:shadow-hard-radical transition-all active:translate-y-1 mb-4">
+                            Get API Token
+                        </button>
+
+                        <div id="token-viewer" class="hidden space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] text-toxic uppercase">Bearer Token:</span>
+                                <button onclick="copyToken()" class="text-[10px] text-spirit hover:underline uppercase">Copy</button>
+                            </div>
+                            <textarea id="token-output" readonly class="w-full bg-void border-2 border-gloom text-toxic p-2 font-mono text-[10px] h-32 resize-none focus:outline-none scrollbar-hide"></textarea>
+                            <div id="copy-status" class="text-[10px] text-spirit text-right h-4 uppercase italic"></div>
+                        </div>
+                    </div>
+
+                    <!-- System Status (Decoration) -->
+                    <div class="border-2 border-gloom p-4 text-[10px] space-y-1 text-ash uppercase">
+                        <div class="flex justify-between"><span>Status:</span> <span class="text-toxic">Online</span></div>
+                        <div class="flex justify-between"><span>Encryption:</span> <span class="text-toxic">AES-256</span></div>
+                        <div class="flex justify-between"><span>Region:</span> <span>US-EAST-01</span></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <footer class="mt-12 pt-6 border-t-2 border-gloom/30 text-center">
+                <p class="text-xs text-ash uppercase tracking-widest">
+                    System Version 2.1.0 // Cryptid Console // 2026.01.03
+                </p>
+            </footer>
+        </main>
 
     </div>
 
@@ -113,19 +174,40 @@
                 const username = document.getElementById("username");
 
                 if (loading) loading.style.display = "none";
-                if (content) content.style.display = "block";
+                if (content) content.style.display = "flex";
                 if (username) username.innerText = user.name || user.username;
             }
         })();
 
-        async function callApiExample() {
+        async function displayToken() {
+            const btn = document.getElementById("btn-get-token");
+            const viewer = document.getElementById("token-viewer");
+            const output = document.getElementById("token-output");
+
+            btn.innerText = "REFRESHING...";
             const token = await getToken();
+            
             if (token) {
-                console.log("Current Access Token:", token);
-                alert("Access Token retrieved! Check console.");
+                output.value = token;
+                viewer.classList.remove("hidden");
+                btn.innerText = "REFRESH TOKEN";
             } else {
                 alert("Could not retrieve token.");
+                btn.innerText = "GET API TOKEN";
             }
+        }
+
+        function copyToken() {
+            const output = document.getElementById("token-output");
+            const status = document.getElementById("copy-status");
+            
+            output.select();
+            document.execCommand('copy');
+            
+            status.innerText = "> Copied to clipboard";
+            setTimeout(() => {
+                status.innerText = "";
+            }, 2000);
         }
     </script>
 </body>

@@ -21,5 +21,13 @@ This repository hosts the source code and documentation for `finnminn.com`, a st
     - Redesigned the private dashboard UI.
 - **Documentation:** [Apply Cryptid Console Feature](./features/apply-cryptid-console-to-app/implementation/README.md)
 
+### Cryptid Console Dashboard (Implemented Jan 2026)
+- **Goal:** Expand the private app into a functional dashboard with navigation and utility tools.
+- **Key Changes:**
+    - New dashboard layout with sticky top navigation.
+    - App Launcher grid for external tools.
+    - Utility Tool Box with API Token viewer.
+- **Documentation:** [Cryptid Console Dashboard Feature](./features/cryptid-console-dashboard/implementation/README.md)
+
 ## Architecture
 See [Architecture Docs](./architecture/) for detailed system design.
