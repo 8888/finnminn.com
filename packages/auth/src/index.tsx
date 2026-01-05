@@ -1,5 +1,5 @@
 import React from "react";
-import { PublicClientApplication, EventType } from "@azure/msal-browser";
+import { PublicClientApplication, EventType, EventMessage } from "@azure/msal-browser";
 import { MsalProvider, useMsal, useIsAuthenticated } from "@azure/msal-react";
 
 export const msalConfig = {
@@ -23,9 +23,9 @@ if (typeof window !== "undefined") {
             msalInstance.setActiveAccount(accounts[0]);
         }
         
-        msalInstance.addEventCallback((event: any) => {
-            if (event.eventType === EventType.LOGIN_SUCCESS && event.payload.account) {
-                const account = event.payload.account;
+        msalInstance.addEventCallback((event: EventMessage) => {
+            if (event.eventType === EventType.LOGIN_SUCCESS && event.payload && (event.payload as any).account) {
+                const account = (event.payload as any).account;
                 msalInstance.setActiveAccount(account);
             }
         });
