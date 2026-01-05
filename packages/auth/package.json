@@ -1,0 +1,17 @@
+{
+  "name": "@finnminn/auth",
+  "version": "0.0.0",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/msal-browser": "^3.10.0",
+    "@azure/msal-react": "^2.0.12",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
+  }
+}
