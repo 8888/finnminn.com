@@ -15,7 +15,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 - *Future*: `apps/pip`, `apps/n-dim`.
 
 #### Shared Packages (`packages/`)
-- `@finnminn/ui`: Shared React component library implementing the "Cryptid Console" design system.
+- `@finnminn/ui`: Shared React component library implementing the "Cryptid Console" design system. Integrated with **Storybook** for component documentation and testing.
 - `@finnminn/auth`: Shared authentication logic and React hooks for MSAL integration.
 - `@finnminn/config`: Centralized configuration for Tailwind, TypeScript, and ESLint.
 
@@ -27,10 +27,15 @@ This project contains the source code and configuration for the `finnminn.com` a
 ## Design System: "Cryptid Console"
 - **Aesthetic:** A fusion of 8-bit nostalgia, gothic aesthetics, and terminal-style retro-tech.
 - **Source of Truth:** `@finnminn/config/tailwind.config.js` (tokens) and `@finnminn/ui` (components).
+- **Component Documentation:** Visualized via **Storybook** (`npm run storybook` from root).
 - **Core Visuals:**
     - Background: `void` (#0d0208).
     - Typography: Headers (`VT323`), Body (`Space Mono`).
     - Accents: Radical Pink (#ff0055), Toxic Green (#00ff41), Spirit Cyan (#00f2ff).
+
+## Development Guidelines
+- **UI Development:** Always update or add **Storybook stories** in `packages/ui/src/stories` when creating or modifying components in `@finnminn/ui`.
+- **Testing:** Ensure changes are verified visually in Storybook before committing.
 
 ## Deployment (CI/CD)
 Automated via GitHub Actions.
