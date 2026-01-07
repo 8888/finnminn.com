@@ -12,3 +12,6 @@ pnpm-debug.log*
 .idea
 .vscode
 coverage
+
+*storybook.log
+storybook-static
