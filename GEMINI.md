@@ -11,7 +11,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 
 ### Key Workspaces
 #### Applications (`apps/`)
-- `apps/web`: The root landing page and suite directory (`finnminn.com`).
+- `apps/web`: The root landing page and suite directory (`finnminn.com`). Fully integrated with `@finnminn/ui` as the reference implementation for the PixelGrim design system.
 - *Future*: `apps/pip`, `apps/n-dim`.
 
 #### Shared Packages (`packages/`)
@@ -29,7 +29,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 - **Source of Truth:** `packages/ui/styleguide.toml` (Design tokens & logic) and `packages/config/tailwind.config.js` (Implementation).
 - **Component Documentation:** Visualized via **Storybook** (`npm run storybook` from root).
 - **Core Visuals:**
-    - **Background:** Grape Charcoal `void` (#120B18) with animated gradients and noise texture.
+    - **Background:** Grape Charcoal `void` (#120B18) with animated gradients (`.bg-magic-void`) and noise texture.
     - **Typography:** Headers (`VT323` / `Press Start 2P`), Body (`Space Mono`).
     - **Atmosphere:** Mana Motes (floating fireflies), CRT Vignette, and single-burst Glitch Text on hover.
     - **Palette:**
@@ -62,7 +62,10 @@ Automated via GitHub Actions.
 │           └───stories/     # Storybook documentation
 ├───docs/
 │   ├───architecture/        # Design docs and migration plans
-│   └───legacy-styleguide/   # Archive of original TOML spec
+│   ├───features/            # Implementation details for key features
+│   ├───guides/              # Onboarding and setup guides
+│   ├───legacy-styleguide/   # Archive of original TOML spec
+│   └───USER_STORIES.md      # Product roadmap and acceptance criteria
 ├───package.json             # Root workspace config
 ├───turbo.json               # Turborepo task pipeline
 └───tsconfig.json            # Global TypeScript references
