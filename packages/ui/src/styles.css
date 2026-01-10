@@ -1,5 +1,165 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&family=Press+Start+2P&family=Fira+Code:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body text-text-body;
+    background-color: #120B18;
+    image-rendering: pixelated;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-header text-text-heading uppercase tracking-widest;
+  }
+}
+
+@layer utilities {
+  .bg-magic-void {
+    background: radial-gradient(circle at 50% 50%, #2D1B36 0%, #120B18 100%),
+                radial-gradient(circle at 0% 100%, #1a0b14 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, #0d0208 0%, transparent 50%);
+    background-size: 200% 200%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Fireflies / Mana Motes */
+  .firefly {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #05FFA1;
+    box-shadow: 0 0 4px #05FFA1;
+    opacity: 0;
+    animation: firefly-float 6s ease-in-out infinite;
+  }
+
+  .firefly:nth-child(2) { left: 10%; animation-duration: 9s; animation-delay: 1s; background-color: #7D5FFF; box-shadow: 0 0 4px #7D5FFF; }
+  .firefly:nth-child(3) { left: 20%; animation-duration: 7s; animation-delay: 2s; background-color: #FF2A6D; box-shadow: 0 0 4px #FF2A6D; }
+  .firefly:nth-child(4) { left: 30%; animation-duration: 11s; animation-delay: 0s; }
+  .firefly:nth-child(5) { left: 40%; animation-duration: 8s; animation-delay: 3s; background-color: #7D5FFF; box-shadow: 0 0 4px #7D5FFF; }
+  .firefly:nth-child(6) { left: 50%; animation-duration: 6s; animation-delay: 5s; background-color: #FF2A6D; box-shadow: 0 0 4px #FF2A6D; }
+  .firefly:nth-child(7) { left: 60%; animation-duration: 12s; animation-delay: 1s; }
+  .firefly:nth-child(8) { left: 70%; animation-duration: 9s; animation-delay: 4s; background-color: #7D5FFF; box-shadow: 0 0 4px #7D5FFF; }
+  .firefly:nth-child(9) { left: 80%; animation-duration: 7s; animation-delay: 2s; background-color: #FF2A6D; box-shadow: 0 0 4px #FF2A6D; }
+  .firefly:nth-child(10) { left: 90%; animation-duration: 10s; animation-delay: 0s; }
+  .firefly:nth-child(11) { left: 15%; animation-duration: 8s; animation-delay: 6s; background-color: #7D5FFF; box-shadow: 0 0 4px #7D5FFF; }
+  .firefly:nth-child(12) { left: 85%; animation-duration: 6s; animation-delay: 3s; background-color: #FF2A6D; box-shadow: 0 0 4px #FF2A6D; }
+
+  @keyframes firefly-float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  .pixel-shadow {
+    text-shadow: 2px 2px 0px #000000;
+  }
+
+  .glow-vampire {
+    text-shadow: 0 0 5px #FF2A6D, 0 0 10px #FF2A6D;
+  }
+
+  .glow-ectoplasm {
+    text-shadow: 0 0 5px #05FFA1, 0 0 10px #05FFA1;
+  }
+
+  .glow-witchcraft {
+    text-shadow: 0 0 5px #7D5FFF, 0 0 10px #7D5FFF;
+  }
+
+  .scanlines {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanlines::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 10;
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+  }
+
+  /* CRT Vignette - The "Curved Screen" feel */
+  body::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: radial-gradient(circle, transparent 70%, #0d0208 100%);
+    z-index: 9000; /* High z-index but below cursor */
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  /* Glitch Effect - Refined Burst */
+  @keyframes glitch-anim-1 {
+    0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); opacity: 0; }
+    10% { opacity: 1; }
+    20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+    40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+    60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+    80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+    90% { opacity: 1; }
+    100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); opacity: 0; }
+  }
+
+  @keyframes glitch-anim-2 {
+    0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); opacity: 0; }
+    10% { opacity: 1; }
+    20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
+    40% { clip-path: inset(30% 0 20% 0); transform: translate(2px, 1px); }
+    60% { clip-path: inset(10% 0 80% 0); transform: translate(-1px, -2px); }
+    80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 2px); }
+    90% { opacity: 1; }
+    100% { clip-path: inset(20% 0 70% 0); transform: translate(-2px, -1px); opacity: 0; }
+  }
+
+  .glitch-hover {
+    position: relative;
+  }
+
+  .glitch-hover:hover::before,
+  .glitch-hover:hover::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .glitch-hover:hover::before {
+    left: 2px;
+    text-shadow: -1px 0 #FF2A6D;
+    animation: glitch-anim-1 0.25s 1 linear forwards;
+  }
+
+  .glitch-hover:hover::after {
+    left: -2px;
+    text-shadow: 2px 0 #05FFA1;
+    animation: glitch-anim-2 0.25s 1 linear forwards;
+  }
+}

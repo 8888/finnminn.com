@@ -1,0 +1,158 @@
+# PixelGrim Design System Source of Truth
+# Created by: Lead Product Designer & Frontend Architect (Gemini)
+# Date: 2026-01-10
+
+[metadata]
+theme_name = "PixelGrim"
+version = "1.2.0"
+vibe = "Whimsical Gothic Tech (Enchanted CRT)"
+status = "Draft"
+authors = ["Lee Costello", "Gemini Architect"]
+
+[design.inspiration]
+core_pillars = [
+    "8-bit Nostalgia", 
+    "Gothic Supernatural (Vampires, Bats, Magic)", 
+    "Hacker/Terminal Utility", 
+    "Whimsical Energy"
+]
+visual_anchors = [
+    "Castlevania UI meets Cyberpunk 2077",
+    "Tamagotchi interfaces",
+    "Neon signs in a graveyard",
+    "CRT Monitors displaying spellbooks"
+]
+keywords = ["Pixelated", "Neon", "Diegetic", "Spooky-Cute", "Immersive", "Chunky"]
+
+[design.intent]
+emotional_impact = "Empowered, Playful, Secretive."
+brand_voice = "The user is a 'Tech-Necromancer'. The UI should feel like a powerful, magical artifact found in an abandoned arcade. It takes itself seriously enough to be functional, but winks at the user with cute animations and retro charm."
+user_goals = [
+    "Efficiently manage data and navigate complex dashboards.",
+    "Feel immersed in a customized, private digital lair.",
+    "Experience delight through micro-interactions (hover, click, load)."
+]
+target_audience = "Software Developers with a taste for the retro-macabre."
+
+[theme.colors]
+description = "A deep, textured void punctuated by spectral, juicy neons."
+
+[theme.colors.background]
+void = "#120B18"       # Deep Grape Charcoal (The Abyss 2.0)
+surface = "#221528"    # Lighter potion purple (Card backgrounds)
+overlay = "#2D1B36"    # Modals / Popovers
+scanline = "rgba(18, 16, 16, 0.5)" # CRT effect overlay
+
+[theme.colors.primary]
+name = "Witchcraft"
+hex = "#7D5FFF"        # Electric Indigo. Vibrating magic.
+usage = "Primary actions, main CTA, focus rings."
+mood = "Mystical, royal, empowered."
+
+[theme.colors.secondary]
+name = "Ectoplasm"
+hex = "#05FFA1"        # Spectral Mint. Ghostly and spiritual.
+usage = "Secondary actions, success states, system 'ready' indicators."
+mood = "Retro hacker, toxic sludge."
+
+[theme.colors.destructive]
+name = "Vampire Kiss"
+hex = "#FF2A6D"        # Radical Raspberry. Juicy and warm.
+usage = "Destructive actions, critical alerts, heart icons."
+mood = "Aggressive, dangerous, punk rock."
+
+[theme.colors.accent]
+name = "Vampire Kiss"  # Kept as accent for non-destructive highlights
+hex = "#FF2A6D"
+usage = "Highlights, badges, special effects."
+
+[theme.colors.warning]
+name = "Cursed Gold"
+hex = "#FFB800"
+usage = "Warning states, cautious alerts."
+mood = "Ancient treasure, decay."
+
+[theme.colors.text]
+heading = "#ffffff"    # Pure white with text-shadow glow
+body = "#E0DCE6"       # Slightly lavender-tinted grey for harmony
+muted = "#9586A5"      # Dusty purple grey (Ghostly grey)
+terminal = "#05FFA1"   # Matches Ectoplasm
+
+[theme.typography]
+primary_font = "'Press Start 2P', 'VT323', cursive" # Headers, prominent labels
+secondary_font = "'Space Mono', 'Fira Code', monospace" # Body, data, dashboards
+
+[theme.typography.scale]
+h1 = "text-4xl md:text-6xl tracking-widest uppercase pixel-shadow"
+h2 = "text-2xl md:text-4xl tracking-wide uppercase"
+body = "text-base md:text-lg leading-relaxed"
+code = "text-sm leading-tight"
+
+[theme.typography.rules]
+uppercase_headers = true
+text_shadow_glow = "0 0 5px {color}, 0 0 10px {color}" # applied to headers
+
+[components.rules]
+border_radius = "0px" # Sharp edges are critical for the 8-bit feel.
+border_width = "2px"  # Chunky, deliberate borders.
+border_style = "solid"
+box_shadow = "4px 4px 0px 0px #000000" # Hard edge drop shadow (retro depth).
+
+[components.layout]
+density = "High" # Dashboard optimized.
+spacing_unit = "0.5rem" # 8px grid (pixel perfect).
+container_width = "max-w-7xl"
+glassmorphism = false # REJECTED. Use solid opacity or dithered transparency instead.
+
+[components.atmosphere]
+mana_motes = "Floating 4px pixel squares that drift vertically. Color cycles between Ectoplasm, Witchcraft, and Vampire. High density (12+ instances) for an immersive effect."
+mana_motes_implementation = "Absolute positioned divs with 'firefly' class. Animation: 'firefly-float'. Varying animation-duration and left-position via nth-child selectors."
+crt_vignette = "A subtle radial gradient overlay (0.6 opacity) that darkens screen edges starting from 70% radial spread, simulating a curved monitor tube."
+glitch_text = "H1 headers that burst into RGB-shifted fragments on hover. The glitch runs for a single quick iteration (0.25s) and then vanishes to maintain perfect legibility."
+
+[components.interactions]
+hover_state = "Transform: translate(-2px, -2px); Box-shadow: 6px 6px 0px 0px {color}."
+active_state = "Transform: translate(2px, 2px); Box-shadow: 0px 0px 0px 0px;"
+loading_state = "Blinking cursor '_' or pixelated hourglass/bat spinning."
+cursor = "Default cursor is used to maintain precision, enhanced by the surrounding atmospheric effects."
+scroll = "Custom scrollbars: thick, blocky thumb, contrasting track."
+
+[components.feedback]
+success = "Green text, 'System Operational' sound/text."
+error = "Red/Pink text, screen shake animation, 'Fatal Error' visual glitch."
+notification = "Slide-in toast from bottom-right, styled like a retro game achievement."
+
+[accessibility.standards]
+contrast_ratio = "AA (4.5:1) minimum for text."
+focus_indicators = "Thick, dashed outline in 'Witchcraft' purple or 'Vampire Kiss' pink."
+reduced_motion = "Respect user system preference to disable CRT flicker, glitch, and floating effects."
+screen_readers = "Ensure all diegetic UI (ASCII art, decorative borders) is hidden via aria-hidden='true'."
+
+[implementation.css_variables]
+# To be generated in Tailwind config
+--color-void = "#120B18"
+--color-vampire = "#FF2A6D"
+--color-slime = "#05FFA1"
+--color-magic = "#7D5FFF"
+--font-header = "'VT323', monospace"
+--font-body = "'Space Mono', monospace"
+
+[components.feedback]
+success = "Green text, 'System Operational' sound/text."
+error = "Red/Pink text, screen shake animation, 'Fatal Error' visual glitch."
+notification = "Slide-in toast from bottom-right, styled like a retro game achievement."
+
+[accessibility.standards]
+contrast_ratio = "AA (4.5:1) minimum for text."
+focus_indicators = "Thick, dashed outline in 'Witchcraft' purple or 'Vampire Kiss' pink."
+reduced_motion = "Respect user system preference to disable CRT flicker and shake effects."
+screen_readers = "Ensure all diegetic UI (ASCII art, decorative borders) is hidden via aria-hidden='true'."
+
+[implementation.css_variables]
+# To be generated in Tailwind config
+--color-void = "#120B18"
+--color-vampire = "#FF2A6D"
+--color-slime = "#05FFA1"
+--color-magic = "#7D5FFF"
+--font-header = "'VT323', monospace"
+--font-body = "'Space Mono', monospace"

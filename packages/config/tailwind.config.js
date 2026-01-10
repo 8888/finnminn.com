@@ -3,25 +3,27 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        void: "#0d0208",
-        crypt: "#1a0b14",
-        bone: "#fbe9d0",
-        ash: "#8a7d85",
-        radical: "#ff0055",
-        toxic: "#00ff41",
-        spirit: "#00f2ff",
-        gloom: "#4b0082",
-        pip: "#58a6ff",
+        void: "#120B18",      // Deep Grape Charcoal
+        surface: "#221528",   // Lighter potion purple
+        overlay: "#2D1B36",
+        vampire: "#FF2A6D",   // Radical Raspberry
+        ectoplasm: "#05FFA1", // Spectral Mint
+        witchcraft: "#7D5FFF", // Electric Indigo
+        gold: "#FFB800",       // Cursed Gold
+        "text-heading": "#ffffff",
+        "text-body": "#E0DCE6",
+        "text-muted": "#9586A5",
       },
       fontFamily: {
-        pixel: ["'VT323'", "monospace"],
-        mono: ["'Space Mono'", "monospace"],
+        header: ["'VT323'", "'Press Start 2P'", "monospace"], // Switched from cursive to monospace
+        body: ["'Space Mono'", "'Fira Code'", "monospace"],
       },
-      boxShadow: {
-        "hard-pink": "4px 4px 0px 0px #ff0055",
-        "hard-green": "4px 4px 0px 0px #00ff41",
-        "hard-void": "4px 4px 0px 0px #0d0208",
-      },
+      boxShadow: ({ theme }) => ({
+        pixel: "4px 4px 0px 0px #000000",
+        "pixel-vampire": `4px 4px 0px 0px ${theme('colors.vampire')}`,
+        "pixel-ectoplasm": `4px 4px 0px 0px ${theme('colors.ectoplasm')}`,
+        "pixel-witchcraft": `4px 4px 0px 0px ${theme('colors.witchcraft')}`,
+      }),
     },
   },
   plugins: [],
