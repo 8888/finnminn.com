@@ -162,4 +162,12 @@
     text-shadow: 2px 0 #05FFA1;
     animation: glitch-anim-2 0.25s 1 linear forwards;
   }
+
+  .animate-glitch-1 {
+    animation: glitch-anim-1 0.25s 1 linear forwards;
+  }
+
+  .animate-glitch-2 {
+    animation: glitch-anim-2 0.25s 1 linear forwards;
+  }
 }
