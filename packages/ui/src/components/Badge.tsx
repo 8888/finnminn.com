@@ -7,7 +7,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 export const Badge = ({ children, className, variant = "info", ...props }: BadgeProps) => {
   const variants = {
     success: "bg-ectoplasm text-void border-ectoplasm",
-    warning: "bg-yellow-500 text-void border-yellow-500", // Need to add yellow token later if needed, using tailwind default for now
+    warning: "bg-gold text-void border-gold",
     error: "bg-vampire text-void border-vampire",
     info: "bg-witchcraft text-void border-witchcraft",
   };

@@ -66,6 +66,12 @@ name = "Vampire Kiss"  # Kept as accent for non-destructive highlights
 hex = "#FF2A6D"
 usage = "Highlights, badges, special effects."
 
+[theme.colors.warning]
+name = "Cursed Gold"
+hex = "#FFB800"
+usage = "Warning states, cautious alerts."
+mood = "Ancient treasure, decay."
+
 [theme.colors.text]
 heading = "#ffffff"    # Pure white with text-shadow glow
 body = "#E0DCE6"       # Slightly lavender-tinted grey for harmony
