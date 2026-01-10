@@ -1,10 +1,12 @@
 import { Button, Card, Terminal, Typography } from "@finnminn/ui";
 import { useAuth, AuthProvider } from "@finnminn/auth";
 
+const FIREFLIES = Array.from({ length: 12 }, (_, i) => i);
+
 const Atmosphere = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-       {[...Array(12)].map((_, i) => (
+       {FIREFLIES.map((i) => (
          <div key={i} className="firefly" />
        ))}
     </div>
