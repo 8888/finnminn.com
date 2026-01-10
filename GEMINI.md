@@ -24,18 +24,22 @@ This project contains the source code and configuration for the `finnminn.com` a
 - **Implementation:** React Context (`AuthProvider`) and hooks (`useAuth`) provided by `@finnminn/auth`.
 - **Strategy:** Single Page Application (SPA) flow with silent token acquisition and redirect-based login.
 
-## Design System: "Cryptid Console"
-- **Aesthetic:** A fusion of 8-bit nostalgia, gothic aesthetics, and terminal-style retro-tech.
-- **Source of Truth:** `@finnminn/config/tailwind.config.js` (tokens) and `@finnminn/ui` (components).
+## Design System: "PixelGrim"
+- **Aesthetic:** "Whimsical Gothic Tech" — an enchanted CRT experience blending 8-bit nostalgia, ghostly magic, and terminal utility.
+- **Source of Truth:** `packages/ui/styleguide.toml` (Design tokens & logic) and `packages/config/tailwind.config.js` (Implementation).
 - **Component Documentation:** Visualized via **Storybook** (`npm run storybook` from root).
 - **Core Visuals:**
-    - Background: `void` (#0d0208).
-    - Typography: Headers (`VT323`), Body (`Space Mono`).
-    - Accents: Radical Pink (#ff0055), Toxic Green (#00ff41), Spirit Cyan (#00f2ff).
+    - **Background:** Grape Charcoal `void` (#120B18) with animated gradients and noise texture.
+    - **Typography:** Headers (`VT323` / `Press Start 2P`), Body (`Space Mono`).
+    - **Atmosphere:** Mana Motes (floating fireflies), CRT Vignette, and single-burst Glitch Text on hover.
+    - **Palette:**
+        - Primary: Witchcraft (#7D5FFF) - Electric Indigo magic.
+        - Secondary: Ectoplasm (#05FFA1) - Spectral Mint system status.
+        - Destructive: Vampire Kiss (#FF2A6D) - Radical Raspberry danger.
 
 ## Development Guidelines
-- **UI Development:** Always update or add **Storybook stories** in `packages/ui/src/stories` when creating or modifying components in `@finnminn/ui`.
-- **Testing:** Ensure changes are verified visually in Storybook before committing.
+- **UI Development:** Components are located in `packages/ui/src/components`. Always update or add **Storybook stories** in `packages/ui/src/stories` when creating or modifying components.
+- **Style Consistency:** Refer to `packages/ui/styleguide.toml` for the "Why" behind design decisions.
 
 ## Deployment (CI/CD)
 Automated via GitHub Actions.
@@ -51,7 +55,11 @@ Automated via GitHub Actions.
 ├───packages/
 │   ├───auth/                # Shared MSAL/Auth logic
 │   ├───config/              # Shared Tailwind/TS/Lint configs
-│   └───ui/                  # Shared React components (Cryptid System)
+│   └───ui/                  # Shared React components (PixelGrim System)
+│       ├───styleguide.toml  # Design Source of Truth
+│       └───src/
+│           ├───components/  # Atomic components (Button, Card, etc.)
+│           └───stories/     # Storybook documentation
 ├───docs/
 │   ├───architecture/        # Design docs and migration plans
 │   └───legacy-styleguide/   # Archive of original TOML spec
