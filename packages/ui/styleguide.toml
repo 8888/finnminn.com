@@ -101,6 +101,8 @@ glassmorphism = false # REJECTED. Use solid opacity or dithered transparency ins
 [components.atmosphere]
 mana_motes = "Floating 4px pixel squares that drift vertically. Color cycles between Ectoplasm, Witchcraft, and Vampire. Used to add depth to the Void background."
 mana_motes_implementation = "Absolute positioned divs with 'firefly' class. Animation: 'firefly-float'. Varying animation-duration and left-position via nth-child selectors."
+crt_vignette = "A heavy radial gradient overlay that darkens screen edges, simulating a curved monitor tube."
+glitch_text = "H1 headers that burst into RGB-shifted fragments on hover. The glitch runs for 3 cycles and then settles back to static text to maintain legibility."
 
 [components.interactions]
 hover_state = "Transform: translate(-2px, -2px); Box-shadow: 6px 6px 0px 0px {color}."
