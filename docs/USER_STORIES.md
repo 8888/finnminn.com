@@ -147,3 +147,17 @@
     - Tiles adhere to the `components.app_tile` design specs (hover states, borders, fonts).
 
 5.  **Design Compliance:** All elements strictly follow the "Cryptid Console" design system (Colors: Void, Radical, Toxic, Spirit; Fonts: VT323, Space Mono; Hard shadows).
+
+## User Story 7: Apply PixelGrim Design System to Web App
+
+**As a** Senior Frontend Developer,
+**I want** to refactor `apps/web` to utilize the `@finnminn/ui` component library and "PixelGrim" design system
+**So that** the application has a consistent visual identity, reduces code duplication, and leverages centralized design updates.
+
+**Acceptance Criteria:**
+
+1.  `apps/web` imports and utilizes `Button`, `Card`, `Terminal` and `Typography` from `@finnminn/ui` where applicable.
+2.  Ad-hoc styles in `apps/web/src/index.css` and `apps/web/src/App.tsx` are replaced with design system components or utility classes from `@finnminn/config`.
+3.  The application background and global typography match `packages/ui/styleguide.toml` (Grape Charcoal background, VT323/Space Mono fonts).
+4.  Visual atmosphere elements (Mana Motes, CRT Vignette) are implemented if supported by `@finnminn/ui` or added locally matching the styleguide.
+5.  The `apps/web` application builds successfully.
