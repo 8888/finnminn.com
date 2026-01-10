@@ -29,5 +29,13 @@ This repository hosts the source code and documentation for `finnminn.com`, a st
     - Utility Tool Box with API Token viewer.
 - **Documentation:** [Cryptid Console Dashboard Feature](./features/cryptid-console-dashboard/implementation/README.md)
 
+### PixelGrim Design System Integration (Implemented Jan 2026)
+- **Goal:** Refactor the public web app to fully utilize the `@finnminn/ui` shared component library.
+- **Key Changes:**
+    - Replaced local CSS with shared design tokens.
+    - Integrated shared `Button`, `Card`, and `Terminal` components.
+    - Added global atmospheric effects (Mana Motes, CRT Vignette).
+- **Documentation:** [PixelGrim Integration Feature](./features/apply-pixelgrim-design-system/implementation/README.md)
+
 ## Architecture
 See [Architecture Docs](./architecture/) for detailed system design.
