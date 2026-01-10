@@ -6,7 +6,8 @@
 
 @layer base {
   body {
-    @apply bg-void text-text-body font-body;
+    @apply font-body text-text-body;
+    background-color: #120B18;
     image-rendering: pixelated;
   }
 
@@ -16,20 +17,74 @@
 }
 
 @layer utilities {
+  .bg-magic-void {
+    background: radial-gradient(circle at 50% 50%, #2D1B36 0%, #120B18 100%),
+                radial-gradient(circle at 0% 100%, #1a0b14 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, #0d0208 0%, transparent 50%);
+    background-size: 200% 200%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Fireflies / Mana Motes */
+  .firefly {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #05FFA1;
+    box-shadow: 0 0 4px #05FFA1;
+    opacity: 0;
+    animation: firefly-float 6s ease-in-out infinite;
+  }
+
+  .firefly:nth-child(2) { left: 20%; animation-duration: 8s; animation-delay: 1s; background-color: #7D5FFF; box-shadow: 0 0 4px #7D5FFF; }
+  .firefly:nth-child(3) { left: 80%; animation-duration: 10s; animation-delay: 2s; background-color: #FF2A6D; box-shadow: 0 0 4px #FF2A6D; }
+  .firefly:nth-child(4) { left: 40%; animation-duration: 7s; animation-delay: 4s; }
+
+  @keyframes firefly-float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
   .pixel-shadow {
     text-shadow: 2px 2px 0px #000000;
   }
 
   .glow-vampire {
-    text-shadow: 0 0 5px #ff0055, 0 0 10px #ff0055;
+    text-shadow: 0 0 5px #FF2A6D, 0 0 10px #FF2A6D;
   }
 
   .glow-ectoplasm {
-    text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+    text-shadow: 0 0 5px #05FFA1, 0 0 10px #05FFA1;
   }
 
   .glow-witchcraft {
-    text-shadow: 0 0 5px #9d46ff, 0 0 10px #9d46ff;
+    text-shadow: 0 0 5px #7D5FFF, 0 0 10px #7D5FFF;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .bg-sparkles {
+    background-image: 
+        radial-gradient(white 15%, transparent 16%),
+        radial-gradient(white 15%, transparent 16%);
+    background-size: 10px 10px;
+    background-position: 0 0, 5px 5px;
   }
 
   .scanlines {

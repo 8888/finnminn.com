@@ -3,15 +3,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        void: "#050510",
-        surface: "#1a1a2e",
-        overlay: "#16213e",
-        vampire: "#ff0055", // Primary
-        ectoplasm: "#00ff41", // Secondary
-        witchcraft: "#9d46ff", // Accent
+        void: "#120B18",      // Deep Grape Charcoal
+        surface: "#221528",   // Lighter potion purple
+        overlay: "#2D1B36",
+        vampire: "#FF2A6D",   // Radical Raspberry
+        ectoplasm: "#05FFA1", // Spectral Mint
+        witchcraft: "#7D5FFF", // Electric Indigo
         "text-heading": "#ffffff",
-        "text-body": "#e0e0e0",
-        "text-muted": "#9494a8",
+        "text-body": "#E0DCE6",
+        "text-muted": "#9586A5",
       },
       fontFamily: {
         header: ["'VT323'", "'Press Start 2P'", "cursive"],
@@ -19,9 +19,9 @@ module.exports = {
       },
       boxShadow: {
         pixel: "4px 4px 0px 0px #000000",
-        "pixel-vampire": "4px 4px 0px 0px #ff0055",
-        "pixel-ectoplasm": "4px 4px 0px 0px #00ff41",
-        "pixel-witchcraft": "4px 4px 0px 0px #9d46ff",
+        "pixel-vampire": "4px 4px 0px 0px #FF2A6D",
+        "pixel-ectoplasm": "4px 4px 0px 0px #05FFA1",
+        "pixel-witchcraft": "4px 4px 0px 0px #7D5FFF",
       },
     },
   },

@@ -13,27 +13,36 @@ type Story = StoryObj;
 
 export const AllComponents: Story = {
   render: () => (
-    <div className="space-y-12 max-w-4xl mx-auto bg-void p-8 min-h-screen">
+    <div className="relative min-h-screen w-full overflow-hidden bg-magic-void p-8 text-text-body">
       
-      <section className="space-y-4">
-        <Typography.H1>PixelGrim UI</Typography.H1>
-        <Typography.Body>
-          The official design system for the Tech-Necromancer.
-          High contrast, 8-bit shadows, and diegetic interactions.
-        </Typography.Body>
-      </section>
+      {/* Fireflies Container */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+      </div>
 
-      <section className="space-y-4">
-        <Typography.H2>Typography</Typography.H2>
-        <div className="border-2 border-text-muted/20 p-6 space-y-4">
-            <Typography.H1>Header 1 (VT323)</Typography.H1>
-            <Typography.H2>Header 2 (VT323)</Typography.H2>
-            <Typography.Body>
-              Body Text (Space Mono). The quick brown fox jumps over the lazy dog.
-              0123456789. !@#$%^&*()_+.
-            </Typography.Body>
-        </div>
-      </section>
+      <div className="relative z-10 space-y-12 max-w-4xl mx-auto">
+        <section className="space-y-4 text-center">
+          <Typography.H1>PixelGrim UI</Typography.H1>
+          <Typography.Body>
+            The official design system for the <span className="text-witchcraft glow-witchcraft">Tech-Necromancer</span>.
+            <br/>High contrast, 8-bit shadows, and diegetic interactions.
+          </Typography.Body>
+        </section>
+
+        <section className="space-y-4">
+          <Typography.H2>Typography</Typography.H2>
+          <div className="border-2 border-text-muted/20 bg-surface/80 backdrop-blur-sm p-6 space-y-4">
+              <Typography.H1>Header 1 (VT323)</Typography.H1>
+              <Typography.H2>Header 2 (VT323)</Typography.H2>
+              <Typography.Body>
+                Body Text (Space Mono). The quick brown fox jumps over the lazy dog.
+                0123456789. !@#$%^&*()_+.
+              </Typography.Body>
+          </div>
+        </section>
 
       <section className="space-y-4">
         <Typography.H2>Buttons & Actions</Typography.H2>
@@ -77,7 +86,18 @@ export const AllComponents: Story = {
             </div>
           </Card>
 
-          <Terminal title="ROOT_ACCESS">
+          <Card variant="magic">
+            <Typography.H2 className="text-witchcraft">Magic Card</Typography.H2>
+            <Typography.Body>
+              Imbued with <span className="text-witchcraft">Witchcraft</span>. 
+              Use for special items or legendary loot.
+            </Typography.Body>
+            <div className="mt-4 flex justify-end">
+                <Button variant="accent" className="text-sm px-4 py-1">Cast Spell</Button>
+            </div>
+          </Card>
+
+          <Terminal title="ROOT_ACCESS" className="md:col-span-2">
             <p className="mb-2">$ init_sequence --force</p>
             <p className="mb-2 text-text-muted">Loading modules...</p>
             <p className="mb-2 text-vampire">[ERROR] Soul not found.</p>
@@ -86,6 +106,7 @@ export const AllComponents: Story = {
         </div>
       </section>
 
+      </div>
     </div>
   ),
 };

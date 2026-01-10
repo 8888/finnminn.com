@@ -4,8 +4,8 @@
 
 [metadata]
 theme_name = "PixelGrim"
-version = "1.0.0"
-vibe = "Whimsical Gothic Tech"
+version = "1.1.0"
+vibe = "Whimsical Gothic Tech (Enchanted CRT)"
 status = "Draft"
 authors = ["Lee Costello", "Gemini Architect"]
 
@@ -35,37 +35,37 @@ user_goals = [
 target_audience = "Software Developers with a taste for the retro-macabre."
 
 [theme.colors]
-description = "A high-contrast dark mode foundation with neon accents that pop like glowing runes."
+description = "A deep, textured void punctuated by spectral, juicy neons."
 
 [theme.colors.background]
-void = "#050510"       # Deepest blue-black (The Abyss)
-surface = "#1a1a2e"    # Lighter night sky (Card backgrounds)
-overlay = "#16213e"    # Modals / Popovers
+void = "#120B18"       # Deep Grape Charcoal (The Abyss 2.0)
+surface = "#221528"    # Lighter potion purple (Card backgrounds)
+overlay = "#2D1B36"    # Modals / Popovers
 scanline = "rgba(18, 16, 16, 0.5)" # CRT effect overlay
 
 [theme.colors.primary]
 name = "Vampire Kiss"
-hex = "#ff0055"
+hex = "#FF2A6D"        # Radical Raspberry. Juicy and warm.
 usage = "Call-to-actions, active states, heart icons, critical alerts."
 mood = "Aggressive yet cute. Punk rock."
 
 [theme.colors.secondary]
 name = "Ectoplasm"
-hex = "#00ff41"
+hex = "#05FFA1"        # Spectral Mint. Ghostly and spiritual.
 usage = "Success states, terminal command text, system 'ready' indicators."
 mood = "Retro hacker, toxic sludge."
 
 [theme.colors.accent]
 name = "Witchcraft"
-hex = "#9d46ff"
+hex = "#7D5FFF"        # Electric Indigo. Vibrating magic.
 usage = "Magic elements, gradients, focus rings, whimsical borders."
 mood = "Mystical, royal, spooky."
 
 [theme.colors.text]
 heading = "#ffffff"    # Pure white with text-shadow glow
-body = "#e0e0e0"       # Slightly muted for readability
-muted = "#9494a8"      # Metadata, timestamps (Ghostly grey)
-terminal = "#00ff41"   # Specific for code blocks
+body = "#E0DCE6"       # Slightly lavender-tinted grey for harmony
+muted = "#9586A5"      # Dusty purple grey (Ghostly grey)
+terminal = "#05FFA1"   # Matches Ectoplasm
 
 [theme.typography]
 primary_font = "'Press Start 2P', 'VT323', cursive" # Headers, prominent labels
@@ -94,7 +94,7 @@ container_width = "max-w-7xl"
 glassmorphism = false # REJECTED. Use solid opacity or dithered transparency instead.
 
 [components.interactions]
-hover_state = "Transform: translate(-2px, -2px); Box-shadow: 6px 6px 0px 0px #ff0055;"
+hover_state = "Transform: translate(-2px, -2px); Box-shadow: 6px 6px 0px 0px {color}; Sparkle effect."
 active_state = "Transform: translate(2px, 2px); Box-shadow: 0px 0px 0px 0px;"
 loading_state = "Blinking cursor '_' or pixelated hourglass/bat spinning."
 cursor = "Custom pixelated pointer (sword, wand, or skeletal hand)."
@@ -113,9 +113,9 @@ screen_readers = "Ensure all diegetic UI (ASCII art, decorative borders) is hidd
 
 [implementation.css_variables]
 # To be generated in Tailwind config
---color-void = "#050510"
---color-vampire = "#ff0055"
---color-slime = "#00ff41"
---color-magic = "#9d46ff"
+--color-void = "#120B18"
+--color-vampire = "#FF2A6D"
+--color-slime = "#05FFA1"
+--color-magic = "#7D5FFF"
 --font-header = "'VT323', monospace"
 --font-body = "'Space Mono', monospace"
