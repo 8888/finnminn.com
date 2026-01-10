@@ -20,28 +20,20 @@ function Content() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 gap-8 bg-magic-void relative">
       <Atmosphere />
 
-      {/* Disconnect Control - moved elsewhere */}
-      {isAuthenticated && (
-        <div className="fixed top-4 right-4 z-50">
-          <Button onClick={() => logout()} variant="destructive" className="text-xs px-3 py-1">Disconnect</Button>
-        </div>
-      )}
-
       <div className="z-10 flex flex-col items-center gap-6 w-full max-w-2xl">
-        <Typography.H1 className="text-center text-5xl md:text-7xl">FINNMINN</Typography.H1>
-
         <div className="w-full max-w-lg">
           <Image 
             src="/finn.jpg" 
             alt="Specimen Finn" 
             variant="artifact" 
             size="full" 
-            caption="FIG 1. SPECIMEN 'FINN' // SLEEP STATE" 
+            caption="FIG 1. SPECIMEN 'FINN'" 
           />
         </div>
 
         <div className="w-full max-w-lg flex flex-col gap-4">
           <Terminal title="SYSTEM_LOG" className="w-full">
+            <Typography.Body className="text-sm">&gt; IDENTITY: FINNMINN</Typography.Body>
             <Typography.Body className="text-sm">&gt; SYSTEM_INIT... SUCCESS</Typography.Body>
             <Typography.Body className="text-sm">&gt; CONNECTING TO VOID...</Typography.Body>
             <Typography.Body className="text-sm">&gt; STATUS: {isAuthenticated ? 'LINK_ESTABLISHED' : 'AWAITING_INPUT'}</Typography.Body>
@@ -50,13 +42,14 @@ function Content() {
                 {isAuthenticated ? user?.name?.toUpperCase() : 'UNKNOWN_ENTITY'}
               </span>
             </Typography.Body>
-            {isAuthenticated && (
-              <Typography.Body className="text-sm text-text-muted">&gt; CLEARANCE: LEVEL_5 (MAXIMUM)</Typography.Body>
-            )}
             <p className="animate-pulse mt-2">_</p>
           </Terminal>
 
-          {!isAuthenticated && (
+          {isAuthenticated ? (
+            <Button onClick={() => logout()} variant="destructive" className="w-full">
+              Disconnect
+            </Button>
+          ) : (
             <Button onClick={() => login()} variant="primary" className="w-full">
               Authenticate Sequence
             </Button>
