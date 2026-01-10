@@ -1,4 +1,4 @@
-import { Button, Card, Terminal, Typography } from "@finnminn/ui";
+import { Button, Card, Terminal, Typography, Image } from "@finnminn/ui";
 import { useAuth, AuthProvider } from "@finnminn/auth";
 
 const FIREFLIES = Array.from({ length: 12 }, (_, i) => i);
@@ -22,6 +22,14 @@ function Content() {
 
       <div className="z-10 flex flex-col items-center gap-8 w-full max-w-2xl">
         <Typography.H1 className="text-center">FINNMINN.COM</Typography.H1>
+
+        <Image 
+          src="/finn.jpg" 
+          alt="Specimen Finn" 
+          variant="artifact" 
+          size="thumbnail" 
+          caption="ID: FINN" 
+        />
 
         <Terminal title="SYSTEM_LOG" className="w-full">
            <Typography.Body>Status: ONLINE</Typography.Body>
