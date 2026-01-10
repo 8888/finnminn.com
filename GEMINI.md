@@ -15,7 +15,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 - *Future*: `apps/pip`, `apps/n-dim`.
 
 #### Shared Packages (`packages/`)
-- `@finnminn/ui`: Shared React component library implementing the "Cryptid Console" design system. Integrated with **Storybook** for component documentation and testing.
+- `@finnminn/ui`: Shared React component library implementing the "PixelGrim" design system. Integrated with **Storybook** for component documentation and testing.
 - `@finnminn/auth`: Shared authentication logic and React hooks for MSAL integration.
 - `@finnminn/config`: Centralized configuration for Tailwind, TypeScript, and ESLint.
 
