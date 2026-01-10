@@ -32,6 +32,7 @@ This project contains the source code and configuration for the `finnminn.com` a
     - **Background:** Grape Charcoal `void` (#120B18) with animated gradients (`.bg-magic-void`) and noise texture.
     - **Typography:** Headers (`VT323` / `Press Start 2P`), Body (`Space Mono`).
     - **Atmosphere:** Mana Motes (floating fireflies), CRT Vignette, and single-burst Glitch Text on hover.
+    - **Digital Artifacts:** Images treated as raw data or evidence cards with spectral glitch interactions.
     - **Palette:**
         - Primary: Witchcraft (#7D5FFF) - Electric Indigo magic.
         - Secondary: Ectoplasm (#05FFA1) - Spectral Mint system status.

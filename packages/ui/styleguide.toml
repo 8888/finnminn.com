@@ -133,7 +133,7 @@ sizes = [
     "Full: Responsive width, max-w-full. Preserves aspect ratio."
 ]
 interactions = [
-    "Glitch on Hover: The image container violently shifts RGB channels or clips briefly.",
+    "Glitch on Hover: A single, rapid burst of RGB channel splitting (0.25s). Static otherwise (no movement).",
     "Pop: No opacity filters. Colors remain true to 'pop' against the void."
 ]
 
