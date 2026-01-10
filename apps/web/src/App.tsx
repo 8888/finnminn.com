@@ -1,4 +1,4 @@
-import { Button, Card, Terminal, Typography } from "@finnminn/ui";
+import { Button, Terminal, Typography, Image } from "@finnminn/ui";
 import { useAuth, AuthProvider } from "@finnminn/auth";
 
 const FIREFLIES = Array.from({ length: 12 }, (_, i) => i);
@@ -20,30 +20,48 @@ function Content() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 gap-8 bg-magic-void relative">
       <Atmosphere />
 
-      <div className="z-10 flex flex-col items-center gap-8 w-full max-w-2xl">
-        <Typography.H1 className="text-center">FINNMINN.COM</Typography.H1>
+      {/* Disconnect Control - moved elsewhere */}
+      {isAuthenticated && (
+        <div className="fixed top-4 right-4 z-50">
+          <Button onClick={() => logout()} variant="destructive" className="text-xs px-3 py-1">Disconnect</Button>
+        </div>
+      )}
 
-        <Terminal title="SYSTEM_LOG" className="w-full">
-           <Typography.Body>Status: ONLINE</Typography.Body>
-           <Typography.Body>System: Secure</Typography.Body>
-           <Typography.Body>Users: {isAuthenticated ? '1' : '0'}</Typography.Body>
-        </Terminal>
+      <div className="z-10 flex flex-col items-center gap-6 w-full max-w-2xl">
+        <Typography.H1 className="text-center text-5xl md:text-7xl">FINNMINN</Typography.H1>
 
-        <Card variant={isAuthenticated ? "magic" : "default"} className="w-full text-center">
-          {isAuthenticated ? (
-            <div className="flex flex-col gap-6 items-center">
-              <Typography.H2>Welcome, {user?.name}</Typography.H2>
-              <Typography.Body>Clearance Level: MAXIMUM</Typography.Body>
-              <Button onClick={() => logout()} variant="destructive">Disconnect</Button>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-6 items-center">
-               <Typography.H2>Access Restricted</Typography.H2>
-               <Typography.Body>Please authenticate to access the console.</Typography.Body>
-               <Button onClick={() => login()} variant="primary">Authenticate</Button>
-            </div>
+        <div className="w-full max-w-lg">
+          <Image 
+            src="/finn.jpg" 
+            alt="Specimen Finn" 
+            variant="artifact" 
+            size="full" 
+            caption="FIG 1. SPECIMEN 'FINN' // SLEEP STATE" 
+          />
+        </div>
+
+        <div className="w-full max-w-lg flex flex-col gap-4">
+          <Terminal title="SYSTEM_LOG" className="w-full">
+            <Typography.Body className="text-sm">&gt; SYSTEM_INIT... SUCCESS</Typography.Body>
+            <Typography.Body className="text-sm">&gt; CONNECTING TO VOID...</Typography.Body>
+            <Typography.Body className="text-sm">&gt; STATUS: {isAuthenticated ? 'LINK_ESTABLISHED' : 'AWAITING_INPUT'}</Typography.Body>
+            <Typography.Body className="text-sm">
+              &gt; USER: <span className={isAuthenticated ? "text-witchcraft" : "text-vampire"}>
+                {isAuthenticated ? user?.name?.toUpperCase() : 'UNKNOWN_ENTITY'}
+              </span>
+            </Typography.Body>
+            {isAuthenticated && (
+              <Typography.Body className="text-sm text-text-muted">&gt; CLEARANCE: LEVEL_5 (MAXIMUM)</Typography.Body>
+            )}
+            <p className="animate-pulse mt-2">_</p>
+          </Terminal>
+
+          {!isAuthenticated && (
+            <Button onClick={() => login()} variant="primary" className="w-full">
+              Authenticate Sequence
+            </Button>
           )}
-        </Card>
+        </div>
       </div>
     </div>
   );

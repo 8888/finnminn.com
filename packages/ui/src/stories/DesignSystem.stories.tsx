@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button, Input, Badge, Card, Terminal, Typography } from '../index';
+import { Button, Input, Badge, Card, Terminal, Typography, Image } from '../index';
 
 const meta = {
   title: 'System/Overview',
@@ -77,6 +77,17 @@ export const AllComponents: Story = {
           <Badge variant="error">Critical</Badge>
           <Badge variant="info">Scanning</Badge>
           <Badge variant="warning">Warning</Badge>
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <Typography.H2>Artifacts & Evidence</Typography.H2>
+        <div className="flex flex-wrap items-end gap-8">
+          <Image src="/finn.jpg" alt="Finn Avatar" size="thumbnail" variant="raw" />
+          <Image src="/finn.jpg" alt="Finn Evidence" size="thumbnail" variant="artifact" caption="ID: 001" />
+          <div className="w-64">
+             <Image src="/finn.jpg" alt="Specimen Finn" size="full" variant="artifact" caption="Fig 1. Specimen 'Finn'" />
+          </div>
         </div>
       </section>
 

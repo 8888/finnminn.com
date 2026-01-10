@@ -122,30 +122,25 @@ success = "Green text, 'System Operational' sound/text."
 error = "Red/Pink text, screen shake animation, 'Fatal Error' visual glitch."
 notification = "Slide-in toast from bottom-right, styled like a retro game achievement."
 
+[components.image]
+description = "Images are treated as captured spectral evidence or raw data feeds."
+variants = [
+    "Raw: A sharp, brutalist 2px border. Pure data.",
+    "Artifact: A 'Polaroid' or 'Evidence Card' container with space for metadata/captions."
+]
+sizes = [
+    "Thumbnail: 64x64px or 96x96px. Strictly square. Avatar/Entity focus.",
+    "Full: Responsive width, max-w-full. Preserves aspect ratio."
+]
+interactions = [
+    "Glitch on Hover: A single, rapid burst of RGB channel splitting (0.25s). Static otherwise (no movement).",
+    "Pop: No opacity filters. Colors remain true to 'pop' against the void."
+]
+
 [accessibility.standards]
 contrast_ratio = "AA (4.5:1) minimum for text."
 focus_indicators = "Thick, dashed outline in 'Witchcraft' purple or 'Vampire Kiss' pink."
 reduced_motion = "Respect user system preference to disable CRT flicker, glitch, and floating effects."
-screen_readers = "Ensure all diegetic UI (ASCII art, decorative borders) is hidden via aria-hidden='true'."
-
-[implementation.css_variables]
-# To be generated in Tailwind config
---color-void = "#120B18"
---color-vampire = "#FF2A6D"
---color-slime = "#05FFA1"
---color-magic = "#7D5FFF"
---font-header = "'VT323', monospace"
---font-body = "'Space Mono', monospace"
-
-[components.feedback]
-success = "Green text, 'System Operational' sound/text."
-error = "Red/Pink text, screen shake animation, 'Fatal Error' visual glitch."
-notification = "Slide-in toast from bottom-right, styled like a retro game achievement."
-
-[accessibility.standards]
-contrast_ratio = "AA (4.5:1) minimum for text."
-focus_indicators = "Thick, dashed outline in 'Witchcraft' purple or 'Vampire Kiss' pink."
-reduced_motion = "Respect user system preference to disable CRT flicker and shake effects."
 screen_readers = "Ensure all diegetic UI (ASCII art, decorative borders) is hidden via aria-hidden='true'."
 
 [implementation.css_variables]

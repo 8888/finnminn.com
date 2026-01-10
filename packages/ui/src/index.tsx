@@ -6,3 +6,4 @@ export * from "./components/Badge";
 export * from "./components/Card";
 export * from "./components/Terminal";
 export * from "./components/Typography";
+export * from "./components/Image";
