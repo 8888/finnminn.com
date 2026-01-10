@@ -64,7 +64,6 @@ Automated via GitHub Actions.
 │   ├───architecture/        # Design docs and migration plans
 │   ├───features/            # Implementation details for key features
 │   ├───guides/              # Onboarding and setup guides
-│   ├───legacy-styleguide/   # Archive of original TOML spec
 │   └───USER_STORIES.md      # Product roadmap and acceptance criteria
 ├───package.json             # Root workspace config
 ├───turbo.json               # Turborepo task pipeline
