@@ -55,10 +55,10 @@ export const AllComponents: Story = {
       <section className="space-y-4">
         <Typography.H2>Buttons & Actions</Typography.H2>
         <div className="flex flex-wrap gap-4">
-          <Button variant="primary">Vampire Kiss</Button>
-          <Button variant="secondary">Ectoplasm</Button>
-          <Button variant="accent">Witchcraft</Button>
-          <Button variant="ghost">Ghost Mode</Button>
+          <Button variant="primary">Cast Spell (Primary)</Button>
+          <Button variant="secondary">Confirm (Secondary)</Button>
+          <Button variant="destructive">Destroy (Danger)</Button>
+          <Button variant="ghost">Dismiss (Ghost)</Button>
         </div>
       </section>
 
@@ -101,7 +101,7 @@ export const AllComponents: Story = {
               Use for special items or legendary loot.
             </Typography.Body>
             <div className="mt-4 flex justify-end">
-                <Button variant="accent" className="text-sm px-4 py-1">Cast Spell</Button>
+                <Button variant="primary" className="text-sm px-4 py-1">Cast Spell</Button>
             </div>
           </Card>
 
