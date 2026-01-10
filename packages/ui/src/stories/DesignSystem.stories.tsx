@@ -21,6 +21,14 @@ export const AllComponents: Story = {
         <div className="firefly"></div>
         <div className="firefly"></div>
         <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
       </div>
 
       <div className="relative z-10 space-y-12 max-w-4xl mx-auto">
