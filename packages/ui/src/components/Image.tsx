@@ -30,8 +30,6 @@ export const Image: React.FC<ImageProps> = ({
 
   const imgWrapperClasses = [
     'relative overflow-hidden w-full h-full',
-    // For artifact mode, we need to ensure the image respects the padding container
-    variant === 'artifact' ? '' : '',
   ].join(' ');
 
   const imgClasses = [
