@@ -1,5 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&family=Press+Start+2P&family=Fira+Code:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-void text-text-body font-body;
+    image-rendering: pixelated;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-header text-text-heading uppercase tracking-widest;
+  }
+}
+
+@layer utilities {
+  .pixel-shadow {
+    text-shadow: 2px 2px 0px #000000;
+  }
+
+  .glow-vampire {
+    text-shadow: 0 0 5px #ff0055, 0 0 10px #ff0055;
+  }
+
+  .glow-ectoplasm {
+    text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+  }
+
+  .glow-witchcraft {
+    text-shadow: 0 0 5px #9d46ff, 0 0 10px #9d46ff;
+  }
+
+  .scanlines {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanlines::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 10;
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+  }
+}

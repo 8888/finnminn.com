@@ -10,22 +10,40 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     children: { control: 'text' },
-    className: { control: 'text' },
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'accent', 'ghost'],
+    },
   },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Primary: Story = {
   args: {
-    children: 'Click Me',
+    children: 'Vampire Kiss',
+    variant: 'primary',
   },
 };
 
-export const CustomClass: Story = {
+export const Secondary: Story = {
   args: {
-    children: 'Custom Style',
-    className: 'bg-toxic text-void hover:text-toxic',
+    children: 'Ectoplasm',
+    variant: 'secondary',
+  },
+};
+
+export const Accent: Story = {
+  args: {
+    children: 'Witchcraft',
+    variant: 'accent',
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    children: 'Ghostly',
+    variant: 'ghost',
   },
 };

@@ -3,24 +3,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        void: "#0d0208",
-        crypt: "#1a0b14",
-        bone: "#fbe9d0",
-        ash: "#8a7d85",
-        radical: "#ff0055",
-        toxic: "#00ff41",
-        spirit: "#00f2ff",
-        gloom: "#4b0082",
-        pip: "#58a6ff",
+        void: "#050510",
+        surface: "#1a1a2e",
+        overlay: "#16213e",
+        vampire: "#ff0055", // Primary
+        ectoplasm: "#00ff41", // Secondary
+        witchcraft: "#9d46ff", // Accent
+        "text-heading": "#ffffff",
+        "text-body": "#e0e0e0",
+        "text-muted": "#9494a8",
       },
       fontFamily: {
-        pixel: ["'VT323'", "monospace"],
-        mono: ["'Space Mono'", "monospace"],
+        header: ["'VT323'", "'Press Start 2P'", "cursive"],
+        body: ["'Space Mono'", "'Fira Code'", "monospace"],
       },
       boxShadow: {
-        "hard-pink": "4px 4px 0px 0px #ff0055",
-        "hard-green": "4px 4px 0px 0px #00ff41",
-        "hard-void": "4px 4px 0px 0px #0d0208",
+        pixel: "4px 4px 0px 0px #000000",
+        "pixel-vampire": "4px 4px 0px 0px #ff0055",
+        "pixel-ectoplasm": "4px 4px 0px 0px #00ff41",
+        "pixel-witchcraft": "4px 4px 0px 0px #9d46ff",
       },
     },
   },
