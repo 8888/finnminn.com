@@ -78,7 +78,29 @@
   }
 
   .glow-pip {
-    text-shadow: 0 0 5px #58a6ff, 0 0 10px #58a6ff;
+    text-shadow: 0 0 5px #58a6ff, 0 0 10px #58a6ff, 0 0 20px rgba(88, 166, 255, 0.4);
+  }
+
+  .animate-spectral {
+    animation: 
+      spectral-float 6s ease-in-out infinite,
+      spectral-pulse 4s ease-in-out infinite,
+      spectral-flicker 0.1s infinite alternate;
+  }
+
+  @keyframes spectral-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes spectral-pulse {
+    0%, 100% { opacity: 0.8; filter: blur(0.5px) brightness(1); }
+    50% { opacity: 0.4; filter: blur(1.5px) brightness(1.2); }
+  }
+
+  @keyframes spectral-flicker {
+    0% { opacity: 0.98; }
+    100% { opacity: 1; }
   }
 
   .scanlines {

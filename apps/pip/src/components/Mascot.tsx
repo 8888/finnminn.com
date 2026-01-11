@@ -4,7 +4,7 @@ const CONFIG = {
     FRAMES_DIR: '/mascot/frames/',
     FRAME_FILES: ['neutral.txt', 'up.txt', 'down.txt'],
     // 0: Neutral, 1: Up, 2: Down
-    FLAP_SEQUENCE: [1, 0, 2, 0], 
+    FLAP_SEQUENCE: [1, 0, 2, 0],
     INTERVAL_MS: 100,
     DELAY_MIN: 1000,
     DELAY_MAX: 5000,
@@ -71,7 +71,7 @@ export function Mascot() {
     if (frames.length === 0) return null;
 
     return (
-        <pre className="text-pip glow-pip text-center select-none text-[8px] sm:text-[10px] md:text-xs leading-none whitespace-pre overflow-hidden">
+        <pre className="text-pip glow-pip animate-spectral text-center text-[8px] sm:text-[10px] md:text-xs leading-none whitespace-pre overflow-hidden">
             {frames[currentFrameIndex]}
         </pre>
     );
