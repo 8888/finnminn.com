@@ -11,11 +11,12 @@ This project contains the source code and configuration for the `finnminn.com` a
 
 ### Key Workspaces
 #### Applications (`apps/`)
-- `apps/web`: The root landing page and suite directory (`finnminn.com`). Fully integrated with `@finnminn/ui` as the reference implementation for the PixelGrim design system.
-- *Future*: `apps/pip`, `apps/n-dim`.
+- `apps/web`: The root landing page and suite directory (`finnminn.com`). Fully integrated with `@finnminn/ui` as the reference implementation for the Cryptid Console design system.
+- `apps/pip`: Serverless habit tracker (`pip.finnminn.com`). Contains both the React frontend (`src`) and the Kotlin Azure Function backend (`api`).
+- *Future*: `apps/n-dim`.
 
 #### Shared Packages (`packages/`)
-- `@finnminn/ui`: Shared React component library implementing the "PixelGrim" design system. Integrated with **Storybook** for component documentation and testing.
+- `@finnminn/ui`: Shared React component library implementing the "Cryptid Console" design system.
 - `@finnminn/auth`: Shared authentication logic and React hooks for MSAL integration.
 - `@finnminn/config`: Centralized configuration for Tailwind, TypeScript, and ESLint.
 
@@ -24,43 +25,47 @@ This project contains the source code and configuration for the `finnminn.com` a
 - **Implementation:** React Context (`AuthProvider`) and hooks (`useAuth`) provided by `@finnminn/auth`.
 - **Strategy:** Single Page Application (SPA) flow with silent token acquisition and redirect-based login.
 
-## Design System: "PixelGrim"
+## Design System: "Cryptid Console"
 - **Aesthetic:** "Whimsical Gothic Tech" — an enchanted CRT experience blending 8-bit nostalgia, ghostly magic, and terminal utility.
-- **Source of Truth:** `packages/ui/styleguide.toml` (Design tokens & logic) and `packages/config/tailwind.config.js` (Implementation).
-- **Component Documentation:** Visualized via **Storybook** (`npm run storybook` from root).
+- **Source of Truth:** `@finnminn/ui` (Components) and `packages/config/tailwind.config.js` (Tokens).
 - **Core Visuals:**
-    - **Background:** Grape Charcoal `void` (#120B18) with animated gradients (`.bg-magic-void`) and noise texture.
+    - **Background:** Grape Charcoal `void` (#120B18) with animated gradients and noise texture.
     - **Typography:** Headers (`VT323` / `Press Start 2P`), Body (`Space Mono`).
-    - **Atmosphere:** Mana Motes (floating fireflies), CRT Vignette, and single-burst Glitch Text on hover.
-    - **Digital Artifacts:** Images treated as raw data or evidence cards with spectral glitch interactions.
     - **Palette:**
-        - Primary: Witchcraft (#7D5FFF) - Electric Indigo magic.
-        - Secondary: Ectoplasm (#05FFA1) - Spectral Mint system status.
-        - Destructive: Vampire Kiss (#FF2A6D) - Radical Raspberry danger.
+        - Primary: Witchcraft (#7D5FFF) / Radical (#FF0055)
+        - Secondary: Ectoplasm (#05FFA1) / Toxic (#00FF41)
+        - Base: Void (#0D0208)
 
 ## Development Guidelines
-- **UI Development:** Components are located in `packages/ui/src/components`. Always update or add **Storybook stories** in `packages/ui/src/stories` when creating or modifying components.
-- **Style Consistency:** Refer to `packages/ui/styleguide.toml` for the "Why" behind design decisions.
+- **UI Development:** Components are located in `packages/ui/src/components`.
+- **New Apps:** Follow the guide in `docs/guides/MIGRATION_AND_SETUP.md`.
 
 ## Deployment (CI/CD)
-Automated via GitHub Actions.
-- **Workflow File:** `.github/workflows/azure-static-web-apps-mango-pebble-0e55b260f.yml`
-- **Build Flow:** Turbo calculates affected packages and builds apps using Vite.
-- **Deployment Flow:** Azure Static Web Apps Action uploads the pre-built `dist/` folder for the relevant app.
+Automated via GitHub Actions with decoupled workflows.
+
+### 1. Frontend & Shared Packages
+- **Workflow:** `.github/workflows/azure-static-web-apps-mango-pebble-0e55b260f.yml`
+- **Triggers:** Changes to `apps/web`, `apps/pip` (frontend), or `packages/*`.
+- **Logic:** Uses job filtering to only build and deploy the specific app that changed.
+- **Hosting:** Deploys to Azure Static Web Apps (`Finnminn` for web, `Pip-web-app` for pip).
+
+### 2. Backend (Azure Functions)
+- **Workflow:** `.github/workflows/deploy-pip-backend.yml`
+- **Triggers:** Changes to `apps/pip/api/**`.
+- **Logic:** Builds the Kotlin project using Gradle and deploys to the `pip-tracker` Function App in Azure.
 
 ## Folder Structure
 ```
 /Users/leecostello/Documents/code/lee/finnminn.com/
 ├───apps/
-│   └───web/                 # Main landing page (React + Vite)
+│   ├───web/                 # Main landing page (React + Vite)
+│   └───pip/                 # Habit Tracker
+│       ├───src/             # React Frontend
+│       └───api/             # Kotlin Backend (Azure Functions)
 ├───packages/
 │   ├───auth/                # Shared MSAL/Auth logic
 │   ├───config/              # Shared Tailwind/TS/Lint configs
-│   └───ui/                  # Shared React components (PixelGrim System)
-│       ├───styleguide.toml  # Design Source of Truth
-│       └───src/
-│           ├───components/  # Atomic components (Button, Card, etc.)
-│           └───stories/     # Storybook documentation
+│   └───ui/                  # Shared React components (Cryptid System)
 ├───docs/
 │   ├───architecture/        # Design docs and migration plans
 │   ├───features/            # Implementation details for key features
