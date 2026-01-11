@@ -1,0 +1,51 @@
+name: Deploy Pip Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/pip/api/**'
+      - '.github/workflows/deploy-pip-backend.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apps/pip/api/**'
+      - '.github/workflows/deploy-pip-backend.yml'
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'pip-tracker'
+  JAVA_VERSION: '21'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./apps/pip/api
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v3
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Build and Test with Gradle
+        run: ./gradlew clean build azureFunctionsPackage
+
+      - name: Deploy to Azure Functions
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: './apps/pip/api/build/azure-functions/${{ env.AZURE_FUNCTIONAPP_NAME }}'
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}

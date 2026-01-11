@@ -1,4 +1,4 @@
-name: Finnminn Suite CI/CD
+name: Finnminn Suite Frontends
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
       - 'apps/**'
       - 'packages/**'
       - 'package.json'
-      - 'package-lock.json'
       - 'turbo.json'
       - '.github/workflows/azure-static-web-apps-mango-pebble-0e55b260f.yml'
   pull_request:
@@ -19,16 +18,39 @@ on:
       - 'apps/**'
       - 'packages/**'
       - 'package.json'
-      - 'package-lock.json'
       - 'turbo.json'
       - '.github/workflows/azure-static-web-apps-mango-pebble-0e55b260f.yml'
   workflow_dispatch:
 
 jobs:
-  build_and_deploy_web:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') || github.event_name == 'workflow_dispatch'
+  changes:
     runs-on: ubuntu-latest
-    name: Build and Deploy Web (Finnminn)
+    outputs:
+      web: ${{ steps.filter.outputs.web }}
+      pip: ${{ steps.filter.outputs.pip }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            web:
+              - 'apps/web/**'
+              - 'packages/**'
+              - 'package.json'
+              - 'turbo.json'
+            pip:
+              - 'apps/pip/**'
+              - '!apps/pip/api/**'
+              - 'packages/**'
+              - 'package.json'
+              - 'turbo.json'
+
+  deploy_web:
+    needs: changes
+    if: ${{ needs.changes.outputs.web == 'true' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    name: Deploy Web (Finnminn)
     steps:
       - uses: actions/checkout@v3
         with:
@@ -56,10 +78,11 @@ jobs:
           skip_app_build: true
           app_location: "apps/web/dist"
 
-  build_and_deploy_pip:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') || github.event_name == 'workflow_dispatch'
+  deploy_pip:
+    needs: changes
+    if: ${{ needs.changes.outputs.pip == 'true' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-    name: Build and Deploy Pip
+    name: Deploy Pip Frontend
     steps:
       - uses: actions/checkout@v3
         with:
@@ -71,23 +94,11 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
       - name: Install dependencies
         run: npm ci
 
       - name: Build Pip Frontend
         run: npx turbo run build --filter=pip
-
-      # Build Kotlin Backend
-      # SWA can build standard Maven/Gradle projects if api_location is set.
-      # However, since we have a specific Gradle wrapper setup, let's pre-build or let SWA handle it.
-      # For now, we will let SWA handle the API build by pointing api_location to apps/pip/api.
-      # Note: SWA support for Java 21 might need verification. If it fails, we build manually here.
 
       - name: Deploy to Azure Static Web Apps (Pip)
         id: builddeploy_pip
@@ -98,8 +109,7 @@ jobs:
           action: "upload"
           skip_app_build: true
           app_location: "apps/pip/dist"
-          api_location: "apps/pip/api" 
-          # Ensure output_location is empty as we are pre-building the app
+          api_location: "" # Explicitly empty to prevent backend build in this workflow
           output_location: ""
 
   close_pull_request_job:
