@@ -19,21 +19,21 @@ const Atmosphere = () => {
 export function Home() {
   const { user, login, logout, isAuthenticated, getToken } = useAuth();
   const navigate = useNavigate();
-  const [apiResult, setApiResult] = useState<string>("AWAITING_INPUT");
+  const [apiResult, setApiResult] = useState<string>("Awaiting input");
 
   const callApi = async () => {
     try {
         const token = await getToken();
-        setApiResult("CALLING_API...");
+        setApiResult("Calling API...");
         const res = await fetch("/api/hello", {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
         const text = await res.text();
-        setApiResult(`API_RESPONSE: ${text}`);
+        setApiResult(`API Response: ${text}`);
     } catch (e: any) {
-        setApiResult(`ERROR: ${e.message}`);
+        setApiResult(`Error: ${e.message}`);
     }
   };
 
@@ -50,7 +50,7 @@ export function Home() {
           {isAuthenticated ? (
             <div className="flex flex-col gap-6">
               <Typography.Body className="text-center">
-                WELCOME, <span className="text-witchcraft">{user?.name?.toUpperCase()}</span>
+                Welcome, <span className="text-witchcraft">{user?.name}</span>
               </Typography.Body>
               
               <div className="grid grid-cols-1 gap-3">
@@ -65,7 +65,7 @@ export function Home() {
                   </Button>
               </div>
 
-              <Terminal title="API_CONSOLE" className="mt-4">
+              <Terminal title="API Console" className="mt-4">
                 <Typography.Body className="text-xs break-all">
                   &gt; {apiResult}
                 </Typography.Body>
@@ -74,7 +74,7 @@ export function Home() {
             </div>
           ) : (
             <div className="flex flex-col gap-6 text-center">
-               <Typography.Body>AUTHENTICATION_REQUIRED</Typography.Body>
+               <Typography.Body>Authentication Required</Typography.Body>
                <Button onClick={() => login()} variant="primary" className="w-full">
                   Initialize Login
                </Button>

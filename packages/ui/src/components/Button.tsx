@@ -16,7 +16,7 @@ export const Button = ({ children, className, variant = "primary", ...props }: B
     <button
       className={`
         px-6 py-2 
-        font-header text-lg uppercase tracking-widest 
+        font-header text-lg tracking-widest 
         border-2 border-void
         transition-all duration-75
         hover:-translate-x-0.5 hover:-translate-y-0.5

@@ -62,7 +62,7 @@ export const Image: React.FC<ImageProps> = ({
       </div>
 
       {variant === 'artifact' && caption && (
-        <figcaption className="absolute bottom-0 left-0 w-full text-center py-2 font-body text-xs text-text-muted uppercase tracking-wider overflow-hidden text-ellipsis whitespace-nowrap px-1">
+        <figcaption className="absolute bottom-0 left-0 w-full text-center py-2 font-body text-xs text-text-muted tracking-wider overflow-hidden text-ellipsis whitespace-nowrap px-1">
           {caption}
         </figcaption>
       )}

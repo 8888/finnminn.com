@@ -89,13 +89,13 @@ primary_font = "'Press Start 2P', 'VT323', cursive" # Headers, prominent labels
 secondary_font = "'Space Mono', 'Fira Code', monospace" # Body, data, dashboards
 
 [theme.typography.scale]
-h1 = "text-4xl md:text-6xl tracking-widest uppercase pixel-shadow"
-h2 = "text-2xl md:text-4xl tracking-wide uppercase"
+h1 = "text-4xl md:text-6xl tracking-widest pixel-shadow"
+h2 = "text-2xl md:text-4xl tracking-wide"
 body = "text-base md:text-lg leading-relaxed"
 code = "text-sm leading-tight"
 
 [theme.typography.rules]
-uppercase_headers = true
+uppercase_headers = false
 text_shadow_glow = "0 0 5px {color}, 0 0 10px {color}" # applied to headers
 
 [components.rules]

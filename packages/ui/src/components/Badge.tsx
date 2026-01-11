@@ -17,7 +17,7 @@ export const Badge = ({ children, className, variant = "info", ...props }: Badge
       className={`
         inline-flex items-center justify-center
         px-2 py-0.5
-        font-header text-xs uppercase tracking-wider
+        font-header text-xs tracking-wider
         border-2
         ${variants[variant]}
         ${className || ""}
