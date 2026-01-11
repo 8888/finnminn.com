@@ -12,13 +12,6 @@ export function Home() {
   const callApi = async () => {
     try {
         const token = await getToken();
-        // In local dev, use localhost:7071. In prod, use the real API.
-        // We can set this in .env. For now, hardcode localhost for dev pattern? 
-        // Or proxy. Let's assume proxy or direct call. 
-        // The original code used a hardcoded prod URL. Let's use relative path /api/hello assuming SWA proxy or Vite proxy.
-        // Note: We need to configure proxy in vite.config.ts if we want relative paths locally.
-        
-        // For migration speed, let's keep it simple.
         setApiResult("Calling API...");
         const res = await fetch("/api/hello", {
             headers: {
