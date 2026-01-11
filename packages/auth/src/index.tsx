@@ -56,9 +56,21 @@ export const useAuth = () => {
         });
     };
 
+    const getToken = async () => {
+        const account = instance.getActiveAccount() || accounts[0];
+        if (!account) throw new Error("NO_ACTIVE_ACCOUNT");
+
+        const response = await instance.acquireTokenSilent({
+            scopes: ["User.Read"],
+            account: account
+        });
+        return response.accessToken;
+    };
+
     return {
         login,
         logout,
+        getToken,
         isAuthenticated,
         user: accounts[0] || null,
         instance
