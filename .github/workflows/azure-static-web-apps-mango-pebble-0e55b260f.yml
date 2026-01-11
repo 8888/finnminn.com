@@ -1,11 +1,11 @@
-name: Finnminn Web CI/CD
+name: Finnminn Suite CI/CD
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'apps/web/**'
+      - 'apps/**'
       - 'packages/**'
       - 'package.json'
       - 'package-lock.json'
@@ -16,7 +16,7 @@ on:
     branches:
       - main
     paths:
-      - 'apps/web/**'
+      - 'apps/**'
       - 'packages/**'
       - 'package.json'
       - 'package-lock.json'
@@ -25,10 +25,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_and_deploy_job:
+  build_and_deploy_web:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    name: Build and Deploy Web
+    name: Build and Deploy Web (Finnminn)
     steps:
       - uses: actions/checkout@v3
         with:
@@ -55,15 +55,68 @@ jobs:
           action: "upload"
           skip_app_build: true
           app_location: "apps/web/dist"
-          
+
+  build_and_deploy_pip:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    name: Build and Deploy Pip
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Pip Frontend
+        run: npx turbo run build --filter=pip
+
+      # Build Kotlin Backend
+      # SWA can build standard Maven/Gradle projects if api_location is set.
+      # However, since we have a specific Gradle wrapper setup, let's pre-build or let SWA handle it.
+      # For now, we will let SWA handle the API build by pointing api_location to apps/pip/api.
+      # Note: SWA support for Java 21 might need verification. If it fails, we build manually here.
+
+      - name: Deploy to Azure Static Web Apps (Pip)
+        id: builddeploy_pip
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_COAST_0238CD00F }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          skip_app_build: true
+          app_location: "apps/pip/dist"
+          api_location: "apps/pip/api" 
+          # Ensure output_location is empty as we are pre-building the app
+          output_location: ""
+
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
-      - name: Close Pull Request
-        id: closepullrequest
+      - name: Close Pull Request (Web)
+        id: closepullrequest_web
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_PEBBLE_0E55B260F }}
+          action: "close"
+      
+      - name: Close Pull Request (Pip)
+        id: closepullrequest_pip
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_COAST_0238CD00F }}
           action: "close"
