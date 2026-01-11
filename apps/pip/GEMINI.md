@@ -25,10 +25,13 @@ This application is integrated into the `finnminn.com` monorepo and follows a de
 ## Deployed Infrastructure (Resource Group: `pip-rg`)
 | Resource Name | Type | Location | Details |
 | :--- | :--- | :--- | :--- |
-| **pip-tracker** | Function App | `canadacentral` | Linux, Consumption Plan. |
-| **Pip-web-app** | Static Web App | `eastus2` | Hosts the React frontend. |
+| **pip-tracker** | Function App | `canadacentral` | Linux, Consumption Plan (Y1), System Assigned Identity. |
+| **ASP-piprg-a804** | App Service Plan | `canadacentral` | Dynamic (Serverless). |
+| **piprg9b25** | Storage Account | `canadacentral` | Standard_LRS. Used by Function App. |
 | **pip-cosmos** | Cosmos DB Account | `eastus` | NoSQL (Core) API, Serverless mode. |
+| **pip-vault** | Key Vault | `eastus` | For managing secrets. |
 | **Pip-api** | API Management | `canadacentral` | Consumption Tier gateway. |
+| **Pip-web-app** | Static Web App | `eastus2` | Free Tier. Hosts the React frontend. |
 
 ## Getting Started
 
