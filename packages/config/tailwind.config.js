@@ -10,6 +10,7 @@ module.exports = {
         ectoplasm: "#05FFA1", // Spectral Mint
         witchcraft: "#7D5FFF", // Electric Indigo
         gold: "#FFB800",       // Cursed Gold
+        pip: "#58a6ff",        // Mascot Blue
         "text-heading": "#ffffff",
         "text-body": "#E0DCE6",
         "text-muted": "#9586A5",

@@ -1,36 +1,58 @@
-import { Button } from "@finnminn/ui";
+import { Button, Typography, Card, Badge } from "@finnminn/ui";
 import { Mascot } from "../components/Mascot";
 import { useNavigate } from "react-router-dom";
+
+const FIREFLIES = Array.from({ length: 12 }, (_, i) => i);
+
+const Atmosphere = () => {
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+       {FIREFLIES.map((i) => (
+         <div key={i} className="firefly" />
+       ))}
+    </div>
+  );
+};
 
 export function Character() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-8 p-4">
-      <Mascot />
-      
-      <h1 className="font-pixel text-6xl text-radical">Character</h1>
-      
-      <div className="p-8 border-2 border-gloom bg-crypt shadow-hard-green w-full max-w-md">
-        <div className="flex flex-col gap-4">
-            <StatRow label="Identity" value="Pip the Bat" />
-            <StatRow label="Level" value="01" />
-            <StatRow label="XP" value="0 / 100" />
-            <StatRow label="Health" value="100%" />
-            <StatRow label="Habits Met" value="0" />
-        </div>
-      </div>
+    <div className="min-h-screen flex flex-col items-center justify-center gap-8 p-4 bg-magic-void relative overflow-hidden">
+      <Atmosphere />
 
-      <Button onClick={() => navigate("/")}>Back to Void</Button>
+      <div className="z-10 flex flex-col items-center gap-8 w-full max-w-md">
+        <Mascot />
+        
+        <Typography.H1>Character</Typography.H1>
+        
+        <Card className="w-full" variant="magic">
+          <div className="flex flex-col gap-4">
+              <StatRow label="Identity" value="Pip the Bat" />
+              <StatRow label="Level" value="01" />
+              <StatRow label="XP" value="0 / 100" />
+              <StatRow label="Health" value="100%" isSuccess />
+              <StatRow label="Habits Met" value="0" />
+          </div>
+        </Card>
+
+        <Button onClick={() => navigate("/")} variant="secondary">
+          Back to Void
+        </Button>
+      </div>
     </div>
   );
 }
 
-function StatRow({ label, value }: { label: string, value: string }) {
+function StatRow({ label, value, isSuccess }: { label: string, value: string, isSuccess?: boolean }) {
     return (
-        <div className="flex justify-between border-b border-gloom pb-2">
-            <span className="text-ash uppercase text-sm">{label}</span>
-            <span className="text-toxic font-bold">{value}</span>
+        <div className="flex justify-between items-center border-b border-void/30 pb-2">
+            <Typography.Body className="uppercase text-xs !mb-0 text-text-muted">{label}</Typography.Body>
+            {isSuccess ? (
+                <Badge variant="success">{value}</Badge>
+            ) : (
+                <Typography.Body className="font-bold text-ectoplasm !mb-0">{value}</Typography.Body>
+            )}
         </div>
     );
 }

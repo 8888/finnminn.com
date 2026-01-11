@@ -72,6 +72,12 @@ hex = "#FFB800"
 usage = "Warning states, cautious alerts."
 mood = "Ancient treasure, decay."
 
+[[theme.colors.custom]]
+name = "Pip Blue"
+hex = "#58a6ff"
+usage = "Dedicated mascot color."
+mood = "Loyal, sharp, spectral friend."
+
 [theme.colors.text]
 heading = "#ffffff"    # Pure white with text-shadow glow
 body = "#E0DCE6"       # Slightly lavender-tinted grey for harmony

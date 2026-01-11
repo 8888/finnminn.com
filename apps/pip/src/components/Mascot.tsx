@@ -71,7 +71,7 @@ export function Mascot() {
     if (frames.length === 0) return null;
 
     return (
-        <pre className="text-pip text-center select-none text-[8px] sm:text-[10px] md:text-xs leading-none whitespace-pre overflow-hidden">
+        <pre className="text-pip glow-pip text-center select-none text-[8px] sm:text-[10px] md:text-xs leading-none whitespace-pre overflow-hidden">
             {frames[currentFrameIndex]}
         </pre>
     );

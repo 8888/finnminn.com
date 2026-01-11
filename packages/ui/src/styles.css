@@ -77,6 +77,10 @@
     text-shadow: 0 0 5px #7D5FFF, 0 0 10px #7D5FFF;
   }
 
+  .glow-pip {
+    text-shadow: 0 0 5px #58a6ff, 0 0 10px #58a6ff;
+  }
+
   .scanlines {
     position: relative;
     overflow: hidden;
