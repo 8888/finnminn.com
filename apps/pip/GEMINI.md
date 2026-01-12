@@ -9,7 +9,7 @@ This application is integrated into the `finnminn.com` monorepo and follows a de
 - **Frontend**: React + Vite SPA.
 - **Backend**: Azure Functions (Kotlin) hosted in the nested `api/` directory.
 - **Identity**: Microsoft Entra ID (via `@finnminn/auth`).
-- **Design System**: Cryptid Console (via `@finnminn/ui`).
+- **Design System**: PixelGrim (via `@finnminn/ui`).
 
 ### Folder Structure
 - `apps/pip/src/`: React frontend source code.

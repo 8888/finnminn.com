@@ -11,12 +11,12 @@ This project contains the source code and configuration for the `finnminn.com` a
 
 ### Key Workspaces
 #### Applications (`apps/`)
-- `apps/web`: The root landing page and suite directory (`finnminn.com`). Fully integrated with `@finnminn/ui` as the reference implementation for the Cryptid Console design system.
+- `apps/web`: The root landing page and suite directory (`finnminn.com`). Fully integrated with `@finnminn/ui` as the reference implementation for the PixelGrim design system.
 - `apps/pip`: Serverless habit tracker (`pip.finnminn.com`). Contains both the React frontend (`src`) and the Kotlin Azure Function backend (`api`).
 - *Future*: `apps/n-dim`.
 
 #### Shared Packages (`packages/`)
-- `@finnminn/ui`: Shared React component library implementing the "Cryptid Console" design system.
+- `@finnminn/ui`: Shared React component library implementing the "PixelGrim" design system.
 - `@finnminn/auth`: Shared authentication logic and React hooks for MSAL integration.
 - `@finnminn/config`: Centralized configuration for Tailwind, TypeScript, and ESLint.
 
@@ -25,7 +25,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 - **Implementation:** React Context (`AuthProvider`) and hooks (`useAuth`) provided by `@finnminn/auth`.
 - **Strategy:** Single Page Application (SPA) flow with silent token acquisition and redirect-based login.
 
-## Design System: "Cryptid Console"
+## Design System: "PixelGrim"
 - **Aesthetic:** "Whimsical Gothic Tech" — an enchanted CRT experience blending 8-bit nostalgia, ghostly magic, and terminal utility.
 - **Source of Truth:** `@finnminn/ui` (Components) and `packages/config/tailwind.config.js` (Tokens).
 - **Core Visuals:**
@@ -65,7 +65,7 @@ Automated via GitHub Actions with decoupled workflows.
 ├───packages/
 │   ├───auth/                # Shared MSAL/Auth logic
 │   ├───config/              # Shared Tailwind/TS/Lint configs
-│   └───ui/                  # Shared React components (Cryptid System)
+│   └───ui/                  # Shared React components (PixelGrim System)
 ├───docs/
 │   ├───architecture/        # Design docs and migration plans
 │   ├───features/            # Implementation details for key features
