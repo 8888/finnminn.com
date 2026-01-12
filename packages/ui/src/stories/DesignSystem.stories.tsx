@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button, Input, Badge, Card, Terminal, Typography, Image } from '../index';
+import { Button, Input, Badge, Card, Terminal, Typography, Image, CommandBar } from '../index';
 
 const meta = {
   title: 'System/Overview',
@@ -38,6 +38,21 @@ export const AllComponents: Story = {
             The official design system for the <span className="text-witchcraft glow-witchcraft">Tech-Necromancer</span>.
             <br/>High contrast, 8-bit shadows, and diegetic interactions.
           </Typography.Body>
+        </section>
+
+        <section className="space-y-4">
+          <Typography.H2>Navigation</Typography.H2>
+          <div className="border-2 border-dashed border-text-muted/30 p-4">
+             <CommandBar 
+                logo="PIXELGRIM"
+                links={[
+                    { label: "Dashboard", href: "#", active: true },
+                    { label: "Grimoire", href: "#" },
+                    { label: "Settings", href: "#" }
+                ]}
+                user={{ name: "Necromancer", avatarUrl: "https://github.com/shadcn.png", email: "demo@void.net" }}
+             />
+          </div>
         </section>
 
         <section className="space-y-4">
