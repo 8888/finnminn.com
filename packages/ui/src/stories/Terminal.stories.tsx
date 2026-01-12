@@ -21,9 +21,9 @@ export const Default: Story = {
     title: 'ACCESS_LOGS',
     children: (
         <div className="space-y-1 text-sm">
-            <p className="text-ectoplasm"> > CONNECTING TO VOID...</p>
-            <p className="text-ectoplasm"> > SUCCESS.</p>
-            <p className="text-text-muted"> > DOWNLOADING SOULS [||||||    ] 60%</p>
+            <p className="text-ectoplasm"> &gt; CONNECTING TO VOID...</p>
+            <p className="text-ectoplasm"> &gt; SUCCESS.</p>
+            <p className="text-text-muted"> &gt; DOWNLOADING SOULS [||||||    ] 60%</p>
             <p className="animate-pulse">_</p>
         </div>
     ),
