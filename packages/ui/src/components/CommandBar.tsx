@@ -76,9 +76,9 @@ export const CommandBar = ({
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo Section */}
         <div className="flex-shrink-0 flex items-center gap-4">
-          <div className="font-header text-2xl text-witchcraft tracking-widest hover:text-ectoplasm transition-colors cursor-pointer" onClick={() => handleLink("/")}>
+          <button className="font-header text-2xl text-witchcraft tracking-widest hover:text-ectoplasm transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-witchcraft" onClick={() => handleLink("/")}>
             {logo}
-          </div>
+          </button>
         </div>
 
         {/* Desktop Navigation */}
@@ -165,6 +165,7 @@ export const CommandBar = ({
             <button 
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
                 className="text-text-body hover:text-ectoplasm p-2 border-2 border-transparent hover:border-overlay active:bg-overlay transition-all"
+                aria-label="Toggle navigation menu"
             >
                 {isMobileOpen ? (
                     <span className="font-header text-xl">[ X ]</span>
