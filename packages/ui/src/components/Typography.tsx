@@ -16,6 +16,9 @@ export const Typography = {
   H2: ({ children, className }: { children: React.ReactNode, className?: string }) => (
     <h2 className={`text-2xl md:text-4xl mb-3 ${className || ""}`}>{children}</h2>
   ),
+  H3: ({ children, className }: { children: React.ReactNode, className?: string }) => (
+    <h3 className={`text-xl md:text-2xl mb-2 ${className || ""}`}>{children}</h3>
+  ),
   Body: ({ children, className }: { children: React.ReactNode, className?: string }) => (
     <p className={`font-body text-text-body mb-2 ${className || ""}`}>{children}</p>
   ),

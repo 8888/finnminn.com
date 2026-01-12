@@ -143,6 +143,19 @@ interactions = [
     "Pop: No opacity filters. Colors remain true to 'pop' against the void."
 ]
 
+[components.navigation]
+name = "CommandDeck"
+description = "The primary HUD (Heads-Up Display) for the application. Static position at the top."
+height = "64px (4rem)"
+background = "Surface (#221528) with a bottom border."
+mobile_behavior = "Top-down drawer expansion (The 'Grimoire' view)."
+items = [
+    "Logo/Brand (Left aligned)",
+    "Navigation Links (Center/Right)",
+    "User Profile / Authentication Slot (Far Right)"
+]
+dropdown_style = "Absolute positioned Card component, z-index 50."
+
 [accessibility.standards]
 contrast_ratio = "AA (4.5:1) minimum for text."
 focus_indicators = "Thick, dashed outline in 'Witchcraft' purple or 'Vampire Kiss' pink."
