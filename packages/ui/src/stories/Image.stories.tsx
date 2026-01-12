@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Image } from '../components/Image';
 
 const meta: Meta<typeof Image> = {
-  title: 'Design System/Image',
+  title: 'Media/Image',
   component: Image,
   parameters: {
     layout: 'centered',

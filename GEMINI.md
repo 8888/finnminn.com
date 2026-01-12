@@ -37,7 +37,7 @@ This project contains the source code and configuration for the `finnminn.com` a
         - Base: Void (#0D0208)
 
 ## Development Guidelines
-- **UI Development:** Components are located in `packages/ui/src/components`.
+- **UI Development:** Components are located in `packages/ui/src/components`. **MANDATORY:** Follow the instructions in `packages/ui/gemini.md` for any changes to shared components, including Storybook updates and hierarchy standards.
 - **New Apps:** Follow the guide in `docs/guides/MIGRATION_AND_SETUP.md`.
 
 ## Deployment (CI/CD)

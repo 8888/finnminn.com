@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CommandBar } from "../components/CommandBar";
 
 const meta: Meta<typeof CommandBar> = {
