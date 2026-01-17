@@ -10,3 +10,4 @@ export * from "./components/Image";
 export * from "./components/CommandBar";
 export * from "./components/AppTile";
 export * from "./components/AppLauncher";
+export * from "./components/AsciiMarquee";

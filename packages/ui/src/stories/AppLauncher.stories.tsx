@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppLauncher } from "../components/AppLauncher";
 import { AppTile } from "../components/AppTile";
+import { AsciiMarquee } from "../components/AsciiMarquee";
 
 const meta: Meta<typeof AppLauncher> = {
   title: "Pages/AppLauncher",
@@ -70,14 +71,7 @@ const tiles = [
 export const Default: Story = {
   args: {
     title: "LAUNCH_PAD",
-    subtitle: (
-        <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-left inline-block hidden md:block">
-{`  /\\"""/\\        _     _          /\\           /\\_/\\
- (= ^.^ =)      / \\   / \\        /  \\         ( o.o )
- / >   < \\      \\  \\ /  /        \\  /          > ^ <
-(___)_(___)      \\  v  /          \\/          (_____)`}
-        </pre>
-    ),
+    subtitle: <AsciiMarquee />,
     children: tiles,
     navigation: {
         user: { name: "Lee Costello", email: "lee@finnminn.com" },

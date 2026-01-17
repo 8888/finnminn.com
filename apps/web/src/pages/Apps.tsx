@@ -1,4 +1,4 @@
-import { AppLauncher, AppTile } from "@finnminn/ui";
+import { AppLauncher, AppTile, AsciiMarquee } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -17,19 +17,10 @@ export const Apps = () => {
     onLogout: logout,
   };
 
-  const subtitle = (
-    <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-left inline-block hidden md:block">
-{`  /\\"""/\\        _     _          /\\           /\\_/\\
- (= ^.^ =)      / \\   / \\        /  \\         ( o.o )
- / >   < \\      \\  \\ /  /        \\  /          > ^ <
-(___)_(___)      \\  v  /          \\/          (_____)`}
-    </pre>
-  );
-
   return (
     <AppLauncher 
         title="LAUNCH_PAD" 
-        subtitle={subtitle}
+        subtitle={<AsciiMarquee />}
         navigation={navigation}
     >
       <AppTile
