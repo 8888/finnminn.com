@@ -67,7 +67,7 @@ export const Default: Story = {
   args: {
     title: "COMMAND_CENTER",
     subtitle: (
-        <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-center">
+        <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-left inline-block">
 {`      /\\"""/\\
      (= ^.^ =)
      / >   < \\
