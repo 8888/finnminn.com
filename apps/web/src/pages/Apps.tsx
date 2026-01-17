@@ -36,7 +36,7 @@ export const Apps = () => {
         title="Pip Tracker"
         description="Habit formation and consistency protocols."
         href="https://pip.finnminn.com"
-        status="online"
+        status="beta"
         variant="featured"
         icon={
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-inherit">
@@ -49,7 +49,7 @@ export const Apps = () => {
         title="N-Dimension"
         description="Spatial visualization and cryptid mapping."
         href="https://n-dim.finnminn.com"
-        status="beta"
+        status="online"
         icon={
              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-inherit">
                 <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />

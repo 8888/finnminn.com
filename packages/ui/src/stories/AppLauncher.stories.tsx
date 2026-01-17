@@ -19,7 +19,7 @@ const tiles = [
         title="Pip Tracker" 
         description="Habit formation protocols." 
         href="#" 
-        status="online"
+        status="beta"
         variant="featured"
         icon={
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -53,7 +53,7 @@ const tiles = [
         title="N-Dimension" 
         description="Spatial visualization tools." 
         href="#" 
-        status="maintenance"
+        status="online"
     />,
      <AppTile 
         key="5"
