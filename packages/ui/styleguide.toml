@@ -156,6 +156,19 @@ items = [
 ]
 dropdown_style = "Absolute positioned Card component, z-index 50."
 
+[components.launcher]
+name = "AppLauncher"
+description = "Central portal page for accessing Finnminn suite applications."
+layout = "Responsive Grid (1->2->3->4 columns). Centered max-w-7xl."
+background = "Void with localized radial gradient 'glow' behind grid."
+
+[components.app_tile]
+name = "AppTile"
+description = "A navigational entry point styled as a physical data cartridge or artifact."
+variants = ["Default (Standard)", "Featured (Larger, animated border)"]
+content = "Icon (48px), Title (H3), Description (Body Small), Status Indicator (optional)."
+interaction = "Hover: Border becomes Witchcraft (Purple) or Ectoplasm (Green). Card lifts (-2px, -2px) with colored shadow."
+
 [accessibility.standards]
 contrast_ratio = "AA (4.5:1) minimum for text."
 focus_indicators = "Thick, dashed outline in 'Witchcraft' purple or 'Vampire Kiss' pink."

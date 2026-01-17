@@ -1,11 +1,12 @@
 import * as React from "react";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: "success" | "warning" | "error" | "info";
+  variant?: "default" | "success" | "warning" | "error" | "info";
 }
 
-export const Badge = ({ children, className, variant = "info", ...props }: BadgeProps) => {
+export const Badge = ({ children, className, variant = "default", ...props }: BadgeProps) => {
   const variants = {
+    default: "bg-surface text-text-body border-text-muted",
     success: "bg-ectoplasm text-void border-ectoplasm",
     warning: "bg-gold text-void border-gold",
     error: "bg-vampire text-void border-vampire",
