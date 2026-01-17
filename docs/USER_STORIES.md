@@ -161,3 +161,22 @@
 3.  The application background and global typography match `packages/ui/styleguide.toml` (Grape Charcoal background, VT323/Space Mono fonts).
 4.  Visual atmosphere elements (Mana Motes, CRT Vignette) are implemented if supported by `@finnminn/ui` or added locally matching the styleguide.
 5.  The `apps/web` application builds successfully.
+
+## User Story 8: Implement Cryptid Console Developer Page
+
+**As a** Developer,
+**I want** a dedicated configuration and debugging page called "Cryptid Console",
+**So that** I can easily access internal tools like the current API Bearer token.
+
+**Acceptance Criteria:**
+
+1.  **New Route:** Create a new page at `/console` within `apps/web`.
+2.  **Navigation:** Add a "Console" link to the `AppLauncher` navigation menu in `apps/web/src/pages/Apps.tsx`.
+3.  **Token Syphon:**
+    *   Include a section titled "TOKEN_SYPHON".
+    *   Display the current active Bearer token.
+    *   Provide a "COPY" button that copies the token to the clipboard.
+4.  **Design System:**
+    *   Utilize `@finnminn/ui` components (`Terminal`, `Button`, `Card`, `Typography`).
+    *   Adhere to the PixelGrim aesthetic (void background, terminal fonts, radical/toxic accents).
+5.  **Access:** The page must be protected by the `AuthProvider` (redirect if not logged in).

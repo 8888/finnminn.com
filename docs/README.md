@@ -37,5 +37,13 @@ This repository hosts the source code and documentation for `finnminn.com`, a st
     - Added global atmospheric effects (Mana Motes, CRT Vignette).
 - **Documentation:** [PixelGrim Integration Feature](./features/apply-pixelgrim-design-system/implementation/README.md)
 
+### Cryptid Console Developer Page (Implemented Jan 2026)
+- **Goal:** Create a dedicated, secure page for developer utilities and configuration.
+- **Key Changes:**
+    - New `/console` route in `apps/web`.
+    - "Token Syphon" tool for easy access to MSAL Bearer tokens.
+    - Integration with the main AppLauncher navigation.
+- **Documentation:** [Cryptid Console Developer Page Feature](./features/cryptid-console-dev-page/implementation/README.md)
+
 ## Architecture
 See [Architecture Docs](./architecture/) for detailed system design.
