@@ -22,4 +22,7 @@ export const Typography = {
   Body: ({ children, className }: { children: React.ReactNode, className?: string }) => (
     <p className={`font-body text-text-body mb-2 ${className || ""}`}>{children}</p>
   ),
+  Code: ({ children, className }: { children: React.ReactNode, className?: string }) => (
+    <code className={`font-body text-sm ${className || ""}`}>{children}</code>
+  ),
 };
