@@ -78,8 +78,8 @@ export const Default: Story = {
     navigation: {
         user: { name: "Lee Costello", email: "lee@finnminn.com" },
         links: [
-            { label: "Dashboard", href: "#", active: true },
-            { label: "Settings", href: "#" },
+            { label: "Dashboard", href: "/dashboard", active: true },
+            { label: "Settings", href: "/settings" },
         ]
     }
   },
