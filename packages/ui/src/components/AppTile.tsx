@@ -35,7 +35,6 @@ export const AppTile = ({
           h-full transition-all duration-200 relative overflow-hidden flex flex-col
           group-hover:-translate-y-1 group-hover:-translate-x-1
           group-hover:shadow-[6px_6px_0px_0px_#7D5FFF] group-hover:border-witchcraft
-          ${isFeatured ? "border-witchcraft shadow-[4px_4px_0px_0px_#7D5FFF]" : ""}
         `}
       >
         {/* Status Indicator */}
