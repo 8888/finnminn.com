@@ -16,15 +16,15 @@ type Story = StoryObj<typeof AppLauncher>;
 const tiles = [
     <AppTile 
         key="1"
-        title="Pip Tracker" 
+        title="Pip" 
         description="Habit formation protocols." 
         href="#" 
         status="beta"
         variant="featured"
         icon={
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 6v6l4 2" />
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M1 8c0 0 3 5 4 5s2-2 4-2 2 1 3 1 1 0 3-1 3 2 4 2 1 0 4-5 4-5-1 7-11 7S1 8 1 8z" />
+                <path d="M7 6l1 3M17 6l-1 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
         }
     />,
@@ -54,6 +54,15 @@ const tiles = [
         description="Spatial visualization tools." 
         href="#" 
         status="online"
+        icon={
+             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 16.5V7.5L12 3L3 7.5V16.5L12 21L21 16.5Z" />
+                <path d="M12 3V12" />
+                <path d="M3 7.5L12 12" />
+                <path d="M21 7.5L12 12" />
+                <path d="M12 12V21" />
+             </svg>
+        }
     />,
      <AppTile 
         key="5"
