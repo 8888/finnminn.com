@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.finnminn.necrobloom.VesselFunctionsTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-01-17T19:22:14" hostname="macbookair.lan" time="0.554">
+  <properties/>
+  <testcase name="getVessels should return 400 if userId is missing()" classname="com.finnminn.necrobloom.VesselFunctionsTest" time="0.551"/>
+  <testcase name="identifyPlant should return 400 if body is missing()" classname="com.finnminn.necrobloom.VesselFunctionsTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/Users/leecostello/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.10/90ed94ac044ea8953b224304c762316e91fd6b31/byte-buddy-agent-1.14.10.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

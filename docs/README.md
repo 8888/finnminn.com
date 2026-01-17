@@ -45,5 +45,13 @@ This repository hosts the source code and documentation for `finnminn.com`, a st
     - Integration with the main AppLauncher navigation.
 - **Documentation:** [Cryptid Console Developer Page Feature](./features/cryptid-console-dev-page/implementation/README.md)
 
+### NecroBloom - Gothic Plant Tracker (In Progress Jan 2026)
+- **Goal:** Implement an AI-driven houseplant health and care tracker.
+- **Key Changes:**
+    - New `apps/necrobloom` React application.
+    - Kotlin Azure Function backend with Gemini 3 Flash integration.
+    - Integrated with PixelGrim design system.
+- **Documentation:** [NecroBloom Feature](./features/necrobloom/implementation/README.md)
+
 ## Architecture
 See [Architecture Docs](./architecture/) for detailed system design.

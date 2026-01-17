@@ -17,3 +17,4 @@ coverage
 storybook-static
 apps/pip/api/.gradle/
 apps/pip/api/build/
+local.settings.json
