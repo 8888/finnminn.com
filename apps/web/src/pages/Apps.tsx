@@ -2,16 +2,17 @@ import { AppLauncher, AppTile, AsciiMarquee } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { InteractionStatus } from "@azure/msal-browser";
 
 export const Apps = () => {
-  const { user, logout, login, isAuthenticated } = useAuth();
+  const { user, logout, login, isAuthenticated, inProgress } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated && inProgress === InteractionStatus.None) {
       navigate("/");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, inProgress, navigate]);
 
   if (!isAuthenticated) return null;
 

@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const useAuth = () => {
-    const { instance, accounts } = useMsal();
+    const { instance, accounts, inProgress } = useMsal();
     const isAuthenticated = useIsAuthenticated();
 
     const login = () => {
@@ -72,6 +72,7 @@ export const useAuth = () => {
         logout,
         getToken,
         isAuthenticated,
+        inProgress,
         user: accounts[0] || null,
         instance
     };
