@@ -10,7 +10,7 @@ export interface AppLauncherProps {
   /** Optional title for the grid section */
   title?: string;
   /** Optional subtitle or welcome message */
-  subtitle?: string;
+  subtitle?: React.ReactNode;
 }
 
 export const AppLauncher = ({
@@ -39,13 +39,13 @@ export const AppLauncher = ({
         <div className="max-w-7xl mx-auto flex flex-col gap-8">
             
             {/* Header Section */}
-            <div className="text-center space-y-2 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <Typography.H1 className="text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-b from-white to-text-muted drop-shadow-[0_0_10px_rgba(125,95,255,0.5)]">
+            <div className="text-center space-y-4 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col items-center">
+                <Typography.H1 className="text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-b from-white to-text-muted drop-shadow-[0_0_10px_rgba(125,95,255,0.5)] mb-0">
                     {title}
                 </Typography.H1>
-                <Typography.Body className="text-ectoplasm font-mono text-sm md:text-base tracking-widest uppercase">
-                    [ {subtitle} ]
-                </Typography.Body>
+                <div className="text-ectoplasm font-mono text-xs md:text-sm tracking-widest uppercase">
+                    {subtitle}
+                </div>
             </div>
 
             {/* App Grid */}

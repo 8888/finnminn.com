@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppLauncher } from "../components/AppLauncher";
 import { AppTile } from "../components/AppTile";
 
@@ -66,7 +66,14 @@ const tiles = [
 export const Default: Story = {
   args: {
     title: "COMMAND_CENTER",
-    subtitle: "Welcome back, Operator.",
+    subtitle: (
+        <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-center">
+{`      /\\"""/\\
+     (= ^.^ =)
+     / >   < \\
+    (___)_(___)`}
+        </pre>
+    ),
     children: tiles,
     navigation: {
         user: { name: "Lee Costello", email: "lee@finnminn.com" },
