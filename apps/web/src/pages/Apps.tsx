@@ -17,7 +17,7 @@ export const Apps = () => {
   if (!isAuthenticated) return null;
 
   const navigation = {
-    user: user ? { name: user.name || "Operator", email: user.username } : null,
+    user: user ? { name: user.name || user.username, email: user.username } : null,
     links: [
         { label: "Home", href: "/" },
         { label: "Apps", href: "/apps", active: true },

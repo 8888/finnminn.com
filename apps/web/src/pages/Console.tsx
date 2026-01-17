@@ -33,7 +33,7 @@ export const Console = () => {
   if (!isAuthenticated) return null;
 
   const navigation = {
-    user: user ? { name: user.name || "Operator", email: user.username } : null,
+    user: user ? { name: user.name || user.username, email: user.username } : null,
     links: [
         { label: "Home", href: "/" },
         { label: "Apps", href: "/apps" },
@@ -67,7 +67,7 @@ export const Console = () => {
                     CRYPTID_CONSOLE
                 </Typography.H1>
                 <div className="text-ectoplasm font-mono text-xs md:text-sm">
-                    ROOT_ACCESS_GRANTED // WELCOME_OPERATOR
+                    ROOT_ACCESS_GRANTED
                 </div>
             </div>
 

@@ -109,7 +109,6 @@ export const CommandBar = ({
                 aria-haspopup="true"
               >
                 <div className="text-right hidden lg:block">
-                    <Typography.Body className="text-xs text-text-muted group-hover:text-witchcraft mb-0">OPERATOR</Typography.Body>
                     <Typography.H3 className="text-sm text-text-body group-hover:text-ectoplasm mb-0">{user.name}</Typography.H3>
                 </div>
                 <div className={`
