@@ -1,8 +1,10 @@
 import { Button, Terminal, Typography, Image, Atmosphere } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
   const { user, login, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 gap-8 bg-magic-void relative">
@@ -33,19 +35,21 @@ export const Home = () => {
             <p className="animate-pulse mt-2">_</p>
           </Terminal>
 
-          {isAuthenticated ? (
-            <Button onClick={() => logout()} variant="destructive" className="w-full">
-              Disconnect
-            </Button>
-          ) : (
-            <Button onClick={() => login()} variant="primary" className="w-full">
-              Authenticate Sequence
-            </Button>
-          )}
-
-          {/* Temporary Link to Apps for easy navigation */}
-          <div className="text-center mt-4">
-              <a href="/apps" className="text-ectoplasm hover:underline font-header">[ ENTER_APPS ]</a>
+          <div className="flex flex-col gap-3">
+            {isAuthenticated ? (
+              <>
+                <Button onClick={() => navigate("/apps")} variant="secondary" className="w-full">
+                  [ INITIALIZE_LAUNCH_PAD ]
+                </Button>
+                <Button onClick={() => logout()} variant="destructive" className="w-full opacity-50 hover:opacity-100">
+                  Disconnect
+                </Button>
+              </>
+            ) : (
+              <Button onClick={() => login()} variant="primary" className="w-full">
+                Authenticate Sequence
+              </Button>
+            )}
           </div>
         </div>
       </div>
