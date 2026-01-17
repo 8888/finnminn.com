@@ -47,7 +47,7 @@ export const TokenSyphon = ({ token, onRefresh }: TokenSyphonProps) => {
             </Button>
           )}
           <Button 
-            variant={copied ? "secondary" : "destructive"} 
+            variant={copied ? "secondary" : "primary"} 
             onClick={handleCopy}
             disabled={!token}
             className="w-full md:w-auto"
