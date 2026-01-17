@@ -3,9 +3,10 @@ import { Terminal, Button, Typography, Input } from "@finnminn/ui";
 
 interface TokenSyphonProps {
   token: string | null;
+  onRefresh?: () => void;
 }
 
-export const TokenSyphon = ({ token }: TokenSyphonProps) => {
+export const TokenSyphon = ({ token, onRefresh }: TokenSyphonProps) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -35,7 +36,16 @@ export const TokenSyphon = ({ token }: TokenSyphonProps) => {
           />
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-2">
+          {onRefresh && (
+            <Button
+                variant="ghost"
+                onClick={onRefresh}
+                className="w-full md:w-auto"
+            >
+                [ REFRESH_SIGNAL ]
+            </Button>
+          )}
           <Button 
             variant={copied ? "secondary" : "destructive"} 
             onClick={handleCopy}

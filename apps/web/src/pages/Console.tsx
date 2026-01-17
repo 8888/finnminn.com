@@ -10,6 +10,17 @@ export const Console = () => {
   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
 
+  const fetchToken = async () => {
+    if (isAuthenticated) {
+      try {
+        const accessToken = await getToken();
+        setToken(accessToken);
+      } catch (error) {
+        console.error("Failed to fetch token", error);
+      }
+    }
+  };
+
   useEffect(() => {
     if (!isAuthenticated && inProgress === InteractionStatus.None) {
       navigate("/");
@@ -17,16 +28,6 @@ export const Console = () => {
   }, [isAuthenticated, inProgress, navigate]);
 
   useEffect(() => {
-    const fetchToken = async () => {
-      if (isAuthenticated) {
-        try {
-          const accessToken = await getToken();
-          setToken(accessToken);
-        } catch (error) {
-          console.error("Failed to fetch token", error);
-        }
-      }
-    };
     fetchToken();
   }, [isAuthenticated, getToken]);
 
@@ -73,7 +74,7 @@ export const Console = () => {
 
             {/* Tools Grid */}
             <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
-                <TokenSyphon token={token} />
+                <TokenSyphon token={token} onRefresh={fetchToken} />
             </div>
 
             {/* Footer / Copyright */}
