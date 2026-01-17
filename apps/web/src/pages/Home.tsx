@@ -1,17 +1,5 @@
-import { Button, Terminal, Typography, Image } from "@finnminn/ui";
+import { Button, Terminal, Typography, Image, Atmosphere } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
-
-const FIREFLIES = Array.from({ length: 12 }, (_, i) => i);
-
-const Atmosphere = () => {
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-       {FIREFLIES.map((i) => (
-         <div key={i} className="firefly" />
-       ))}
-    </div>
-  );
-};
 
 export const Home = () => {
   const { user, login, logout, isAuthenticated } = useAuth();

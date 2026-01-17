@@ -1,6 +1,7 @@
 import * as React from "react";
 import { CommandBar, CommandBarProps } from "./CommandBar";
 import { Typography } from "./Typography";
+import { Atmosphere } from "./Atmosphere";
 
 export interface AppLauncherProps {
   /** Props to pass to the internal CommandBar */
@@ -22,6 +23,7 @@ export const AppLauncher = ({
   return (
     <div className="min-h-screen w-full bg-void flex flex-col relative overflow-hidden">
         {/* Background Atmosphere */}
+        <Atmosphere />
         <div className="fixed inset-0 pointer-events-none">
              {/* Radial gradient to highlight the center content */}
              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(125,95,255,0.08),_transparent_70%)]" />
