@@ -38,11 +38,7 @@ export const Apps = () => {
         href="https://pip.finnminn.com"
         status="beta"
         variant="featured"
-        icon={
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-inherit">
-                <path d="M4 4v2h16V4H4zm2 4l1 7h2L8 8H6zm10 0l-1 7h2l1-7h-2z" />
-            </svg>
-        }
+        icon={<span className="text-3xl">🦇</span>}
       />
       <AppTile
         title="N-Dimension"
