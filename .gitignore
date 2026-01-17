@@ -16,3 +16,4 @@ coverage
 *storybook.log
 storybook-static
 apps/pip/api/.gradle/
+apps/pip/api/build/
