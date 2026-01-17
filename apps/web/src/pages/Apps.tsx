@@ -19,10 +19,10 @@ export const Apps = () => {
 
   const subtitle = (
     <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-left inline-block hidden md:block">
-{`  /\\"""/\\      _   _        |          /\\_/\\        /|\\
- (= ^.^ =)    / \\ / \\    -- * --      ( o.o )      (o_o)
- / >   < \\    \\  v  /       |           > ^ <       // \\\\
-(___)_(___)    \\   /       / \\         (_____)       " " `}
+{`  /\\"""/\\        _     _          /\\           /\\_/\\
+ (= ^.^ =)      / \\   / \\        /  \\         ( o.o )
+ / >   < \\      \\  \\ /  /        \\  /          > ^ <
+(___)_(___)      \\  v  /          \\/          (_____)`}
     </pre>
   );
 
