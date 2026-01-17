@@ -19,16 +19,16 @@ export const Apps = () => {
 
   const subtitle = (
     <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-left inline-block">
-{`      /\"""/\
+{`      /\\"""/\\
      (= ^.^ =)
-     / >   < \
+     / >   < \\
     (___)_(___)`}
     </pre>
   );
 
   return (
     <AppLauncher 
-        title="FINNMINN_SUITE" 
+        title="LAUNCH_PAD" 
         subtitle={subtitle}
         navigation={navigation}
     >

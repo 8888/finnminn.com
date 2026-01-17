@@ -43,7 +43,7 @@ export const AppLauncher = ({
                 <Typography.H1 className="text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-b from-white to-text-muted drop-shadow-[0_0_10px_rgba(125,95,255,0.5)] mb-0">
                     {title}
                 </Typography.H1>
-                <div className="text-ectoplasm font-mono text-xs md:text-sm tracking-widest uppercase">
+                <div className="text-ectoplasm font-mono text-xs md:text-sm">
                     {subtitle}
                 </div>
             </div>

@@ -65,7 +65,7 @@ const tiles = [
 
 export const Default: Story = {
   args: {
-    title: "COMMAND_CENTER",
+    title: "LAUNCH_PAD",
     subtitle: (
         <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-left inline-block">
 {`      /\\"""/\\
