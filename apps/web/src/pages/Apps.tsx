@@ -1,10 +1,19 @@
 import { AppLauncher, AppTile, AsciiMarquee } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Apps = () => {
-  const { user, logout, login } = useAuth();
+  const { user, logout, login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
+  if (!isAuthenticated) return null;
 
   const navigation = {
     user: user ? { name: user.name || "Operator", email: user.username } : null,
