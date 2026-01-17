@@ -180,3 +180,33 @@
     *   Utilize `@finnminn/ui` components (`Terminal`, `Button`, `Card`, `Typography`).
     *   Adhere to the PixelGrim aesthetic (void background, terminal fonts, radical/toxic accents).
 5.  **Access:** The page must be protected by the `AuthProvider` (redirect if not logged in).
+
+## User Story 9: Implement NecroBloom - Gothic Plant Tracker
+
+**As an** authenticated Agent,
+**I want** to track my houseplants' health and receive AI-driven care instructions within the NecroBloom app,
+**So that** I can maintain my botanical collection with a gothic-tech aesthetic while leveraging advanced AI analysis.
+
+**Acceptance Criteria:**
+
+1.  **Application Scaffolding:** 
+    - Create `apps/necrobloom` React SPA utilizing `@finnminn/ui` and `@finnminn/auth`.
+    - Create `apps/necrobloom/api` Kotlin Azure Function backend.
+2.  **Plant Identification:** 
+    - Users can upload an image to identify a plant via **Gemini 3 Flash Preview**.
+    - The identified plant is automatically added to the user's collection in Cosmos DB.
+3.  **Collection Management:** 
+    - Authenticated users can view their private collection of plants in a gothic "Vessel Grid".
+    - Data is scoped strictly to the authenticated user (`userId`).
+4.  **AI Care Plans:** 
+    - The app generates tailored care instructions based on plant species, zip code, and indoor positioning.
+5.  **Vitality Reports (Health Checks):** 
+    - Users can upload health check photos.
+    - Gemini 3 Flash analyzes the photo against historical data to report status and suggest care adjustments.
+6.  **Persistence & Storage:** 
+    - Metadata is stored in Cosmos DB (Serverless).
+    - Photos are stored in Azure Blob Storage.
+7.  **Identity:** 
+    - The app is protected by Microsoft Entra ID.
+8.  **Design Compliance:** 
+    - UI strictly follows the "PixelGrim" design system (Colors: Void, Witchcraft, Toxic; Fonts: VT323, Space Mono).
