@@ -40,6 +40,13 @@ Every component must have a corresponding `*.stories.tsx` file. **You MUST adher
 Ensure the component is exported in **`src/index.tsx`**.
 - `export * from "./components/MyNewComponent";`
 
+### 6. Storybook Verification (MANDATORY)
+**Before marking any UI task as complete**, you must verify your changes in the running Storybook instance.
+1.  **Access:** Assume Storybook is running at `http://localhost:6006/`.
+2.  **Console Check:** Use the Chrome MCP to open the relevant story URL and check the DevTools console for any errors (`list_console_messages`).
+3.  **Visual Audit:** Verify that the component renders correctly and "PixelGrim" styles are applied.
+4.  **CSS Check:** Ensure global CSS files are properly imported and active on new pages or components.
+
 ## ✅ Checklist for New Components
 - [ ] Defined in `styleguide.toml`
 - [ ] Component created in `src/components/`
