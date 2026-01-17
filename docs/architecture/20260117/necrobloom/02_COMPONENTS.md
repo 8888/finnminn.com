@@ -32,5 +32,6 @@
 - **Access**: Managed via the Function App using System Assigned Managed Identity.
 
 ## AI: Gemini API
-- **Model**: `gemini-1.5-flash`.
+- **Model**: `gemini-3-flash-preview`
+- **Feature**: Utilizes `thinking_level` parameter for complex health analysis.
 - **Authentication**: API Key stored in Function App Application Settings.

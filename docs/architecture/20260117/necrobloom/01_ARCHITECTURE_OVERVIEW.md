@@ -42,6 +42,6 @@ graph TD
 4. **Care Instructions**: Based on the plant's profile and user-provided environment context (zip code, indoor lighting), Gemini generates instructions.
 
 ## Key Design Decisions
-- **Gemini Flash Only**: Optimized for speed and cost-effectiveness for a hobby project.
+- **Gemini 3 Flash Preview**: Optimized for speed, cost-effectiveness, and enhanced reasoning for health analysis.
 - **Serverless Everything**: No fixed costs; the app scales to zero when not in use.
 - **Manual Setup**: Infrastructure will be created via the Azure Portal to keep the setup simple and direct.
