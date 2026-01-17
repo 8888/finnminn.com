@@ -71,11 +71,11 @@ export const Default: Story = {
   args: {
     title: "LAUNCH_PAD",
     subtitle: (
-        <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-left inline-block">
-{`      /\\"""/\\
-     (= ^.^ =)
-     / >   < \\
-    (___)_(___)`}
+        <pre className="text-xs leading-none text-ectoplasm font-mono whitespace-pre text-left inline-block hidden md:block">
+{`  /\\"""/\\        .-.        ___        /\\_/\\        ___
+ (= ^.^ =)      (o o)      /o o\\      ( o.o )      / _ \\
+ / >   < \\      | O |      \\ ^ /       > ^ <      | (_) |
+(___)_(___)     \`~~~\`       " "       (_____)      \\___/`}
         </pre>
     ),
     children: tiles,
