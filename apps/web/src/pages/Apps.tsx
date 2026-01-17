@@ -21,6 +21,7 @@ export const Apps = () => {
     links: [
         { label: "Home", href: "/" },
         { label: "Apps", href: "/apps", active: true },
+        { label: "Console", href: "/console" },
     ],
     onLinkClick: (href: string) => navigate(href),
     onLogin: login,
