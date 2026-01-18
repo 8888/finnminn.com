@@ -161,6 +161,101 @@ const response = await fetch(`${API_BASE}/api/plants`, { ... });
 ---
 
 ## 6. Verification Checklist
-- [ ] `curl -I https://api.necrobloom.finnminn.com/api/Ping` returns `200 OK`.
+- [x] `curl -k https://api.necrobloom.finnminn.com/api/Ping` returns `200 OK`.
 - [ ] Browser DevTools -> Network shows calls to `api.necrobloom.finnminn.com` with no CORS errors.
-- [ ] Local dev continues to work using `localhost:7071`.
+- [x] Local dev continues to work using `localhost:7071`.
+
+---
+
+# Post-Setup Verification & Remediation (2026-01-18)
+
+Following the initial setup, a comprehensive verification was performed. The core infrastructure is provisioned correctly, but two key items remain for production readiness.
+
+## Verification Findings summary
+- **Infrastructure Status**: APIM, Function App, Key Vault, and DNS are all correctly provisioned and linked.
+- **SSL Certificate Issue**: `curl: (60) SSL certificate problem` occurs because the current certificate is **self-signed** (generated via Step 3B). 
+- **404 on `curl -I`**: This is a false positive. APIM is configured for `GET` only on the `/Ping` operation; `curl -I` sends a `HEAD` request which APIM rejects. Direct `GET` requests (e.g., `curl -k`) succeed.
+
+## Remediation Steps
+
+### 1. Implement Global CORS Policy
+Ensure CORS is handled at the gateway level to prevent preflight failures in the browser.
+1.  Navigate to the **API Management service** (`necrobloom-gateway`).
+2.  Select **APIs** > **All APIs**.
+3.  In the **Inbound processing** section, click the **</> (code editor)** icon.
+4.  Paste the policy from **Step 4A** inside the `<inbound>` tags.
+5.  Click **Save**.
+
+### 2. Replace Self-Signed Certificate with Trusted CA
+To resolve SSL errors in browsers and tools, replace the self-signed certificate with one from a trusted Certificate Authority (CA). 
+
+#### A. Automated Agentic Flow (Recommended for CLI Agents)
+This flow automates the DNS-01 challenge using scripts, allowing for non-interactive certificate generation and deployment.
+
+**1. Create DNS Hooks**
+Create `auth.sh` to add the TXT record and `cleanup.sh` to remove it.
+```bash
+# auth.sh
+#!/bin/bash
+az network dns record-set txt add-record \\
+    --resource-group Finnminn-rg --zone-name finnminn.com \\
+    --record-set-name "_acme-challenge.api.necrobloom" \\
+    --value "$CERTBOT_VALIDATION"
+sleep 60
+
+# cleanup.sh
+#!/bin/bash
+az network dns record-set txt remove-record \\
+    --resource-group Finnminn-rg --zone-name finnminn.com \\
+    --record-set-name "_acme-challenge.api.necrobloom" \\
+    --value "$CERTBOT_VALIDATION"
+```
+
+**2. Run Certbot (Non-Interactive)**
+```bash
+certbot certonly --manual \\
+    --manual-auth-hook ./auth.sh --manual-cleanup-hook ./cleanup.sh \\
+    --preferred-challenges dns --email lee@finnminn.com --agree-tos --no-eff-email \\
+    -d api.necrobloom.finnminn.com --non-interactive \\
+    --config-dir ./letsencrypt/config --work-dir ./letsencrypt/work --logs-dir ./letsencrypt/logs
+```
+
+**3. Convert to PFX & Import to Key Vault**
+```bash
+# Convert
+openssl pkcs12 -export -out cert.pfx \\
+    -inkey ./letsencrypt/config/live/api.necrobloom.finnminn.com/privkey.pem \\
+    -in ./letsencrypt/config/live/api.necrobloom.finnminn.com/fullchain.pem \\
+    -passout pass:YourPassword123!
+
+# Import
+az keyvault certificate import --vault-name necrobloom-vault \\
+    --name api-necrobloom-trusted --file cert.pfx --password "YourPassword123!"
+```
+
+**4. Update APIM Configuration**
+Download the current configuration, update the `keyVaultId`, and push it back.
+```bash
+az apim show -n necrobloom-gateway -g necrobloom-rg --query "hostnameConfigurations" > hostnames.json
+# [Edit hostnames.json to update the keyVaultId for the target domain]
+az apim update -n necrobloom-gateway -g necrobloom-rg --set hostnameConfigurations=@hostnames.json
+```
+
+#### B. Manual Flow (For Humans)
+If you prefer a manual approach via the Azure Portal:
+
+**1. Obtain a Trusted Certificate (Let's Encrypt)**
+- Install Certbot: `brew install certbot`
+- Request Certificate: `sudo certbot certonly --manual --preferred-challenges dns -d api.necrobloom.finnminn.com`
+- Follow terminal prompts to add the TXT record to Azure DNS.
+- Convert to PFX: `sudo openssl pkcs12 -export -out necrobloom.pfx -inkey [path]/privkey.pem -in [path]/fullchain.pem`
+
+**2. Import to Key Vault**
+- Navigate to `necrobloom-vault` > **Certificates** > **+ Generate/Import**.
+- Select **Method**: `Import`.
+- Upload your `.pfx` file and enter the password.
+
+**3. Update APIM Custom Domain**
+- Navigate to **APIM** > **Custom domains**.
+- Edit `api.necrobloom.finnminn.com`.
+- Select the new trusted certificate from the Key Vault and **Save**.
