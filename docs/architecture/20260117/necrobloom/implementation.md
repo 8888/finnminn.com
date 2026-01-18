@@ -28,8 +28,8 @@ This document serves as the master execution plan for building the **NecroBloom*
 - [x] **4.3** Implement "Generate Care Plan" Logic
 
 ### Phase 5: Health Monitoring
-- [ ] **5.1** Implement Health Check Backend Logic
-- [ ] **5.2** Build Health Check UI & Visualization
+- [x] **5.1** Implement Health Check Backend Logic
+- [x] **5.2** Build Health Check UI & Visualization
 
 ---
 

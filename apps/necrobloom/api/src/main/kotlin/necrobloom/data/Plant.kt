@@ -47,3 +47,7 @@ data class IdentifyPlantResponse(
     val scientificName: String,
     val description: String
 )
+
+data class HealthCheckRequest(
+    val image: String // Base64
+)

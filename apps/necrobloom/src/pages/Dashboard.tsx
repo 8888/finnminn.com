@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 import { AddPlantModal } from '../components/AddPlantModal';
+import { HealthCheckModal } from '../components/HealthCheckModal';
 
 interface Plant {
   id: string;
@@ -14,6 +15,7 @@ export const Dashboard: React.FC = () => {
   const [plants, setPlants] = useState<Plant[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
   const { getToken } = useAuth();
 
   const fetchPlants = async () => {
@@ -66,6 +68,15 @@ export const Dashboard: React.FC = () => {
         />
       )}
 
+      {selectedPlant && (
+        <HealthCheckModal
+          plantId={selectedPlant.id}
+          plantAlias={selectedPlant.alias}
+          onClose={() => setSelectedPlant(null)}
+          onSuccess={fetchPlants}
+        />
+      )}
+
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
@@ -107,10 +118,17 @@ export const Dashboard: React.FC = () => {
               <Typography.Body className="text-witchcraft text-xs italic mb-4">
                 {plant.species}
               </Typography.Body>
-              <div className="flex justify-between items-center text-[10px] text-toxic/40 font-mono">
-                <span>VITALITY: STABLE</span>
+              <div className="flex justify-between items-center text-[10px] text-toxic/40 font-mono mb-4">
+                <span>VITALITY: {plant.historicalReports[plant.historicalReports.length - 1]?.healthStatus?.substring(0, 15)}...</span>
                 <span>ID: {plant.id.toString().substring(0, 8)}</span>
               </div>
+              <Button 
+                onClick={() => setSelectedPlant(plant)}
+                variant="primary" 
+                className="w-full py-1 text-[10px] border-toxic/20 text-toxic/60 hover:text-toxic hover:border-toxic"
+              >
+                [ CHECK VITALITY ]
+              </Button>
             </Card>
           ))}
         </div>
