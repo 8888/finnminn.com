@@ -48,4 +48,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: './apps/necrobloom/api/build/azure-functions/${{ env.AZURE_FUNCTIONAPP_NAME }}'
-          publish-profile: ${{ secrets.AZURE_NECOBLOOM_API_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_NECROBLOOM_API_PUBLISH_PROFILE }}
