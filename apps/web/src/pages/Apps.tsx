@@ -57,6 +57,13 @@ export const Apps = () => {
              </svg>
         }
       />
+      <AppTile
+        title="NecroBloom"
+        description="Whimsical gothic plant tracking and AI care protocols."
+        href="https://necrobloom.finnminn.com"
+        status="beta"
+        icon={<span className="text-3xl">🥀</span>}
+      />
     </AppLauncher>
   );
 };
