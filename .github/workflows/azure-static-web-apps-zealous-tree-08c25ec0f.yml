@@ -4,10 +4,24 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'apps/necrobloom/**'
+      - '!apps/necrobloom/api/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'turbo.json'
+      - '.github/workflows/azure-static-web-apps-zealous-tree-08c25ec0f.yml'
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+    paths:
+      - 'apps/necrobloom/**'
+      - '!apps/necrobloom/api/**'
+      - 'packages/**'
+      - 'package.json'
+      - 'turbo.json'
+      - '.github/workflows/azure-static-web-apps-zealous-tree-08c25ec0f.yml'
 
 jobs:
   build_and_deploy_job:
@@ -29,8 +43,9 @@ jobs:
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "apps/necrobloom" # App source code path
-          api_location: "apps/necrobloom/api" # Api source code path - optional
+          api_location: "" # Api source code path - optional
           output_location: "dist" # Built app content directory - optional
+          skip_app_build: false
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:

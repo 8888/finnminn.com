@@ -7,20 +7,20 @@ This document serves as the master execution plan for building the **NecroBloom*
 ## 📋 Master Checklist
 
 ### Phase 1: Project Scaffolding & Infrastructure
-- [ ] **1.1** Initialize Frontend Application (`apps/necrobloom`)
-- [ ] **1.2** Initialize Backend Application (`apps/necrobloom/api`)
-- [ ] **1.3** Configure Monorepo Integration & CI/CD Pipelines
+- [x] **1.1** Initialize Frontend Application (`apps/necrobloom`)
+- [x] **1.2** Initialize Backend Application (`apps/necrobloom/api`)
+- [x] **1.3** Configure Monorepo Integration & CI/CD Pipelines
 
 ### Phase 2: Core Backend (Data & Storage)
-- [ ] **2.1** Implement Cosmos DB Repository Layer
-- [ ] **2.2** Implement Blob Storage Service
-- [ ] **2.3** Create Basic CRUD Endpoints (Plant Management)
+- [x] **2.1** Implement Cosmos DB Repository Layer
+- [x] **2.2** Implement Blob Storage Service
+- [x] **2.3** Create Basic CRUD Endpoints (Plant Management)
 
 ### Phase 3: Core Frontend (UI & Auth)
-- [ ] **3.1** Setup Layout & Design System Integration
-- [ ] **3.2** Integrate Authentication (`@finnminn/auth`)
-- [ ] **3.3** Build Dashboard & Plant List View
-- [ ] **3.4** Implement "Add Plant" Form (Basic)
+- [x] **3.1** Setup Layout & Design System Integration
+- [x] **3.2** Integrate Authentication (`@finnminn/auth`)
+- [x] **3.3** Build Dashboard & Plant List View
+- [x] **3.4** Implement "Add Plant" Form (Basic)
 
 ### Phase 4: AI Integration (Identification & Care)
 - [ ] **4.1** Implement Gemini Service (Backend)
