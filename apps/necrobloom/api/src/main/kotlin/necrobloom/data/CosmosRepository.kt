@@ -15,12 +15,36 @@ class CosmosRepository {
 
     companion object {
         private val client: CosmosClient by lazy {
-            val endpoint = System.getenv("COSMOS_ENDPOINT")
-            val key = System.getenv("COSMOS_KEY")
+            val connectionString = System.getenv("COSMOS_CONNECTION_STRING")
+            val (endpoint, key) = if (!connectionString.isNullOrBlank()) {
+                parseConnectionString(connectionString)
+            } else {
+                Pair(System.getenv("COSMOS_ENDPOINT"), System.getenv("COSMOS_KEY"))
+            }
+
+            if (endpoint.isNullOrBlank() || key.isNullOrBlank()) {
+                throw IllegalStateException("Cosmos DB configuration is incomplete. Missing endpoint or key.")
+            }
+
             CosmosClientBuilder()
                 .endpoint(endpoint)
                 .key(key)
                 .buildClient()
+        }
+
+        private fun parseConnectionString(connectionString: String): Pair<String?, String?> {
+            var endpoint: String? = null
+            var key: String? = null
+            connectionString.split(";").forEach {
+                val parts = it.split("=", limit = 2)
+                if (parts.size == 2) {
+                    when (parts[0].trim().lowercase()) {
+                        "accountendpoint" -> endpoint = parts[1].trim()
+                        "accountkey" -> key = parts[1].trim()
+                    }
+                }
+            }
+            return Pair(endpoint, key)
         }
     }
 
