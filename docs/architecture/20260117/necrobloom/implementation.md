@@ -23,7 +23,7 @@ This document serves as the master execution plan for building the **NecroBloom*
 - [x] **3.4** Implement "Add Plant" Form (Basic)
 
 ### Phase 4: AI Integration (Identification & Care)
-- [ ] **4.1** Implement Gemini Service (Backend)
+- [x] **4.1** Implement Gemini Service (Backend)
 - [ ] **4.2** Create "Identify Plant" Workflow
 - [ ] **4.3** Implement "Generate Care Plan" Logic
 
