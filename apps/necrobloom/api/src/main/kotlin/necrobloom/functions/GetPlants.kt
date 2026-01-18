@@ -26,11 +26,17 @@ class GetPlants {
                 .body("Unauthenticated: The Void does not recognize you.")
                 .build()
 
-        val plants = repository.findAllByUserId(userId)
-        
-        return request.createResponseBuilder(HttpStatus.OK)
-            .body(gson.toJson(plants))
-            .header("Content-Type", "application/json")
-            .build()
+        return try {
+            val plants = repository.findAllByUserId(userId)
+            request.createResponseBuilder(HttpStatus.OK)
+                .body(gson.toJson(plants))
+                .header("Content-Type", "application/json")
+                .build()
+        } catch (e: Exception) {
+            context.logger.severe("Error retrieving plants: ${e.message}")
+            request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("The spirits are restless; could not retrieve your collection.")
+                .build()
+        }
     }
 }

@@ -62,6 +62,11 @@ class CreatePlant {
                 .body(gson.toJson(savedPlant))
                 .header("Content-Type", "application/json")
                 .build()
+        } catch (e: IllegalArgumentException) {
+            context.logger.warning("Validation error: ${e.message}")
+            request.createResponseBuilder(HttpStatus.BAD_REQUEST)
+                .body("Ritual aborted: ${e.message}")
+                .build()
         } catch (e: Exception) {
             context.logger.severe("Error creating plant: ${e.message}")
             request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -76,6 +81,10 @@ class CreatePlant {
         } else {
             base64String
         }
-        return Base64.getDecoder().decode(cleanBase64)
+        return try {
+            Base64.getDecoder().decode(cleanBase64)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Visual data corruption: Malformed Base64 string.")
+        }
     }
 }

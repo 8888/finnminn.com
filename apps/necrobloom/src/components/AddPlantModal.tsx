@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Typography, Button, Input } from '@finnminn/ui';
+import { useAuth } from '@finnminn/auth';
 
 interface AddPlantModalProps {
   onClose: () => void;
@@ -8,6 +9,7 @@ interface AddPlantModalProps {
 
 export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
+  const { getToken } = useAuth();
   const [formData, setFormData] = useState({
     alias: '',
     species: '',
@@ -33,10 +35,12 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
 
     setLoading(true);
     try {
+      const token = await getToken();
       const response = await fetch('/api/plants', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(formData)
       });

@@ -5,6 +5,8 @@ import com.azure.cosmos.CosmosClientBuilder
 import com.azure.cosmos.CosmosContainer
 import com.azure.cosmos.models.CosmosItemResponse
 import com.azure.cosmos.models.PartitionKey
+import com.azure.cosmos.models.SqlParameter
+import com.azure.cosmos.models.SqlQuerySpec
 import com.google.gson.Gson
 
 class CosmosRepository {
@@ -44,7 +46,8 @@ class CosmosRepository {
     }
 
     fun findAllByUserId(userId: String): List<Plant> {
-        val query = "SELECT * FROM c WHERE c.userId = '$userId'"
-        return container.queryItems(query, null, Plant::class.java).toList()
+        val query = "SELECT * FROM c WHERE c.userId = @userId"
+        val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
+        return container.queryItems(querySpec, null, Plant::class.java).toList()
     }
 }
