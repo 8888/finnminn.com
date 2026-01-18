@@ -6,19 +6,19 @@ import java.io.ByteArrayInputStream
 import java.util.UUID
 
 class StorageService {
-    private val containerClient: BlobContainerClient
 
-    init {
-        val connectionString = System.getenv("STORAGE_CONNECTION_STRING")
-        val containerName = System.getenv("STORAGE_CONTAINER") ?: "vessel-images"
+    companion object {
+        private val containerClient: BlobContainerClient by lazy {
+            val connectionString = System.getenv("STORAGE_CONNECTION_STRING")
+            val containerName = System.getenv("STORAGE_CONTAINER") ?: "vessel-images"
 
-        val blobServiceClient = BlobServiceClientBuilder()
-            .connectionString(connectionString)
-            .buildClient()
+            val blobServiceClient = BlobServiceClientBuilder()
+                .connectionString(connectionString)
+                .buildClient()
 
-        containerClient = blobServiceClient.getBlobContainerClient(containerName)
-        if (!containerClient.exists()) {
-            containerClient.create()
+            val client = blobServiceClient.getBlobContainerClient(containerName)
+            client.createIfNotExists()
+            client
         }
     }
 
