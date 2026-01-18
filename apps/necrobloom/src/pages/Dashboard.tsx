@@ -4,7 +4,7 @@ import { useAuth } from '@finnminn/auth';
 import { AddPlantModal } from '../components/AddPlantModal';
 
 interface Plant {
-  id: String;
+  id: string;
   alias: string;
   species: string;
   historicalReports: Array<any>;

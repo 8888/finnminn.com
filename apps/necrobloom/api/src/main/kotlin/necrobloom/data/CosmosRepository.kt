@@ -10,20 +10,23 @@ import com.azure.cosmos.models.SqlQuerySpec
 import com.google.gson.Gson
 
 class CosmosRepository {
-    private val client: CosmosClient
     private val container: CosmosContainer
     private val gson = Gson()
 
+    companion object {
+        private val client: CosmosClient by lazy {
+            val endpoint = System.getenv("COSMOS_ENDPOINT")
+            val key = System.getenv("COSMOS_KEY")
+            CosmosClientBuilder()
+                .endpoint(endpoint)
+                .key(key)
+                .buildClient()
+        }
+    }
+
     init {
-        val endpoint = System.getenv("COSMOS_ENDPOINT")
-        val key = System.getenv("COSMOS_KEY")
         val databaseName = System.getenv("COSMOS_DATABASE") ?: "NecroBloomDB"
         val containerName = System.getenv("COSMOS_CONTAINER") ?: "Plants"
-
-        client = CosmosClientBuilder()
-            .endpoint(endpoint)
-            .key(key)
-            .buildClient()
 
         val database = client.getDatabase(databaseName)
         container = database.getContainer(containerName)

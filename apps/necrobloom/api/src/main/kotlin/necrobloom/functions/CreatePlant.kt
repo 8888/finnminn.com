@@ -40,7 +40,8 @@ class CreatePlant {
             
             // Handle image upload
             val imageBytes = decodeBase64(req.image)
-            val imageUrl = storageService.uploadImage(imageBytes, "jpg")
+            val extension = getExtension(req.image)
+            val imageUrl = storageService.uploadImage(imageBytes, extension)
 
             val plant = Plant(
                 userId = userId,
@@ -85,6 +86,14 @@ class CreatePlant {
             Base64.getDecoder().decode(cleanBase64)
         } catch (e: IllegalArgumentException) {
             throw IllegalArgumentException("Visual data corruption: Malformed Base64 string.")
+        }
+    }
+
+    private fun getExtension(base64String: String): String {
+        return if (base64String.contains("data:image/") && base64String.contains(";base64,")) {
+            base64String.split(";")[0].split("/")[1]
+        } else {
+            "jpg"
         }
     }
 }
