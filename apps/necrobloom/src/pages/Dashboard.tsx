@@ -43,12 +43,12 @@ export const Dashboard: React.FC = () => {
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <Typography variant="h2" className="text-toxic">
+          <Typography.H2 className="text-toxic">
             COLLECTION FROM THE VOID
-          </Typography>
-          <Typography variant="body" className="text-toxic/40">
+          </Typography.H2>
+          <Typography.Body className="text-toxic/40">
             {plants.length} specimens currently under observation.
-          </Typography>
+          </Typography.Body>
         </div>
         <Button 
           onClick={() => setIsModalOpen(true)}
@@ -74,12 +74,12 @@ export const Dashboard: React.FC = () => {
         </div>
       ) : plants.length === 0 ? (
         <Card className="p-12 border-dashed border-toxic/20 text-center space-y-4">
-          <Typography variant="h3" className="text-toxic/30">
+          <Typography.H3 className="text-toxic/30">
             THE VOID IS EMPTY
-          </Typography>
-          <Typography variant="body" className="text-toxic/20">
+          </Typography.H3>
+          <Typography.Body className="text-toxic/20">
             No floral spirits have been bound yet.
-          </Typography>
+          </Typography.Body>
           <Button variant="primary" className="opacity-50">
             [ INITIAITE FIRST RITUAL ]
           </Button>
@@ -101,12 +101,12 @@ export const Dashboard: React.FC = () => {
                   </div>
                 )}
               </div>
-              <Typography variant="h3" className="text-toxic truncate">
+              <Typography.H3 className="text-toxic truncate">
                 {plant.alias.toUpperCase()}
-              </Typography>
-              <Typography variant="body" className="text-witchcraft text-xs italic mb-4">
+              </Typography.H3>
+              <Typography.Body className="text-witchcraft text-xs italic mb-4">
                 {plant.species}
-              </Typography>
+              </Typography.Body>
               <div className="flex justify-between items-center text-[10px] text-toxic/40 font-mono">
                 <span>VITALITY: STABLE</span>
                 <span>ID: {plant.id.toString().substring(0, 8)}</span>

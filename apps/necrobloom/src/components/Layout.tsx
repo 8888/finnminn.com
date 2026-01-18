@@ -16,20 +16,20 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Header */}
       <header className="relative z-10 border-b border-toxic/20 p-4 flex justify-between items-center bg-void/50 backdrop-blur-sm">
         <div className="flex items-center gap-4">
-          <Typography variant="h2" className="text-toxic tracking-tighter">
+          <Typography.H2 className="text-toxic tracking-tighter">
             NECROBLOOM
-          </Typography>
+          </Typography.H2>
           <div className="h-4 w-[1px] bg-toxic/20 hidden md:block" />
-          <Typography variant="body" className="text-toxic/40 text-xs hidden md:block">
+          <Typography.Body className="text-toxic/40 text-xs hidden md:block">
             VITALITY MONITORING SYSTEM
-          </Typography>
+          </Typography.Body>
         </div>
 
         {isAuthenticated && (
           <div className="flex items-center gap-4">
-            <Typography variant="body" className="text-witchcraft text-xs">
+            <Typography.Body className="text-witchcraft text-xs">
               AGENT: {user?.username?.split('@')[0].toUpperCase() || 'UNKNOWN'}
-            </Typography>
+            </Typography.Body>
             <button 
               onClick={logout}
               className="text-toxic/40 hover:text-radical text-xs uppercase tracking-widest transition-colors"

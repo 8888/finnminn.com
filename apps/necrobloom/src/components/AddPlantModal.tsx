@@ -63,9 +63,9 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-void/80 backdrop-blur-md">
       <Card className="max-w-lg w-full p-6 border-toxic animate-in fade-in zoom-in duration-300">
         <div className="flex justify-between items-center mb-6">
-          <Typography variant="h2" className="text-toxic">
+          <Typography.H2 className="text-toxic">
             [ NEW RITUAL ]
-          </Typography>
+          </Typography.H2>
           <button onClick={onClose} className="text-toxic/40 hover:text-radical transition-colors">
             [ ESCAPE ]
           </button>
@@ -126,9 +126,9 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover grayscale" />
               ) : (
                 <div className="text-center">
-                  <Typography variant="body" className="text-toxic/20 text-xs">
+                  <Typography.Body className="text-toxic/20 text-xs">
                     SELECT FILE TO BIND
-                  </Typography>
+                  </Typography.Body>
                 </div>
               )}
               <input 

@@ -26,4 +26,25 @@ NecroBloom is a serverless plant-tracking application featuring a whimsically go
 - **Blob Container**: `vessel-images` (for plant photos)
 
 ## Getting Started
-*Coming soon as implementation progresses.*
+
+### Local Development
+1. **Frontend**:
+   From the monorepo root:
+   ```bash
+   npm run dev -- --filter=necrobloom
+   ```
+2. **Backend**:
+   ```bash
+   cd apps/necrobloom/api
+   ./gradlew azureFunctionsRun
+   ```
+   The API will be available at `http://localhost:7071/api/plants`.
+
+### Build
+- **Frontend**: `npx turbo run build --filter=necrobloom`
+- **Backend**: `cd apps/necrobloom/api && ./gradlew build azureFunctionsPackage`
+
+## CI/CD
+The application uses split deployment pipelines:
+- **Frontend**: Managed by `.github/workflows/azure-static-web-apps-zealous-tree-08c25ec0f.yml`.
+- **Backend**: Managed by `.github/workflows/deploy-necrobloom-backend.yml`.
