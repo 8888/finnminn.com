@@ -60,23 +60,49 @@ Automated via GitHub Actions with decoupled workflows.
 - **Logic:** Builds the Kotlin project using Gradle and deploys to the respective Function App (`pip-tracker`, `necrobloom-api`).
 
 ## Folder Structure
+
 ```
+
 /Users/leecostello/Documents/code/lee/finnminn.com/
+
 ├───apps/
+
 │   ├───web/                 # Main landing page (React + Vite)
-│   └───pip/                 # Habit Tracker
+
+│   ├───pip/                 # Habit Tracker
+
+│   │   ├───src/             # React Frontend
+
+│   │   └───api/             # Kotlin Backend (Azure Functions)
+
+│   └───necrobloom/          # Gothic Plant Tracker
+
 │       ├───src/             # React Frontend
+
 │       └───api/             # Kotlin Backend (Azure Functions)
+
 ├───packages/
+
 │   ├───auth/                # Shared MSAL/Auth logic
+
 │   ├───config/              # Shared Tailwind/TS/Lint configs
+
 │   └───ui/                  # Shared React components (PixelGrim System)
+
 ├───docs/
+
 │   ├───architecture/        # Design docs and migration plans
+
 │   ├───features/            # Implementation details for key features
+
 │   ├───guides/              # Onboarding and setup guides
+
 │   └───USER_STORIES.md      # Product roadmap and acceptance criteria
+
 ├───package.json             # Root workspace config
+
 ├───turbo.json               # Turborepo task pipeline
+
 └───tsconfig.json            # Global TypeScript references
+
 ```
