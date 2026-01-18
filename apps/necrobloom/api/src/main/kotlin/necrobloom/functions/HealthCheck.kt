@@ -41,6 +41,12 @@ class HealthCheck {
 
         return try {
             val req = gson.fromJson(body, HealthCheckRequest::class.java)
+            if (req?.image == null) {
+                return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
+                    .body("Missing image data.")
+                    .build()
+            }
+
             val plant = repository.findById(id, userId)
                 ?: return request.createResponseBuilder(HttpStatus.NOT_FOUND)
                     .body("Plant not found in your collection.")
@@ -49,7 +55,13 @@ class HealthCheck {
             // Handle image upload
             val mimeType = getMimeType(req.image)
             val cleanBase64 = cleanBase64(req.image)
-            val imageBytes = Base64.getDecoder().decode(cleanBase64)
+            val imageBytes = try {
+                Base64.getDecoder().decode(cleanBase64)
+            } catch (e: IllegalArgumentException) {
+                return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
+                    .body("Invalid image data format.")
+                    .build()
+            }
             val extension = mimeType.split("/")[1]
             val imageUrl = storageService.uploadImage(imageBytes, extension)
 

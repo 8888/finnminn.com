@@ -119,7 +119,7 @@ export const Dashboard: React.FC = () => {
                 {plant.species}
               </Typography.Body>
               <div className="flex justify-between items-center text-[10px] text-toxic/40 font-mono mb-4">
-                <span>VITALITY: {plant.historicalReports[plant.historicalReports.length - 1]?.healthStatus?.substring(0, 15)}...</span>
+                <span>VITALITY: {plant.historicalReports.length > 0 ? (plant.historicalReports[plant.historicalReports.length - 1]?.healthStatus?.substring(0, 15) + "...") : "NO DATA"}</span>
                 <span>ID: {plant.id.toString().substring(0, 8)}</span>
               </div>
               <Button 
