@@ -13,6 +13,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 #### Applications (`apps/`)
 - `apps/web`: The root landing page and suite directory (`finnminn.com`). Fully integrated with `@finnminn/ui` as the reference implementation for the PixelGrim design system.
 - `apps/pip`: Serverless habit tracker (`pip.finnminn.com`). Contains both the React frontend (`src`) and the Kotlin Azure Function backend (`api`).
+- `apps/necrobloom`: Gothic plant tracker (`necrobloom.finnminn.com`). AI-powered identification and care plans.
 - *Future*: `apps/n-dim`.
 
 #### Shared Packages (`packages/`)
@@ -44,15 +45,19 @@ This project contains the source code and configuration for the `finnminn.com` a
 Automated via GitHub Actions with decoupled workflows.
 
 ### 1. Frontend & Shared Packages
-- **Workflow:** `.github/workflows/azure-static-web-apps-mango-pebble-0e55b260f.yml`
-- **Triggers:** Changes to `apps/web`, `apps/pip` (frontend), or `packages/*`.
+- **Workflows:** 
+  - `.github/workflows/azure-static-web-apps-mango-pebble-0e55b260f.yml` (Web, Pip)
+  - `.github/workflows/azure-static-web-apps-zealous-tree-08c25ec0f.yml` (NecroBloom)
+- **Triggers:** Changes to `apps/web`, `apps/pip`, `apps/necrobloom` (frontend), or `packages/*`.
 - **Logic:** Uses job filtering to only build and deploy the specific app that changed.
-- **Hosting:** Deploys to Azure Static Web Apps (`Finnminn` for web, `Pip-web-app` for pip).
+- **Hosting:** Deploys to Azure Static Web Apps (`Finnminn`, `Pip-web-app`, `necrobloom-web`).
 
 ### 2. Backend (Azure Functions)
-- **Workflow:** `.github/workflows/deploy-pip-backend.yml`
-- **Triggers:** Changes to `apps/pip/api/**`.
-- **Logic:** Builds the Kotlin project using Gradle and deploys to the `pip-tracker` Function App in Azure.
+- **Workflows:** 
+  - `.github/workflows/deploy-pip-backend.yml`
+  - `.github/workflows/deploy-necrobloom-backend.yml`
+- **Triggers:** Changes to `apps/pip/api/**` or `apps/necrobloom/api/**`.
+- **Logic:** Builds the Kotlin project using Gradle and deploys to the respective Function App (`pip-tracker`, `necrobloom-api`).
 
 ## Folder Structure
 ```

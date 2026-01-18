@@ -8,14 +8,15 @@ NecroBloom is a serverless plant-tracking application featuring a whimsically go
 - **Backend**: Azure Functions (Kotlin/Java 21).
 - **Identity**: Microsoft Entra ID (via `@finnminn/auth`).
 - **Design System**: PixelGrim (via `@finnminn/ui`).
-- **AI**: Gemini 3 Flash Preview.
+- **AI**: Gemini 2.5 Flash.
 
 ## Deployed Infrastructure (Resource Group: `necrobloom-rg`)
 | Resource Name | Type | Location | Details |
 | :--- | :--- | :--- | :--- |
 | **necrobloom-api** | Function App | `canadacentral` | Linux, Consumption Plan (Y1), System Assigned Identity. |
+| **necrobloom-api** | App Insights | `canadacentral` | Telemetry and logging. |
 | **ASP-necrobloomrg-8596** | App Service Plan | `canadacentral` | Dynamic (Serverless). |
-| **necrobloomstorage** | Storage Account | `eastus` | Standard_LRS. Primary vessel for images. |
+| **necrobloomstorage** | Storage Account | `eastus` | Standard_LRS. Primary vessel for images (`vessel-images`). |
 | **necrobloomrg9f4f** | Storage Account | `canadacentral` | Internal storage for Function App. |
 | **necrobloom-cosmos** | Cosmos DB Account | `westus2` | NoSQL (Core) API, Serverless mode. |
 | **necrobloom-web** | Static Web App | `eastus2` | Free Tier. |
@@ -24,6 +25,12 @@ NecroBloom is a serverless plant-tracking application featuring a whimsically go
 - **Database**: `NecroBloomDB`
 - **Container**: `Plants` (Partition Key: `/userId`)
 - **Blob Container**: `vessel-images` (for plant photos)
+
+## Core Features
+- **Plant Identification**: AI-powered recognition from photos.
+- **Gothic Care Plans**: Automated care instructions with a whimsically dark tone.
+- **Health Monitoring**: Real-time health assessment and diagnostic "oracles".
+- **Plant Vessel**: A digital garden for tracking plant lifecycle and history.
 
 ## Getting Started
 
