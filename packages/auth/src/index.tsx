@@ -60,11 +60,25 @@ export const useAuth = () => {
         const account = instance.getActiveAccount() || accounts[0];
         if (!account) throw new Error("NO_ACTIVE_ACCOUNT");
 
-        const response = await instance.acquireTokenSilent({
-            scopes: ["User.Read"],
-            account: account
-        });
-        return response.accessToken;
+        try {
+            const response = await instance.acquireTokenSilent({
+                scopes: ["User.Read"],
+                account: account
+            });
+            return response.accessToken;
+        } catch (error) {
+            console.warn("Silent token acquisition failed, attempting popup...", error);
+            try {
+                const response = await instance.acquireTokenPopup({
+                    scopes: ["User.Read"],
+                    account: account
+                });
+                return response.accessToken;
+            } catch (popupError) {
+                console.error("Popup token acquisition failed:", popupError);
+                throw popupError;
+            }
+        }
     };
 
     return {

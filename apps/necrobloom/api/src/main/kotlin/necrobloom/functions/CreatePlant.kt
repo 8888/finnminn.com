@@ -3,6 +3,7 @@ package necrobloom.functions
 import com.microsoft.azure.functions.*
 import com.microsoft.azure.functions.annotation.*
 import com.google.gson.Gson
+import necrobloom.ai.GeminiClient
 import necrobloom.data.*
 import necrobloom.services.StorageService
 import necrobloom.utils.SecurityUtils
@@ -13,6 +14,7 @@ import java.util.Optional
 class CreatePlant {
     private val repository = CosmosRepository()
     private val storageService = StorageService()
+    private val geminiClient = GeminiClient()
     private val gson = Gson()
 
     @FunctionName("CreatePlant")
@@ -43,11 +45,34 @@ class CreatePlant {
             val extension = getExtension(req.image)
             val imageUrl = storageService.uploadImage(imageBytes, extension)
 
+            // Generate Care Plan
+            val carePlan = try {
+                val carePrompt = """
+                    Generate a care plan for a plant of species "${req.species}" 
+                    located in zip code "${req.zip}" (infer climate) 
+                    with lighting condition "${req.lighting}".
+                    
+                    Return strictly valid JSON (no markdown) with fields:
+                    - waterFrequency
+                    - lightNeeds
+                    - toxicity
+                    - additionalNotes
+                """.trimIndent()
+                
+                val careJson = geminiClient.generateText(carePrompt)
+                val cleanJson = GeminiClient.cleanJson(careJson)
+                gson.fromJson(cleanJson, necrobloom.data.CarePlan::class.java)
+            } catch (e: Exception) {
+                context.logger.warning("Failed to generate care plan: ${e.message}")
+                null
+            }
+
             val plant = Plant(
                 userId = userId,
                 species = req.species,
                 alias = req.alias,
                 environment = Environment(req.zip, req.lighting),
+                carePlan = carePlan,
                 historicalReports = mutableListOf(
                     HealthReport(
                         date = Instant.now().toString(),
