@@ -9,6 +9,8 @@ interface AddPlantModalProps {
 
 export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
+  const [identifying, setIdentifying] = useState(false);
+  const [oracleWhisper, setOracleWhisper] = useState('');
   const { getToken } = useAuth();
   const [formData, setFormData] = useState({
     alias: '',
@@ -18,12 +20,44 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
     image: ''
   });
 
+  const identifyPlant = async (base64: string) => {
+    setIdentifying(true);
+    setOracleWhisper('');
+    try {
+      const token = await getToken();
+      const res = await fetch('/api/identify', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify({ image: base64 })
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        setFormData(prev => ({ 
+          ...prev, 
+          species: data.species,
+          alias: prev.alias || data.scientificName 
+        }));
+        setOracleWhisper(data.description);
+      }
+    } catch (e) {
+      console.error("The Oracle is silent...", e);
+    } finally {
+      setIdentifying(false);
+    }
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, image: reader.result as string }));
+        const result = reader.result as string;
+        setFormData(prev => ({ ...prev, image: result }));
+        identifyPlant(result);
       };
       reader.readAsDataURL(file);
     }
@@ -84,7 +118,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Species (Optional)</label>
+              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Species {identifying && <span className="animate-pulse text-radical">[ SCANNING... ]</span>}</label>
               <input 
                 className="w-full bg-void border border-toxic/20 p-2 text-toxic focus:border-toxic outline-none font-mono"
                 placeholder="E.g. Pteris"
@@ -123,7 +157,14 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
             <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Visual Incarnation (Photo)</label>
             <div className="border border-dashed border-toxic/30 aspect-video relative overflow-hidden bg-toxic/5 flex items-center justify-center">
               {formData.image ? (
-                <img src={formData.image} alt="Preview" className="w-full h-full object-cover grayscale" />
+                <>
+                  <img src={formData.image} alt="Preview" className="w-full h-full object-cover grayscale" />
+                  {identifying && (
+                    <div className="absolute inset-0 bg-void/50 flex items-center justify-center backdrop-blur-sm">
+                      <Typography.Body className="text-radical animate-pulse">CONSULTING ORACLE...</Typography.Body>
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="text-center">
                   <Typography.Body className="text-toxic/20 text-xs">
@@ -138,6 +179,11 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
                 className="absolute inset-0 opacity-0 cursor-pointer"
               />
             </div>
+            {oracleWhisper && (
+              <div className="p-2 border border-toxic/20 bg-toxic/5 text-xs text-toxic font-mono">
+                <span className="text-radical">[ ORACLE ]</span> {oracleWhisper}
+              </div>
+            )}
           </div>
 
           <Button 

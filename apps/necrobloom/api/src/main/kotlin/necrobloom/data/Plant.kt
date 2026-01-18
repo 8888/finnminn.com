@@ -29,3 +29,13 @@ data class CreatePlantRequest(
     val lighting: String,
     val image: String // Base64
 )
+
+data class IdentifyPlantRequest(
+    val image: String // Base64
+)
+
+data class IdentifyPlantResponse(
+    val species: String,
+    val scientificName: String,
+    val description: String
+)
