@@ -57,9 +57,16 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
       reader.onloadend = () => {
         const result = reader.result as string;
         setFormData(prev => ({ ...prev, image: result }));
-        identifyPlant(result);
+        // Removed automatic identifyPlant(result)
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleIdentifyClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (formData.image) {
+      identifyPlant(formData.image);
     }
   };
 
@@ -163,6 +170,14 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
                     <div className="absolute inset-0 bg-void/50 flex items-center justify-center backdrop-blur-sm">
                       <Typography.Body className="text-radical animate-pulse">CONSULTING ORACLE...</Typography.Body>
                     </div>
+                  )}
+                  {!identifying && (
+                    <button 
+                      onClick={handleIdentifyClick}
+                      className="absolute bottom-2 right-2 bg-void/80 border border-toxic text-toxic px-2 py-1 text-[10px] uppercase hover:bg-toxic hover:text-void transition-colors"
+                    >
+                      [ IDENTIFY ]
+                    </button>
                   )}
                 </>
               ) : (
