@@ -18,6 +18,63 @@ class GeminiClient {
     private val client = HttpClient.newHttpClient()
     private val gson = Gson()
 
+    companion object {
+        fun cleanJson(input: String): String {
+            var result = input.trim()
+            if (result.startsWith("```json")) {
+                result = result.substring(7)
+            } else if (result.startsWith("```")) {
+                result = result.substring(3)
+            }
+            
+            if (result.endsWith("```")) {
+                result = result.substring(0, result.length - 3)
+            }
+            return result.trim()
+        }
+    }
+
+    /**
+     * Generates text from a given prompt.
+     * @param prompt The question or instruction for the AI.
+     * @return The text response from Gemini.
+     */
+    fun generateText(prompt: String): String {
+        val textPart = JsonObject().apply {
+            addProperty("text", prompt)
+        }
+        
+        val parts = JsonArray().apply {
+            add(textPart)
+        }
+        
+        val content = JsonObject().apply {
+            add("parts", parts)
+        }
+        
+        val contents = JsonArray().apply {
+            add(content)
+        }
+        
+        val requestBody = JsonObject().apply {
+            add("contents", contents)
+        }
+
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create(endpoint))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(requestBody)))
+            .build()
+
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+
+        if (response.statusCode() != 200) {
+            throw RuntimeException("Gemini API failed with status ${response.statusCode()}: ${response.body()}")
+        }
+        
+        return parseResponse(response.body())
+    }
+
     /**
      * Analyzes a Base64 encoded image with a given prompt.
      * @param base64Image The raw Base64 string (without data URI prefix).

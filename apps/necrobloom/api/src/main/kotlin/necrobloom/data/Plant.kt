@@ -8,12 +8,20 @@ data class Plant(
     val species: String,
     val alias: String,
     val environment: Environment,
-    val historicalReports: MutableList<HealthReport> = mutableListOf()
+    val historicalReports: MutableList<HealthReport> = mutableListOf(),
+    val carePlan: CarePlan? = null
 )
 
 data class Environment(
     val zip: String,
     val lighting: String
+)
+
+data class CarePlan(
+    val waterFrequency: String,
+    val lightNeeds: String,
+    val toxicity: String,
+    val additionalNotes: String
 )
 
 data class HealthReport(

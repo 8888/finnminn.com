@@ -57,7 +57,7 @@ class IdentifyPlant {
             val aiResponseText = geminiClient.analyzeImage(cleanBase64, mimeType, prompt)
             
             // Attempt to parse AI response to ensure it fits our schema
-            val jsonStr = sanitizeJson(aiResponseText)
+            val jsonStr = GeminiClient.cleanJson(aiResponseText)
             val responseObj = gson.fromJson(jsonStr, IdentifyPlantResponse::class.java)
 
             request.createResponseBuilder(HttpStatus.OK)
@@ -87,19 +87,5 @@ class IdentifyPlant {
         } else {
             base64String
         }
-    }
-    
-    private fun sanitizeJson(input: String): String {
-        var result = input.trim()
-        if (result.startsWith("```json")) {
-            result = result.substring(7)
-        } else if (result.startsWith("```")) {
-            result = result.substring(3)
-        }
-        
-        if (result.endsWith("```")) {
-            result = result.substring(0, result.length - 3)
-        }
-        return result.trim()
     }
 }
