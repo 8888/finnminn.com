@@ -12,7 +12,7 @@ class GeminiClient {
 
     private val apiKey = System.getenv("GEMINI_API_KEY") 
         ?: throw IllegalStateException("GEMINI_API_KEY is not set. The Void cannot see without the Key.")
-    private val model = System.getenv("GEMINI_MODEL") ?: "gemini-1.5-flash"
+    private val model = System.getenv("GEMINI_MODEL") ?: "gemini-2.5-flash"
     private val endpoint = "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey"
     
     private val client = HttpClient.newHttpClient()
