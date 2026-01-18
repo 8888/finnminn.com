@@ -17,11 +17,12 @@ export const Dashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
   const { getToken } = useAuth();
+  const API_BASE = import.meta.env.VITE_API_URL || '';
 
   const fetchPlants = async () => {
     try {
       const token = await getToken();
-      const response = await fetch('/api/plants', {
+      const response = await fetch(`${API_BASE}/api/plants`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

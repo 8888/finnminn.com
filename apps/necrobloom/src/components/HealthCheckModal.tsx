@@ -14,6 +14,7 @@ export const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ plantId, pla
   const [image, setImage] = useState('');
   const [diagnosis, setDiagnosis] = useState('');
   const { getToken } = useAuth();
+  const API_BASE = import.meta.env.VITE_API_URL || '';
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -34,7 +35,7 @@ export const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ plantId, pla
     setDiagnosis('');
     try {
       const token = await getToken();
-      const response = await fetch(`/api/plants/${plantId}/health-check`, {
+      const response = await fetch(`${API_BASE}/api/plants/${plantId}/health-check`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
