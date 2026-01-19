@@ -1,3 +1,4 @@
+import React from 'react';
 import { AuthProvider, useAuth } from '@finnminn/auth';
 import { Layout } from './components/Layout';
 import { Button, Typography, Card } from '@finnminn/ui';
