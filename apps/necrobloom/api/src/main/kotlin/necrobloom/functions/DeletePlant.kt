@@ -3,6 +3,7 @@ package necrobloom.functions
 import com.microsoft.azure.functions.*
 import com.microsoft.azure.functions.annotation.*
 import necrobloom.data.CosmosRepository
+import necrobloom.services.StorageService
 import necrobloom.utils.SecurityUtils
 import java.util.Optional
 

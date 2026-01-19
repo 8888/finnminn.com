@@ -10,12 +10,14 @@ import java.net.http.HttpResponse
 
 class GeminiClient {
     companion object {
+        private val apiKey: String = System.getenv("GEMINI_API_KEY") ?: ""
+        private val model = System.getenv("GEMINI_MODEL") ?: "gemini-2.5-flash"
+        private val endpoint = "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent"
+        private val client = HttpClient.newHttpClient()
         private val gson = Gson()
         private const val API_VERSION = "v1beta"
 
         fun cleanJson(input: String): String {
-            // No longer strictly needed with response_mime_type = application/json, 
-            // but kept for fallback or non-structured responses.
             var result = input.trim()
             if (result.startsWith("```json")) {
                 result = result.substring(7)
@@ -117,7 +119,6 @@ class GeminiClient {
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
 
         if (response.statusCode() != 200) {
-            // Log the error body for debugging (but maybe sanitize key if it was in URL, though URL is already built)
             throw RuntimeException("Gemini API failed with status ${response.statusCode()}: ${response.body()}")
         }
         
