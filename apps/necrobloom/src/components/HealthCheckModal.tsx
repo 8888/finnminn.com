@@ -128,6 +128,7 @@ export const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ plantId, pla
           </div>
         )}
       </Card>
+      </div>
     </div>
   );
 };
