@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { PublicClientApplication, EventType, EventMessage } from "@azure/msal-browser";
 import { MsalProvider, useMsal, useIsAuthenticated } from "@azure/msal-react";
 
@@ -44,19 +44,19 @@ export const useAuth = () => {
     const { instance, accounts, inProgress } = useMsal();
     const isAuthenticated = useIsAuthenticated();
 
-    const login = () => {
+    const login = useCallback(() => {
         instance.loginRedirect({
             scopes: ["User.Read"]
         });
-    };
+    }, [instance]);
 
-    const logout = () => {
+    const logout = useCallback(() => {
         instance.logoutRedirect({
             postLogoutRedirectUri: window.location.origin,
         });
-    };
+    }, [instance]);
 
-    const getToken = async () => {
+    const getToken = useCallback(async () => {
         const account = instance.getActiveAccount() || accounts[0];
         if (!account) throw new Error("NO_ACTIVE_ACCOUNT");
 
@@ -79,9 +79,9 @@ export const useAuth = () => {
                 throw popupError;
             }
         }
-    };
+    }, [instance, accounts]);
 
-    const getIdToken = async () => {
+    const getIdToken = useCallback(async () => {
         const account = instance.getActiveAccount() || accounts[0];
         if (!account) throw new Error("NO_ACTIVE_ACCOUNT");
 
@@ -104,7 +104,7 @@ export const useAuth = () => {
                 throw popupError;
             }
         }
-    };
+    }, [instance, accounts]);
 
     return {
         login,

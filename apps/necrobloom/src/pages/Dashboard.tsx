@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 import { AddPlantModal } from '../components/AddPlantModal';
@@ -19,7 +19,7 @@ export const Dashboard: React.FC = () => {
   const { getIdToken } = useAuth();
   const API_BASE = import.meta.env.VITE_API_URL || '';
 
-  const fetchPlants = async () => {
+  const fetchPlants = useCallback(async () => {
     try {
       const token = await getIdToken();
       const response = await fetch(`${API_BASE}/api/plants`, {
@@ -36,11 +36,11 @@ export const Dashboard: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [getIdToken, API_BASE]);
 
   useEffect(() => {
     fetchPlants();
-  }, [getIdToken]);
+  }, [fetchPlants]);
 
   return (
     <div className="space-y-8">
