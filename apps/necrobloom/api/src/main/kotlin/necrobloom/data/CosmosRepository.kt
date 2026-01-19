@@ -62,13 +62,17 @@ class CosmosRepository {
     }
 
     fun findById(id: String, userId: String): Plant? {
-        return try {
-            val response: CosmosItemResponse<Plant> = container.readItem(
-                id, PartitionKey(userId), Plant::class.java
-            )
-            response.item
+        try {
+            val query = "SELECT * FROM c WHERE c.id = @id AND c.userId = @userId"
+            val querySpec = SqlQuerySpec(query, listOf(
+                SqlParameter("@id", id),
+                SqlParameter("@userId", userId)
+            ))
+            val results = container.queryItems(querySpec, null, Plant::class.java).toList()
+            return results.firstOrNull()
         } catch (e: Exception) {
-            null
+            // Log error here in a real app
+            return null
         }
     }
 
