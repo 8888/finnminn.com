@@ -50,7 +50,7 @@ class CreatePlant {
             val mimeType = getMimeType(req.image)
             val cleanBase64 = cleanBase64(req.image)
             val imageBytes = Base64.getDecoder().decode(cleanBase64)
-            val extension = mimeType.split("/").getOrElse(1) { "jpg" }
+            val extension = getExtensionFromMime(mimeType)
             
             // Upload to storage
             val imageUrl = storageService.uploadImage(imageBytes, extension)
@@ -80,12 +80,16 @@ class CreatePlant {
             val cleanJson = GeminiClient.cleanJson(aiResponseText)
             val oracleResult = gson.fromJson(cleanJson, AIAnalysisResult::class.java)
 
+            // Safe mapping with fallbacks
+            val species = oracleResult?.species ?: req.species ?: "Unknown Specimen"
+            val carePlan = oracleResult?.carePlan // Can be null if AI fails to generate
+
             val plant = Plant(
                 userId = userId,
-                species = oracleResult.species,
+                species = species,
                 alias = req.alias,
                 environment = Environment(req.zip, req.lighting),
-                carePlan = oracleResult.carePlan,
+                carePlan = carePlan,
                 historicalReports = mutableListOf(
                     HealthReport(
                         date = Instant.now().toString(),
@@ -126,8 +130,20 @@ class CreatePlant {
         }
     }
 
+    private fun getExtensionFromMime(mimeType: String): String {
+        return when (mimeType.lowercase()) {
+            "image/jpeg" -> "jpg"
+            "image/png" -> "png"
+            "image/gif" -> "gif"
+            "image/webp" -> "webp"
+            "image/svg+xml" -> "svg"
+            "image/bmp" -> "bmp"
+            else -> "jpg" // Fallback
+        }
+    }
+
     private data class AIAnalysisResult(
-        val species: String,
-        val carePlan: CarePlan
+        val species: String?,
+        val carePlan: CarePlan?
     )
 }
