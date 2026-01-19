@@ -6,7 +6,7 @@ interface HealthCheckModalProps {
   plantId: string;
   plantAlias: string;
   onClose: () => void;
-  onSuccess: (updatedPlant: any) => void;
+  onSuccess: () => void;
 }
 
 export const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ plantId, plantAlias, onClose, onSuccess }) => {
@@ -48,12 +48,12 @@ export const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ plantId, pla
         const updatedPlant = await response.json();
         const latestReport = updatedPlant.historicalReports[updatedPlant.historicalReports.length - 1];
         setDiagnosis(latestReport.healthStatus);
-        onSuccess(updatedPlant);
+        onSuccess();
       } else {
         const err = await response.text();
         alert(`Failed to check vitality: ${err}`);
       }
-    } catch (error) {
+    } catch {
       alert("Communication with the Void failed.");
     } finally {
       setLoading(false);

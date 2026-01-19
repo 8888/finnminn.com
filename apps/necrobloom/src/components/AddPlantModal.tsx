@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Typography, Button, Input } from '@finnminn/ui';
+import { Card, Typography, Button } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 
 interface AddPlantModalProps {
@@ -94,7 +94,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
         const err = await response.text();
         alert(`Ritual failed: ${err}`);
       }
-    } catch (error) {
+    } catch {
       alert("Connection to the Void lost.");
     } finally {
       setLoading(false);

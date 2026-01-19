@@ -6,11 +6,17 @@ import { AddPlantModal } from '../components/AddPlantModal';
 import { HealthCheckModal } from '../components/HealthCheckModal';
 import { usePlants } from '../hooks/usePlants';
 
+interface HealthReport {
+  date: string;
+  healthStatus: string;
+  imageUrl: string;
+}
+
 interface Plant {
   id: string;
   alias: string;
   species: string;
-  historicalReports: Array<any>;
+  historicalReports: Array<HealthReport>;
 }
 
 export const Dashboard: React.FC = () => {
