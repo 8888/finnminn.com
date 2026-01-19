@@ -9,9 +9,11 @@ import necrobloom.utils.SecurityUtils
 import java.util.Optional
 
 class GetPlants {
-    private val repository = CosmosRepository()
-    private val storageService = StorageService()
-    private val gson = Gson()
+    companion object {
+        private val repository = CosmosRepository()
+        private val storageService = StorageService()
+        private val gson = Gson()
+    }
 
     @FunctionName("GetPlants")
     fun run(

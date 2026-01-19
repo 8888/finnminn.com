@@ -8,24 +8,11 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
-class GeminiClient(
-    private val apiKey: String = System.getenv("GEMINI_API_KEY") ?: ""
-) {
-
-    init {
-        if (apiKey.isEmpty() && System.getProperty("test") != "true") {
-             // We allow empty in tests if we are just testing parsing logic
-             // but in production it must be set.
-        }
-    }
-
-    private val model = System.getenv("GEMINI_MODEL") ?: "gemini-2.5-flash"
-    private val endpoint = "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent"
-    
-    private val client = HttpClient.newHttpClient()
-    private val gson = Gson()
-
+class GeminiClient {
     companion object {
+        private val gson = Gson()
+        private const val API_VERSION = "v1beta"
+
         fun cleanJson(input: String): String {
             // No longer strictly needed with response_mime_type = application/json, 
             // but kept for fallback or non-structured responses.

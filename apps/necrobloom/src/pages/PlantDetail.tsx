@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
+import { usePlants } from '../hooks/usePlants';
 
 interface Plant {
   id: string;
@@ -26,6 +27,7 @@ export const PlantDetail: React.FC = () => {
   const [plant, setPlant] = useState<Plant | null>(null);
   const [loading, setLoading] = useState(true);
   const { getIdToken } = useAuth();
+  const { banishPlant } = usePlants();
   const API_BASE = import.meta.env.VITE_API_URL || '';
 
   const fetchPlant = useCallback(async () => {
@@ -55,23 +57,8 @@ export const PlantDetail: React.FC = () => {
   }, [fetchPlant]);
 
   const handleDelete = async () => {
-    if (!window.confirm("ARE YOU SURE YOU WISH TO BANISH THIS SPECIMEN BACK TO THE VOID?")) return;
-
-    try {
-      const token = await getIdToken();
-      const response = await fetch(`${API_BASE}/api/plants/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (response.ok) {
-        navigate('/');
-      } else {
-        alert("THE SPIRITS REFUSE TO LET GO. (Delete failed)");
-      }
-    } catch (error) {
-      console.error("Delete failed:", error);
+    if (id && await banishPlant(id)) {
+      navigate('/');
     }
   };
 

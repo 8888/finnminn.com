@@ -11,9 +11,9 @@ import com.google.gson.Gson
 
 class CosmosRepository {
     private val container: CosmosContainer
-    private val gson = Gson()
 
     companion object {
+        private val gson = Gson()
         private val client: CosmosClient by lazy {
             val connectionString = System.getenv("COSMOS_CONNECTION_STRING")
             val (endpoint, key) = if (!connectionString.isNullOrBlank()) {

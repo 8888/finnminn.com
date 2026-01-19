@@ -4,6 +4,7 @@ import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 import { AddPlantModal } from '../components/AddPlantModal';
 import { HealthCheckModal } from '../components/HealthCheckModal';
+import { usePlants } from '../hooks/usePlants';
 
 interface Plant {
   id: string;
@@ -18,28 +19,15 @@ export const Dashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
   const { getIdToken } = useAuth();
+  const { banishPlant } = usePlants();
   const navigate = useNavigate();
   const API_BASE = import.meta.env.VITE_API_URL || '';
 
   const handleDelete = async (e: React.MouseEvent, plantId: string) => {
     e.stopPropagation();
-    if (!window.confirm("ARE YOU SURE YOU WISH TO BANISH THIS SPECIMEN BACK TO THE VOID?")) return;
-
-    try {
-      const token = await getIdToken();
-      const response = await fetch(`${API_BASE}/api/plants/${plantId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (response.ok) {
-        setPlants(prev => prev.filter(p => p.id !== plantId));
-      } else {
-        alert("THE SPIRITS REFUSE TO LET GO.");
-      }
-    } catch (error) {
-      console.error("Delete failed:", error);
+    const success = await banishPlant(plantId);
+    if (success) {
+      setPlants(prev => prev.filter(p => p.id !== plantId));
     }
   };
 

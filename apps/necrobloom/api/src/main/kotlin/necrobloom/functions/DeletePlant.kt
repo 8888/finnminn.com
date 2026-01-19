@@ -7,8 +7,10 @@ import necrobloom.utils.SecurityUtils
 import java.util.Optional
 
 class DeletePlant {
-    private val repository = CosmosRepository()
-    private val storageService = StorageService()
+    companion object {
+        private val repository = CosmosRepository()
+        private val storageService = StorageService()
+    }
 
     @FunctionName("DeletePlant")
     fun run(
