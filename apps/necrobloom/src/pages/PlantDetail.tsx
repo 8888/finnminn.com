@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 import { usePlants } from '../hooks/usePlants';
+import { HealthCheckModal } from '../components/HealthCheckModal';
 
 interface Plant {
   id: string;
@@ -27,6 +28,7 @@ export const PlantDetail: React.FC = () => {
   const [plant, setPlant] = useState<Plant | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [isHealthModalOpen, setIsHealthModalOpen] = useState(false);
   const { getIdToken } = useAuth();
   const { banishPlant } = usePlants();
   const API_BASE = import.meta.env.VITE_API_URL || '';
@@ -58,8 +60,10 @@ export const PlantDetail: React.FC = () => {
   }, [fetchPlant]);
 
   const handleDelete = async () => {
-    if (id && await banishPlant(id)) {
-      navigate('/');
+    if (window.confirm("ARE YOU CERTAIN YOU WISH TO BANISH THIS SPECIMEN?")) {
+      if (id && await banishPlant(id)) {
+        navigate('/');
+      }
     }
   };
 
@@ -97,16 +101,25 @@ export const PlantDetail: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-start">
-        <div>
+      {isHealthModalOpen && (
+        <HealthCheckModal
+          plantId={plant.id}
+          plantAlias={plant.alias}
+          onClose={() => setIsHealthModalOpen(false)}
+          onSuccess={fetchPlant}
+        />
+      )}
+
+      <div className="flex flex-col md:flex-row justify-between items-start gap-4">
+        <div className="w-full md:w-auto">
           <Button 
             onClick={() => navigate('/')}
             variant="primary" 
-            className="mb-4 text-[10px] py-1 border-toxic/20 text-toxic/60"
+            className="mb-4 text-[10px] py-1 px-3 border-toxic/20 text-toxic/60"
           >
             ← RETURN TO COLLECTION
           </Button>
-          <Typography.H1 className="text-toxic">
+          <Typography.H1 className="text-toxic break-words">
             {plant.alias.toUpperCase()}
           </Typography.H1>
           <Typography.H3 className="text-witchcraft italic">
@@ -114,11 +127,11 @@ export const PlantDetail: React.FC = () => {
           </Typography.H3>
         </div>
         <Button 
-          onClick={handleDelete}
-          variant="primary" 
-          className="border-radical text-radical hover:bg-radical/10 text-[10px] py-1"
+          onClick={() => setIsHealthModalOpen(true)}
+          variant="secondary" 
+          className="text-xs py-2 px-6 w-full md:w-auto"
         >
-          [ BANISH SPECIMEN ]
+          [ CHECK VITALITY ]
         </Button>
       </div>
 
@@ -190,6 +203,16 @@ export const PlantDetail: React.FC = () => {
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="flex justify-center pt-12 border-t border-toxic/10">
+        <Button 
+          onClick={handleDelete}
+          variant="destructive" 
+          className="text-[10px] py-1 px-4"
+        >
+          [ BANISH SPECIMEN ]
+        </Button>
       </div>
     </div>
   );
