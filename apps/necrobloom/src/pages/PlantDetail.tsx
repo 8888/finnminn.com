@@ -26,6 +26,7 @@ export const PlantDetail: React.FC = () => {
   const navigate = useNavigate();
   const [plant, setPlant] = useState<Plant | null>(null);
   const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
   const { getIdToken } = useAuth();
   const { banishPlant } = usePlants();
   const API_BASE = import.meta.env.VITE_API_URL || '';
@@ -42,15 +43,15 @@ export const PlantDetail: React.FC = () => {
         const data = await response.json();
         setPlant(data);
       } else if (response.status === 404) {
-        console.error("Plant not found in the Void.");
-        navigate('/');
+        console.error("Plant not found in the Void:", id);
+        setNotFound(true);
       }
     } catch (error) {
       console.error("Failed to fetch plant from the Void:", error);
     } finally {
       setLoading(false);
     }
-  }, [getIdToken, API_BASE, id, navigate]);
+  }, [getIdToken, API_BASE, id]);
 
   useEffect(() => {
     fetchPlant();
@@ -68,6 +69,26 @@ export const PlantDetail: React.FC = () => {
         <Typography.Body className="animate-pulse text-toxic">
           COMMUNING WITH THE PLANT SPIRIT...
         </Typography.Body>
+      </div>
+    );
+  }
+
+  if (notFound) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-6">
+        <Typography.H2 className="text-radical">
+          SPECIMEN NOT FOUND
+        </Typography.H2>
+        <Typography.Body className="text-toxic/70">
+          The plant with ID {id} could not be located in this realm.
+        </Typography.Body>
+        <Button 
+          onClick={() => navigate('/')}
+          variant="primary" 
+          className="border-toxic text-toxic hover:bg-toxic/10"
+        >
+          RETURN TO COLLECTION
+        </Button>
       </div>
     );
   }
