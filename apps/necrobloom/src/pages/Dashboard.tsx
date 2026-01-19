@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 import { AddPlantModal } from '../components/AddPlantModal';
@@ -17,6 +18,7 @@ export const Dashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
   const { getIdToken } = useAuth();
+  const navigate = useNavigate();
   const API_BASE = import.meta.env.VITE_API_URL || '';
 
   const fetchPlants = useCallback(async () => {
@@ -99,7 +101,11 @@ export const Dashboard: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {plants.map((plant) => (
-            <Card key={plant.id.toString()} className="p-4 border-toxic/30 hover:border-toxic transition-colors group">
+            <Card 
+              key={plant.id.toString()} 
+              className="p-4 border-toxic/30 hover:border-toxic transition-colors group cursor-pointer"
+              onClick={() => navigate(`/plant/${plant.id}`)}
+            >
               <div className="aspect-video bg-void border border-toxic/10 mb-4 overflow-hidden relative">
                 {plant.historicalReports[0]?.imageUrl ? (
                   <img 
@@ -124,7 +130,10 @@ export const Dashboard: React.FC = () => {
                 <span>ID: {plant.id.toString().substring(0, 8)}</span>
               </div>
               <Button 
-                onClick={() => setSelectedPlant(plant)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedPlant(plant);
+                }}
                 variant="primary" 
                 className="w-full py-1 text-[10px] border-toxic/20 text-toxic/60 hover:text-toxic hover:border-toxic"
               >
