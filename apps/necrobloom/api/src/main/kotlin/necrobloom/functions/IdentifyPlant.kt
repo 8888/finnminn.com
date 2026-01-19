@@ -25,7 +25,7 @@ class IdentifyPlant {
     ): HttpResponseMessage {
         SecurityUtils.getUserId(request.headers)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED)
-                .body("Unauthenticated: The Void does not recognize you.")
+                .body("Unauthenticated: The Void does not recognize you. Auth Header Length: ${request.headers["authorization"]?.length ?: 0}")
                 .build()
 
         val body = request.body.orElse(null)
