@@ -6,9 +6,11 @@ import { Dashboard } from './pages/Dashboard';
 
 const Main = () => {
   const { isAuthenticated, login, inProgress, instance } = useAuth();
+  const [hasAttemptedSso, setHasAttemptedSso] = React.useState(false);
   
   React.useEffect(() => {
-    if (!isAuthenticated && inProgress === 'none') {
+    if (!isAuthenticated && inProgress === 'none' && !hasAttemptedSso) {
+      setHasAttemptedSso(true);
       // Attempt to establish session from existing browser session (SSO)
       instance.ssoSilent({
         scopes: ["User.Read"]
@@ -17,7 +19,7 @@ const Main = () => {
         // Interaction required, let the UI render the login button
       });
     }
-  }, [isAuthenticated, inProgress, instance]);
+  }, [isAuthenticated, inProgress, instance, hasAttemptedSso]);
 
   if (inProgress !== 'none') {
     return (
