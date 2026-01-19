@@ -102,16 +102,20 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] overflow-y-auto bg-void/80 backdrop-blur-md">
+    <div className="fixed inset-0 z-[9999] bg-void/60 backdrop-blur-md overflow-y-auto">
       <div className="flex min-h-full items-center justify-center p-4">
         <Card className="relative max-w-lg w-full p-6 border-toxic animate-in fade-in zoom-in duration-300">
           <div className="flex justify-between items-center mb-6">
-            <Typography.H2 className="text-toxic">
+            <Typography.H2 className="text-toxic mb-0">
               [ NEW RITUAL ]
             </Typography.H2>
-            <button onClick={onClose} className="text-toxic/40 hover:text-radical transition-colors">
+            <Button 
+              variant="destructive" 
+              onClick={onClose} 
+              className="text-[10px] py-1 px-3"
+            >
               [ ESCAPE ]
-            </button>
+            </Button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -127,7 +131,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Species {identifying && <span className="animate-pulse text-radical">[ SCANNING... ]</span>}</label>
+              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Species (OPTIONAL) {identifying && <span className="animate-pulse text-radical">[ SCANNING... ]</span>}</label>
               <input 
                 className="w-full bg-void border border-toxic/20 p-2 text-toxic focus:border-toxic outline-none font-mono"
                 placeholder="E.g. Pteris"
