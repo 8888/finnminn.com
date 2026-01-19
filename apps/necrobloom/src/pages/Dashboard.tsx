@@ -105,7 +105,7 @@ export const Dashboard: React.FC = () => {
                   <img 
                     src={plant.historicalReports[0].imageUrl} 
                     alt={plant.alias}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
+                    className="w-full h-full object-cover transition-all"
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center text-toxic/10 text-xs">
