@@ -72,6 +72,15 @@ class CosmosRepository {
         }
     }
 
+    fun deleteById(id: String, userId: String): Boolean {
+        return try {
+            container.deleteItem(id, PartitionKey(userId), null)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     fun findAllByUserId(userId: String): List<Plant> {
         val query = "SELECT * FROM c WHERE c.userId = @userId"
         val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
