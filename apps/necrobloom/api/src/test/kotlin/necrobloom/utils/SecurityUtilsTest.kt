@@ -20,8 +20,9 @@ class SecurityUtilsTest {
         
         val headers = mapOf("Authorization" to "Bearer $token")
         
-        val userId = SecurityUtils.getUserId(headers)
+        val debug = StringBuilder()
+        val userId = SecurityUtils.getUserId(headers, debug)
         
-        assertEquals("user-123", userId)
+        assertEquals("user-123", userId, "Failed to parse: $debug")
     }
 }

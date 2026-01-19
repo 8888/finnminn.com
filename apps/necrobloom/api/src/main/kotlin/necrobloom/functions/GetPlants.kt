@@ -21,9 +21,10 @@ class GetPlants {
         ) request: HttpRequestMessage<Optional<String>>,
         context: ExecutionContext
     ): HttpResponseMessage {
-        val userId = SecurityUtils.getUserId(request.headers)
+        val debug = StringBuilder()
+        val userId = SecurityUtils.getUserId(request.headers, debug)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED)
-                .body("Unauthenticated: The Void does not recognize you. Auth Header Length: ${request.headers["authorization"]?.length ?: 0}")
+                .body("Unauthenticated: The Void does not recognize you. Debug: ${debug}")
                 .build()
 
         return try {
