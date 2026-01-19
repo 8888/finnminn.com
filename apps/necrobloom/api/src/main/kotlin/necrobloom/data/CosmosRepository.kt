@@ -58,7 +58,7 @@ class CosmosRepository {
 
     fun save(plant: Plant): Plant {
         val response: CosmosItemResponse<Plant> = container.upsertItem(plant)
-        return response.item
+        return response.item ?: plant
     }
 
     fun findById(id: String, userId: String): Plant? {
