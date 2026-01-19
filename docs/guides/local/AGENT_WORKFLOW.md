@@ -24,13 +24,13 @@ This guide is designed for **Gemini Agents** to autonomously run and test the ap
 
 ### Step 1: Start Azurite (Storage Emulator)
 ```bash
-lsof -ti:10000 || nohup azurite > /dev/null 2>&1 &
+lsof -ti:10000 || nohup azurite > storage.log 2>&1 &
 ```
 
 ### Step 2: Start the Backend (Azure Functions)
 Run this from the root or the API directory. Warm-up: ~15-30s.
 ```bash
-lsof -ti:7071 || nohup cd apps/necrobloom/api && ./gradlew azureFunctionsRun > /dev/null 2>&1 &
+lsof -ti:7071 || nohup cd apps/necrobloom/api && ./gradlew azureFunctionsRun > backend.log 2>&1 &
 ```
 **Verification**: Poll until it returns "Vitality stable":
 ```bash
@@ -39,15 +39,16 @@ curl -s http://localhost:7071/api/Ping
 
 ### Step 3: Start the Frontend (Vite)
 ```bash
-lsof -ti:5173 || nohup npm run dev -- --filter=necrobloom > /dev/null 2>&1 &
+lsof -ti:5173 || nohup npm run dev -- --filter=necrobloom > frontend.log 2>&1 &
 ```
-**Verification**: Confirm port 5173 is listening.
+**Verification**: Confirm port 5173 is listening and check `frontend.log` for "VITE ready".
 
 ---
 
 ## Agent Workflow: Testing & Browser Control
 
-1.  **Open Browser**: Call `new_page` with `url: "http://localhost:5173"`.
+1.  **Monitor Logs**: If a service isn't responding, check the local `.log` files created in the steps above (`frontend.log`, `backend.log`).
+2.  **Open Browser**: Call `new_page` with `url: "http://localhost:5173"`.
 2.  **Trigger Login**: 
     - Click the button labeled **"ESTABLISH CONNECTION"**.
     - Prompt the user: "I have launched the application. Please complete the login in the browser so I can proceed."

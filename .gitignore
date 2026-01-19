@@ -21,3 +21,4 @@ storybook-static
 bin/
 obj/
 out/
+*.log
