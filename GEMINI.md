@@ -59,6 +59,13 @@ Automated via GitHub Actions with decoupled workflows.
 - **Triggers:** Changes to `apps/pip/api/**` or `apps/necrobloom/api/**`.
 - **Logic:** Builds the Kotlin project using Gradle and deploys to the respective Function App (`pip-tracker`, `necrobloom-api`).
 
+## Azure Infrastructure Quick Reference
+- **Subscription ID:** `892ba278-02fb-4119-90b3-83778aacc71f` (Finnminn Production)
+- **Primary Resource Groups:**
+    - `necrobloom-rg`: Gothic Plant Tracker (`necrobloom.finnminn.com`)
+    - `pip-rg`: Habit Tracker (`pip.finnminn.com`)
+    - `Finnminn`: Main landing page and shared identity resources
+
 ## Folder Structure
 
 ```

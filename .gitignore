@@ -22,3 +22,11 @@ bin/
 obj/
 out/
 *.log
+*.log*
+
+# Azurite
+AzuriteConfig
+__azurite_db_*__.json
+__blobstorage__/
+__queuestorage__/
+__tablestorage__/

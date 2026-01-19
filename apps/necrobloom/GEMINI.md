@@ -51,6 +51,16 @@ NecroBloom is a serverless plant-tracking application featuring a whimsically go
 - **Frontend**: `npx turbo run build --filter=necrobloom`
 - **Backend**: `cd apps/necrobloom/api && ./gradlew build azureFunctionsPackage`
 
+## Infrastructure & Troubleshooting Cheatsheet
+- **Log Analytics Workspace ID:** `fa552c33-26d4-4494-a42e-1a293c64f7ed`
+- **APIM Gateway:** `necrobloom-gateway` (`api.necrobloom.finnminn.com`)
+    - **Note:** All `/api/*` routes are proxied via APIM. If a route works locally but returns 404 in production, verify the operation exists in APIM.
+- **Common Log Queries (KQL):**
+    - **All Backend Traces:** `AppTraces | order by TimeGenerated desc`
+    - **API Requests:** `AppRequests | order by TimeGenerated desc`
+    - **Filter by Plant ID:** `AppTraces | where Message contains "id-here"`
+- **Backend URL:** `https://necrobloom-api-bacdfbezawe3dwce.canadacentral-01.azurewebsites.net`
+
 ## CI/CD
 The application uses split deployment pipelines:
 - **Frontend**: Managed by `.github/workflows/azure-static-web-apps-zealous-tree-08c25ec0f.yml`.
