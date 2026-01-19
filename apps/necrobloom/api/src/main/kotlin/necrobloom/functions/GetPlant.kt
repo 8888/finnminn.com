@@ -29,13 +29,16 @@ class GetPlant {
         val debug = StringBuilder()
         val userId = SecurityUtils.getUserId(request.headers, debug)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED)
-                .body("Unauthenticated: The Void does not recognize you.")
+                .body("Unauthenticated: The Void does not recognize you. Debug: $debug")
                 .build()
+
+        context.logger.info("Attempting to retrieve plant $id for user $userId")
 
         return try {
             val plant = repository.findById(id, userId)
             
             if (plant != null) {
+                context.logger.info("Found plant: ${plant.alias}")
                 // Sign URLs for all images
                 val signedPlant = plant.copy(
                     historicalReports = plant.historicalReports.map { report ->
@@ -48,6 +51,7 @@ class GetPlant {
                     .header("Content-Type", "application/json")
                     .build()
             } else {
+                context.logger.warning("Plant $id not found for user $userId")
                 request.createResponseBuilder(HttpStatus.NOT_FOUND)
                     .body("The specimen does not exist in this realm.")
                     .build()
@@ -55,7 +59,7 @@ class GetPlant {
         } catch (e: Exception) {
             context.logger.severe("Error retrieving plant: ${e.message}")
             request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("The spirits are silent.")
+                .body("The spirits are silent: ${e.message}")
                 .build()
         }
     }

@@ -31,15 +31,18 @@ class HealthCheck {
         @BindingName("id") id: String,
         context: ExecutionContext
     ): HttpResponseMessage {
-        val userId = SecurityUtils.getUserId(request.headers)
+        val debug = StringBuilder()
+        val userId = SecurityUtils.getUserId(request.headers, debug)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED)
-                .body("Unauthenticated: The Void does not recognize you. Auth Header Length: ${request.headers["authorization"]?.length ?: 0}")
+                .body("Unauthenticated: The Void does not recognize you. Debug: $debug")
                 .build()
 
         val body = request.body.orElse(null)
             ?: return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
                 .body("Missing request body.")
                 .build()
+
+        context.logger.info("Performing health check for plant $id for user $userId")
 
         return try {
             val req = gson.fromJson(body, HealthCheckRequest::class.java)
