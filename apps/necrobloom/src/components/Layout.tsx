@@ -35,7 +35,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       />
 
       {/* Main Content */}
-      <main className="relative z-10 p-4 md:p-8 max-w-7xl mx-auto">
+      <main className="p-4 md:p-8 max-w-7xl mx-auto">
         {children}
       </main>
 

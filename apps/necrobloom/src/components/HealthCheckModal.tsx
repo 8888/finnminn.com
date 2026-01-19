@@ -61,16 +61,21 @@ export const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ plantId, pla
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-void/80 backdrop-blur-md">
-      <Card className="max-w-md w-full p-6 border-toxic animate-in fade-in zoom-in duration-300">
-        <div className="flex justify-between items-center mb-6">
-          <Typography.H2 className="text-toxic">
-            [ VITALITY SCAN ]
-          </Typography.H2>
-          <button onClick={onClose} className="text-toxic/40 hover:text-radical transition-colors">
-            [ ESCAPE ]
-          </button>
-        </div>
+    <div className="fixed inset-0 z-[9999] bg-void/60 backdrop-blur-md overflow-y-auto">
+      <div className="flex min-h-full items-center justify-center p-4">
+        <Card className="max-w-md w-full p-6 border-toxic animate-in fade-in zoom-in duration-300">
+          <div className="flex justify-between items-center mb-6">
+            <Typography.H2 className="text-toxic mb-0">
+              [ VITALITY SCAN ]
+            </Typography.H2>
+            <Button 
+              variant="destructive" 
+              onClick={onClose} 
+              className="text-[10px] py-1 px-3"
+            >
+              [ ESCAPE ]
+            </Button>
+          </div>
 
         <Typography.Body className="text-witchcraft text-xs mb-4">
           CONSULTING THE SPIRIT OF: {plantAlias.toUpperCase()}

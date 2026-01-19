@@ -102,7 +102,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-void/90 backdrop-blur-xl overflow-y-auto">
+    <div className="fixed inset-0 z-[9999] bg-void/60 backdrop-blur-md overflow-y-auto">
       <div className="flex min-h-full items-center justify-center p-4">
         <Card className="relative max-w-lg w-full p-6 border-toxic animate-in fade-in zoom-in duration-300">
           <div className="flex justify-between items-center mb-6">
