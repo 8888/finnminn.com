@@ -24,12 +24,18 @@ object SecurityUtils {
             try {
                 val parts = token.split(".")
                 if (parts.size >= 2) {
-                    val payload = String(Base64.getUrlDecoder().decode(parts[1]))
+                    var payloadSegment = parts[1]
+                    while (payloadSegment.length % 4 != 0) {
+                        payloadSegment += "="
+                    }
+                    val payload = String(Base64.getUrlDecoder().decode(payloadSegment))
                     val json = JsonParser.parseString(payload).asJsonObject
                     // Entra ID tokens use 'oid' (Object ID) as the unique user identifier
                     return json.get("oid")?.asString ?: json.get("sub")?.asString
                 }
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                System.err.println("Token parsing failed: ${e.message}")
+            }
         }
 
         return null
