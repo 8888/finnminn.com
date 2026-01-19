@@ -1,8 +1,10 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from '@finnminn/auth';
 import { Layout } from './components/Layout';
 import { Button, Typography, Card } from '@finnminn/ui';
 import { Dashboard } from './pages/Dashboard';
+import { PlantDetail } from './pages/PlantDetail';
 
 const Main = () => {
   const { isAuthenticated, login, inProgress, instance } = useAuth();
@@ -54,15 +56,23 @@ const Main = () => {
     );
   }
 
-  return <Dashboard />;
+  return (
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/plant/:id" element={<PlantDetail />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 };
 
 function App() {
   return (
     <AuthProvider>
-      <Layout>
-        <Main />
-      </Layout>
+      <BrowserRouter>
+        <Layout>
+          <Main />
+        </Layout>
+      </BrowserRouter>
     </AuthProvider>
   );
 }

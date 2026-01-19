@@ -10,8 +10,10 @@ import necrobloom.utils.SecurityUtils
 import java.util.Optional
 
 class IdentifyPlant {
-    private val geminiClient = GeminiClient()
-    private val gson = Gson()
+    companion object {
+        private val geminiClient = GeminiClient()
+        private val gson = Gson()
+    }
 
     @FunctionName("IdentifyPlant")
     fun run(

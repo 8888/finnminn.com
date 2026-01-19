@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 import { AddPlantModal } from '../components/AddPlantModal';
 import { HealthCheckModal } from '../components/HealthCheckModal';
+import { usePlants } from '../hooks/usePlants';
 
 interface Plant {
   id: string;
@@ -17,7 +19,17 @@ export const Dashboard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
   const { getIdToken } = useAuth();
+  const { banishPlant } = usePlants();
+  const navigate = useNavigate();
   const API_BASE = import.meta.env.VITE_API_URL || '';
+
+  const handleDelete = async (e: React.MouseEvent, plantId: string) => {
+    e.stopPropagation();
+    const success = await banishPlant(plantId);
+    if (success) {
+      setPlants(prev => prev.filter(p => p.id !== plantId));
+    }
+  };
 
   const fetchPlants = useCallback(async () => {
     try {
@@ -99,19 +111,30 @@ export const Dashboard: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {plants.map((plant) => (
-            <Card key={plant.id.toString()} className="p-4 border-toxic/30 hover:border-toxic transition-colors group">
-              <div className="aspect-video bg-void border border-toxic/10 mb-4 overflow-hidden relative">
+            <Card 
+              key={plant.id.toString()} 
+              className="p-4 border-toxic/30 hover:border-toxic transition-colors group cursor-pointer"
+              onClick={() => navigate(`/plant/${plant.id}`)}
+            >
+              <div className="aspect-video bg-void border border-toxic/10 mb-4 overflow-hidden relative group">
                 {plant.historicalReports[0]?.imageUrl ? (
                   <img 
                     src={plant.historicalReports[0].imageUrl} 
                     alt={plant.alias}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
+                    className="w-full h-full object-cover transition-all"
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center text-toxic/10 text-xs">
                     [ NO VISUAL DATA ]
                   </div>
                 )}
+                <button
+                  onClick={(e) => handleDelete(e, plant.id)}
+                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-void/80 border border-radical/30 text-radical text-[10px] px-1 hover:border-radical transition-all z-10"
+                  title="Banish Specimen"
+                >
+                  [ X ]
+                </button>
               </div>
               <Typography.H3 className="text-toxic truncate">
                 {plant.alias.toUpperCase()}
@@ -124,7 +147,10 @@ export const Dashboard: React.FC = () => {
                 <span>ID: {plant.id.toString().substring(0, 8)}</span>
               </div>
               <Button 
-                onClick={() => setSelectedPlant(plant)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedPlant(plant);
+                }}
                 variant="primary" 
                 className="w-full py-1 text-[10px] border-toxic/20 text-toxic/60 hover:text-toxic hover:border-toxic"
               >

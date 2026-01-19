@@ -11,9 +11,9 @@ import java.util.UUID
 class StorageService {
 
     companion object {
+        private val containerName = System.getenv("STORAGE_CONTAINER") ?: "vessel-images"
         private val containerClient: BlobContainerClient by lazy {
             val connectionString = System.getenv("BLOB_CONNECTION_STRING")
-            val containerName = System.getenv("STORAGE_CONTAINER") ?: "vessel-images"
 
             val blobServiceClient = BlobServiceClientBuilder()
                 .connectionString(connectionString)
@@ -39,7 +39,8 @@ class StorageService {
         
         return try {
             val cleanUrl = blobUrl.substringBefore("?")
-            val blobName = cleanUrl.substringAfterLast("/")
+            // Robust parsing: extract everything after the container name in the URL
+            val blobName = cleanUrl.substringAfter("/$containerName/")
             val blobClient = containerClient.getBlobClient(blobName)
             
             val permission = BlobSasPermission().setReadPermission(true)
@@ -50,6 +51,20 @@ class StorageService {
             "$cleanUrl?$sasToken"
         } catch (e: Exception) {
             blobUrl // Fallback to original URL
+        }
+    }
+
+    fun deleteImage(blobUrl: String): Boolean {
+        if (blobUrl.isBlank()) return true
+        return try {
+            val cleanUrl = blobUrl.substringBefore("?")
+            // Robust parsing: extract everything after the container name in the URL
+            val blobName = cleanUrl.substringAfter("/$containerName/")
+            val blobClient = containerClient.getBlobClient(blobName)
+            blobClient.deleteIfExists()
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 }

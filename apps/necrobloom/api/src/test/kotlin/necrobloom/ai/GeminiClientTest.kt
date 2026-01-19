@@ -38,7 +38,7 @@ class GeminiClientTest {
             }
         """.trimIndent()
         
-        val client = GeminiClient("dummy-key")
+        val client = GeminiClient()
         val method: Method = GeminiClient::class.java.getDeclaredMethod("parseResponse", String::class.java)
         method.isAccessible = true
         
@@ -49,7 +49,7 @@ class GeminiClientTest {
     @Test
     fun `parseResponse should return empty string if no candidates`() {
         val json = """{"candidates": []}"""
-        val client = GeminiClient("dummy-key")
+        val client = GeminiClient()
         val method: Method = GeminiClient::class.java.getDeclaredMethod("parseResponse", String::class.java)
         method.isAccessible = true
         
