@@ -102,18 +102,19 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-void/80 backdrop-blur-md">
-      <Card className="max-w-lg w-full p-6 border-toxic animate-in fade-in zoom-in duration-300">
-        <div className="flex justify-between items-center mb-6">
-          <Typography.H2 className="text-toxic">
-            [ NEW RITUAL ]
-          </Typography.H2>
-          <button onClick={onClose} className="text-toxic/40 hover:text-radical transition-colors">
-            [ ESCAPE ]
-          </button>
-        </div>
+    <div className="fixed inset-0 z-[9999] overflow-y-auto bg-void/80 backdrop-blur-md">
+      <div className="flex min-h-full items-center justify-center p-4">
+        <Card className="relative max-w-lg w-full p-6 border-toxic animate-in fade-in zoom-in duration-300">
+          <div className="flex justify-between items-center mb-6">
+            <Typography.H2 className="text-toxic">
+              [ NEW RITUAL ]
+            </Typography.H2>
+            <button onClick={onClose} className="text-toxic/40 hover:text-radical transition-colors">
+              [ ESCAPE ]
+            </button>
+          </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
               <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Nickname</label>
@@ -210,7 +211,8 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
             {loading ? "BINDING SPIRIT..." : "[ COMMENCE MANIFESTATION ]"}
           </Button>
         </form>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 };

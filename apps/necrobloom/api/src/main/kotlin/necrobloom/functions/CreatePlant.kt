@@ -40,36 +40,53 @@ class CreatePlant {
         return try {
             val req = gson.fromJson(body, CreatePlantRequest::class.java)
             
-            // Handle image upload
-            val imageBytes = decodeBase64(req.image)
-            val extension = getExtension(req.image)
+            // Image processing
+            if (req.image.isNullOrBlank()) {
+                return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
+                    .body("Visual manifestation (image) is required.")
+                    .build()
+            }
+
+            val mimeType = getMimeType(req.image)
+            val cleanBase64 = cleanBase64(req.image)
+            val imageBytes = Base64.getDecoder().decode(cleanBase64)
+            val extension = getExtensionFromMime(mimeType)
+            
+            // Upload to storage
             val imageUrl = storageService.uploadImage(imageBytes, extension)
 
-            // Generate Care Plan
-            val carePlan = try {
-                val carePrompt = """
-                    Generate a care plan for a plant of species "${req.species}" 
-                    located in zip code "${req.zip}" (infer climate) 
-                    with lighting condition "${req.lighting}".
-                    
-                    Return strictly valid JSON (no markdown) with fields:
-                    - waterFrequency
-                    - lightNeeds
-                    - toxicity
-                    - additionalNotes
-                """.trimIndent()
+            // Consult the Oracle (Gemini)
+            val userClaim = if (!req.species.isNullOrBlank()) "User claims this is a '${req.species}'." else "User has not identified this plant."
+            
+            val prompt = """
+                Analyze the provided plant image. $userClaim
                 
-                val careJson = geminiClient.generateText(carePrompt)
-                val cleanJson = GeminiClient.cleanJson(careJson)
-                gson.fromJson(cleanJson, necrobloom.data.CarePlan::class.java)
-            } catch (e: Exception) {
-                context.logger.warning("Failed to generate care plan: ${e.message}")
-                null
-            }
+                1. Identify the species (Common Name). If the user's claim is accurate, use it. If not, correct it.
+                2. Generate a care plan for this specific plant located in zip code "${req.zip}" (infer climate) with lighting "${req.lighting}".
+                
+                Return strictly valid JSON (no markdown) with this schema:
+                {
+                  "species": "string (Common Name)",
+                  "carePlan": {
+                    "waterFrequency": "string",
+                    "lightNeeds": "string",
+                    "toxicity": "string",
+                    "additionalNotes": "string"
+                  }
+                }
+            """.trimIndent()
+
+            val aiResponseText = geminiClient.analyzeImage(cleanBase64, mimeType, prompt)
+            val cleanJson = GeminiClient.cleanJson(aiResponseText)
+            val oracleResult = gson.fromJson(cleanJson, AIAnalysisResult::class.java)
+
+            // Safe mapping with fallbacks
+            val species = oracleResult?.species ?: req.species ?: "Unknown Specimen"
+            val carePlan = oracleResult?.carePlan // Can be null if AI fails to generate
 
             val plant = Plant(
                 userId = userId,
-                species = req.species,
+                species = species,
                 alias = req.alias,
                 environment = Environment(req.zip, req.lighting),
                 carePlan = carePlan,
@@ -88,11 +105,7 @@ class CreatePlant {
                 .body(gson.toJson(savedPlant))
                 .header("Content-Type", "application/json")
                 .build()
-        } catch (e: IllegalArgumentException) {
-            context.logger.warning("Validation error: ${e.message}")
-            request.createResponseBuilder(HttpStatus.BAD_REQUEST)
-                .body("Ritual aborted: ${e.message}")
-                .build()
+
         } catch (e: Exception) {
             context.logger.severe("Error creating plant: ${e.message}")
             request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -101,24 +114,36 @@ class CreatePlant {
         }
     }
 
-    private fun decodeBase64(base64String: String): ByteArray {
-        val cleanBase64 = if (base64String.contains(",")) {
+    private fun getMimeType(base64String: String): String {
+        return if (base64String.contains("data:") && base64String.contains(";base64,")) {
+            base64String.split(";")[0].split(":")[1]
+        } else {
+            "image/jpeg"
+        }
+    }
+
+    private fun cleanBase64(base64String: String): String {
+        return if (base64String.contains(",")) {
             base64String.split(",")[1]
         } else {
             base64String
         }
-        return try {
-            Base64.getDecoder().decode(cleanBase64)
-        } catch (e: IllegalArgumentException) {
-            throw IllegalArgumentException("Visual data corruption: Malformed Base64 string.")
+    }
+
+    private fun getExtensionFromMime(mimeType: String): String {
+        return when (mimeType.lowercase()) {
+            "image/jpeg" -> "jpg"
+            "image/png" -> "png"
+            "image/gif" -> "gif"
+            "image/webp" -> "webp"
+            "image/svg+xml" -> "svg"
+            "image/bmp" -> "bmp"
+            else -> "jpg" // Fallback
         }
     }
 
-    private fun getExtension(base64String: String): String {
-        return if (base64String.contains("data:image/") && base64String.contains(";base64,")) {
-            base64String.split(";")[0].split("/")[1]
-        } else {
-            "jpg"
-        }
-    }
+    private data class AIAnalysisResult(
+        val species: String?,
+        val carePlan: CarePlan?
+    )
 }

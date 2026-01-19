@@ -32,7 +32,7 @@ data class HealthReport(
 
 data class CreatePlantRequest(
     val alias: String,
-    val species: String,
+    val species: String? = null,
     val zip: String,
     val lighting: String,
     val image: String // Base64

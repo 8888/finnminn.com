@@ -1,10 +1,23 @@
+import React from 'react';
 import { AuthProvider, useAuth } from '@finnminn/auth';
 import { Layout } from './components/Layout';
 import { Button, Typography, Card } from '@finnminn/ui';
 import { Dashboard } from './pages/Dashboard';
 
 const Main = () => {
-  const { isAuthenticated, login, inProgress } = useAuth();
+  const { isAuthenticated, login, inProgress, instance } = useAuth();
+  
+  React.useEffect(() => {
+    if (!isAuthenticated && inProgress === 'none') {
+      // Attempt to establish session from existing browser session (SSO)
+      instance.ssoSilent({
+        scopes: ["User.Read"]
+      }).catch((error) => {
+        console.log("Silent SSO failed, user must manually connect:", error);
+        // Interaction required, let the UI render the login button
+      });
+    }
+  }, [isAuthenticated, inProgress, instance]);
 
   if (inProgress !== 'none') {
     return (
