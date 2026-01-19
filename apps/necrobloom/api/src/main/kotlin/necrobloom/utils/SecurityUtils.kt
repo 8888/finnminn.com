@@ -24,9 +24,13 @@ object SecurityUtils {
         val authHeader = headers.entries.find { it.key.equals("authorization", ignoreCase = true) }?.value
         if (authHeader != null && authHeader.startsWith("Bearer ", ignoreCase = true)) {
             debug?.append("Found Authorization header. ")
-            val token = authHeader.substring(7)
+            val token = authHeader.substring(7).trim()
+            debug?.append("Token length: ${token.length}. ")
+            debug?.append("Token start: ${token.take(10)}... Token end: ...${token.takeLast(10)}. ")
+            
             try {
-                val parts = token.split(".")
+                // Use a regex to be safe about dots
+                val parts = token.split(Regex("\\."))
                 debug?.append("Token parts: ${parts.size}. ")
                 if (parts.size >= 2) {
                     var payloadSegment = parts[1]
