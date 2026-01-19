@@ -11,7 +11,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
   const [loading, setLoading] = useState(false);
   const [identifying, setIdentifying] = useState(false);
   const [oracleWhisper, setOracleWhisper] = useState('');
-  const { getToken } = useAuth();
+  const { getIdToken } = useAuth();
   const API_BASE = import.meta.env.VITE_API_URL || '';
   const [formData, setFormData] = useState({
     alias: '',
@@ -25,7 +25,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
     setIdentifying(true);
     setOracleWhisper('');
     try {
-      const token = await getToken();
+      const token = await getIdToken();
       const res = await fetch(`${API_BASE}/api/identify`, {
         method: 'POST',
         headers: { 
@@ -77,7 +77,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
 
     setLoading(true);
     try {
-      const token = await getToken();
+      const token = await getIdToken();
       const response = await fetch(`${API_BASE}/api/plants`, {
         method: 'POST',
         headers: {

@@ -81,10 +81,36 @@ export const useAuth = () => {
         }
     };
 
+    const getIdToken = async () => {
+        const account = instance.getActiveAccount() || accounts[0];
+        if (!account) throw new Error("NO_ACTIVE_ACCOUNT");
+
+        try {
+            const response = await instance.acquireTokenSilent({
+                scopes: ["openid", "profile"],
+                account: account
+            });
+            return response.idToken;
+        } catch (error) {
+            console.warn("Silent ID token acquisition failed, attempting popup...", error);
+            try {
+                const response = await instance.acquireTokenPopup({
+                    scopes: ["openid", "profile"],
+                    account: account
+                });
+                return response.idToken;
+            } catch (popupError) {
+                console.error("Popup ID token acquisition failed:", popupError);
+                throw popupError;
+            }
+        }
+    };
+
     return {
         login,
         logout,
         getToken,
+        getIdToken,
         isAuthenticated,
         inProgress,
         user: accounts[0] || null,

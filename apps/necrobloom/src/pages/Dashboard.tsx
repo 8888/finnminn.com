@@ -16,12 +16,12 @@ export const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
-  const { getToken } = useAuth();
+  const { getIdToken } = useAuth();
   const API_BASE = import.meta.env.VITE_API_URL || '';
 
   const fetchPlants = async () => {
     try {
-      const token = await getToken();
+      const token = await getIdToken();
       const response = await fetch(`${API_BASE}/api/plants`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -40,7 +40,7 @@ export const Dashboard: React.FC = () => {
 
   useEffect(() => {
     fetchPlants();
-  }, [getToken]);
+  }, [getIdToken]);
 
   return (
     <div className="space-y-8">
