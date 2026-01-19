@@ -9,7 +9,7 @@ class StorageService {
 
     companion object {
         private val containerClient: BlobContainerClient by lazy {
-            val connectionString = System.getenv("STORAGE_CONNECTION_STRING")
+            val connectionString = System.getenv("BLOB_CONNECTION_STRING")
             val containerName = System.getenv("STORAGE_CONTAINER") ?: "vessel-images"
 
             val blobServiceClient = BlobServiceClientBuilder()
