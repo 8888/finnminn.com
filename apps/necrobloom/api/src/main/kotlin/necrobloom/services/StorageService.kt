@@ -52,4 +52,17 @@ class StorageService {
             blobUrl // Fallback to original URL
         }
     }
+
+    fun deleteImage(blobUrl: String): Boolean {
+        if (blobUrl.isBlank()) return true
+        return try {
+            val cleanUrl = blobUrl.substringBefore("?")
+            val blobName = cleanUrl.substringAfterLast("/")
+            val blobClient = containerClient.getBlobClient(blobName)
+            blobClient.deleteIfExists()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

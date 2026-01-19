@@ -8,6 +8,7 @@ import java.util.Optional
 
 class DeletePlant {
     private val repository = CosmosRepository()
+    private val storageService = StorageService()
 
     @FunctionName("DeletePlant")
     fun run(
@@ -27,14 +28,29 @@ class DeletePlant {
                 .build()
 
         return try {
-            val success = repository.deleteById(id, userId)
-            if (success) {
-                request.createResponseBuilder(HttpStatus.OK)
-                    .body("The specimen has been banished back to the Void.")
-                    .build()
+            val plant = repository.findById(id, userId)
+            
+            if (plant != null) {
+                // Remove all associated images from storage
+                plant.historicalReports.forEach { report ->
+                    storageService.deleteImage(report.imageUrl)
+                }
+                
+                // Remove record from Cosmos
+                val success = repository.deleteById(id, userId)
+                
+                if (success) {
+                    request.createResponseBuilder(HttpStatus.OK)
+                        .body("The specimen and all its traces have been banished back to the Void.")
+                        .build()
+                } else {
+                    request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("The specimen's soul was purged, but its record remains etched in the database.")
+                        .build()
+                }
             } else {
                 request.createResponseBuilder(HttpStatus.NOT_FOUND)
-                    .body("The specimen could not be found or refused to leave.")
+                    .body("The specimen does not exist in this realm.")
                     .build()
             }
         } catch (e: Exception) {

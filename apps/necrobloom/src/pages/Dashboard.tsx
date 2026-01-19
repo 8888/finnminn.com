@@ -21,6 +21,28 @@ export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const API_BASE = import.meta.env.VITE_API_URL || '';
 
+  const handleDelete = async (e: React.MouseEvent, plantId: string) => {
+    e.stopPropagation();
+    if (!window.confirm("ARE YOU SURE YOU WISH TO BANISH THIS SPECIMEN BACK TO THE VOID?")) return;
+
+    try {
+      const token = await getIdToken();
+      const response = await fetch(`${API_BASE}/api/plants/${plantId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        setPlants(prev => prev.filter(p => p.id !== plantId));
+      } else {
+        alert("THE SPIRITS REFUSE TO LET GO.");
+      }
+    } catch (error) {
+      console.error("Delete failed:", error);
+    }
+  };
+
   const fetchPlants = useCallback(async () => {
     try {
       const token = await getIdToken();
@@ -106,7 +128,7 @@ export const Dashboard: React.FC = () => {
               className="p-4 border-toxic/30 hover:border-toxic transition-colors group cursor-pointer"
               onClick={() => navigate(`/plant/${plant.id}`)}
             >
-              <div className="aspect-video bg-void border border-toxic/10 mb-4 overflow-hidden relative">
+              <div className="aspect-video bg-void border border-toxic/10 mb-4 overflow-hidden relative group">
                 {plant.historicalReports[0]?.imageUrl ? (
                   <img 
                     src={plant.historicalReports[0].imageUrl} 
@@ -118,6 +140,13 @@ export const Dashboard: React.FC = () => {
                     [ NO VISUAL DATA ]
                   </div>
                 )}
+                <button
+                  onClick={(e) => handleDelete(e, plant.id)}
+                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-void/80 border border-radical/30 text-radical text-[10px] px-1 hover:border-radical transition-all z-10"
+                  title="Banish Specimen"
+                >
+                  [ X ]
+                </button>
               </div>
               <Typography.H3 className="text-toxic truncate">
                 {plant.alias.toUpperCase()}
