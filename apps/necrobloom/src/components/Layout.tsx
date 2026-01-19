@@ -1,5 +1,6 @@
 import React from 'react';
-import { Atmosphere, Typography } from '@finnminn/ui';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Atmosphere, CommandBar } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 
 interface LayoutProps {
@@ -7,38 +8,31 @@ interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, logout, login, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const userProfile = isAuthenticated && user ? {
+    name: user.username?.split('@')[0].toUpperCase() || 'AGENT',
+    email: user.username
+  } : null;
+
+  const links = [
+    { label: 'DASHBOARD', href: '/', active: location.pathname === '/' },
+  ];
 
   return (
     <div className="min-h-screen bg-void text-toxic font-mono relative overflow-hidden">
       <Atmosphere />
       
-      {/* Header */}
-      <header className="relative z-10 border-b border-toxic/20 p-4 flex justify-between items-center bg-void/50 backdrop-blur-sm">
-        <div className="flex items-center gap-4">
-          <Typography.H2 className="text-toxic tracking-tighter">
-            NECROBLOOM
-          </Typography.H2>
-          <div className="h-4 w-[1px] bg-toxic/20 hidden md:block" />
-          <Typography.Body className="text-toxic/40 text-xs hidden md:block">
-            VITALITY MONITORING SYSTEM
-          </Typography.Body>
-        </div>
-
-        {isAuthenticated && (
-          <div className="flex items-center gap-4">
-            <Typography.Body className="text-witchcraft text-xs">
-              AGENT: {user?.username?.split('@')[0].toUpperCase() || 'UNKNOWN'}
-            </Typography.Body>
-            <button 
-              onClick={logout}
-              className="text-toxic/40 hover:text-radical text-xs uppercase tracking-widest transition-colors"
-            >
-              [ Terminate Session ]
-            </button>
-          </div>
-        )}
-      </header>
+      <CommandBar 
+        logo="NECROBLOOM"
+        user={userProfile}
+        onLogout={logout}
+        onLogin={login}
+        links={links}
+        onLinkClick={(href) => navigate(href)}
+      />
 
       {/* Main Content */}
       <main className="relative z-10 p-4 md:p-8 max-w-7xl mx-auto">

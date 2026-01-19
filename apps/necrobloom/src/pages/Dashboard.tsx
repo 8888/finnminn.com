@@ -64,9 +64,9 @@ export const Dashboard: React.FC = () => {
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <Typography.H2 className="text-toxic">
+          <Typography.H1 className="text-toxic glow-ectoplasm">
             COLLECTION FROM THE VOID
-          </Typography.H2>
+          </Typography.H1>
           <Typography.Body className="text-toxic/40">
             {plants.length} specimens currently under observation.
           </Typography.Body>
