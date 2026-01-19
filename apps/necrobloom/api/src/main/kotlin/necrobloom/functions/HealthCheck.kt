@@ -96,8 +96,15 @@ class HealthCheck {
             plant.historicalReports.add(newReport)
             val updatedPlant = repository.save(plant)
 
+            // Sign URLs for the response
+            val signedPlant = updatedPlant.copy(
+                historicalReports = updatedPlant.historicalReports.map { report ->
+                    report.copy(imageUrl = storageService.generateSasUrl(report.imageUrl))
+                }.toMutableList()
+            )
+
             request.createResponseBuilder(HttpStatus.OK)
-                .body(gson.toJson(updatedPlant))
+                .body(gson.toJson(signedPlant))
                 .header("Content-Type", "application/json")
                 .build()
         } catch (e: Exception) {

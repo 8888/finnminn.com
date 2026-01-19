@@ -2,7 +2,10 @@ package necrobloom.services
 
 import com.azure.storage.blob.BlobContainerClient
 import com.azure.storage.blob.BlobServiceClientBuilder
+import com.azure.storage.blob.sas.BlobSasPermission
+import com.azure.storage.blob.sas.BlobServiceSasSignatureValues
 import java.io.ByteArrayInputStream
+import java.time.OffsetDateTime
 import java.util.UUID
 
 class StorageService {
@@ -29,5 +32,24 @@ class StorageService {
         blobClient.upload(ByteArrayInputStream(bytes), bytes.size.toLong(), true)
         
         return blobClient.blobUrl
+    }
+
+    fun generateSasUrl(blobUrl: String): String {
+        if (blobUrl.isBlank()) return ""
+        
+        return try {
+            val cleanUrl = blobUrl.substringBefore("?")
+            val blobName = cleanUrl.substringAfterLast("/")
+            val blobClient = containerClient.getBlobClient(blobName)
+            
+            val permission = BlobSasPermission().setReadPermission(true)
+            val expiryTime = OffsetDateTime.now().plusHours(2)
+            val values = BlobServiceSasSignatureValues(expiryTime, permission)
+            
+            val sasToken = blobClient.generateSas(values)
+            "$cleanUrl?$sasToken"
+        } catch (e: Exception) {
+            blobUrl // Fallback to original URL
+        }
     }
 }

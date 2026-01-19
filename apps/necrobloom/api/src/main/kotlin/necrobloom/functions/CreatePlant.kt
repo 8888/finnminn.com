@@ -101,8 +101,15 @@ class CreatePlant {
 
             val savedPlant = repository.save(plant)
 
+            // Sign URLs for the response
+            val signedPlant = savedPlant.copy(
+                historicalReports = savedPlant.historicalReports.map { report ->
+                    report.copy(imageUrl = storageService.generateSasUrl(report.imageUrl))
+                }.toMutableList()
+            )
+
             request.createResponseBuilder(HttpStatus.CREATED)
-                .body(gson.toJson(savedPlant))
+                .body(gson.toJson(signedPlant))
                 .header("Content-Type", "application/json")
                 .build()
 
