@@ -4,13 +4,25 @@ Following the **Vessel Insights PRD**, here are the engineering-ready User Stori
 
 ---
 
+### Story 0: Core Refactoring & Type Unification
+**User Story Statement:**
+As a **NecroBloom Architect**, I want to centralize the plant and health report interfaces into a shared types file, so that the dashboard insights and detail pages use a consistent schema.
+
+**Acceptance Criteria:**
+- Create `apps/necrobloom/src/types/plant.ts`.
+- Move `Plant`, `HealthReport`, and `CarePlan` interfaces into this file.
+- Update `Dashboard.tsx`, `PlantDetail.tsx`, and all hooks to import from this central location.
+- Ensure the `Plant` interface includes `boundDate` (ISO string) for creation tracking.
+
+---
+
 ### Story 1: Vessel Metadata Header
 **User Story Statement:**
 As a **Gothic Gardener**, I want to see high-level statistics about my collection at the top of the dashboard, so that I can immediately assess the state of my "Vessel" and the overall health of my bound specimens.
 
 **Acceptance Criteria:**
 - Display a "Total Specimen Count" reflecting the number of plants in the `plants` array.
-- Calculate and display the "Harmony Index" (Percentage of plants with a "Thriving" or "Stable" status vs total plants).
+- Calculate and display the "Harmony Index": `(Count(Thriving) + Count(Stable)) / Total`.
 - Implement a "Vessel Status Oracle" (whimsical text) that changes based on the Harmony Index:
     - 90-100%: "THE GARDEN THRIVES IN RADIANT DARKNESS"
     - 50-89%: "A STEADY CALM PERMEATES THE VOID"
@@ -51,11 +63,11 @@ As a **Gothic Gardener**, I want a visual health distribution bar, so that I can
 As a **Gothic Gardener**, I want to filter my dashboard by vitality status, so that I can quickly "triage" the collection and focus only on specimens that are "In Peril."
 
 **Acceptance Criteria:**
-- Make the segments of the **Health Vitality Meter** (from Story 2) clickable to act as filters.
+- Make the segments of the **Health Vitality Meter** (from Story 2) act as **single-selection toggles**.
+- Clicking an active filter segment deactivates it (returning to the full list).
 - Add a "CLEAR FILTERS" button that appears only when a filter is active.
 - When a segment is clicked (e.g., "In Peril"), the dashboard list must update instantly to show only plants in that category.
 - Display a "No specimens found in this state" message if a filter returns an empty set.
-- Ensure the filter state is reflected in the UI (e.g., the selected segment has a stronger glow or border).
 
 **Technical Notes:**
 - Use a `filteredPlants` state or memoized variable to manage the list display.
@@ -74,13 +86,11 @@ As a **Gothic Gardener**, I want my plants to be grouped by their watering frequ
     - **Weekly Cycles**
     - **Bi-Weekly Rhythms**
     - **Monthly Communions**
+    - **Strange Rhythms** (Fallback for unmapped or irregular AI frequencies).
     - **Unbound Frequencies** (For plants without a care plan).
+- Implement fuzzy matching for the AI frequency strings (e.g., "every few days" -> Weekly).
 - Each section must have a header with a count of specimens in that cohort.
 - Cohorts with 0 plants should be hidden by default.
-
-**Technical Notes:**
-- Perform the grouping logic using `Array.reduce()` or similar on the client side.
-- Note: The `Plant` interface in `Dashboard.tsx` needs to be updated to include the `carePlan` object (as seen in `PlantDetail.tsx`).
 
 ---
 
@@ -91,15 +101,12 @@ As a **Gothic Gardener**, I want to sort my collection by the last health check 
 **Acceptance Criteria:**
 - Add a "Sort By" dropdown or toggle to the dashboard.
 - Default view should be "Alphabetical (Alias)."
-- New sort option: "Neglect Level" (Sorts by date of the most recent `historicalReport`, oldest first).
-- Plants with **no** historical reports should appear at the very top of the "Neglect Level" sort.
+- New sort option: "Neglect Level":
+    - **Primary Sort:** Oldest `historicalReport` date first.
+    - **Secondary Sort:** For plants with NO reports, sort by `boundDate` (oldest first).
+- Plants with no reports and the oldest `boundDate` should appear at the absolute top.
 
 **Technical Notes:**
-- Sorting logic should handle `null` or `undefined` `historicalReports` by treating them as the "oldest" possible date.
+- Sorting logic should handle `null` or `undefined` `historicalReports` by defaulting to the secondary sort.
 - Use `Date.parse()` for comparing report timestamps.
 
----
-
-### Recommended Technical Refactoring
-**Note for Engineering:**
-Before implementing the stories above, it is recommended to move the `Plant` and `HealthReport` interfaces from `Dashboard.tsx` and `PlantDetail.tsx` into a shared types file (e.g., `apps/necrobloom/src/types/plant.ts`) to ensure type consistency across the new dashboard features.

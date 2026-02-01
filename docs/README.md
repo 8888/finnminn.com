@@ -45,5 +45,15 @@ This repository hosts the source code and documentation for `finnminn.com`, a st
     - Integration with the main AppLauncher navigation.
 - **Documentation:** [Cryptid Console Developer Page Feature](./features/cryptid-console-dev-page/implementation/README.md)
 
+### NecroBloom Dashboard 2.0 - Vessel Insights (Implemented Feb 2026)
+- **Goal:** Transform the plant tracker into a command center with aggregate insights and care-based grouping.
+- **Key Changes:**
+    - Centralized plant types and implemented a shared logic utility.
+    - Added "Vessel Header" with Harmony Index and Oracle status text.
+    - Introduced "Vitality Meter" for health distribution visualization and triage filtering.
+    - Organized collection into "Watering Cohorts" using fuzzy-matched AI care plans.
+    - Implemented "Neglect Level" sorting to prioritize plants requiring attention.
+- **Documentation:** [NecroBloom Dashboard Insights Feature](./features/necrobloom-dashboard-insights/implementation/README.md)
+
 ## Architecture
 See [Architecture Docs](./architecture/) for detailed system design.

@@ -4,23 +4,7 @@ import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 import { usePlants } from '../hooks/usePlants';
 import { HealthCheckModal } from '../components/HealthCheckModal';
-
-interface Plant {
-  id: string;
-  alias: string;
-  species: string;
-  historicalReports: Array<{
-    date: string;
-    healthStatus: string;
-    imageUrl: string;
-  }>;
-  carePlan?: {
-    waterFrequency: string;
-    lightNeeds: string;
-    toxicity: string;
-    additionalNotes: string;
-  };
-}
+import { Plant } from '../types/plant';
 
 export const PlantDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

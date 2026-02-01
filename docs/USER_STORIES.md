@@ -148,7 +148,11 @@
 
 5.  **Design Compliance:** All elements strictly follow the "Cryptid Console" design system (Colors: Void, Radical, Toxic, Spirit; Fonts: VT323, Space Mono; Hard shadows).
 
+
+
 ## User Story 7: Apply PixelGrim Design System to Web App
+
+
 
 **As a** Senior Frontend Developer,
 **I want** to refactor `apps/web` to utilize the `@finnminn/ui` component library and "PixelGrim" design system
@@ -162,7 +166,11 @@
 4.  Visual atmosphere elements (Mana Motes, CRT Vignette) are implemented if supported by `@finnminn/ui` or added locally matching the styleguide.
 5.  The `apps/web` application builds successfully.
 
+
+
 ## User Story 8: Implement Cryptid Console Developer Page
+
+
 
 **As a** Developer,
 **I want** a dedicated configuration and debugging page called "Cryptid Console",
@@ -180,3 +188,82 @@
     *   Utilize `@finnminn/ui` components (`Terminal`, `Button`, `Card`, `Typography`).
     *   Adhere to the PixelGrim aesthetic (void background, terminal fonts, radical/toxic accents).
 5.  **Access:** The page must be protected by the `AuthProvider` (redirect if not logged in).
+
+
+
+## User Story 9: Core Refactoring & Type Unification (NecroBloom)
+**As a** NecroBloom Architect,
+**I want** to centralize the plant and health report interfaces into a shared types file,
+**So that** the dashboard insights and detail pages use a consistent schema.
+
+**Acceptance Criteria:**
+1. Create `apps/necrobloom/src/types/plant.ts`.
+2. Move `Plant`, `HealthReport`, and `CarePlan` interfaces into this file.
+3. Update `Dashboard.tsx`, `PlantDetail.tsx`, and all hooks to import from this central location.
+4. Ensure the `Plant` interface includes `boundDate` (ISO string) for creation tracking.
+
+## User Story 10: Vessel Metadata Header (NecroBloom)
+**As a** Gothic Gardener,
+**I want** to see high-level statistics about my collection at the top of the dashboard,
+**So that** I can immediately assess the state of my "Vessel" and the overall health of my bound specimens.
+
+**Acceptance Criteria:**
+1. Display a "Total Specimen Count" reflecting the number of plants in the `plants` array.
+2. Calculate and display the "Harmony Index": `(Count(Thriving) + Count(Stable)) / Total`.
+3. Implement a "Vessel Status Oracle" (whimsical text) that changes based on the Harmony Index:
+    - 90-100%: "THE GARDEN THRIVES IN RADIANT DARKNESS"
+    - 50-89%: "A STEADY CALM PERMEATES THE VOID"
+    - 1-49%: "SHADOWS GATHER; THE SPIRITS ARE RESTLESS"
+    - 0%: "THE VOID IS SILENT AND BARREN"
+4. Use PixelGrim design tokens (Witchcraft/Toxic colors) for typography and glow effects.
+
+## User Story 11: Health Vitality Meter (NecroBloom)
+**As a** Gothic Gardener,
+**I want** a visual health distribution bar,
+**So that** I can see the ratio of healthy to troubled plants without reading individual reports.
+
+**Acceptance Criteria:**
+1. Implement a horizontal segmented "Vitality Bar" component.
+2. The bar must be divided into three segments based on plant health:
+    - **Thriving (Ectoplasm/#05FFA1)**
+    - **Stable (Witchcraft/#7D5FFF)**
+    - **In Peril (Radical/#FF0055)**
+3. Each segment's width must be proportional to the percentage of plants in that category.
+4. Segments must include a tooltip or text overlay indicating the count (e.g., "5 THRIVING").
+5. Adhere to accessibility standards.
+
+## User Story 12: Dashboard Filtering and Triage (NecroBloom)
+**As a** Gothic Gardener,
+**I want** to filter my dashboard by vitality status,
+**So that** I can quickly "triage" the collection and focus only on specimens that are "In Peril."
+
+**Acceptance Criteria:**
+1. Make the segments of the **Health Vitality Meter** act as **single-selection toggles**.
+2. Clicking an active filter segment deactivates it.
+3. Add a "CLEAR FILTERS" button that appears only when a filter is active.
+4. The dashboard list must update instantly to show only plants in that category.
+5. Display a "No specimens found in this state" message if a filter returns an empty set.
+
+## User Story 13: Watering Cohorts Dashboard Sections (NecroBloom)
+**As a** Gothic Gardener,
+**I want** my plants to be grouped by their watering frequency,
+**So that** I can perform my care rituals in batches.
+
+**Acceptance Criteria:**
+1. Reorganize the dashboard into multiple sections based on `carePlan.waterFrequency`.
+2. Grouping categories: **Daily Rituals**, **Weekly Cycles**, **Bi-Weekly Rhythms**, **Monthly Communions**, **Strange Rhythms**, and **Unbound Frequencies**.
+3. Implement fuzzy matching for the AI frequency strings.
+4. Each section must have a header with a count of specimens.
+5. Cohorts with 0 plants should be hidden.
+
+## User Story 14: Need-Based Sorting (NecroBloom)
+**As a** Gothic Gardener,
+**I want** to sort my collection by the last health check date,
+**So that** I can identify specimens that have been neglected for too long.
+
+**Acceptance Criteria:**
+1. Add a "Sort By" dropdown to the dashboard.
+2. Default view: "Alphabetical (Alias)."
+3. New sort option: "Neglect Level":
+    - **Primary Sort:** Oldest `historicalReport` date first.
+    - **Secondary Sort:** For plants with NO reports, sort by `boundDate` (oldest first).
