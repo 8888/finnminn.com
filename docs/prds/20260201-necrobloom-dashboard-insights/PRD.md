@@ -21,7 +21,9 @@ Necrobloom currently offers individual plant tracking but lacks a high-level ove
 ## 5. Functional Requirements
 ### 5.1 Vessel Metadata Header
 - **Total Specimen Count:** Clear display of total bound plants.
-- **Harmony Index:** A ratio of healthy plants to the total, displayed as a percentage (e.g., "75% HARMONY").
+- **Harmony Index:** A ratio reflecting the "non-perilous" state of the garden. 
+    - **Logic:** `(Count(Thriving) + Count(Stable)) / Total Specimen Count`.
+    - **Display:** Displayed as a percentage (e.g., "75% HARMONY").
 - **Vessel Status Oracle:** Whimsical status text that changes based on the Harmony Index (e.g., "THE GARDEN THRIVES" vs. "SHADOWS GATHER IN THE VOID").
 
 ### 5.2 Health Distribution Meter (Visual)
@@ -32,12 +34,17 @@ Necrobloom currently offers individual plant tracking but lacks a high-level ove
 
 ### 5.3 Watering Cohorts (Grouping)
 - **Aggregation Logic:** Group plants by `carePlan.waterFrequency` string values.
-- **Dynamic Sections:** Dashboard sections that cluster plants by their schedule (e.g., "Daily Ritual," "Weekly Cycle").
+- **Mapping Logic:** Use a prioritized fuzzy-mapping for common terms (e.g., "every few days" -> Weekly, "constantly" -> Daily).
+- **Fallback:** Any frequency that cannot be mapped to standard intervals must be grouped under **"Strange Rhythms."**
+- **Dynamic Sections:** Dashboard sections that cluster plants by their schedule (e.g., "Daily Rituals," "Weekly Cycles").
 - **Unbound Handling:** Plants without a care plan are grouped under "UNBOUND FREQUENCIES."
 
 ### 5.4 Filtering & Sorting
-- **Vitality Filter:** Buttons or meter segments that filter the dashboard view by health category.
-- **Need-Based Sorting:** Ability to sort the collection by "Last Health Check" date to identify neglected specimens.
+- **Vitality Filter:** The segmented Vitality Meter acts as a **single-selection toggle** (one health state visible at a time).
+- **Need-Based Sorting (Neglect Level):** 
+    - **Primary Sort:** Last Health Check (historical report date), oldest first.
+    - **Secondary Sort (No Reports):** For plants never audited, use **Bound Date** (creation date), oldest first.
+- **Default View:** Alphabetical by Alias.
 
 ## 6. Non-Functional Requirements
 - **Performance:** Aggregations must be calculated client-side from the existing plant list to ensure sub-100ms UI updates.
