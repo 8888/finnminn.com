@@ -32,8 +32,8 @@ export function TrackerPage() {
         });
         const text = await res.text();
         setApiResult(`API Response: ${text}`);
-    } catch (e: any) {
-        setApiResult(`Error: ${e.message}`);
+    } catch (e: unknown) {
+        setApiResult(`Error: ${e instanceof Error ? e.message : String(e)}`);
     }
   };
 

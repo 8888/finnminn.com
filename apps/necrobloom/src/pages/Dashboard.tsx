@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Button, Card } from '@finnminn/ui';
 import { useAuth } from '@finnminn/auth';
 import { AddPlantModal } from '../components/AddPlantModal';
-import { HealthCheckModal } from '../components/HealthCheckModal';
-import { usePlants } from '../hooks/usePlants';
 
 interface HealthReport {
   date: string;

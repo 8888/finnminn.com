@@ -23,7 +23,7 @@ describe('useCaptureManager', () => {
   });
 
   it('should save a capture online', async () => {
-    (global.fetch as any).mockImplementation((url: string) => {
+    (global.fetch as vi.Mock).mockImplementation((url: string) => {
         if (url === '/api/capture') {
             return Promise.resolve({
                 ok: true,
@@ -66,12 +66,12 @@ describe('useCaptureManager', () => {
       { content: 'pending', source: 'text', timestamp: new Date().toISOString() }
     ]));
 
-    (global.fetch as any).mockResolvedValue({
+    (global.fetch as vi.Mock).mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({ id: '2' })
     });
 
-    const { result } = renderHook(() => useCaptureManager());
+    renderHook(() => useCaptureManager());
     
     // Simulate online event
     vi.spyOn(navigator, 'onLine', 'get').mockReturnValue(true);

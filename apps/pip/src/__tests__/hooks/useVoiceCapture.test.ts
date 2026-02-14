@@ -22,8 +22,8 @@ describe('useVoiceCapture', () => {
       };
     });
 
-    (window as any).SpeechRecognition = MockSpeechRecognition;
-    (window as any).webkitSpeechRecognition = MockSpeechRecognition;
+    (window as unknown as { SpeechRecognition: unknown }).SpeechRecognition = MockSpeechRecognition;
+    (window as unknown as { webkitSpeechRecognition: unknown }).webkitSpeechRecognition = MockSpeechRecognition;
   });
 
   it('should detect browser support', () => {
@@ -50,12 +50,12 @@ describe('useVoiceCapture', () => {
   });
 
   it('should return transcript when speech is recognized', () => {
-    let onResultCallback: any;
+    let onResultCallback: ((event: unknown) => void) | undefined;
     const MockSpeechRecognition = vi.fn().mockImplementation(function() {
       const recognition = {
         start: vi.fn(),
         stop: vi.fn(),
-        onresult: null,
+        onresult: null as ((event: unknown) => void) | null,
         onend: null,
         onerror: null,
       };
@@ -65,17 +65,19 @@ describe('useVoiceCapture', () => {
       });
       return recognition;
     });
-    (window as any).SpeechRecognition = MockSpeechRecognition;
+    (window as unknown as { SpeechRecognition: unknown }).SpeechRecognition = MockSpeechRecognition;
 
     const { result } = renderHook(() => useVoiceCapture());
     
     act(() => {
-      onResultCallback({
-        resultIndex: 0,
-        results: [
-          [{ transcript: 'hello world' }]
-        ]
-      });
+      if (onResultCallback) {
+        onResultCallback({
+          resultIndex: 0,
+          results: [
+            [{ transcript: 'hello world' }]
+          ]
+        });
+      }
     });
     
     expect(result.current.transcript).toBe('hello world');

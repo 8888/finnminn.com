@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { InteractionStatus } from "@azure/msal-browser";
 import { useAuth } from "@finnminn/auth";
@@ -10,7 +10,7 @@ export const Console = () => {
   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
 
-  const fetchToken = async () => {
+  const fetchToken = useCallback(async () => {
     if (isAuthenticated) {
       try {
         const accessToken = await getToken();
@@ -19,7 +19,7 @@ export const Console = () => {
         console.error("Failed to fetch token", error);
       }
     }
-  };
+  }, [isAuthenticated, getToken]);
 
   useEffect(() => {
     if (!isAuthenticated && inProgress === InteractionStatus.None) {
@@ -29,7 +29,7 @@ export const Console = () => {
 
   useEffect(() => {
     fetchToken();
-  }, [isAuthenticated, getToken]);
+  }, [fetchToken]);
 
   if (!isAuthenticated) return null;
 

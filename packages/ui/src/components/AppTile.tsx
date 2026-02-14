@@ -18,12 +18,9 @@ export const AppTile = ({
   icon,
   description,
   status,
-  variant = "default",
   className,
   ...props
 }: AppTileProps) => {
-  const isFeatured = variant === "featured";
-
   return (
     <a
       href={href}

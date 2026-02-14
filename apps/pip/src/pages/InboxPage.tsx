@@ -1,4 +1,4 @@
-import { Button, Terminal, Typography, Card } from "@finnminn/ui";
+import { Terminal, Typography, Card } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useCaptureManager } from "../hooks/useCaptureManager";
 import { useNavigate } from "react-router-dom";

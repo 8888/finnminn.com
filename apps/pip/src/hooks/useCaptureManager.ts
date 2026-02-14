@@ -88,7 +88,7 @@ export function useCaptureManager() {
     const token = await getToken();
 
     const results = await Promise.allSettled(
-      pending.map((item: any) =>
+      pending.map((item: Partial<CaptureItem>) =>
         fetch('/api/capture', {
           method: 'POST',
           headers: {
@@ -100,7 +100,7 @@ export function useCaptureManager() {
       )
     );
 
-    const remaining = pending.filter((_: any, index: number) => {
+    const remaining = pending.filter((_: Partial<CaptureItem>, index: number) => {
       const result = results[index];
       return result.status === 'rejected' || !result.value.ok;
     });
