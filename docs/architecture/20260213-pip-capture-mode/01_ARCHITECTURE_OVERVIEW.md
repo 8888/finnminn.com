@@ -20,23 +20,25 @@ The system follows a standard **Single Page Application (SPA)** architecture hos
 
 ```mermaid
 graph TD
-    User[User (Mobile/Desktop)] -->|Opens App| PWA[PWA Shell (React)]
-    User -->|Voice Input| WebSpeech[Browser Web Speech API]
+    User["User (Mobile/Desktop)"] -->|Opens App| PWA["PWA Shell (React)"]
+    User -->|Voice Input| WebSpeech["Browser Web Speech API"]
     User -->|Text Input| PWA
 
-    subgraph "Client Side (Browser)"
-        PWA -->|Capture| LocalStore[IndexedDB / LocalStorage]
+    subgraph ClientSide ["Client Side (Browser)"]
+        PWA -->|Capture| LocalStore["IndexedDB / LocalStorage"]
         WebSpeech -->|Transcription| PWA
-        ServiceWorker[Service Worker] -->|Intercept Requests| NetworkHandler{Network Available?}
-        NetworkHandler -->|No| LocalQueue[Offline Queue]
-        NetworkHandler -->|Yes| API
-        LocalQueue -->|Sync (When Online)| API
+        ServiceWorker["Service Worker"] -->|Intercept Requests| NetworkHandler{"Network Available?"}
+        NetworkHandler -->|No| LocalQueue["Offline Queue"]
     end
 
-    subgraph "Azure Cloud"
-        API[Azure Functions (Kotlin)] -->|Auth Check| EntraID[Microsoft Entra ID]
-        API -->|Persist| CosmosDB[Azure Cosmos DB]
+    subgraph AzureCloud ["Azure Cloud"]
+        API["Azure Functions (Kotlin)"] -->|Auth Check| EntraID["Microsoft Entra ID"]
+        API -->|Persist| CosmosDB["Azure Cosmos DB"]
     end
+
+    %% Cross-subgraph connections
+    NetworkHandler -->|Yes| API
+    LocalQueue -->|"Sync (When Online)"| API
 ```
 
 ## 5. Data Flow
