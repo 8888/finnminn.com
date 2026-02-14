@@ -28,7 +28,7 @@ class CosmosRepository {
 
             CosmosClientBuilder()
                 .endpoint(endpoint ?: "https://localhost:8081/")
-                .key(key ?: "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==")
+                .key(key)
                 .buildClient()
         }
 
@@ -54,7 +54,7 @@ class CosmosRepository {
     }
 
     fun findAllCapturesByUserId(userId: String): List<CaptureItem> {
-        val query = "SELECT * FROM c WHERE c.userId = @userId AND c.type = 'capture' ORDER BY c.timestamp DESC"
+        val query = "SELECT TOP 50 * FROM c WHERE c.userId = @userId AND c.type = 'capture' ORDER BY c.timestamp DESC"
         val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
         return container.queryItems(querySpec, null, CaptureItem::class.java).toList()
     }

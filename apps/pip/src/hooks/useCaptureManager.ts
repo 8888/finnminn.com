@@ -86,23 +86,24 @@ export function useCaptureManager() {
 
     setIsSyncing(true);
     const token = await getToken();
-    const remaining = [];
 
-    for (const item of pending) {
-      try {
-        const res = await fetch('/api/capture', {
+    const results = await Promise.allSettled(
+      pending.map((item: any) =>
+        fetch('/api/capture', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(item),
-        });
-        if (!res.ok) remaining.push(item);
-      } catch (e) {
-        remaining.push(item);
-      }
-    }
+        })
+      )
+    );
+
+    const remaining = pending.filter((_: any, index: number) => {
+      const result = results[index];
+      return result.status === 'rejected' || !result.value.ok;
+    });
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(remaining));
     setIsSyncing(false);

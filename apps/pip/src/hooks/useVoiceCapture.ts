@@ -33,6 +33,10 @@ export function useVoiceCapture() {
       };
 
       recognitionRef.current = recognition;
+
+      return () => {
+        recognition.stop();
+      };
     }
   }, []);
 

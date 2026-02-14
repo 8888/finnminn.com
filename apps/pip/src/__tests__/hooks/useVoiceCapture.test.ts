@@ -50,11 +50,34 @@ describe('useVoiceCapture', () => {
   });
 
   it('should return transcript when speech is recognized', () => {
+    let onResultCallback: any;
+    const MockSpeechRecognition = vi.fn().mockImplementation(function() {
+      const recognition = {
+        start: vi.fn(),
+        stop: vi.fn(),
+        onresult: null,
+        onend: null,
+        onerror: null,
+      };
+      // Capture the callback when it's assigned
+      Object.defineProperty(recognition, 'onresult', {
+        set: (fn) => { onResultCallback = fn; }
+      });
+      return recognition;
+    });
+    (window as any).SpeechRecognition = MockSpeechRecognition;
+
     const { result } = renderHook(() => useVoiceCapture());
     
-    // Simulate speech recognition result
-    // In real implementation, this would be triggered by the onresult event
-    // We'll need to check how the hook handles events in the implementation
-    expect(result.current.transcript).toBe('');
+    act(() => {
+      onResultCallback({
+        resultIndex: 0,
+        results: [
+          [{ transcript: 'hello world' }]
+        ]
+      });
+    });
+    
+    expect(result.current.transcript).toBe('hello world');
   });
 });
