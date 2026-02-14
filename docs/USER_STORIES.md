@@ -175,8 +175,26 @@
 3.  **Token Syphon:**
     *   Include a section titled "TOKEN_SYPHON".
     *   Display the current active Bearer token.
-    *   Provide a "COPY" button that copies the token to the clipboard.
-4.  **Design System:**
-    *   Utilize `@finnminn/ui` components (`Terminal`, `Button`, `Card`, `Typography`).
-    *   Adhere to the PixelGrim aesthetic (void background, terminal fonts, radical/toxic accents).
-5.  **Access:** The page must be protected by the `AuthProvider` (redirect if not logged in).
+        *   Provide a "COPY" button that copies the token to the clipboard.
+    4.  **Design System:**
+        *   Utilize `@finnminn/ui` components (`Terminal`, `Button`, `Card`, `Typography`).
+        *   Adhere to the PixelGrim aesthetic (void background, terminal fonts, radical/toxic accents).
+    5.  **Access:** The page must be protected by the `AuthProvider` (redirect if not logged in).
+    
+    ## User Story 10: Pip Capture Mode (Quick Thoughts)
+    
+    **As an** Overloaded Agent,
+    **I want** the Pip application to open directly to a distraction-free Capture Interface with voice and text support,
+    **So that** I can immediately offload a thought without navigating through menus or waiting for dashboards to load.
+    
+    **Acceptance Criteria:**
+    
+    1.  **Default Landing:** The default route (`/`) MUST render the Capture Interface immediately upon load.
+    2.  **Text Capture:** The interface MUST feature a large, auto-focused text area that allows multiline input and clears upon submission.
+    3.  **Voice Capture:** A prominent "Record" button MUST trigger the Web Speech API for real-time transcription, saving the result as a note.
+    4.  **Optimistic UI:** Submissions MUST optimistically clear the input and show a success animation (e.g., glitch effect) while persisting to the backend.
+    5.  **The Vault (Inbox):** A separate Inbox view at `/inbox` MUST list recent captures in reverse chronological order (Read-Only/Delete-Only).
+    6.  **Navigation:** The existing habit tracker MUST be moved to `/tracker` and be accessible via a discrete menu.
+    7.  **Offline Support:** The app MUST be a PWA that loads offline and queues captures for background sync when connectivity returns.
+    8.  **Design System:** The UI MUST strictly follow the **PixelGrim** aesthetic (Minimalist, Gothic, High Contrast).
+    

@@ -1,0 +1,59 @@
+package com.finnminn.pip.tracker
+
+import com.microsoft.azure.functions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.*
+import java.util.*
+import java.util.logging.Logger
+
+class CaptureFunctionTest {
+
+    @Test
+    fun testPostCaptureSuccess() {
+        val function = CaptureFunction()
+        val request = mock(HttpRequestMessage::class.java) as HttpRequestMessage<Optional<String>>
+        val context = mock(ExecutionContext::class.java)
+
+        val body = """{"content": "Meeting at 5", "source": "text"}"""
+        `when`(request.body).thenReturn(Optional.of(body))
+        `when`(request.headers).thenReturn(mapOf("x-ms-client-principal-name" to "testuser"))
+        `when`(context.logger).thenReturn(Logger.getGlobal())
+
+        val responseBuilder = mock(HttpResponseMessage.Builder::class.java)
+        `when`(request.createResponseBuilder(any(HttpStatus::class.java))).thenReturn(responseBuilder)
+        `when`(responseBuilder.body(any())).thenReturn(responseBuilder)
+        `when`(responseBuilder.header(any(), any())).thenReturn(responseBuilder)
+
+        val response = mock(HttpResponseMessage::class.java)
+        `when`(responseBuilder.build()).thenReturn(response)
+        `when`(response.status).thenReturn(HttpStatus.CREATED)
+
+        val actualResponse = function.postCapture(request, context)
+
+        assertEquals(HttpStatus.CREATED, actualResponse.status)
+    }
+
+    @Test
+    fun testPostCaptureBadRequest() {
+        val function = CaptureFunction()
+        val request = mock(HttpRequestMessage::class.java) as HttpRequestMessage<Optional<String>>
+        val context = mock(ExecutionContext::class.java)
+
+        `when`(request.body).thenReturn(Optional.of("{}"))
+        `when`(context.logger).thenReturn(Logger.getGlobal())
+
+        val responseBuilder = mock(HttpResponseMessage.Builder::class.java)
+        `when`(request.createResponseBuilder(any(HttpStatus::class.java))).thenReturn(responseBuilder)
+        `when`(responseBuilder.body(any())).thenReturn(responseBuilder)
+
+        val response = mock(HttpResponseMessage::class.java)
+        `when`(responseBuilder.build()).thenReturn(response)
+        `when`(response.status).thenReturn(HttpStatus.BAD_REQUEST)
+
+        val actualResponse = function.postCapture(request, context)
+
+        assertEquals(HttpStatus.BAD_REQUEST, actualResponse.status)
+    }
+}
