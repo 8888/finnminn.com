@@ -16,7 +16,7 @@ const Atmosphere = () => {
   );
 };
 
-export function Home() {
+export function TrackerPage() {
   const { user, login, logout, isAuthenticated, getToken } = useAuth();
   const navigate = useNavigate();
   const [apiResult, setApiResult] = useState<string>("Awaiting input");
@@ -54,6 +54,9 @@ export function Home() {
               </Typography.Body>
               
               <div className="grid grid-cols-1 gap-3">
+                  <Button onClick={() => navigate("/")} variant="secondary" className="w-full">
+                    Quick Capture
+                  </Button>
                   <Button onClick={() => navigate("/character")} variant="primary" className="w-full">
                     Character Profile
                   </Button>

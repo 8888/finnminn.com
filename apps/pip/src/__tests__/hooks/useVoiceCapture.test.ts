@@ -7,18 +7,20 @@ describe('useVoiceCapture', () => {
     vi.clearAllMocks();
     
     // Mock SpeechRecognition
-    const MockSpeechRecognition = vi.fn().mockImplementation(() => ({
-      start: vi.fn(),
-      stop: vi.fn(),
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      onresult: null,
-      onend: null,
-      onerror: null,
-      continuous: false,
-      interimResults: false,
-      lang: 'en-US'
-    }));
+    const MockSpeechRecognition = vi.fn().mockImplementation(function() {
+      return {
+        start: vi.fn(),
+        stop: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        onresult: null,
+        onend: null,
+        onerror: null,
+        continuous: false,
+        interimResults: false,
+        lang: 'en-US'
+      };
+    });
 
     (window as any).SpeechRecognition = MockSpeechRecognition;
     (window as any).webkitSpeechRecognition = MockSpeechRecognition;

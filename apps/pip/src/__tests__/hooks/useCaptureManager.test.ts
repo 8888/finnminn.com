@@ -2,10 +2,12 @@ import { renderHook, act } from '@testing-library/react';
 import { useCaptureManager } from '../../hooks/useCaptureManager';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
+const mockGetToken = vi.fn().mockResolvedValue('fake-token');
+
 // Mock the auth hook
 vi.mock('@finnminn/auth', () => ({
   useAuth: () => ({
-    getToken: vi.fn().mockResolvedValue('fake-token'),
+    getToken: mockGetToken,
     isAuthenticated: true
   })
 }));
@@ -14,13 +16,24 @@ describe('useCaptureManager', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     localStorage.clear();
-    global.fetch = vi.fn();
+    global.fetch = vi.fn().mockImplementation(() => Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve([])
+    }));
   });
 
   it('should save a capture online', async () => {
-    (global.fetch as any).mockResolvedValueOnce({
-      ok: true,
-      json: () => Promise.resolve({ id: '1', content: 'test', type: 'capture' })
+    (global.fetch as any).mockImplementation((url: string) => {
+        if (url === '/api/capture') {
+            return Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ id: '1', content: 'test', type: 'capture' })
+            });
+        }
+        return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve([])
+        });
     });
 
     const { result } = renderHook(() => useCaptureManager());
@@ -58,16 +71,17 @@ describe('useCaptureManager', () => {
       json: () => Promise.resolve({ id: '2' })
     });
 
-    renderHook(() => useCaptureManager());
+    const { result } = renderHook(() => useCaptureManager());
     
     // Simulate online event
-    act(() => {
+    vi.spyOn(navigator, 'onLine', 'get').mockReturnValue(true);
+    await act(async () => {
       window.dispatchEvent(new Event('online'));
     });
 
-    // Wait for async sync
+    // Wait for async sync to complete
     await vi.waitFor(() => {
         expect(localStorage.getItem('pip_pending_captures')).toBe('[]');
-    });
+    }, { timeout: 2000 });
   });
 });

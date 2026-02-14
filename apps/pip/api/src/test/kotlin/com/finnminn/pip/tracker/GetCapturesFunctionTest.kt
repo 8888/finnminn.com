@@ -13,6 +13,10 @@ class GetCapturesFunctionTest {
     @Test
     fun testGetCapturesSuccess() {
         val function = GetCapturesFunction()
+        val repository = mock(CosmosRepository::class.java)
+        function.repository = repository
+        `when`(repository.findAllCapturesByUserId(anyString())).thenReturn(emptyList())
+
         val request = mock(HttpRequestMessage::class.java) as HttpRequestMessage<Optional<String>>
         val context = mock(ExecutionContext::class.java)
 
@@ -28,7 +32,7 @@ class GetCapturesFunctionTest {
         `when`(responseBuilder.build()).thenReturn(response)
         `when`(response.status).thenReturn(HttpStatus.OK)
 
-        val actualResponse = function.getCaptures(request, context, emptyArray())
+        val actualResponse = function.getCaptures(request, context)
 
         assertEquals(HttpStatus.OK, actualResponse.status)
     }

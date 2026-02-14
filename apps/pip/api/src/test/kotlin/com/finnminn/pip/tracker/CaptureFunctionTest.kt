@@ -13,6 +13,9 @@ class CaptureFunctionTest {
     @Test
     fun testPostCaptureSuccess() {
         val function = CaptureFunction()
+        val repository = mock(CosmosRepository::class.java)
+        function.repository = repository
+        
         val request = mock(HttpRequestMessage::class.java) as HttpRequestMessage<Optional<String>>
         val context = mock(ExecutionContext::class.java)
 
@@ -38,6 +41,9 @@ class CaptureFunctionTest {
     @Test
     fun testPostCaptureBadRequest() {
         val function = CaptureFunction()
+        val repository = mock(CosmosRepository::class.java)
+        function.repository = repository
+        
         val request = mock(HttpRequestMessage::class.java) as HttpRequestMessage<Optional<String>>
         val context = mock(ExecutionContext::class.java)
 

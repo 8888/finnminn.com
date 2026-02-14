@@ -45,5 +45,14 @@ This repository hosts the source code and documentation for `finnminn.com`, a st
     - Integration with the main AppLauncher navigation.
 - **Documentation:** [Cryptid Console Developer Page Feature](./features/cryptid-console-dev-page/implementation/README.md)
 
+### Pip Capture Mode (Implemented Feb 2026)
+- **Goal:** Pivot the Pip application to a frictionless "Quick Capture" workflow for voice and text notes.
+- **Key Changes:**
+    - New "Capture First" landing page with auto-focused input.
+    - Integrated Web Speech API for real-time voice transcription.
+    - Offline-first strategy with local queuing and background sync.
+    - "The Vault" (Inbox) for reviewing raw captures.
+- **Documentation:** [Pip Capture Mode Feature](./features/pip-capture-mode/implementation/README.md)
+
 ## Architecture
 See [Architecture Docs](./architecture/) for detailed system design.
