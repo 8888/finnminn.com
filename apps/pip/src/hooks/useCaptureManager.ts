@@ -111,7 +111,7 @@ export function useCaptureManager() {
     if (remaining.length < pending.length) {
       fetchCaptures();
     }
-  }, [getToken, fetchCaptures]);
+  }, [getIdToken, fetchCaptures]);
 
   useEffect(() => {
     fetchCaptures();

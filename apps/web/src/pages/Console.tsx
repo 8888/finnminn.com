@@ -6,20 +6,20 @@ import { CommandBar, Atmosphere, Typography } from "@finnminn/ui";
 import { TokenSyphon } from "../components/Console/TokenSyphon";
 
 export const Console = () => {
-  const { user, logout, login, isAuthenticated, inProgress, getToken } = useAuth();
+  const { user, logout, login, isAuthenticated, inProgress, getIdToken } = useAuth();
   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
 
   const fetchToken = useCallback(async () => {
     if (isAuthenticated) {
       try {
-        const accessToken = await getToken();
-        setToken(accessToken);
+        const idToken = await getIdToken();
+        setToken(idToken);
       } catch (error) {
         console.error("Failed to fetch token", error);
       }
     }
-  }, [isAuthenticated, getToken]);
+  }, [isAuthenticated, getIdToken]);
 
   useEffect(() => {
     if (!isAuthenticated && inProgress === InteractionStatus.None) {
