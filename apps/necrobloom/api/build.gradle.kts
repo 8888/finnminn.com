@@ -33,6 +33,18 @@ azurefunctions {
     localDebug = "transport=dt_socket,server=y,suspend=n,address=5005"
 }
 
+// Ensure local.settings.json is propagated correctly to the local runner
+tasks.named("azureFunctionsRun") {
+    doFirst {
+        val settingsFile = file("local.settings.json")
+        val exampleFile = file("local.settings.example.json")
+        if (!settingsFile.exists() && exampleFile.exists()) {
+            println(">>> Creating local.settings.json from example...")
+            exampleFile.copyTo(settingsFile)
+        }
+    }
+}
+
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         jvmTarget = "21"

@@ -16,6 +16,8 @@ class CosmosRepository {
         private val gson = Gson()
         private val client: CosmosClient by lazy {
             val connectionString = System.getenv("COSMOS_CONNECTION_STRING")
+                ?: System.getenv("CosmosDBConnectionString")
+            
             val (endpoint, key) = if (!connectionString.isNullOrBlank()) {
                 parseConnectionString(connectionString)
             } else {
@@ -29,6 +31,7 @@ class CosmosRepository {
             CosmosClientBuilder()
                 .endpoint(endpoint)
                 .key(key)
+                .gatewayMode() // Use gateway mode for emulator compatibility
                 .buildClient()
         }
 
@@ -52,7 +55,9 @@ class CosmosRepository {
         val databaseName = System.getenv("COSMOS_DATABASE") ?: "NecroBloomDB"
         val containerName = System.getenv("COSMOS_CONTAINER") ?: "Plants"
 
+        client.createDatabaseIfNotExists(databaseName)
         val database = client.getDatabase(databaseName)
+        database.createContainerIfNotExists(containerName, "/userId")
         container = database.getContainer(containerName)
     }
 
