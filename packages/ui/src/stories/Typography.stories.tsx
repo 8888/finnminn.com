@@ -38,3 +38,22 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Scale: Story = {};
+
+export const Interactive: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <Typography.H2 
+        className="text-witchcraft cursor-pointer hover:underline" 
+        onClick={() => alert('H2 Clicked!')}
+      >
+        Clickable H2 (Alert)
+      </Typography.H2>
+      <Typography.Body 
+        className="cursor-pointer text-ectoplasm" 
+        onClick={() => alert('Body Clicked!')}
+      >
+        Clickable Body (Alert)
+      </Typography.Body>
+    </div>
+  )
+};
