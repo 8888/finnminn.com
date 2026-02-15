@@ -14,13 +14,13 @@ const STORAGE_KEY = 'pip_pending_captures';
 const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 export function useCaptureManager() {
-  const { getToken } = useAuth();
+  const { getIdToken } = useAuth();
   const [captures, setCaptures] = useState<CaptureItem[]>([]);
   const [isSyncing, setIsSyncing] = useState(false);
 
   const fetchCaptures = useCallback(async () => {
     try {
-      const token = await getToken();
+      const token = await getIdToken();
       const res = await fetch(`${API_BASE}/captures`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -33,7 +33,7 @@ export function useCaptureManager() {
     } catch (e) {
       console.error('Failed to fetch captures', e);
     }
-  }, [getToken]);
+  }, [getIdToken]);
 
   const saveCapture = useCallback(
     async (content: string, source: 'text' | 'voice') => {
@@ -56,7 +56,7 @@ export function useCaptureManager() {
       }
 
       try {
-        const token = await getToken();
+        const token = await getIdToken();
         const res = await fetch(`${API_BASE}/capture`, {
           method: 'POST',
           headers: {
@@ -78,7 +78,7 @@ export function useCaptureManager() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify([...pending, newItem]));
       }
     },
-    [getToken]
+    [getIdToken]
   );
 
   const syncPending = useCallback(async () => {
@@ -86,7 +86,7 @@ export function useCaptureManager() {
     if (pending.length === 0 || !navigator.onLine) return;
 
     setIsSyncing(true);
-    const token = await getToken();
+    const token = await getIdToken();
 
     const results = await Promise.allSettled(
       pending.map((item: Partial<CaptureItem>) =>
