@@ -20,12 +20,13 @@ export function TrackerPage() {
   const { user, login, logout, isAuthenticated, getToken } = useAuth();
   const navigate = useNavigate();
   const [apiResult, setApiResult] = useState<string>("Awaiting input");
+  const API_BASE = import.meta.env.VITE_API_URL || '';
 
   const callApi = async () => {
     try {
         const token = await getToken();
         setApiResult("Calling API...");
-        const res = await fetch("/api/hello", {
+        const res = await fetch(`${API_BASE}/api/hello`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
