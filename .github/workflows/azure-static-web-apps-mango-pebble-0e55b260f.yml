@@ -56,7 +56,7 @@ jobs:
 
   deploy_web:
     needs: changes
-    if: ${{ needs.changes.outputs.web == 'true' || github.event_name == 'workflow_dispatch' }}
+    if: (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')) && (needs.changes.outputs.web == 'true' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     name: Deploy Web (Finnminn)
     steps:
@@ -88,7 +88,7 @@ jobs:
 
   deploy_pip:
     needs: changes
-    if: ${{ needs.changes.outputs.pip == 'true' || github.event_name == 'workflow_dispatch' }}
+    if: (github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')) && (needs.changes.outputs.pip == 'true' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     name: Deploy Pip Frontend
     steps:
@@ -130,6 +130,7 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_MANGO_PEBBLE_0E55B260F }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "close"
       
       - name: Close Pull Request (Pip)
@@ -137,4 +138,5 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_COAST_0238CD00F }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "close"
