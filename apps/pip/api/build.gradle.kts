@@ -12,6 +12,8 @@ repositories {
 
 dependencies {
     implementation("com.microsoft.azure.functions:azure-functions-java-library:3.1.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+    implementation("com.azure:azure-cosmos:4.53.0")
     implementation(kotlin("stdlib"))
     
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")

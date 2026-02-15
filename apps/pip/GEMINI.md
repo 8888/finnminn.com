@@ -58,5 +58,21 @@ The application uses split deployment pipelines:
 - **Backend**: Managed by `.github/workflows/deploy-pip-backend.yml`.
 
 ## Features & Implementation
+
+- **Capture First**: The primary entry point (`/`) is a terminal-style quick capture interface for rapid thought ingestion via text or voice.
+
+- **Offline Queuing**: Thoughts are queued to `localStorage` (`pip_pending_captures`) if the network or auth fails, with automatic background sync.
+
+- **The Vault**: An inbox view (`/inbox`) for reviewing captured memories.
+
 - **Animated Mascot**: Implemented as a React hook-based component (`Mascot.tsx`) that cycles through ASCII frames in the `public/mascot/` folder.
-- **Authentication**: Uses the shared `AuthProvider` to ensure only Finnminn agents can access tracker data.
+
+- **Authentication**: Uses the shared `AuthProvider`. For local development, the Vite proxy injects a mock principal to facilitate backend testing.
+
+
+
+## Local Development Tips
+
+- **Auth Mocking**: The Vite proxy injects a mock `x-ms-client-principal` header. Ensure you use `http://localhost:5173` to match registered redirect URIs.
+
+- **Cosmos Keys**: The Kotlin backend expects `COSMOS_` prefixed environment variables (see `docs/guides/local/INSTALLATION.md`).

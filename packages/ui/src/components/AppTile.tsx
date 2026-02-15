@@ -27,7 +27,7 @@ export const AppTile = ({
   return (
     <a
       href={href}
-      className={`group block focus:outline-none focus:ring-4 focus:ring-witchcraft focus:ring-offset-2 focus:ring-offset-void ${className || ""}`}
+      className={`group block focus:outline-none focus:ring-4 focus:ring-witchcraft focus:ring-offset-2 focus:ring-offset-void ${isFeatured ? "md:col-span-2 lg:col-span-2" : ""} ${className || ""}`}
       {...props}
     >
       <Card
@@ -35,6 +35,7 @@ export const AppTile = ({
           h-full transition-all duration-200 relative overflow-hidden flex flex-col
           group-hover:-translate-y-1 group-hover:-translate-x-1
           group-hover:shadow-[6px_6px_0px_0px_#7D5FFF] group-hover:border-witchcraft
+          ${isFeatured ? "border-witchcraft/50 bg-witchcraft/5" : ""}
         `}
       >
         {/* Status Indicator */}
