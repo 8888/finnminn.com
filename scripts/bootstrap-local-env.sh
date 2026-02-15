@@ -62,6 +62,7 @@ if lsof -ti:8081 &> /dev/null; then
                 echo -e "Run: ${GREEN}sudo keytool -importcert -alias cosmos-emulator -file emulator.cer -keystore \$JAVA_HOME/lib/security/cacerts -trustcacerts${NC}"
             fi
         fi
+        rm emulator.cer
     fi
 fi
 

@@ -33,15 +33,11 @@ class CosmosRepository {
                 )
             }
 
-            try {
-                CosmosClientBuilder()
-                    .endpoint(endpoint ?: "https://localhost:8081/")
-                    .key(key)
-                    .gatewayMode()
-                    .buildClient()
-            } catch (e: Exception) {
-                throw e
-            }
+            CosmosClientBuilder()
+                .endpoint(endpoint ?: "https://localhost:8081/")
+                .key(key)
+                .gatewayMode()
+                .buildClient()
         }
 
         private fun parseConnectionString(connectionString: String): Pair<String?, String?> {
