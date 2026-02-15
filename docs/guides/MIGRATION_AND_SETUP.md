@@ -142,14 +142,14 @@ build/
 ```
 
 #### 2. Local Development
-*   **Frontend:** Run `npm run dev` (via Turbo) to serve the React app on localhost:5173.
-*   **Backend:** You must run the Azure Functions Core Tools separately for the API.
+*   **Environment Preparation**: Run `npm run bootstrap` at the root to start emulators and generate local settings.
+*   **Frontend:** Run `npm run dev -- --filter=<app>` to serve the React app on localhost:5173.
+*   **Backend:** Navigate to the `api/` directory and run the function host.
     ```bash
-    cd apps/pip/api
-    mvn clean package
-    func start
+    cd apps/<app>/api
+    ./gradlew azureFunctionsRun
     ```
-*   **Proxy:** Configure `vite.config.ts` to proxy `/api` requests to the running Function App (usually `http://localhost:7071`).
+*   **Proxy:** Ensure your `vite.config.ts` includes the standard proxy configuration with the mock principal header (see `apps/pip/vite.config.ts` for reference).
 
 #### 3. Deployment (GitHub Actions)
 The Azure Static Web Apps Action handles "Standard" functions (Node/Python) automatically. For **Java/Kotlin**, the build process is slightly different.

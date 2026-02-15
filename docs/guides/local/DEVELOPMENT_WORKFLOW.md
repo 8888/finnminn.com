@@ -1,18 +1,35 @@
 # Local Development Workflow (Human Guide)
 
-This guide is for humans developing and testing the `finnminn.com` suite locally. It uses multiple terminal tabs/windows instead of background processes for easier monitoring and control.
+This guide is for humans developing and testing the `finnminn.com` suite locally.
 
-## Prerequisites
+## Preferred Method: Automated Setup
+We provide a bootstrap script that handles all emulators and configurations:
 
-1.  **Cosmos DB Emulator**: Ensure the Azure Cosmos DB Emulator is running on your machine (default port `8081`).
-2.  **Node.js**: Ensure you have the required Node.js version installed (see root `package.json`).
-3.  **Java/JDK**: Ensure JDK 21 is installed for backend development.
+1.  **Run Bootstrap**:
+    ```bash
+    npm run bootstrap
+    ```
+    *This starts Cosmos DB and Azurite via Docker and sets up local.settings.json.*
+
+2.  **Start the Backend**:
+    ```bash
+    # For Pip
+    cd apps/pip/api && ./gradlew azureFunctionsRun
+    
+    # For Necrobloom
+    cd apps/necrobloom/api && ./gradlew azureFunctionsRun
+    ```
+
+3.  **Start the Frontend**:
+    ```bash
+    # For Pip
+    npm run dev -- --filter=pip
+    ```
 
 ---
 
-## Running the Application
-
-Follow these steps in separate terminal windows or tabs:
+## Manual Method (Alternative)
+If you don't use Docker, follow these steps in separate terminal windows:
 
 ### 1. Start Azurite (Storage Emulator)
 Open a new terminal and run:

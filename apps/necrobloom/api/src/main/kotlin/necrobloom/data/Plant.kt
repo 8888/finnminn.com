@@ -1,7 +1,9 @@
 package necrobloom.data
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.UUID
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Plant(
     val id: String = UUID.randomUUID().toString(),
     val userId: String = "",
@@ -12,11 +14,13 @@ data class Plant(
     val carePlan: CarePlan? = null
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Environment(
     val zip: String = "",
     val lighting: String = ""
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class CarePlan(
     val waterFrequency: String = "",
     val lightNeeds: String = "",
@@ -24,6 +28,7 @@ data class CarePlan(
     val additionalNotes: String = ""
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class HealthReport(
     val date: String = "",
     val healthStatus: String = "",

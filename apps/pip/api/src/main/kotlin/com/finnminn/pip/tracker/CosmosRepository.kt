@@ -13,23 +13,35 @@ class CosmosRepository {
         val databaseName = System.getenv("COSMOS_DATABASE") ?: "Pip"
         val containerName = System.getenv("COSMOS_CONTAINER") ?: "Items"
 
+        client.createDatabaseIfNotExists(databaseName)
         val database = client.getDatabase(databaseName)
+        database.createContainerIfNotExists(containerName, "/userId")
         database.getContainer(containerName)
     }
 
     companion object {
         private val client: CosmosClient by lazy {
-            val connectionString = System.getenv("COSMOS_CONNECTION_STRING")
+            val connectionString = System.getenv("COSMOS_CONNECTION_STRING") 
+                ?: System.getenv("CosmosDBConnectionString")
+            
             val (endpoint, key) = if (!connectionString.isNullOrBlank()) {
                 parseConnectionString(connectionString)
             } else {
-                Pair(System.getenv("COSMOS_ENDPOINT"), System.getenv("COSMOS_KEY"))
+                Pair(
+                    System.getenv("COSMOS_ENDPOINT"), 
+                    System.getenv("COSMOS_KEY")
+                )
             }
 
-            CosmosClientBuilder()
-                .endpoint(endpoint ?: "https://localhost:8081/")
-                .key(key)
-                .buildClient()
+            try {
+                CosmosClientBuilder()
+                    .endpoint(endpoint ?: "https://localhost:8081/")
+                    .key(key)
+                    .gatewayMode()
+                    .buildClient()
+            } catch (e: Exception) {
+                throw e
+            }
         }
 
         private fun parseConnectionString(connectionString: String): Pair<String?, String?> {
