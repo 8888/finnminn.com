@@ -26,6 +26,14 @@ This project contains the source code and configuration for the `finnminn.com` a
 - **Implementation:** React Context (`AuthProvider`) and hooks (`useAuth`) provided by `@finnminn/auth`.
 - **Strategy:** Single Page Application (SPA) flow with silent token acquisition and redirect-based login.
 
+## API Routing Strategy
+- **Pattern:** APIM Gateway (Recommended for SWA Free Tier).
+- **Rationale:** Azure Static Web Apps (Free) do not support linking separate Function Apps ("Bring your own API"). To keep backends decoupled while avoiding the Standard SKU costs, we route API traffic through **Azure API Management (APIM)**.
+- **Implementation:**
+    - Frontend calls use an absolute base URL provided by `VITE_API_URL` (configured in `.env.production`).
+    - Backend Function Apps must have CORS configured to allow the SWA hostnames (e.g., `pip.finnminn.com`).
+    - Local development continues to use the Vite proxy to `localhost:7071`.
+
 ## Design System: "PixelGrim"
 - **Aesthetic:** "Whimsical Gothic Tech" — an enchanted CRT experience blending 8-bit nostalgia, ghostly magic, and terminal utility.
 - **Source of Truth:** `@finnminn/ui` (Components) and `packages/config/tailwind.config.js` (Tokens).

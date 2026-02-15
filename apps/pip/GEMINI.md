@@ -75,4 +75,6 @@ The application uses split deployment pipelines:
 
 - **Auth Mocking**: The Vite proxy injects a mock `x-ms-client-principal` header. Ensure you use `http://localhost:5173` to match registered redirect URIs.
 
+- **Production API**: In production, `VITE_API_URL` is used to route requests via the `Pip-api` APIM gateway. Ensure CORS is configured on the `pip-tracker` Function App for `https://pip.finnminn.com`.
+
 - **Cosmos Keys**: The Kotlin backend expects `COSMOS_` prefixed environment variables (see `docs/guides/local/INSTALLATION.md`).
