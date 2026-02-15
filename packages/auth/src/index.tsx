@@ -6,10 +6,11 @@ export const msalConfig = {
     auth: {
         clientId: "5e24adce-63ed-4c99-86d3-d8b4d1dfb211",
         authority: "https://login.microsoftonline.com/common",
-        redirectUri: typeof window !== "undefined" ? window.location.origin : "http://localhost:3000",
+        redirectUri: typeof window !== "undefined" ? window.location.origin.replace(/\/$/, "") : "http://localhost:3000",
+        navigateToLoginRequestUrl: false,
     },
     cache: {
-        cacheLocation: "localStorage",
+        cacheLocation: "sessionStorage",
         storeAuthStateInCookie: true,
     }
 };
@@ -46,7 +47,8 @@ export const useAuth = () => {
 
     const login = useCallback(() => {
         instance.loginRedirect({
-            scopes: ["User.Read"]
+            scopes: ["User.Read"],
+            prompt: "select_account"
         });
     }, [instance]);
 
