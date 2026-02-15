@@ -12,7 +12,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 ### Key Workspaces
 #### Applications (`apps/`)
 - `apps/web`: The root landing page and suite directory (`finnminn.com`). Fully integrated with `@finnminn/ui` as the reference implementation for the PixelGrim design system.
-- `apps/pip`: Serverless habit tracker (`pip.finnminn.com`). Contains both the React frontend (`src`) and the Kotlin Azure Function backend (`api`).
+- `apps/pip`: Serverless thought capture and habit tracker (`pip.finnminn.com`). Features a "Capture First" terminal and Kotlin Azure Function backend.
 - `apps/necrobloom`: Gothic plant tracker (`necrobloom.finnminn.com`). AI-powered identification and care plans.
 - *Future*: `apps/n-dim`.
 

@@ -30,16 +30,17 @@ lsof -ti:10000 || nohup azurite > storage.log 2>&1 &
 ### Step 2: Start the Backend (Azure Functions)
 Run this from the root or the API directory. Warm-up: ~15-30s.
 ```bash
-lsof -ti:7071 || nohup cd apps/necrobloom/api && ./gradlew azureFunctionsRun > backend.log 2>&1 &
+lsof -ti:7071 || (cd apps/pip/api && nohup ./gradlew azureFunctionsRun > backend.log 2>&1 &)
 ```
-**Verification**: Poll until it returns "Vitality stable":
+**Verification**: Poll until it returns "hello world" (Pip) or "Vitality stable" (NecroBloom):
 ```bash
-curl -s http://localhost:7071/api/Ping
+curl -s http://localhost:7071/api/hello
 ```
 
 ### Step 3: Start the Frontend (Vite)
+**IMPORTANT**: Always use `localhost` (not `127.0.0.1`) to ensure MSAL redirect URIs match.
 ```bash
-lsof -ti:5173 || nohup npm run dev -- --filter=necrobloom > frontend.log 2>&1 &
+lsof -ti:5173 || nohup npm run dev -- --filter=pip --host localhost > frontend.log 2>&1 &
 ```
 **Verification**: Confirm port 5173 is listening and check `frontend.log` for "VITE ready".
 
@@ -49,11 +50,11 @@ lsof -ti:5173 || nohup npm run dev -- --filter=necrobloom > frontend.log 2>&1 &
 
 1.  **Monitor Logs**: If a service isn't responding, check the local `.log` files created in the steps above (`frontend.log`, `backend.log`).
 2.  **Open Browser**: Call `new_page` with `url: "http://localhost:5173"`.
-2.  **Trigger Login**: 
-    - Click the button labeled **"ESTABLISH CONNECTION"**.
-    - Prompt the user: "I have launched the application. Please complete the login in the browser so I can proceed."
-3.  **Detect Dashboard**: Wait for "COLLECTION FROM THE VOID" or your Agent ID to appear in the snapshot.
-4.  **Execute Tests**: Use `click`, `fill`, and `take_snapshot` to verify functionality.
+3.  **Authentication**:
+    - **Local Mocking**: For Pip, the Vite proxy automatically injects a mock `x-ms-client-principal` header to bypass 401 errors while maintaining the `SecurityUtils` logic.
+    - **User Login**: Prompt the user: "I have launched the application. Please complete the login in the browser so I can proceed."
+4.  **Detect Interface**: Wait for "QUICK_CAPTURE" (Pip) or "COLLECTION FROM THE VOID" (NecroBloom) to appear.
+5.  **Execute Tests**: Use `click`, `fill`, and `take_snapshot` to verify functionality.
 
 ---
 

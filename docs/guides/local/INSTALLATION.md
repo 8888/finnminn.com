@@ -59,6 +59,10 @@ The Azure Functions runtime requires a `local.settings.json` file. This file is 
 
 **For `apps/necrobloom/api/`:**
 Create `apps/necrobloom/api/local.settings.json`:
+(See existing template below)
+
+**For `apps/pip/api/`:**
+Create `apps/pip/api/local.settings.json`. Note that Pip uses `COSMOS_` prefixed keys:
 
 ```json
 {
@@ -66,18 +70,22 @@ Create `apps/necrobloom/api/local.settings.json`:
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "java",
-    "CosmosDBConnectionString": "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
-    "BlobStorageConnectionString": "UseDevelopmentStorage=true",
-    "MAIN_CLASS": "com.necrobloom.api.FunctionTriggers"
+    "COSMOS_CONNECTION_STRING": "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+    "COSMOS_KEY": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+    "COSMOS_ENDPOINT": "https://localhost:8081/",
+    "COSMOS_DATABASE": "Pip",
+    "COSMOS_CONTAINER": "Items"
   },
   "Host": {
-    "CORS": "http://localhost:5173,http://localhost:3000"
+    "CORS": "http://localhost:5173"
   }
 }
 ```
 
 ### 2. Verify Emulators
 *   **Cosmos DB**: Ensure Data Explorer is accessible at `https://localhost:8081/_explorer/index.html`.
-*   **SSL/TLS (Java)**: The emulator uses a self-signed certificate. You may need to import the certificate into your JVM's `cacerts`.
+*   **SSL/TLS (Java)**: The emulator uses a self-signed certificate. If the backend fails with `Client initialization failed`, you **must** import the certificate into your JVM's `cacerts`:
+    1. Export certificate from `https://localhost:8081`.
+    2. Run: `sudo keytool -importcert -alias cosmos-emulator -file emulator.cer -keystore $JAVA_HOME/lib/security/cacerts` (Default password: `changeit`).
 
 ```
