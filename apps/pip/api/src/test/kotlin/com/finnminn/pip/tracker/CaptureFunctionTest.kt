@@ -21,7 +21,9 @@ class CaptureFunctionTest {
 
         val body = """{"content": "Meeting at 5", "source": "text"}"""
         `when`(request.body).thenReturn(Optional.of(body))
-        `when`(request.headers).thenReturn(mapOf("x-ms-client-principal-name" to "testuser"))
+        // Mock Azure SWA Principal: {"userId": "testuser"}
+        val mockPrincipal = "eyJ1c2VySWQiOiAidGVzdHVzZXIifQ=="
+        `when`(request.headers).thenReturn(mapOf("x-ms-client-principal" to mockPrincipal))
         `when`(context.logger).thenReturn(Logger.getGlobal())
 
         val responseBuilder = mock(HttpResponseMessage.Builder::class.java)

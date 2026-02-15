@@ -109,6 +109,7 @@ export function CapturePage() {
             variant={isListening ? "destructive" : "primary"}
             className={`w-20 h-20 rounded-full flex items-center justify-center transition-all ${isListening ? 'animate-pulse scale-110' : ''}`}
             disabled={!isSupported}
+            aria-label={isListening ? "Stop voice recording" : "Start voice recording"}
           >
             {isListening ? (
               <span className="text-2xl">Stop</span>

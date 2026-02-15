@@ -20,6 +20,10 @@ object SecurityUtils {
         }
 
         // 2. Fallback to Authorization: Bearer <token>
+        // NOTE: In a production environment, the cryptographic signature of the JWT must be validated
+        // against the JWKS endpoint of the identity provider. This implementation only decodes the
+        // payload for demonstration/local testing. Ensure validation is handled by an API Gateway
+        // or a dedicated security library in production.
         val authHeader = headers.entries.find { it.key.equals("authorization", ignoreCase = true) }?.value
         if (authHeader != null && authHeader.startsWith("Bearer ", ignoreCase = true)) {
             val token = authHeader.substring(7).trim()
