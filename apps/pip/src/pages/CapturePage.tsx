@@ -52,9 +52,30 @@ export function CapturePage() {
         <Typography.H1 className="mt-8">Pip</Typography.H1>
         <Card className="mt-8 w-full max-w-md text-center">
           <Typography.Body className="mb-6">Initialize Connection to Access Memory</Typography.Body>
-          <Button onClick={() => login()} variant="primary" className="w-full">
-            Login
-          </Button>
+          <div className="flex flex-col gap-4">
+            <Button onClick={() => login()} variant="primary" className="w-full">
+              Login
+            </Button>
+            <button 
+              onClick={async () => {
+                localStorage.clear();
+                sessionStorage.clear();
+                
+                // Unregister all service workers
+                if ('serviceWorker' in navigator) {
+                  const registrations = await navigator.serviceWorker.getRegistrations();
+                  for (const registration of registrations) {
+                    await registration.unregister();
+                  }
+                }
+
+                window.location.reload();
+              }}
+              className="text-xs text-witchcraft opacity-50 hover:opacity-100 transition-opacity uppercase"
+            >
+              [ PURGE_VESSEL_CACHE ]
+            </button>
+          </div>
         </Card>
       </div>
     );
