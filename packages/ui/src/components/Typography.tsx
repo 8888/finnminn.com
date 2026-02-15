@@ -21,7 +21,7 @@ export const Typography = {
     <h3 className={`text-xl md:text-2xl mb-2 ${className || ""}`} {...props}>{children}</h3>
   ),
   Body: ({ children, className, ...props }: React.ComponentPropsWithoutRef<'p'>) => (
-    <p className={`font-body text-text-body mb-2 ${className || ""}`} {...props}>{children} </p>
+    <p className={`font-body text-text-body mb-2 ${className || ""}`} {...props}>{children}</p>
   ),
   Code: ({ children, className, ...props }: React.ComponentPropsWithoutRef<'code'>) => (
     <code className={`font-body text-sm ${className || ""}`} {...props}>{children}</code>
