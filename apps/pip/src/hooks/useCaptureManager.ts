@@ -11,7 +11,7 @@ export interface CaptureItem {
 }
 
 const STORAGE_KEY = 'pip_pending_captures';
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 export function useCaptureManager() {
   const { getToken } = useAuth();
@@ -21,7 +21,7 @@ export function useCaptureManager() {
   const fetchCaptures = useCallback(async () => {
     try {
       const token = await getToken();
-      const res = await fetch(`${API_BASE}/api/captures`, {
+      const res = await fetch(`${API_BASE}/captures`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -57,7 +57,7 @@ export function useCaptureManager() {
 
       try {
         const token = await getToken();
-        const res = await fetch(`${API_BASE}/api/capture`, {
+        const res = await fetch(`${API_BASE}/capture`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export function useCaptureManager() {
 
     const results = await Promise.allSettled(
       pending.map((item: Partial<CaptureItem>) =>
-        fetch(`${API_BASE}/api/capture`, {
+        fetch(`${API_BASE}/capture`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
