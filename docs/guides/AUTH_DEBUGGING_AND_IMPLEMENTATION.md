@@ -18,7 +18,26 @@ The backend `SecurityUtils.kt` failed to split the token by dots (`.`), returned
 
 ---
 
-## 2. Diagnosis Workflow
+## 2. The "403 Forbidden" Trap (EasyAuth Interception)
+
+### Symptom
+The frontend is sending a valid 3-part JWT (starts with `eyJ...`), but the browser console shows `403 Forbidden` for all API calls. The backend logs are completely empty, indicating the request never reached the Kotlin code.
+
+### Root Cause
+**Azure App Service Authentication (EasyAuth)** is active. Even if set to "Allow unauthenticated access," EasyAuth still attempts to validate any token present in the `Authorization` header. If the token's **Issuer (iss)** does not match the specific tenant configured in the portal (e.g., a multi-tenant user logging into a single-tenant app config), Azure returns a 403 immediately.
+
+### The Correction: Disable EasyAuth
+Since our backends (`CaptureFunction.kt`, etc.) use `SecurityUtils.kt` to perform internal JWT decoding and validation, EasyAuth is redundant and often counter-productive for multi-tenant or cross-service calls.
+
+**Resolution:**
+1.  Navigate to the Function App in the Azure Portal.
+2.  Go to **Authentication**.
+3.  Remove the Microsoft identity provider and **Remove authentication** entirely.
+4.  Ensure your code uses `SecurityUtils.getUserId()` to enforce its own security boundary.
+
+---
+
+## 3. Diagnosis Workflow
 
 When encountering 401 errors in a new app, follow these steps to identify if the token is the culprit:
 
@@ -102,8 +121,10 @@ If you eventually need a "Real" Access Token (e.g., for cross-service API calls)
 
 ---
 
-## 5. Security Checklist
-- [ ] Does the token start with `eyJ`?
+## 6. Security Checklist
+- [ ] Does the token start with `eyJ`? (Use `getIdToken()`, not `getToken()`).
 - [ ] Does the token have 3 parts separated by `.`?
-- [ ] Is the backend using `Base64.getUrlDecoder()` (not standard `getDecoder`)?
-- [ ] Is the `oid` (Object ID) used as the primary key in the database? (Preferred over `sub` for Entra ID).
+- [ ] Is **EasyAuth disabled** on the Function App? (Or configured with `/common/v2.0` issuer for multi-tenant).
+- [ ] Is the backend using `Base64.getUrlDecoder()` for Bearer tokens?
+- [ ] Is the `oid` (Object ID) used as the primary key? (Preferred over `sub`).
+- [ ] Does APIM have the specific **Operation** (GET/POST) defined for the route? (Missing operations return 404).
