@@ -81,6 +81,32 @@ export function useCaptureManager() {
     [getIdToken]
   );
 
+  const deleteCapture = useCallback(
+    async (id: string) => {
+      // Optimistic update
+      setCaptures((prev) => prev.filter((item) => item.id !== id));
+
+      try {
+        const token = await getIdToken();
+        const res = await fetch(`${API_BASE}/capture/${id}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to delete');
+        }
+      } catch (e) {
+        console.error('Failed to delete capture', e);
+        // Revert optimistic update or show error
+        fetchCaptures();
+      }
+    },
+    [getIdToken, fetchCaptures]
+  );
+
   const syncPending = useCallback(async () => {
     const pending = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     if (pending.length === 0 || !navigator.onLine) return;
@@ -122,6 +148,7 @@ export function useCaptureManager() {
   return {
     captures,
     saveCapture,
+    deleteCapture,
     isSyncing,
     refresh: fetchCaptures,
   };
