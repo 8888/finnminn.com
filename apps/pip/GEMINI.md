@@ -8,7 +8,7 @@ This application is integrated into the `finnminn.com` monorepo and follows a de
 
 - **Frontend**: React + Vite SPA.
 - **Backend**: Azure Functions (Kotlin) hosted in the nested `api/` directory.
-- **Identity**: Microsoft Entra ID (via `@finnminn/auth`).
+- **Identity**: Microsoft Entra ID (via `@finnminn/auth`). **MANDATORY:** Consult [docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md](../../docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md) for all auth logic.
 - **Design System**: PixelGrim (via `@finnminn/ui`).
 
 ### Folder Structure

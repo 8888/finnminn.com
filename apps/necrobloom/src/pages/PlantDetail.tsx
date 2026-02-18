@@ -36,6 +36,7 @@ export const PlantDetail: React.FC = () => {
   const fetchPlant = useCallback(async () => {
     try {
       const token = await getIdToken();
+      if (!token) return;
       const response = await fetch(`${API_BASE}/api/plants/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`

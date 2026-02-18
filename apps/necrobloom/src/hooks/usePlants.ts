@@ -12,6 +12,7 @@ export const usePlants = () => {
 
     try {
       const token = await getIdToken();
+      if (!token) return false;
       const response = await fetch(`${API_BASE}/api/plants/${plantId}`, {
         method: 'DELETE',
         headers: {

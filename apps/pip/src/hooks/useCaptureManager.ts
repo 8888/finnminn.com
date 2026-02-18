@@ -22,6 +22,7 @@ export function useCaptureManager() {
   const fetchCaptures = useCallback(async () => {
     try {
       const token = await getIdToken();
+      if (!token) return;
       const res = await fetch(`${API_BASE}/captures`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -51,6 +52,7 @@ export function useCaptureManager() {
 
       try {
         const token = await getIdToken();
+        if (!token) return;
         const res = await fetch(`${API_BASE}/capture/${id}`, {
           method: 'DELETE',
           headers: {
@@ -94,6 +96,7 @@ export function useCaptureManager() {
 
       try {
         const token = await getIdToken();
+        if (!token) return;
         const res = await fetch(`${API_BASE}/capture`, {
           method: 'POST',
           headers: {
@@ -126,6 +129,10 @@ export function useCaptureManager() {
 
     setIsSyncing(true);
     const token = await getIdToken();
+    if (!token) {
+      setIsSyncing(false);
+      return;
+    }
 
     // Sync Captures
     const captureResults = await Promise.allSettled(

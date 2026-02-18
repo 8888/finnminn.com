@@ -121,6 +121,21 @@ If you eventually need a "Real" Access Token (e.g., for cross-service API calls)
 
 ---
 
+## 5. Single Sign-On (SSO) & PWA Strategy
+
+### Cross-Subdomain SSO
+Since each app (e.g., `pip.finnminn.com`) has its own `localStorage`, tokens are not shared across subdomains. To solve this, `@finnminn/auth` implements `ssoSilent` on initialization.
+*   **How it works:** If no account is found locally, MSAL attempts to silently sign in using the session cookie from `login.microsoftonline.com`.
+*   **Requirement:** All subdomains must be registered as Redirect URIs in the same Entra ID App Registration.
+
+### PWA / Standalone Mode
+PWAs in standalone mode often block popups or handle them poorly.
+*   **Strategy:** `@finnminn/auth` detects `display-mode: standalone`.
+*   **Behavior:** If a silent token acquisition fails, it defaults to `acquireTokenRedirect` instead of `acquireTokenPopup`.
+*   **Code Impact:** `getIdToken()` may return `null` if a redirect is triggered. Your components should handle this gracefully.
+
+---
+
 ## 6. Security Checklist
 - [ ] Does the token start with `eyJ`? (Use `getIdToken()`, not `getToken()`).
 - [ ] Does the token have 3 parts separated by `.`?
