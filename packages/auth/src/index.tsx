@@ -17,11 +17,32 @@ export const msalConfig = {
 
 export const msalInstance = new PublicClientApplication(msalConfig);
 
+// Helper to check if we are in a PWA/Standalone environment
+const isStandalone = () => {
+    return (typeof window !== "undefined" && 
+           (window.matchMedia('(display-mode: standalone)').matches || 
+            (window.navigator as any).standalone || 
+            document.referrer.includes('android-app://')));
+};
+
 if (typeof window !== "undefined") {
     msalInstance.initialize().then(() => {
         const accounts = msalInstance.getAllAccounts();
         if (accounts.length > 0) {
             msalInstance.setActiveAccount(accounts[0]);
+        } else {
+            // Attempt SSO Silent if no accounts are found in local cache
+            // This leverages the session cookie from other subdomains
+            msalInstance.ssoSilent({
+                scopes: ["openid", "profile", "User.Read"]
+            }).then((response) => {
+                if (response.account) {
+                    msalInstance.setActiveAccount(response.account);
+                }
+            }).catch((error) => {
+                // Silently fail if no session exists - this is normal for first-time users
+                console.log("SSO Silent failed or no session found:", error.errorCode);
+            });
         }
         
         msalInstance.addEventCallback((event: EventMessage) => {
@@ -69,6 +90,16 @@ export const useAuth = () => {
             });
             return response.accessToken;
         } catch (error) {
+            // If in PWA standalone, popups usually fail or feel broken. Prefer Redirect.
+            if (isStandalone()) {
+                console.warn("Silent token acquisition failed in PWA, triggering redirect...");
+                instance.acquireTokenRedirect({
+                    scopes: ["User.Read"],
+                    account: account
+                });
+                return null;
+            }
+
             console.warn("Silent token acquisition failed, attempting popup...", error);
             try {
                 const response = await instance.acquireTokenPopup({
@@ -94,6 +125,15 @@ export const useAuth = () => {
             });
             return response.idToken;
         } catch (error) {
+            if (isStandalone()) {
+                console.warn("Silent ID token acquisition failed in PWA, triggering redirect...");
+                instance.acquireTokenRedirect({
+                    scopes: ["openid", "profile"],
+                    account: account
+                });
+                return null;
+            }
+
             console.warn("Silent ID token acquisition failed, attempting popup...", error);
             try {
                 const response = await instance.acquireTokenPopup({

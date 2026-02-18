@@ -48,6 +48,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 ## Development Guidelines
 - **Local Setup**: Follow the [Local Installation Guide](docs/guides/local/INSTALLATION.md) for environment setup, emulators, and SSL certificates.
 - **Agent Workflow**: For AI agents working on this repo, refer to the [Agent Local Development Workflow](docs/guides/local/AGENT_WORKFLOW.md).
+- **Authentication**: **MANDATORY:** For any changes involving authentication or authenticated APIs, you MUST consult [docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md](docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md).
 - **UI Development:** Components are located in `packages/ui/src/components`. **MANDATORY:** Follow the instructions in `packages/ui/gemini.md` for any changes to shared components, including Storybook updates, hierarchy standards, and **required verification steps**.
 - **New Apps:** Follow the guide in `docs/guides/MIGRATION_AND_SETUP.md`.
 
