@@ -54,5 +54,13 @@ This repository hosts the source code and documentation for `finnminn.com`, a st
     - "The Vault" (Inbox) for reviewing raw captures.
 - **Documentation:** [Pip Capture Mode Feature](./features/pip-capture-mode/implementation/README.md)
 
+### Purge Captured Notes (Implemented Feb 2026)
+- **Goal:** Add hard-delete functionality to the Pip "Vault" with visual glitch effects and offline support.
+- **Key Changes:**
+    - New `DELETE` API endpoint in the Kotlin backend.
+    - Optimistic UI updates with "Void" glitch animations.
+    - Offline queuing for delete actions with background synchronization.
+- **Documentation:** [Purge Captured Notes Feature](./features/purge-captured-notes/implementation/README.md)
+
 ## Architecture
 See [Architecture Docs](./architecture/) for detailed system design.

@@ -66,4 +66,13 @@ class CosmosRepository {
         val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
         return container.queryItems(querySpec, null, CaptureItem::class.java).toList()
     }
+
+    fun deleteCapture(id: String, userId: String): Boolean {
+        return try {
+            container.deleteItem(id, PartitionKey(userId), null)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
 }
