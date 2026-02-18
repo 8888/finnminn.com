@@ -32,7 +32,8 @@ data class CarePlan(
 data class HealthReport(
     val date: String = "",
     val healthStatus: String = "",
-    val imageUrl: String = ""
+    val imageUrl: String = "",
+    val advice: String? = null
 )
 
 data class CreatePlantRequest(

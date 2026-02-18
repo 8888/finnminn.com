@@ -5,7 +5,17 @@ import com.microsoft.azure.functions.annotation.*
 import java.util.Optional
 
 class DeleteCaptureFunction {
-    var repository by lazy { CosmosRepository() }
+    private var _repository: CosmosRepository? = null
+    var repository: CosmosRepository
+        get() {
+            if (_repository == null) {
+                _repository = CosmosRepository()
+            }
+            return _repository!!
+        }
+        set(value) {
+            _repository = value
+        }
 
     @FunctionName("DeleteCapture")
     fun deleteCapture(

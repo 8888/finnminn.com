@@ -4,6 +4,7 @@ import com.microsoft.azure.functions.*
 import com.microsoft.azure.functions.annotation.*
 import com.google.gson.Gson
 import necrobloom.data.CosmosRepository
+import necrobloom.data.Plant
 import necrobloom.services.StorageService
 import necrobloom.utils.SecurityUtils
 import java.util.Optional
@@ -30,7 +31,7 @@ class GetPlant {
                 .build()
 
         return try {
-            val plant = repository.findByIdAndUserId(id, userId)
+            val plant: Plant = repository.findById(id, userId)
                 ?: return request.createResponseBuilder(HttpStatus.NOT_FOUND)
                     .body("Specimen $id not found in your garden.")
                     .build()

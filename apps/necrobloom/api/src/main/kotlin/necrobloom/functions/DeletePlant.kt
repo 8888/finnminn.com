@@ -26,7 +26,7 @@ class DeletePlant {
                 .build()
 
         return try {
-            repository.delete(id, userId)
+            repository.deleteById(id, userId)
             request.createResponseBuilder(HttpStatus.NO_CONTENT).build()
         } catch (e: Exception) {
             context.logger.severe("Error deleting plant $id: ${e.message}")

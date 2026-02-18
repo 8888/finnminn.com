@@ -39,7 +39,7 @@ class HealthCheck {
                 .build()
 
         return try {
-            val plant = repository.findByIdAndUserId(id, userId)
+            val plant = repository.findById(id, userId)
                 ?: return request.createResponseBuilder(HttpStatus.NOT_FOUND)
                     .body("Specimen $id not found.")
                     .build()
