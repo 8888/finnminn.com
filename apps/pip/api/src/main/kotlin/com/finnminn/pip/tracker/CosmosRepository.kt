@@ -3,12 +3,15 @@ package com.finnminn.pip.tracker
 import com.azure.cosmos.CosmosClient
 import com.azure.cosmos.CosmosClientBuilder
 import com.azure.cosmos.CosmosContainer
+import com.azure.cosmos.CosmosException
 import com.azure.cosmos.models.CosmosItemResponse
 import com.azure.cosmos.models.PartitionKey
 import com.azure.cosmos.models.SqlParameter
 import com.azure.cosmos.models.SqlQuerySpec
+import java.util.logging.Logger
 
 class CosmosRepository {
+    private val logger = Logger.getLogger(CosmosRepository::class.java.name)
     private val container: CosmosContainer by lazy {
         val databaseName = System.getenv("COSMOS_DATABASE") ?: "Pip"
         val containerName = System.getenv("COSMOS_CONTAINER") ?: "Items"
@@ -65,5 +68,23 @@ class CosmosRepository {
         val query = "SELECT TOP 50 * FROM c WHERE c.userId = @userId AND c.type = 'capture' ORDER BY c.timestamp DESC"
         val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
         return container.queryItems(querySpec, null, CaptureItem::class.java).toList()
+    }
+
+    fun deleteCapture(id: String, userId: String): Boolean {
+        return try {
+            container.deleteItem(id, PartitionKey(userId), null)
+            true
+        } catch (e: CosmosException) {
+            if (e.statusCode == 404) {
+                logger.warning("Capture $id not found for user $userId")
+                true // Idempotent success
+            } else {
+                logger.severe("Cosmos error deleting capture $id: ${e.message}")
+                false
+            }
+        } catch (e: Exception) {
+            logger.severe("Unexpected error deleting capture $id: ${e.message}")
+            false
+        }
     }
 }
