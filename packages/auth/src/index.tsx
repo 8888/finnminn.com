@@ -27,6 +27,14 @@ const isStandalone = () => {
 
 if (typeof window !== "undefined") {
     msalInstance.initialize().then(() => {
+        // Handle any redirect results before starting new flows
+        return msalInstance.handleRedirectPromise();
+    }).then((response) => {
+        if (response && response.account) {
+            msalInstance.setActiveAccount(response.account);
+            return;
+        }
+
         const accounts = msalInstance.getAllAccounts();
         if (accounts.length > 0) {
             msalInstance.setActiveAccount(accounts[0]);
@@ -35,9 +43,9 @@ if (typeof window !== "undefined") {
             // This leverages the session cookie from other subdomains
             msalInstance.ssoSilent({
                 scopes: ["openid", "profile", "User.Read"]
-            }).then((response) => {
-                if (response.account) {
-                    msalInstance.setActiveAccount(response.account);
+            }).then((ssoResponse) => {
+                if (ssoResponse.account) {
+                    msalInstance.setActiveAccount(ssoResponse.account);
                 }
             }).catch((error) => {
                 // Silently fail if no session exists - this is normal for first-time users
@@ -79,7 +87,7 @@ export const useAuth = () => {
         });
     }, [instance]);
 
-    const getToken = useCallback(async () => {
+    const getToken = useCallback(async (): Promise<string | null> => {
         const account = instance.getActiveAccount() || accounts[0];
         if (!account) throw new Error("NO_ACTIVE_ACCOUNT");
 
@@ -114,7 +122,7 @@ export const useAuth = () => {
         }
     }, [instance, accounts]);
 
-    const getIdToken = useCallback(async () => {
+    const getIdToken = useCallback(async (): Promise<string | null> => {
         const account = instance.getActiveAccount() || accounts[0];
         if (!account) throw new Error("NO_ACTIVE_ACCOUNT");
 
