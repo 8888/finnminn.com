@@ -3,15 +3,11 @@ package necrobloom.functions
 import com.microsoft.azure.functions.*
 import com.microsoft.azure.functions.annotation.*
 import necrobloom.data.CosmosRepository
-import necrobloom.services.StorageService
 import necrobloom.utils.SecurityUtils
 import java.util.Optional
 
 class DeletePlant {
-    companion object {
-        private val repository = CosmosRepository()
-        private val storageService = StorageService()
-    }
+    private val repository by lazy { CosmosRepository() }
 
     @FunctionName("DeletePlant")
     fun run(
@@ -24,47 +20,18 @@ class DeletePlant {
         @BindingName("id") id: String,
         context: ExecutionContext
     ): HttpResponseMessage {
-        val debug = StringBuilder()
-        val userId = SecurityUtils.getUserId(request.headers, debug)
+        val userId = SecurityUtils.getUserId(request.headers)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED)
-                .body("Unauthenticated: The Void does not recognize you. Debug: $debug")
+                .body("Unauthenticated: The Void does not recognize you.")
                 .build()
 
-        context.logger.info("Attempting to banish plant $id for user $userId")
-
         return try {
-            val plant = repository.findById(id, userId)
-            
-            if (plant != null) {
-                // Remove all associated images from storage
-                plant.historicalReports.forEach { report ->
-                    storageService.deleteImage(report.imageUrl)
-                }
-                
-                // Remove record from Cosmos
-                val success = repository.deleteById(id, userId)
-                
-                if (success) {
-                    context.logger.info("Successfully banished plant $id")
-                    request.createResponseBuilder(HttpStatus.OK)
-                        .body("The specimen and all its traces have been banished back to the Void.")
-                        .build()
-                } else {
-                    context.logger.severe("Failed to delete record for plant $id")
-                    request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body("The specimen's soul was purged, but its record remains etched in the database.")
-                        .build()
-                }
-            } else {
-                context.logger.warning("Plant $id not found for banishment for user $userId")
-                request.createResponseBuilder(HttpStatus.NOT_FOUND)
-                    .body("The specimen does not exist in this realm.")
-                    .build()
-            }
+            repository.delete(id, userId)
+            request.createResponseBuilder(HttpStatus.NO_CONTENT).build()
         } catch (e: Exception) {
-            context.logger.severe("Error deleting plant: ${e.message}")
+            context.logger.severe("Error deleting plant $id: ${e.message}")
             request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("The ritual of banishment failed: ${e.message}")
+                .body("Failed to banish specimen from the Void.")
                 .build()
         }
     }

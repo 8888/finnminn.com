@@ -12,12 +12,10 @@ import java.util.Base64
 import java.util.Optional
 
 class CreatePlant {
-    companion object {
-        private val repository = CosmosRepository()
-        private val storageService = StorageService()
-        private val geminiClient = GeminiClient()
-        private val gson = Gson()
-    }
+    private val repository by lazy { CosmosRepository() }
+    private val storageService by lazy { StorageService() }
+    private val geminiClient by lazy { GeminiClient() }
+    private val gson = Gson()
 
     @FunctionName("CreatePlant")
     fun run(

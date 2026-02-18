@@ -7,7 +7,7 @@ import java.util.Optional
 
 class GetCapturesFunction {
     private val mapper = jacksonObjectMapper()
-    var repository = CosmosRepository()
+    var repository by lazy { CosmosRepository() }
 
     @FunctionName("GetCaptures")
     fun getCaptures(

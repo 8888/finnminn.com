@@ -12,29 +12,25 @@ import java.util.Base64
 import java.util.Optional
 
 class HealthCheck {
-    companion object {
-        private val repository = CosmosRepository()
-        private val storageService = StorageService()
-        private val geminiClient = GeminiClient()
-        private val gson = Gson()
-    }
+    private val repository by lazy { CosmosRepository() }
+    private val storageService by lazy { StorageService() }
+    private val geminiClient by lazy { GeminiClient() }
+    private val gson = Gson()
 
     @FunctionName("HealthCheck")
     fun run(
         @HttpTrigger(
             name = "req",
             methods = [HttpMethod.POST],
-            route = "plants/{id}/health-check",
+            route = "plants/{id}/health",
             authLevel = AuthorizationLevel.ANONYMOUS
-        )
-        request: HttpRequestMessage<Optional<String>>,
+        ) request: HttpRequestMessage<Optional<String>>,
         @BindingName("id") id: String,
         context: ExecutionContext
     ): HttpResponseMessage {
-        val debug = StringBuilder()
-        val userId = SecurityUtils.getUserId(request.headers, debug)
+        val userId = SecurityUtils.getUserId(request.headers)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED)
-                .body("Unauthenticated: The Void does not recognize you. Debug: $debug")
+                .body("Unauthenticated: The Void does not recognize you.")
                 .build()
 
         val body = request.body.orElse(null)
@@ -42,63 +38,52 @@ class HealthCheck {
                 .body("Missing request body.")
                 .build()
 
-        context.logger.info("Performing health check for plant $id for user $userId")
-
         return try {
+            val plant = repository.findByIdAndUserId(id, userId)
+                ?: return request.createResponseBuilder(HttpStatus.NOT_FOUND)
+                    .body("Specimen $id not found.")
+                    .build()
+
             val req = gson.fromJson(body, HealthCheckRequest::class.java)
-            if (req?.image == null) {
+            
+            if (req.image.isNullOrBlank()) {
                 return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
-                    .body("Missing image data.")
+                    .body("Visual manifestation (image) is required for diagnosis.")
                     .build()
             }
 
-            val plant = repository.findById(id, userId)
-                ?: return request.createResponseBuilder(HttpStatus.NOT_FOUND)
-                    .body("Plant not found in your collection.")
-                    .build()
-
-            // Handle image upload
             val mimeType = getMimeType(req.image)
             val cleanBase64 = cleanBase64(req.image)
-            val imageBytes = try {
-                Base64.getDecoder().decode(cleanBase64)
-            } catch (e: IllegalArgumentException) {
-                return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
-                    .body("Invalid image data format.")
-                    .build()
-            }
-            val extension = mimeType.split("/")[1]
+            val imageBytes = Base64.getDecoder().decode(cleanBase64)
+            val extension = getExtensionFromMime(mimeType)
+            
+            // Upload to storage
             val imageUrl = storageService.uploadImage(imageBytes, extension)
 
-            // Gemini Analysis
-            val historyContext = plant.historicalReports.takeLast(3).joinToString("\n") { 
-                "Date: ${it.date}, Status: ${it.healthStatus}" 
-            }
-
+            // Consult the Oracle (Gemini)
             val prompt = """
-                Analyze the health of this plant based on the current image.
+                Analyze this ${plant.species}. Diagnosis its health based on the image.
+                Provide a short status (e.g., "Thriving", "Wilting", "Possessed") and detailed advice.
                 
-                Context:
-                - Species: ${plant.species}
-                - Alias: ${plant.alias}
-                - Care Plan: ${plant.carePlan?.let { gson.toJson(it) } ?: "No care plan"}
-                - Recent History:
-                $historyContext
-                
-                Is the plant healthy, thirsty, or dying? Provide a diagnosis.
-                Keep the response concise (max 3 sentences) and use a whimsical, slightly gothic tone.
-                Return strictly plain text.
+                Return strictly valid JSON:
+                {
+                  "status": "string",
+                  "advice": "string"
+                }
             """.trimIndent()
 
-            val diagnosis = geminiClient.analyzeImage(cleanBase64, mimeType, prompt)
+            val aiResponseText = geminiClient.analyzeImage(cleanBase64, mimeType, prompt)
+            val cleanJson = GeminiClient.cleanJson(aiResponseText)
+            val oracleResult = gson.fromJson(cleanJson, HealthCheckAIResult::class.java)
 
             val newReport = HealthReport(
                 date = Instant.now().toString(),
-                healthStatus = diagnosis,
-                imageUrl = imageUrl
+                healthStatus = oracleResult?.status ?: "Indeterminate",
+                imageUrl = imageUrl,
+                advice = oracleResult?.advice
             )
 
-            plant.historicalReports.add(newReport)
+            plant.historicalReports.add(0, newReport)
             val updatedPlant = repository.save(plant)
 
             // Sign URLs for the response
@@ -112,10 +97,11 @@ class HealthCheck {
                 .body(gson.toJson(signedPlant))
                 .header("Content-Type", "application/json")
                 .build()
+
         } catch (e: Exception) {
-            context.logger.severe("Error performing health check: ${e.message}")
+            context.logger.severe("Error performing health check for plant $id: ${e.message}")
             request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("The spirits of the plant are troubled: ${e.message}")
+                .body("The Oracle is blinded; could not diagnose specimen.")
                 .build()
         }
     }
@@ -129,10 +115,27 @@ class HealthCheck {
     }
 
     private fun cleanBase64(base64String: String): String {
-        return if (base64String.contains(',')) {
+        return if (base64String.contains(",")) {
             base64String.split(",")[1]
         } else {
             base64String
         }
     }
+
+    private fun getExtensionFromMime(mimeType: String): String {
+        return when (mimeType.lowercase()) {
+            "image/jpeg" -> "jpg"
+            "image/png" -> "png"
+            "image/gif" -> "gif"
+            "image/webp" -> "webp"
+            "image/svg+xml" -> "svg"
+            "image/bmp" -> "bmp"
+            else -> "jpg" // Fallback
+        }
+    }
+
+    private data class HealthCheckAIResult(
+        val status: String?,
+        val advice: String?
+    )
 }

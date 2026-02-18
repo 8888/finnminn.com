@@ -9,11 +9,9 @@ import necrobloom.utils.SecurityUtils
 import java.util.Optional
 
 class GetPlant {
-    companion object {
-        private val repository = CosmosRepository()
-        private val storageService = StorageService()
-        private val gson = Gson()
-    }
+    private val repository by lazy { CosmosRepository() }
+    private val storageService by lazy { StorageService() }
+    private val gson = Gson()
 
     @FunctionName("GetPlant")
     fun run(
@@ -26,40 +24,32 @@ class GetPlant {
         @BindingName("id") id: String,
         context: ExecutionContext
     ): HttpResponseMessage {
-        val debug = StringBuilder()
-        val userId = SecurityUtils.getUserId(request.headers, debug)
+        val userId = SecurityUtils.getUserId(request.headers)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED)
-                .body("Unauthenticated: The Void does not recognize you. Debug: $debug")
+                .body("Unauthenticated: The Void does not recognize you.")
                 .build()
 
-        context.logger.info("Attempting to retrieve plant $id for user $userId")
-
         return try {
-            val plant = repository.findById(id, userId)
-            
-            if (plant != null) {
-                context.logger.info("Found plant: ${plant.alias}")
-                // Sign URLs for all images
-                val signedPlant = plant.copy(
-                    historicalReports = plant.historicalReports.map { report ->
-                        report.copy(imageUrl = storageService.generateSasUrl(report.imageUrl))
-                    }.toMutableList()
-                )
+            val plant = repository.findByIdAndUserId(id, userId)
+                ?: return request.createResponseBuilder(HttpStatus.NOT_FOUND)
+                    .body("Specimen $id not found in your garden.")
+                    .build()
 
-                request.createResponseBuilder(HttpStatus.OK)
-                    .body(gson.toJson(signedPlant))
-                    .header("Content-Type", "application/json")
-                    .build()
-            } else {
-                context.logger.warning("Plant $id not found for user $userId")
-                request.createResponseBuilder(HttpStatus.NOT_FOUND)
-                    .body("The specimen does not exist in this realm.")
-                    .build()
-            }
+            // Sign URLs for all images in history
+            val signedPlant = plant.copy(
+                historicalReports = plant.historicalReports.map { report ->
+                    report.copy(imageUrl = storageService.generateSasUrl(report.imageUrl))
+                }.toMutableList()
+            )
+
+            request.createResponseBuilder(HttpStatus.OK)
+                .body(gson.toJson(signedPlant))
+                .header("Content-Type", "application/json")
+                .build()
         } catch (e: Exception) {
-            context.logger.severe("Error retrieving plant: ${e.message}")
+            context.logger.severe("Error retrieving plant $id: ${e.message}")
             request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("The spirits are silent: ${e.message}")
+                .body("Error retrieving specimen from the Void.")
                 .build()
         }
     }

@@ -9,7 +9,7 @@ import java.util.UUID
 
 class CaptureFunction {
     private val mapper = jacksonObjectMapper()
-    var repository = CosmosRepository()
+    var repository by lazy { CosmosRepository() }
 
     @FunctionName("PostCapture")
     fun postCapture(
