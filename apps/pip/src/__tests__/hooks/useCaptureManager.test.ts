@@ -1,13 +1,13 @@
 import { renderHook, act } from '@testing-library/react';
 import { useCaptureManager } from '../../hooks/useCaptureManager';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { vi, describe, it, expect, beforeEach, Mock } from 'vitest';
 
 const mockGetToken = vi.fn().mockResolvedValue('fake-token');
 
 // Mock the auth hook
 vi.mock('@finnminn/auth', () => ({
   useAuth: () => ({
-    getToken: mockGetToken,
+    getIdToken: mockGetToken,
     isAuthenticated: true
   })
 }));
@@ -23,7 +23,7 @@ describe('useCaptureManager', () => {
   });
 
   it('should save a capture online', async () => {
-    (global.fetch as vi.Mock).mockImplementation((url: string) => {
+    (global.fetch as Mock).mockImplementation((url: string) => {
         if (url === '/api/capture') {
             return Promise.resolve({
                 ok: true,
@@ -66,7 +66,7 @@ describe('useCaptureManager', () => {
       { content: 'pending', source: 'text', timestamp: new Date().toISOString() }
     ]));
 
-    (global.fetch as vi.Mock).mockResolvedValue({
+    (global.fetch as Mock).mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({ id: '2' })
     });
@@ -83,5 +83,22 @@ describe('useCaptureManager', () => {
     await vi.waitFor(() => {
         expect(localStorage.getItem('pip_pending_captures')).toBe('[]');
     }, { timeout: 2000 });
+  });
+
+  it('should delete a capture', async () => {
+    (global.fetch as Mock).mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({})
+    });
+
+    const { result } = renderHook(() => useCaptureManager());
+    
+    await act(async () => {
+      await result.current.deleteCapture('test-id');
+    });
+
+    expect(global.fetch).toHaveBeenCalledWith('/api/capture/test-id', expect.objectContaining({
+      method: 'DELETE'
+    }));
   });
 });

@@ -89,7 +89,7 @@ export function CapturePage() {
         <div className="flex justify-between w-full items-center mb-4">
            <Typography.H2 className="text-witchcraft cursor-pointer" onClick={() => navigate('/tracker')}>Pip.exe</Typography.H2>
            <div className="flex gap-4">
-              <Button onClick={() => navigate('/inbox')} variant="secondary" size="sm">Vault</Button>
+              <Button onClick={() => navigate('/inbox')} variant="secondary">Vault</Button>
            </div>
         </div>
 
