@@ -197,3 +197,18 @@
 6. [x] **Navigation:** The existing habit tracker MUST be moved to `/tracker` and be accessible via a discrete menu.
 7. [x] **Offline Support:** The app MUST be a PWA that loads offline and queues captures for background sync when connectivity returns.
 8. [x] **Design System:** The UI MUST strictly follow the **PixelGrim** aesthetic (Minimalist, Gothic, High Contrast).
+
+## User Story 14: Purge Captured Notes from the Vault
+
+**As a** chronicler of thoughts,
+**I want** to be able to immediately purge captured notes from my inbox
+**So that** I can maintain a clean and focused digital garden without unnecessary friction.
+
+**Acceptance Criteria:**
+
+1.  Each note in the Vault (Inbox) features a "Purge" action, styled using the PixelGrim design system (e.g., a "VOID" or "PURGE" button).
+2.  The deletion process is immediate (no confirmation prompt) and features a visual "glitch" or "fade" effect using `@finnminn/ui` components.
+3.  The note is permanently deleted (hard delete) from the Azure Cosmos DB via a new `DELETE` API endpoint.
+4.  The `useCaptureManager` hook is updated with a `purgeCapture(id: string)` method that handles optimistic UI removal.
+5.  If offline, the purge action is queued in `localStorage` and synchronized with the backend once the network is restored.
+6.  The backend `CosmosRepository` and Function App are extended to support authenticated document deletion by `id` and `userId`.
