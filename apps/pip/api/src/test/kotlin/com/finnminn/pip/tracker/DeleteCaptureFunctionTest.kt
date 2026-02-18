@@ -62,4 +62,35 @@ class DeleteCaptureFunctionTest {
 
         assertEquals(HttpStatus.UNAUTHORIZED, actualResponse.status)
     }
+
+    @Test
+    fun testDeleteCaptureFailure() {
+        val function = DeleteCaptureFunction()
+        val repository = mock(CosmosRepository::class.java)
+        function.repository = repository
+        
+        val request = mock(HttpRequestMessage::class.java) as HttpRequestMessage<Optional<String>>
+        val context = mock(ExecutionContext::class.java)
+
+        val captureId = "fail-id"
+        `when`(request.queryParameters).thenReturn(mapOf("id" to captureId))
+        
+        val mockPrincipal = "eyJ1c2VySWQiOiAidGVzdHVzZXIifQ=="
+        `when`(request.headers).thenReturn(mapOf("x-ms-client-principal" to mockPrincipal))
+        `when`(context.logger).thenReturn(Logger.getGlobal())
+
+        `when`(repository.deleteCapture(captureId, "testuser")).thenReturn(false)
+
+        val responseBuilder = mock(HttpResponseMessage.Builder::class.java)
+        `when`(request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)).thenReturn(responseBuilder)
+        `when`(responseBuilder.body(any())).thenReturn(responseBuilder)
+        
+        val response = mock(HttpResponseMessage::class.java)
+        `when`(response.status).thenReturn(HttpStatus.INTERNAL_SERVER_ERROR)
+        `when`(responseBuilder.build()).thenReturn(response)
+
+        val actualResponse = function.deleteCapture(request, captureId, context)
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, actualResponse.status)
+    }
 }

@@ -28,10 +28,10 @@ class DeleteCaptureFunction {
         return if (success) {
             request.createResponseBuilder(HttpStatus.NO_CONTENT).build()
         } else {
-            // If it fails, it might be because it doesn't exist or DB error.
-            // Return 204 anyway for idempotency or 404 if we want to be strict.
-            // US says "hard delete", usually delete is idempotent.
-            request.createResponseBuilder(HttpStatus.NO_CONTENT).build()
+            context.logger.severe("Failed to delete capture $id for user $userId")
+            request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Failed to delete resource")
+                .build()
         }
     }
 }
