@@ -139,6 +139,21 @@ target/
 build/
 .gradle/
 .idea/
+
+# Eclipse / VSCode Java Config
+.classpath
+.project
+.settings/
+```
+
+#### 2. VSCode Java Extension Configuration
+If your backend uses Gradle and you use the Red Hat VSCode Java Extension, you **must** manually create a `.settings/org.eclipse.buildship.core.prefs` file in your `api/` folder to prevent a known bug where the extension falls back to an incompatible legacy Gradle version.
+
+Create `apps/<app>/api/.settings/org.eclipse.buildship.core.prefs`:
+```properties
+connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
+connection.project.dir=
+eclipse.preferences.version=1
 ```
 
 #### 2. Local Development

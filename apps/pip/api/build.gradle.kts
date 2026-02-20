@@ -4,6 +4,12 @@ plugins {
     val kotlinVersion = "1.9.22"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("com.microsoft.azure.azurefunctions") version "1.16.1"
+    id("eclipse")
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -43,7 +49,7 @@ tasks.named("azureFunctionsRun") {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "21"
+        jvmTarget = "17"
     }
 }
 
