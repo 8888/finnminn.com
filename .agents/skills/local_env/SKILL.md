@@ -54,5 +54,6 @@ Terminate all background processes associated with the dev environment.
 
 ## ⚠️ Important Notes
 - **Hosts**: Always use `localhost` for testing in the browser to ensure the local proxy and mock authentication work correctly.
+- **Authentication**: After starting services, verify the authentication state in the browser. If the "Login" page is visible or "NO_ACTIVE_ACCOUNT" is encountered, you **MUST** stop and ask the USER to sign in manually before continuing.
 - **Port Isolation**: Each app is assigned a unique port to allow simultaneous local development without collisions.
 - **Logs**: If a service fails to start, check the `.log` files in the app's directory or the root.

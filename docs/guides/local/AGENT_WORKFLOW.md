@@ -54,8 +54,8 @@ lsof -ti:5173 || nohup npm run dev -- --filter=pip --host localhost > frontend.l
 1.  **Monitor Logs**: If a service isn't responding, check the local `.log` files created in the steps above (`frontend.log`, `backend.log`).
 2.  **Open Browser**: Call `new_page` with `url: "http://localhost:5173"`.
 3.  **Authentication**:
-    - **Local Mocking**: The Vite proxy automatically injects a mock `x-ms-client-principal` header. This bypasses the need for manual login during automated test runs.
-    - **User Identity**: The backend will see the user as `local-dev-agent`.
+    - **Local Mocking**: The Vite proxy automatically injects a mock `x-ms-client-principal` header for backend requests.
+    - **User Action**: If the frontend shows a "Login" button or the console shows `NO_ACTIVE_ACCOUNT`, the agent **MUST** stop and ask the USER to sign in manually via the browser. Automated testing cannot proceed until a session is active.
 4.  **Detect Interface**: Wait for "QUICK_CAPTURE" (Pip) or "COLLECTION FROM THE VOID" (NecroBloom) to appear.
 5.  **Execute Tests**: Use `click`, `fill`, and `take_snapshot` to verify functionality.
 
