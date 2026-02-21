@@ -10,6 +10,7 @@
     "COSMOS_CONTAINER": "Items"
   },
   "Host": {
+    "LocalHttpPort": 7071,
     "CORS": "http://localhost:5173"
   }
 }
