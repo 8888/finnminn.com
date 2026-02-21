@@ -50,6 +50,7 @@ This project contains the source code and configuration for the `finnminn.com` a
 - **Agent Workflow**: For AI agents working on this repo, refer to the [Agent Local Development Workflow](docs/guides/local/AGENT_WORKFLOW.md).
 - **Authentication**: **MANDATORY:** For any changes involving authentication or authenticated APIs, you MUST consult [docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md](docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md).
 - **UI Development:** Components are located in `packages/ui/src/components`. **MANDATORY:** Follow the instructions in `packages/ui/gemini.md` for any changes to shared components, including Storybook updates, hierarchy standards, and **required verification steps**.
+- **Authentication Prompt:** When running the application locally, if the agent detects it is not authenticated (e.g., seeing a login page or "NO_ACTIVE_ACCOUNT" errors), it **MUST** stop and ask the USER to sign in manually before proceeding with any UI or integration tasks.
 - **New Apps:** Follow the guide in `docs/guides/MIGRATION_AND_SETUP.md`.
 
 ## Deployment (CI/CD)

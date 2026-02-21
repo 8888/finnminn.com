@@ -25,7 +25,7 @@ case $COMMAND in
     [ "$APP" = "necrobloom" ] && PORT=5174
     [ "$APP" = "web" ] && PORT=5175
     echo "Starting frontend for $APP on port $PORT..."
-    lsof -ti:$PORT || nohup npm run dev -- --filter=$APP --host localhost > frontend.log 2>&1 &
+    lsof -ti:$PORT || nohup npm run dev -- --filter=$APP -- --host localhost > frontend.log 2>&1 &
     echo "Frontend starting in background. Check frontend.log"
     ;;
   start_all)
