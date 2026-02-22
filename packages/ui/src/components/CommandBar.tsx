@@ -112,52 +112,52 @@ export const CommandBar = ({
                 aria-haspopup="true"
               >
                 <div className="text-right hidden lg:block">
-                    <Typography.H3 className="text-sm text-text-body group-hover:text-ectoplasm mb-0">{user.name}</Typography.H3>
+                  <Typography.H3 className="text-sm text-text-body group-hover:text-ectoplasm mb-0">{user.name}</Typography.H3>
                 </div>
                 <div className={`
                     border-2 border-text-muted p-0.5 transition-all
                     group-hover:border-ectoplasm group-hover:shadow-[2px_2px_0px_0px_#05FFA1]
                     ${isProfileOpen ? "border-ectoplasm shadow-[2px_2px_0px_0px_#05FFA1]" : ""}
                 `}>
-                    {user.avatarUrl ? (
-                         <img src={user.avatarUrl} alt={user.name} className="w-8 h-8 object-cover grayscale group-hover:grayscale-0 transition-all"/>
-                    ) : (
-                        <div className="w-8 h-8 bg-void flex items-center justify-center text-xs font-header text-ectoplasm">
-                            {user.name.charAt(0)}
-                        </div>
-                    )}
+                  {user.avatarUrl ? (
+                    <img src={user.avatarUrl} alt={user.name} className="w-8 h-8 object-cover grayscale group-hover:grayscale-0 transition-all" />
+                  ) : (
+                    <div className="w-8 h-8 bg-void flex items-center justify-center text-xs font-header text-ectoplasm">
+                      {user.name.charAt(0)}
+                    </div>
+                  )}
                 </div>
               </button>
 
               {/* Profile Dropdown */}
               {isProfileOpen && (
                 <div className="absolute right-0 top-full mt-4 w-64 z-50">
-                   <Card variant="magic" className="p-0">
-                      <div className="p-4 border-b-2 border-overlay bg-surface/95">
-                          <Typography.H3 className="text-lg text-ectoplasm mb-1">{user.name}</Typography.H3>
-                          <Typography.Body className="text-xs text-text-muted font-mono mb-0">{user.email}</Typography.Body>
-                      </div>
-                      <div className="p-2 bg-void/90 flex flex-col gap-1">
-                          <button
-                            onClick={() => { onProfileClick?.(); setIsProfileOpen(false); }}
-                            className="w-full text-left px-4 py-2 font-header hover:bg-witchcraft hover:text-void text-text-body transition-colors"
-                          >
-                            [ PROFILE_DATA ]
-                          </button>
-                          <a
-                            href={appLauncherUrl}
-                            className="w-full text-left px-4 py-2 font-header hover:bg-ectoplasm hover:text-void text-text-body transition-colors"
-                          >
-                            [ APP_LAUNCHER ]
-                          </a>
-                          <button
-                            onClick={() => { onLogout?.(); setIsProfileOpen(false); }}
-                            className="w-full text-left px-4 py-2 font-header hover:bg-vampire hover:text-void text-text-body transition-colors"
-                          >
-                            [ TERMINATE_SESSION ]
-                          </button>
-                      </div>
-                   </Card>
+                  <Card variant="magic" className="p-0">
+                    <div className="p-4 border-b-2 border-overlay bg-surface/95">
+                      <Typography.H3 className="text-lg text-ectoplasm mb-1">{user.name}</Typography.H3>
+                      <Typography.Body className="text-xs text-text-muted font-mono mb-0">{user.email}</Typography.Body>
+                    </div>
+                    <div className="p-2 bg-void/90 flex flex-col gap-1">
+                      <button
+                        onClick={() => { onProfileClick?.(); setIsProfileOpen(false); }}
+                        className="w-full text-left px-4 py-2 font-header hover:bg-witchcraft hover:text-void text-text-body transition-colors"
+                      >
+                        [ PROFILE_DATA ]
+                      </button>
+                      <a
+                        href={appLauncherUrl}
+                        className="w-full text-left px-4 py-2 font-header hover:bg-ectoplasm hover:text-void text-text-body transition-colors"
+                      >
+                        [ APP_LAUNCHER ]
+                      </a>
+                      <button
+                        onClick={() => { onLogout?.(); setIsProfileOpen(false); }}
+                        className="w-full text-left px-4 py-2 font-header hover:bg-vampire hover:text-void text-text-body transition-colors"
+                      >
+                        [ TERMINATE_SESSION ]
+                      </button>
+                    </div>
+                  </Card>
                 </div>
               )}
             </div>
@@ -170,72 +170,88 @@ export const CommandBar = ({
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
-            <button
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
-                className="text-text-body hover:text-ectoplasm p-2 border-2 border-transparent hover:border-overlay active:bg-overlay transition-all"
-                aria-label="Toggle navigation menu"
-            >
-                {isMobileOpen ? (
-                    <span className="font-header text-xl">[ X ]</span>
-                ) : (
-                    <span className="font-header text-xl">[ = ]</span>
-                )}
-            </button>
+          <button
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className="text-text-body hover:text-ectoplasm p-2 border-2 border-transparent hover:border-overlay active:bg-overlay transition-all"
+            aria-label="Toggle navigation menu"
+          >
+            {isMobileOpen ? (
+              <span className="font-header text-xl">[ X ]</span>
+            ) : (
+              <span className="font-header text-xl">[ = ]</span>
+            )}
+          </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       {isMobileOpen && (
         <div className="md:hidden absolute top-16 left-0 w-full bg-void border-b-2 border-ectoplasm shadow-xl z-30 animate-in slide-in-from-top-4 duration-200">
-            <div className="flex flex-col p-4 gap-4">
-                {user && (
-                    <div className="flex items-center gap-4 p-4 border-2 border-dashed border-text-muted/30 mb-2">
-                        {user.avatarUrl && <img src={user.avatarUrl} alt={user.name} className="w-10 h-10 grayscale border border-text-muted"/>}
-                        <div>
-                             <Typography.H3 className="text-ectoplasm mb-0">{user.name}</Typography.H3>
-                             <Typography.Body className="text-xs text-text-muted mb-0">Currently Active</Typography.Body>
-                        </div>
-                    </div>
-                )}
+          <div className="flex flex-col p-4 gap-4">
+            {user && (
+              <div className="flex items-center gap-4 p-4 border-2 border-dashed border-text-muted/30 mb-2">
+                {user.avatarUrl && <img src={user.avatarUrl} alt={user.name} className="w-10 h-10 grayscale border border-text-muted" />}
+                <div>
+                  <Typography.H3 className="text-ectoplasm mb-0">{user.name}</Typography.H3>
+                  <Typography.Body className="text-xs text-text-muted mb-0">Currently Active</Typography.Body>
+                </div>
+              </div>
+            )}
 
-                <div className="flex flex-col gap-2">
-                    {links.map((link) => (
-                        <button
-                            key={link.href}
-                            onClick={() => handleLink(link.href)}
-                            className={`
+            <div className="flex flex-col gap-2">
+              {links.map((link) => (
+                <button
+                  key={link.href}
+                  onClick={() => handleLink(link.href)}
+                  className={`
                                 text-left px-4 py-3 font-header text-lg border-l-4 transition-all
                                 ${link.active
-                                    ? "bg-surface border-ectoplasm text-ectoplasm"
-                                    : "border-transparent text-text-body hover:bg-surface hover:border-witchcraft hover:text-witchcraft"
-                                }
+                      ? "bg-surface border-ectoplasm text-ectoplasm"
+                      : "border-transparent text-text-body hover:bg-surface hover:border-witchcraft hover:text-witchcraft"
+                    }
                             `}
-                        >
-                            {link.label}
-                        </button>
-                    ))}
-                </div>
-
-                <div className="h-px bg-overlay w-full my-2"/>
-
-                {user ? (
-                     <div className="flex flex-col gap-2">
-                        <Button variant="ghost" onClick={onProfileClick} className="w-full justify-start">
-                            PROFILE SETTINGS
-                        </Button>
-                        <Button variant="ghost" onClick={() => window.location.href = appLauncherUrl} className="w-full justify-start">
-                            APP LAUNCHER
-                        </Button>
-                        <Button variant="destructive" onClick={onLogout} className="w-full justify-start">
-                            LOGOUT
-                        </Button>
-                     </div>
-                ) : (
-                    <Button variant="primary" onClick={onLogin} className="w-full">
-                        LOGIN
-                    </Button>
-                )}
+                >
+                  {link.label}
+                </button>
+              ))}
             </div>
+
+            <div className="h-px bg-overlay w-full my-2" />
+
+            {user ? (
+              <div className="flex flex-col gap-2">
+                <Button
+                  variant="ghost"
+                  onClick={() => { onProfileClick?.(); setIsMobileOpen(false); }}
+                  className="w-full justify-start"
+                >
+                  PROFILE SETTINGS
+                </Button>
+                <a
+                  href={appLauncherUrl}
+                  onClick={() => setIsMobileOpen(false)}
+                  className="w-full text-left px-4 py-3 font-header text-lg text-text-body hover:bg-surface hover:border-ectoplasm border-l-4 border-transparent hover:text-ectoplasm transition-all"
+                >
+                  APP LAUNCHER
+                </a>
+                <Button
+                  variant="destructive"
+                  onClick={() => { onLogout?.(); setIsMobileOpen(false); }}
+                  className="w-full justify-start"
+                >
+                  LOGOUT
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="primary"
+                onClick={() => { onLogin?.(); setIsMobileOpen(false); }}
+                className="w-full"
+              >
+                LOGIN
+              </Button>
+            )}
+          </div>
         </div>
       )}
     </nav>

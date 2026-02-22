@@ -80,68 +80,66 @@ export function CapturePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-magic-void relative overflow-hidden">
-      <div className="w-full max-w-2xl mt-12 z-10 flex flex-col items-center gap-6 px-4">
-        <Terminal title="QUICK_CAPTURE" className="w-full min-h-[250px] flex flex-col">
-          <textarea
-            ref={textareaRef}
-            className="w-full flex-grow bg-transparent border-none outline-none text-ectoplasm font-body resize-none text-xl p-4 placeholder:opacity-30"
-            placeholder="Type your thought or use the mic..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
+    <div className="w-full max-w-2xl mt-12 mx-auto z-10 flex flex-col items-center gap-6 px-4">
+      <Terminal title="QUICK_CAPTURE" className="w-full min-h-[250px] flex flex-col">
+        <textarea
+          ref={textareaRef}
+          className="w-full flex-grow bg-transparent border-none outline-none text-ectoplasm font-body resize-none text-xl p-4 placeholder:opacity-30"
+          placeholder="Type your thought or use the mic..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
 
-          {isSuccess && (
-            <div className="absolute inset-0 flex items-center justify-center bg-magic-void/80 pointer-events-none z-20">
-              <Typography.H2 className="animate-pulse text-vampire italic">THOUGHT_SECURED</Typography.H2>
-            </div>
-          )}
-
-          <div className="flex justify-between items-center p-4 border-t border-text-muted/10 bg-surface/30">
-            <Typography.Body className="text-[10px] opacity-40 font-body uppercase tracking-tighter">
-              [ENTER] TO SAVE | [SHIFT+ENTER] FOR NEW LINE
-            </Typography.Body>
-            <Button
-              onClick={handleSave}
-              variant="secondary"
-              size="md"
-              disabled={text.trim().length === 0}
-              className={`${isSuccess ? 'animate-glitch' : ''} min-w-[120px] relative z-20`}
-            >
-              SUBMIT
-            </Button>
+        {isSuccess && (
+          <div className="absolute inset-0 flex items-center justify-center bg-magic-void/80 pointer-events-none z-20">
+            <Typography.H2 className="animate-pulse text-vampire italic">THOUGHT_SECURED</Typography.H2>
           </div>
-        </Terminal>
+        )}
 
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex justify-between items-center p-4 border-t border-text-muted/10 bg-surface/30">
+          <Typography.Body className="text-[10px] opacity-40 font-body uppercase tracking-tighter">
+            [ENTER] TO SAVE | [SHIFT+ENTER] FOR NEW LINE
+          </Typography.Body>
           <Button
-            onClick={isListening ? stop : start}
-            variant={isListening ? "destructive" : "secondary"}
-            size="lg"
-            isCircle={true}
-            className={`transition-all shadow-pixel-witchcraft ${isListening ? 'animate-pulse scale-105' : 'hover:scale-105'}`}
-            disabled={!isSupported}
-            aria-label={isListening ? "Stop voice recording" : "Start voice recording"}
+            onClick={handleSave}
+            variant="secondary"
+            size="md"
+            disabled={text.trim().length === 0}
+            className={`${isSuccess ? 'animate-glitch' : ''} min-w-[120px] relative z-20`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-              <line x1="12" x2="12" y1="19" y2="22" />
-            </svg>
+            SUBMIT
           </Button>
-          {!isSupported && <Typography.Body className="text-xs opacity-30 italic">Voice input restricted in this vessel</Typography.Body>}
         </div>
+      </Terminal>
+
+      <div className="flex flex-col items-center gap-4">
+        <Button
+          onClick={isListening ? stop : start}
+          variant={isListening ? "destructive" : "secondary"}
+          size="lg"
+          isCircle={true}
+          className={`transition-all shadow-pixel-witchcraft ${isListening ? 'animate-pulse scale-105' : 'hover:scale-105'}`}
+          disabled={!isSupported}
+          aria-label={isListening ? "Stop voice recording" : "Start voice recording"}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+            <line x1="12" x2="12" y1="19" y2="22" />
+          </svg>
+        </Button>
+        {!isSupported && <Typography.Body className="text-xs opacity-30 italic">Voice input restricted in this vessel</Typography.Body>}
       </div>
     </div>
   );
