@@ -12,6 +12,7 @@ This application is integrated into the `finnminn.com` monorepo and follows a de
 - **Design System**: PixelGrim (via `@finnminn/ui`). **MANDATORY:** Use `<Typography />` components for all text to maintain accessibility standards.
 
 ### Folder Structure
+- `apps/pip/src/components/Layout.tsx`: Global navigation wrapper.
 - `apps/pip/src/`: React frontend source code.
 - `apps/pip/api/`: Kotlin backend source code (Azure Functions).
 - `apps/pip/public/`: Static assets including mascot animation frames.
