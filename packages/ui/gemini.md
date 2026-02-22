@@ -19,6 +19,8 @@ Before writing React code, update **`styleguide.toml`**.
 - **Typography:** **MANDATORY** Use `<Typography />` sub-components (H1, H2, H3, Body, Code).
   - Use `variant="witchcraft" | "vampire" | "ectoplasm" | "toxic" | "pip"`.
   - Maintain minimum `12px` font size for retro fonts (use `size="xs"` prop).
+  - **Accessibility Rule:** `glow={true}` must NEVER be used on text `size="xs"` or `"sm"`.
+  - **Contrast Rule:** System text or primary UI elements must have a minimum opacity of `80%`.
 - **Animation:** Diegetic only (glitches, scanlines, floating motes). No smooth "Apple-like" fades.
 
 ### 3. Storybook Hierarchy Mandate

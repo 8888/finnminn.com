@@ -92,27 +92,37 @@ export const H3: H3Component = React.forwardRef<HTMLHeadingElement, TypographyPr
 );
 
 export const Body: BodyComponent = React.forwardRef<HTMLParagraphElement, TypographyProps & React.ComponentPropsWithoutRef<'p'>>(
-  ({ children, className, variant = "default", size = "md", glow = false, ...props }, ref) => (
-    <p
-      ref={ref}
-      className={`font-body ${colorClasses[variant]} ${glow ? (glowClasses[variant] || "") : ""} ${sizeClasses[size]} mb-2 ${className || ""}`}
-      {...props}
-    >
-      {children}
-    </p>
-  )
+  ({ children, className, variant = "default", size = "md", glow = false, ...props }, ref) => {
+    const isSmall = size === "xs" || size === "sm";
+    const shouldGlow = glow && !isSmall;
+
+    return (
+      <p
+        ref={ref}
+        className={`font-body ${colorClasses[variant]} ${shouldGlow ? (glowClasses[variant] || "") : ""} ${sizeClasses[size]} mb-2 ${className || ""}`}
+        {...props}
+      >
+        {children}
+      </p>
+    );
+  }
 );
 
 export const Code: CodeComponent = React.forwardRef<HTMLElement, TypographyProps & React.ComponentPropsWithoutRef<'code'>>(
-  ({ children, className, variant = "ectoplasm", size = "sm", glow = true, ...props }, ref) => (
-    <code
-      ref={ref}
-      className={`font-body ${colorClasses[variant]} ${glow ? (glowClasses[variant] || "") : ""} ${sizeClasses[size]} bg-void/50 px-1 rounded ${className || ""}`}
-      {...props}
-    >
-      {children}
-    </code>
-  )
+  ({ children, className, variant = "ectoplasm", size = "sm", glow = true, ...props }, ref) => {
+    const isSmall = size === "xs" || size === "sm";
+    const shouldGlow = glow && !isSmall;
+
+    return (
+      <code
+        ref={ref}
+        className={`font-body ${colorClasses[variant]} ${shouldGlow ? (glowClasses[variant] || "") : ""} ${sizeClasses[size]} bg-void/50 px-1 rounded ${className || ""}`}
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  }
 );
 
 export interface TypographyNamespace {
