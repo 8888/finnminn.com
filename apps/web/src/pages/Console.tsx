@@ -43,6 +43,7 @@ export const Console = () => {
     onLinkClick: (href: string) => navigate(href),
     onLogin: login,
     onLogout: logout,
+    onProfileClick: () => navigate("/profile"),
   };
 
   return (
