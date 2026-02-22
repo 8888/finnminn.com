@@ -81,7 +81,7 @@ export function CapturePage() {
 
   return (
     <div className="w-full max-w-2xl mt-12 mx-auto z-10 flex flex-col items-center gap-6 px-4">
-      <Terminal title="QUICK_CAPTURE" className="w-full min-h-[250px] flex flex-col">
+      <Terminal title="QUICK_CAPTURE" className="w-full min-h-[250px] flex flex-col relative">
         <textarea
           ref={textareaRef}
           className="w-full flex-grow bg-transparent border-none outline-none text-ectoplasm font-body resize-none text-xl p-4 placeholder:opacity-30"
@@ -93,12 +93,12 @@ export function CapturePage() {
 
         {isSuccess && (
           <div className="absolute inset-0 flex items-center justify-center bg-magic-void/80 pointer-events-none z-20">
-            <Typography.H2 className="animate-pulse text-vampire italic">THOUGHT_SECURED</Typography.H2>
+            <Typography.H2 variant="vampire" className="animate-pulse italic">THOUGHT_SECURED</Typography.H2>
           </div>
         )}
 
         <div className="flex justify-between items-center p-4 border-t border-text-muted/10 bg-surface/30">
-          <Typography.Body className="text-[10px] opacity-40 font-body uppercase tracking-tighter">
+          <Typography.Body variant="muted" size="xs" className="uppercase tracking-tighter">
             [ENTER] TO SAVE | [SHIFT+ENTER] FOR NEW LINE
           </Typography.Body>
           <Button

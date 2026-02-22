@@ -7,7 +7,7 @@ NecroBloom is a serverless plant-tracking application featuring a whimsically go
 - **Frontend**: React + Vite SPA.
 - **Backend**: Azure Functions (Kotlin/Java 21).
 - **Identity**: Microsoft Entra ID (via `@finnminn/auth`). **MANDATORY:** Consult [docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md](../../docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md) for all auth logic.
-- **Design System**: PixelGrim (via `@finnminn/ui`).
+- **Design System**: PixelGrim (via `@finnminn/ui`). **MANDATORY:** Use `<Typography />` components for all text to maintain accessibility standards.
 - **AI**: Gemini 2.5 Flash.
 
 ## Deployed Infrastructure (Resource Group: `necrobloom-rg`)

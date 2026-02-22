@@ -8,7 +8,7 @@ Integrated into the `finnminn.com` monorepo as the flagship application.
 
 - **Frontend**: React + Vite SPA.
 - **Identity**: Centralized Microsoft Entra ID (via `@finnminn/auth`).
-- **Design System**: PixelGrim (via `@finnminn/ui`).
+- **Design System**: PixelGrim (via `@finnminn/ui`). **MANDATORY:** Use `<Typography />` components for all text to maintain accessibility standards.
 
 ### Folder Structure
 - `apps/web/src/`: React frontend source code.

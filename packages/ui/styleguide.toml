@@ -45,7 +45,7 @@ scanline = "rgba(18, 16, 16, 0.5)" # CRT effect overlay
 
 [theme.colors.primary]
 name = "Witchcraft"
-hex = "#7D5FFF"        # Electric Indigo. Vibrating magic.
+hex = "#A890FF"        # Electric Indigo (AA Compliant). Vibrating magic.
 usage = "Primary actions, main CTA, focus rings."
 mood = "Mystical, royal, empowered."
 
@@ -57,13 +57,13 @@ mood = "Retro hacker, toxic sludge."
 
 [theme.colors.destructive]
 name = "Vampire Kiss"
-hex = "#FF2A6D"        # Radical Raspberry. Juicy and warm.
+hex = "#FF5A8D"        # Radical Raspberry (AA Compliant). Juicy and warm.
 usage = "Destructive actions, critical alerts, heart icons."
 mood = "Aggressive, dangerous, punk rock."
 
 [theme.colors.accent]
-name = "Vampire Kiss"  # Kept as accent for non-destructive highlights
-hex = "#FF2A6D"
+name = "Vampire Kiss"
+hex = "#FF5A8D"
 usage = "Highlights, badges, special effects."
 
 [theme.colors.warning]
@@ -78,10 +78,16 @@ hex = "#58a6ff"
 usage = "Dedicated mascot color."
 mood = "Loyal, sharp, spectral friend."
 
+[[theme.colors.custom]]
+name = "Toxic"
+hex = "#00FF41"
+usage = "Necrobloom system indicators."
+mood = "Radioactive, gothic growth."
+
 [theme.colors.text]
 heading = "#ffffff"    # Pure white with text-shadow glow
 body = "#E0DCE6"       # Slightly lavender-tinted grey for harmony
-muted = "#9586A5"      # Dusty purple grey (Ghostly grey)
+muted = "#AEA2BA"      # Dusty purple grey (Ghostly grey - AA Compliant)
 terminal = "#05FFA1"   # Matches Ectoplasm
 
 [theme.typography]
@@ -97,6 +103,8 @@ code = "text-sm leading-tight"
 [theme.typography.rules]
 uppercase_headers = false
 text_shadow_glow = "0 0 5px {color}, 0 0 10px {color}" # applied to headers
+min_font_size = "12px" # Enforced for VT323 and Space Mono legibility
+semantic_usage = "Use Typography.tsx components exclusively. Do not use ad-hoc tailwind sizing for text."
 
 [components.rules]
 border_radius = "0px" # Sharp edges are critical for the 8-bit feel.
