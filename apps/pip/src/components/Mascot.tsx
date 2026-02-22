@@ -75,6 +75,7 @@ export function Mascot() {
         <Typography.Body
             variant="pip"
             size="xs"
+            glow={true}
             className="animate-spectral text-center leading-none whitespace-pre overflow-hidden mb-0"
         >
             {frames[currentFrameIndex]}
