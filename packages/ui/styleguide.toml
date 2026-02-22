@@ -152,9 +152,10 @@ mobile_behavior = "Top-down drawer expansion (The 'Grimoire' view)."
 items = [
     "Logo/Brand (Left aligned)",
     "Navigation Links (Center/Right)",
-    "User Profile / Authentication Slot (Far Right)"
+    "User Profile / Authentication Slot (Far Right)",
+    "App Launcher Link (Within User Toggle)"
 ]
-dropdown_style = "Absolute positioned Card component, z-index 50."
+dropdown_style = "Absolute positioned Card component, z-index 50. Must include a direct link to the central launcher."
 
 [components.launcher]
 name = "AppLauncher"

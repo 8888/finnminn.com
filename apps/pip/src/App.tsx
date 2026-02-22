@@ -4,17 +4,20 @@ import { CapturePage } from "./pages/CapturePage";
 import { InboxPage } from "./pages/InboxPage";
 import { TrackerPage } from "./pages/TrackerPage";
 import { Character } from "./pages/Character";
+import { Layout } from "./components/Layout";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
+        <Layout>
+          <Routes>
             <Route path="/" element={<CapturePage />} />
             <Route path="/inbox" element={<InboxPage />} />
             <Route path="/tracker" element={<TrackerPage />} />
             <Route path="/character" element={<Character />} />
-        </Routes>
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </AuthProvider>
   )

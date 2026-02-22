@@ -1,19 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Terminal, Typography, CommandBar } from "@finnminn/ui";
+import { Button, Terminal, Typography } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useVoiceCapture } from "../hooks/useVoiceCapture";
 import { useCaptureManager } from "../hooks/useCaptureManager";
 import { Mascot } from "../components/Mascot";
-import { useNavigate } from "react-router-dom";
 
 export function CapturePage() {
-  const { isAuthenticated, login, logout, user } = useAuth();
+  const { isAuthenticated, login } = useAuth();
   const { isListening, transcript, start, stop, isSupported } = useVoiceCapture();
   const { saveCapture } = useCaptureManager();
   const [text, setText] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (transcript) {
@@ -44,11 +42,6 @@ export function CapturePage() {
       handleSave();
     }
   };
-
-  const navLinks = [
-    { label: "Vault", href: "/inbox" },
-    { label: "Home", href: "https://finnminn.com" }
-  ];
 
   if (!isAuthenticated) {
     return (
@@ -88,14 +81,6 @@ export function CapturePage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-magic-void relative overflow-hidden">
-      <CommandBar
-        logo="Pip.exe"
-        user={user ? { name: user.name || user.username || "User", email: user.username } : null}
-        links={navLinks}
-        onLinkClick={(href) => href.startsWith('http') ? window.location.href = href : navigate(href)}
-        onLogout={logout}
-      />
-
       <div className="w-full max-w-2xl mt-12 z-10 flex flex-col items-center gap-6 px-4">
         <Terminal title="QUICK_CAPTURE" className="w-full min-h-[250px] flex flex-col">
           <textarea

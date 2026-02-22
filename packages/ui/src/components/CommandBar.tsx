@@ -23,6 +23,8 @@ export interface CommandBarProps {
   links?: NavLink[];
   /** The current logged-in user. If null, shows "Login" button. */
   user?: UserProfile | null;
+  /** Optional URL to the app launcher. Defaults to "https://finnminn.com/apps". */
+  appLauncherUrl?: string;
   /** Callback for when a link is clicked. */
   onLinkClick?: (href: string) => void;
   /** Callback for login action. */
@@ -38,6 +40,7 @@ export const CommandBar = ({
   logo = "FINNMINN",
   links = [],
   user,
+  appLauncherUrl = "https://finnminn.com/apps",
   onLinkClick,
   onLogin,
   onLogout,
@@ -135,13 +138,19 @@ export const CommandBar = ({
                           <Typography.Body className="text-xs text-text-muted font-mono mb-0">{user.email}</Typography.Body>
                       </div>
                       <div className="p-2 bg-void/90 flex flex-col gap-1">
-                          <button 
+                          <button
                             onClick={() => { onProfileClick?.(); setIsProfileOpen(false); }}
                             className="w-full text-left px-4 py-2 font-header hover:bg-witchcraft hover:text-void text-text-body transition-colors"
                           >
                             [ PROFILE_DATA ]
                           </button>
-                          <button 
+                          <a
+                            href={appLauncherUrl}
+                            className="w-full text-left px-4 py-2 font-header hover:bg-ectoplasm hover:text-void text-text-body transition-colors"
+                          >
+                            [ APP_LAUNCHER ]
+                          </a>
+                          <button
                             onClick={() => { onLogout?.(); setIsProfileOpen(false); }}
                             className="w-full text-left px-4 py-2 font-header hover:bg-vampire hover:text-void text-text-body transition-colors"
                           >
@@ -161,7 +170,7 @@ export const CommandBar = ({
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
-            <button 
+            <button
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
                 className="text-text-body hover:text-ectoplasm p-2 border-2 border-transparent hover:border-overlay active:bg-overlay transition-all"
                 aria-label="Toggle navigation menu"
@@ -188,7 +197,7 @@ export const CommandBar = ({
                         </div>
                     </div>
                 )}
-                
+
                 <div className="flex flex-col gap-2">
                     {links.map((link) => (
                         <button
@@ -196,8 +205,8 @@ export const CommandBar = ({
                             onClick={() => handleLink(link.href)}
                             className={`
                                 text-left px-4 py-3 font-header text-lg border-l-4 transition-all
-                                ${link.active 
-                                    ? "bg-surface border-ectoplasm text-ectoplasm" 
+                                ${link.active
+                                    ? "bg-surface border-ectoplasm text-ectoplasm"
                                     : "border-transparent text-text-body hover:bg-surface hover:border-witchcraft hover:text-witchcraft"
                                 }
                             `}
@@ -213,6 +222,9 @@ export const CommandBar = ({
                      <div className="flex flex-col gap-2">
                         <Button variant="ghost" onClick={onProfileClick} className="w-full justify-start">
                             PROFILE SETTINGS
+                        </Button>
+                        <Button variant="ghost" onClick={() => window.location.href = appLauncherUrl} className="w-full justify-start">
+                            APP LAUNCHER
                         </Button>
                         <Button variant="destructive" onClick={onLogout} className="w-full justify-start">
                             LOGOUT

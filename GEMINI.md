@@ -44,6 +44,9 @@ This project contains the source code and configuration for the `finnminn.com` a
         - Primary: Witchcraft (#7D5FFF) / Radical (#FF0055)
         - Secondary: Ectoplasm (#05FFA1) / Toxic (#00FF41)
         - Base: Void (#0D0208)
+- **Navigation Standards:** 
+    - All apps MUST use the shared `CommandBar` component within a global `Layout` wrapper.
+    - The `CommandBar` must include a link back to the App Launcher (`finnminn.com/apps`) inside the user dropdown to ensure fluid suite-wide navigation.
 
 ## Development Guidelines
 - **Local Setup**: Follow the [Local Installation Guide](docs/guides/local/INSTALLATION.md) for environment setup, emulators, and SSL certificates.

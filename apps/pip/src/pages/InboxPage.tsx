@@ -1,11 +1,11 @@
-import { Terminal, Typography, Card, Button, CommandBar } from "@finnminn/ui";
+import { Terminal, Typography, Card, Button } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useCaptureManager } from "../hooks/useCaptureManager";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export function InboxPage() {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { captures, isSyncing, purgeCapture } = useCaptureManager();
   const navigate = useNavigate();
   const [voidingIds, setVoidingIds] = useState<string[]>([]);
@@ -24,21 +24,8 @@ export function InboxPage() {
     }, 300);
   };
 
-  const navLinks = [
-    { label: "Capture", href: "/" },
-    { label: "Home", href: "https://finnminn.com" }
-  ];
-
   return (
     <div className="min-h-screen flex flex-col items-center bg-magic-void relative overflow-hidden">
-      <CommandBar
-        logo="Pip.exe"
-        user={user ? { name: user.name || user.username || "User", email: user.username } : null}
-        links={navLinks}
-        onLinkClick={(href) => href.startsWith('http') ? window.location.href = href : navigate(href)}
-        onLogout={logout}
-      />
-
       <div className="w-full max-w-2xl mt-12 z-10 flex flex-col gap-8 px-4">
         <div className="flex justify-between items-baseline">
           <div className="flex gap-4 items-baseline">
