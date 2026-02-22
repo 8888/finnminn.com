@@ -53,16 +53,16 @@ export const Dashboard: React.FC = () => {
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <Typography.H1 className="text-toxic glow-ectoplasm">
+          <Typography.H1 variant="toxic">
             COLLECTION FROM THE VOID
           </Typography.H1>
-          <Typography.Body className="text-toxic/40">
+          <Typography.Body variant="muted" size="sm">
             {plants.length} specimens currently under observation.
           </Typography.Body>
         </div>
-        <Button 
+        <Button
           onClick={() => setIsModalOpen(true)}
-          variant="primary" 
+          variant="primary"
           className="border-toxic text-toxic hover:bg-toxic/10"
         >
           + RESURRECT NEW SPECIMEN
@@ -70,8 +70,8 @@ export const Dashboard: React.FC = () => {
       </div>
 
       {isModalOpen && (
-        <AddPlantModal 
-          onClose={() => setIsModalOpen(false)} 
+        <AddPlantModal
+          onClose={() => setIsModalOpen(false)}
           onSuccess={fetchPlants}
         />
       )}
@@ -84,10 +84,10 @@ export const Dashboard: React.FC = () => {
         </div>
       ) : plants.length === 0 ? (
         <Card className="p-12 border-dashed border-toxic/20 text-center space-y-4">
-          <Typography.H3 className="text-toxic/30">
+          <Typography.H3 variant="muted">
             THE VOID IS EMPTY
           </Typography.H3>
-          <Typography.Body className="text-toxic/20">
+          <Typography.Body variant="muted">
             No floral spirits have been bound yet.
           </Typography.Body>
           <Button variant="primary" className="opacity-50">
@@ -97,15 +97,15 @@ export const Dashboard: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {plants.map((plant) => (
-            <Card 
-              key={plant.id.toString()} 
+            <Card
+              key={plant.id.toString()}
               className="p-4 border-toxic/30 hover:border-toxic transition-colors group cursor-pointer"
               onClick={() => navigate(`/plant/${plant.id}`)}
             >
               <div className="aspect-video bg-void border border-toxic/10 mb-4 overflow-hidden relative group">
                 {plant.historicalReports[0]?.imageUrl ? (
-                  <img 
-                    src={plant.historicalReports[0].imageUrl} 
+                  <img
+                    src={plant.historicalReports[0].imageUrl}
                     alt={plant.alias}
                     className="w-full h-full object-cover transition-all"
                   />
@@ -115,10 +115,10 @@ export const Dashboard: React.FC = () => {
                   </div>
                 )}
               </div>
-              <Typography.H3 className="text-toxic truncate">
+              <Typography.H3 variant="toxic" className="truncate">
                 {plant.alias.toUpperCase()}
               </Typography.H3>
-              <Typography.Body className="text-witchcraft text-xs italic mb-4">
+              <Typography.Body variant="witchcraft" size="xs" className="italic mb-4">
                 {plant.species}
               </Typography.Body>
               <div className="flex justify-between items-center text-[10px] text-toxic/40 font-mono mb-4">

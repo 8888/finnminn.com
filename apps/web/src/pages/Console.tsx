@@ -36,9 +36,9 @@ export const Console = () => {
   const navigation = {
     user: user ? { name: user.name || user.username, email: user.username } : null,
     links: [
-        { label: "Home", href: "/" },
-        { label: "Apps", href: "/apps" },
-        { label: "Console", href: "/console", active: true },
+      { label: "Home", href: "/" },
+      { label: "Apps", href: "/apps" },
+      { label: "Console", href: "/console", active: true },
     ],
     onLinkClick: (href: string) => navigate(href),
     onLogin: login,
@@ -47,11 +47,11 @@ export const Console = () => {
 
   return (
     <div className="min-h-screen w-full bg-void flex flex-col relative overflow-hidden">
-        {/* Background Atmosphere */}
-        <Atmosphere />
-        <div className="fixed inset-0 pointer-events-none">
-             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(125,95,255,0.05),_transparent_80%)]" />
-        </div>
+      {/* Background Atmosphere */}
+      <Atmosphere />
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(125,95,255,0.05),_transparent_80%)]" />
+      </div>
 
       {/* Navigation Layer */}
       <div className="z-50 relative">
@@ -61,28 +61,28 @@ export const Console = () => {
       {/* Main Content Area */}
       <main className="flex-grow z-10 px-4 py-8 md:py-16 overflow-y-auto">
         <div className="max-w-4xl mx-auto flex flex-col gap-8">
-            
-            {/* Header Section */}
-            <div className="text-center space-y-4 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col items-center">
-                <Typography.H1 className="text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-white to-text-muted drop-shadow-[0_0_10px_rgba(125,95,255,0.5)] mb-0">
-                    CRYPTID_CONSOLE
-                </Typography.H1>
-                <div className="text-ectoplasm font-mono text-xs md:text-sm">
-                    ROOT_ACCESS_GRANTED
-                </div>
-            </div>
 
-            {/* Tools Grid */}
-            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
-                <TokenSyphon token={token} onRefresh={fetchToken} />
-            </div>
+          {/* Header Section */}
+          <div className="text-center space-y-4 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col items-center">
+            <Typography.H1 className="text-4xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-white to-text-muted drop-shadow-[0_0_10px_rgba(125,95,255,0.5)] mb-0">
+              CRYPTID_CONSOLE
+            </Typography.H1>
+            <Typography.Body variant="ectoplasm" size="sm" className="font-mono">
+              ROOT_ACCESS_GRANTED
+            </Typography.Body>
+          </div>
 
-            {/* Footer / Copyright */}
-            <div className="mt-16 text-center opacity-40 hover:opacity-100 transition-opacity">
-                 <Typography.Code className="text-xs text-text-muted">
-                    SYSTEM INTEGRITY: STABLE
-                 </Typography.Code>
-            </div>
+          {/* Tools Grid */}
+          <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+            <TokenSyphon token={token} onRefresh={fetchToken} />
+          </div>
+
+          {/* Footer / Copyright */}
+          <div className="mt-16 text-center opacity-40 hover:opacity-100 transition-opacity">
+            <Typography.Code variant="muted" size="xs">
+              SYSTEM INTEGRITY: STABLE
+            </Typography.Code>
+          </div>
         </div>
       </main>
     </div>

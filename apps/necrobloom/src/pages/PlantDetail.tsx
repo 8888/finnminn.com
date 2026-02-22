@@ -71,7 +71,7 @@ export const PlantDetail: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <Typography.Body className="animate-pulse text-toxic">
+        <Typography.Body variant="toxic" className="animate-pulse">
           COMMUNING WITH THE PLANT SPIRIT...
         </Typography.Body>
       </div>
@@ -87,9 +87,9 @@ export const PlantDetail: React.FC = () => {
         <Typography.Body className="text-toxic/70">
           The plant with ID {id} could not be located in this realm.
         </Typography.Body>
-        <Button 
+        <Button
           onClick={() => navigate('/')}
-          variant="primary" 
+          variant="primary"
           className="border-toxic text-toxic hover:bg-toxic/10"
         >
           RETURN TO COLLECTION
@@ -113,23 +113,23 @@ export const PlantDetail: React.FC = () => {
 
       <div className="flex flex-col md:flex-row justify-between items-start gap-4">
         <div className="w-full md:w-auto">
-          <Button 
+          <Button
             onClick={() => navigate('/')}
-            variant="primary" 
+            variant="primary"
             className="mb-4 text-[10px] py-1 px-3 border-toxic/20 text-toxic/60"
           >
             ← RETURN TO COLLECTION
           </Button>
-          <Typography.H1 className="text-toxic break-words">
+          <Typography.H1 variant="toxic" className="break-words">
             {plant.alias.toUpperCase()}
           </Typography.H1>
-          <Typography.H3 className="text-witchcraft italic">
+          <Typography.H3 variant="witchcraft" className="italic">
             {plant.species}
           </Typography.H3>
         </div>
-        <Button 
+        <Button
           onClick={() => setIsHealthModalOpen(true)}
-          variant="secondary" 
+          variant="secondary"
           className="text-xs py-2 px-6 w-full md:w-auto"
         >
           [ CHECK VITALITY ]
@@ -142,8 +142,8 @@ export const PlantDetail: React.FC = () => {
           <Card className="overflow-hidden border-toxic/30">
             <div className="aspect-video bg-void relative">
               {plant.historicalReports[0]?.imageUrl ? (
-                <img 
-                  src={plant.historicalReports[0].imageUrl} 
+                <img
+                  src={plant.historicalReports[0].imageUrl}
                   alt={plant.alias}
                   className="w-full h-full object-cover"
                 />
@@ -156,48 +156,48 @@ export const PlantDetail: React.FC = () => {
           </Card>
 
           <Card className="p-6 border-toxic/20 bg-toxic/5">
-            <Typography.H3 className="text-toxic mb-4 border-b border-toxic/10 pb-2">
+            <Typography.H3 variant="toxic" className="mb-4 border-b border-toxic/10 pb-2">
               CARE RITUALS
             </Typography.H3>
             {plant.carePlan ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Typography.Body className="text-toxic/40 text-[10px] uppercase font-mono">Watering Frequency</Typography.Body>
-                  <Typography.Body className="text-toxic">{plant.carePlan.waterFrequency}</Typography.Body>
+                  <Typography.Body variant="muted" size="xs" className="uppercase font-mono">Watering Frequency</Typography.Body>
+                  <Typography.Body variant="toxic">{plant.carePlan.waterFrequency}</Typography.Body>
                 </div>
                 <div>
-                  <Typography.Body className="text-toxic/40 text-[10px] uppercase font-mono">Light Requirements</Typography.Body>
-                  <Typography.Body className="text-toxic">{plant.carePlan.lightNeeds}</Typography.Body>
+                  <Typography.Body variant="muted" size="xs" className="uppercase font-mono">Light Requirements</Typography.Body>
+                  <Typography.Body variant="toxic">{plant.carePlan.lightNeeds}</Typography.Body>
                 </div>
                 <div>
-                  <Typography.Body className="text-toxic/40 text-[10px] uppercase font-mono">Toxicity Level</Typography.Body>
-                  <Typography.Body className="text-radical">{plant.carePlan.toxicity}</Typography.Body>
+                  <Typography.Body variant="muted" size="xs" className="uppercase font-mono">Toxicity Level</Typography.Body>
+                  <Typography.Body variant="vampire">{plant.carePlan.toxicity}</Typography.Body>
                 </div>
                 <div>
-                  <Typography.Body className="text-toxic/40 text-[10px] uppercase font-mono">Notes from the Oracle</Typography.Body>
-                  <Typography.Body className="text-toxic/80 italic text-sm">{plant.carePlan.additionalNotes}</Typography.Body>
+                  <Typography.Body variant="muted" size="xs" className="uppercase font-mono">Notes from the Oracle</Typography.Body>
+                  <Typography.Body variant="toxic" size="sm" className="italic">{plant.carePlan.additionalNotes}</Typography.Body>
                 </div>
               </div>
             ) : (
-              <Typography.Body className="text-toxic/30 italic">No care rituals have been transcribed yet.</Typography.Body>
+              <Typography.Body variant="muted" className="italic">No care rituals have been transcribed yet.</Typography.Body>
             )}
           </Card>
         </div>
 
         {/* History / Reports */}
         <div className="space-y-6">
-          <Typography.H3 className="text-toxic border-b border-toxic/10 pb-2">
+          <Typography.H3 variant="toxic" className="border-b border-toxic/10 pb-2">
             CHRONICLES
           </Typography.H3>
           <div className="space-y-4">
             {plant.historicalReports.map((report, idx) => (
               <Card key={idx} className="p-4 border-toxic/10 bg-void hover:border-toxic/30 transition-colors">
                 <div className="flex justify-between items-start mb-2">
-                  <Typography.Body className="text-witchcraft text-[10px] font-mono">
+                  <Typography.Body variant="witchcraft" size="xs" className="font-mono">
                     {new Date(report.date).toLocaleDateString()}
                   </Typography.Body>
                 </div>
-                <Typography.Body className="text-toxic/80 text-xs leading-relaxed">
+                <Typography.Body variant="toxic" size="sm" className="leading-relaxed opacity-80">
                   {report.healthStatus}
                 </Typography.Body>
               </Card>
@@ -207,9 +207,9 @@ export const PlantDetail: React.FC = () => {
       </div>
 
       <div className="flex justify-center pt-12 border-t border-toxic/10">
-        <Button 
+        <Button
           onClick={handleDelete}
-          variant="destructive" 
+          variant="destructive"
           className="text-[10px] py-1 px-4"
         >
           [ BANISH SPECIMEN ]

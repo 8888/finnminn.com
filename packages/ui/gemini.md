@@ -15,8 +15,10 @@ Before writing React code, update **`styleguide.toml`**.
 ### 2. Implement with "PixelGrim" Values
 - **Borders:** Always `border-2`. No 1px hairlines.
 - **Radius:** Always `rounded-none`. Sharp edges only.
-- **Shadows:** Use `shadow-pixel` (hard edge).
-- **Typography:** `font-header` (VT323) for titles, `font-body` (Space Mono) for data.
+- **Shadows:** Use `shadow-pixel` (hard edge) or `glow-[color]`.
+- **Typography:** **MANDATORY** Use `<Typography />` sub-components (H1, H2, H3, Body, Code).
+  - Use `variant="witchcraft" | "vampire" | "ectoplasm" | "toxic" | "pip"`.
+  - Maintain minimum `12px` font size for retro fonts (use `size="xs"` prop).
 - **Animation:** Diegetic only (glitches, scanlines, floating motes). No smooth "Apple-like" fades.
 
 ### 3. Storybook Hierarchy Mandate
@@ -57,9 +59,10 @@ Ensure the component is exported in **`src/index.tsx`**.
 - [ ] Checked for Accessibility (ARIA labels, keyboard nav)
 
 ## 🎨 Common Patterns
-- **Colors:**
-  - Primary: `text-witchcraft` / `bg-witchcraft`
-  - Secondary: `text-ectoplasm` / `bg-ectoplasm`
-  - Danger: `text-vampire` / `bg-vampire`
-  - Background: `bg-void` / `bg-surface`
+- **Colors (WCAG AA Compliant):**
+  - Primary: `text-witchcraft` (#A890FF)
+  - Secondary: `text-ectoplasm` (#05FFA1)
+  - Danger/Radical: `text-vampire` (#FF5A8D)
+  - Growth: `text-toxic` (#00FF41)
+  - Background: `bg-void` (#120B18) / `bg-surface` (#221528)
 - **Glitch Effect:** Use `glitch-hover` class on text or the `Image` component's artifact variant.

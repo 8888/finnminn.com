@@ -109,12 +109,12 @@ export function CapturePage() {
 
           {isSuccess && (
             <div className="absolute inset-0 flex items-center justify-center bg-magic-void/80 pointer-events-none z-20">
-              <Typography.H2 className="animate-pulse text-vampire italic">THOUGHT_SECURED</Typography.H2>
+              <Typography.H2 variant="vampire" className="animate-pulse italic">THOUGHT_SECURED</Typography.H2>
             </div>
           )}
 
           <div className="flex justify-between items-center p-4 border-t border-text-muted/10 bg-surface/30">
-            <Typography.Body className="text-[10px] opacity-40 font-body uppercase tracking-tighter">
+            <Typography.Body variant="muted" size="xs" className="uppercase tracking-tighter">
               [ENTER] TO SAVE | [SHIFT+ENTER] FOR NEW LINE
             </Typography.Body>
             <Button

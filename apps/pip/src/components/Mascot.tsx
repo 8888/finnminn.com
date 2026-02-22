@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Button, Terminal, Typography } from "@finnminn/ui";
 
 const CONFIG = {
     FRAMES_DIR: '/mascot/frames/',
@@ -71,8 +72,12 @@ export function Mascot() {
     if (frames.length === 0) return null;
 
     return (
-        <pre className="text-pip glow-pip animate-spectral text-center text-[8px] sm:text-[10px] md:text-xs leading-none whitespace-pre overflow-hidden">
+        <Typography.Body
+            variant="pip"
+            size="xs"
+            className="animate-spectral text-center leading-none whitespace-pre overflow-hidden mb-0"
+        >
             {frames[currentFrameIndex]}
-        </pre>
+        </Typography.Body>
     );
 }

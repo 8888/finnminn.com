@@ -6,14 +6,15 @@ module.exports = {
         void: "#120B18",      // Deep Grape Charcoal
         surface: "#221528",   // Lighter potion purple
         overlay: "#2D1B36",
-        vampire: "#FF2A6D",   // Radical Raspberry
-        ectoplasm: "#05FFA1", // Spectral Mint
-        witchcraft: "#7D5FFF", // Electric Indigo
+        vampire: "#FF5A8D",   // Lightened for contrast (from #FF2A6D)
+        ectoplasm: "#05FFA1", // Spectral Mint (already high contrast)
+        toxic: "#00FF41",     // Necrobloom Green
+        witchcraft: "#A890FF", // Lightened for contrast (from #7D5FFF)
         gold: "#FFB800",       // Cursed Gold
         pip: "#58a6ff",        // Mascot Blue
         "text-heading": "#ffffff",
         "text-body": "#E0DCE6",
-        "text-muted": "#9586A5",
+        "text-muted": "#AEA2BA", // Lightened for contrast (from #9586A5)
       },
       fontFamily: {
         header: ["'VT323'", "'Press Start 2P'", "monospace"], // Switched from cursive to monospace

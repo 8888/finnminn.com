@@ -41,15 +41,18 @@ This project contains the source code and configuration for the `finnminn.com` a
     - **Background:** Grape Charcoal `void` (#120B18) with animated gradients and noise texture.
     - **Typography:** Headers (`VT323` / `Press Start 2P`), Body (`Space Mono`).
     - **Palette:**
-        - Primary: Witchcraft (#7D5FFF) / Radical (#FF0055)
+        - Primary: Witchcraft (#A890FF) / Radical (#FF5A8D)
         - Secondary: Ectoplasm (#05FFA1) / Toxic (#00FF41)
-        - Base: Void (#0D0208)
+        - Base: Void (#120B18)
 
 ## Development Guidelines
 - **Local Setup**: Follow the [Local Installation Guide](docs/guides/local/INSTALLATION.md) for environment setup, emulators, and SSL certificates.
 - **Agent Workflow**: For AI agents working on this repo, refer to the [Agent Local Development Workflow](docs/guides/local/AGENT_WORKFLOW.md).
 - **Authentication**: **MANDATORY:** For any changes involving authentication or authenticated APIs, you MUST consult [docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md](docs/guides/AUTH_DEBUGGING_AND_IMPLEMENTATION.md).
-- **UI Development:** Components are located in `packages/ui/src/components`. **MANDATORY:** Follow the instructions in `packages/ui/gemini.md` for any changes to shared components, including Storybook updates, hierarchy standards, and **required verification steps**.
+- **UI Development:** Components are located in `packages/ui/src/components`. **MANDATORY:**
+    - Follow the instructions in `packages/ui/gemini.md` for any changes to shared components.
+    - Use `<Typography />` components for all text to ensure WCAG AA (4.5:1) contrast compliance.
+    - Maintain a minimum font size of `12px` for retro fonts (`VT323`, `Press Start 2P`).
 - **Authentication Prompt:** When running the application locally, if the agent detects it is not authenticated (e.g., seeing a login page or "NO_ACTIVE_ACCOUNT" errors), it **MUST** stop and ask the USER to sign in manually before proceeding with any UI or integration tasks.
 - **New Apps:** Follow the guide in `docs/guides/MIGRATION_AND_SETUP.md`.
 
