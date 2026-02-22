@@ -102,7 +102,8 @@ code = "text-sm leading-tight"
 
 [theme.typography.rules]
 uppercase_headers = false
-text_shadow_glow = "0 0 5px {color}, 0 0 10px {color}" # applied to headers
+text_shadow_glow = "0 0 4px {color}, 0 0 8px rgba({color}, 0.5)" # applied to headers
+small_text_glow = false # Glow effects must not be applied to text sized xs or sm.
 min_font_size = "12px" # Enforced for VT323 and Space Mono legibility
 semantic_usage = "Use Typography.tsx components exclusively. Do not use ad-hoc tailwind sizing for text."
 

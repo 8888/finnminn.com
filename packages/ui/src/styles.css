@@ -66,23 +66,23 @@
   }
 
   .glow-vampire {
-    text-shadow: 0 0 5px #FF2A6D, 0 0 10px #FF2A6D;
+    text-shadow: 0 0 4px #FF2A6D, 0 0 8px rgba(255, 42, 109, 0.5);
   }
 
   .glow-ectoplasm {
-    text-shadow: 0 0 5px #05FFA1, 0 0 10px #05FFA1;
+    text-shadow: 0 0 4px #05FFA1, 0 0 8px rgba(5, 255, 161, 0.5);
   }
 
   .glow-witchcraft {
-    text-shadow: 0 0 5px #7D5FFF, 0 0 10px #7D5FFF;
+    text-shadow: 0 0 4px #7D5FFF, 0 0 8px rgba(125, 95, 255, 0.5);
   }
 
   .glow-pip {
-    text-shadow: 0 0 5px #58a6ff, 0 0 10px #58a6ff, 0 0 20px rgba(88, 166, 255, 0.4);
+    text-shadow: 0 0 4px #58a6ff, 0 0 8px rgba(88, 166, 255, 0.5);
   }
 
   .animate-spectral {
-    animation: 
+    animation:
       spectral-float 6s ease-in-out infinite,
       spectral-pulse 4s ease-in-out infinite,
       spectral-flicker 0.1s infinite alternate;
