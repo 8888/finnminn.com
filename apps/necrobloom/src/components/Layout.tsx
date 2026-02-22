@@ -24,13 +24,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-void text-toxic font-mono relative overflow-hidden">
       <Atmosphere />
-      
-      <CommandBar 
+
+      <CommandBar
         logo="NECROBLOOM"
         user={userProfile}
         onLogout={logout}
         onLogin={login}
         links={links}
+        onProfileClick={() => window.location.href = (import.meta as any).env.DEV ? "http://localhost:5173/profile" : "https://finnminn.com/profile"}
         onLinkClick={(href) => navigate(href)}
       />
 
