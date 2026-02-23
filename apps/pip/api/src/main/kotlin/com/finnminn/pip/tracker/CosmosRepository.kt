@@ -136,25 +136,25 @@ class CosmosRepository {
         }
     }
 
-    fun deleteItem(id: String, userId: String): Boolean {
+    fun deleteItem(id: String, userId: String, itemType: String = "Item"): Boolean {
         return try {
             container.deleteItem(id, PartitionKey(userId), null)
             true
         } catch (e: CosmosException) {
             if (e.statusCode == 404) {
-                logger.warning("Item $id not found for user $userId")
+                logger.warning("$itemType $id not found for user $userId")
                 true // Idempotent success
             } else {
-                logger.severe("Cosmos error deleting item $id: ${e.message}")
+                logger.severe("Cosmos error deleting $itemType $id: ${e.message}")
                 false
             }
         } catch (e: Exception) {
-            logger.severe("Unexpected error deleting item $id: ${e.message}")
+            logger.severe("Unexpected error deleting $itemType $id: ${e.message}")
             false
         }
     }
 
     fun deleteCapture(id: String, userId: String): Boolean {
-        return deleteItem(id, userId)
+        return deleteItem(id, userId, "Capture")
     }
 }

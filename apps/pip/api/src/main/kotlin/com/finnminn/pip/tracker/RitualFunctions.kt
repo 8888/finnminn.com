@@ -91,7 +91,7 @@ class RitualFunctions {
         val userId = SecurityUtils.getUserId(request.headers)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).build()
 
-        return if (repository.deleteItem(id, userId)) {
+        return if (repository.deleteItem(id, userId, "Ritual")) {
             request.createResponseBuilder(HttpStatus.NO_CONTENT).build()
         } else {
             request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).build()
