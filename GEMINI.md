@@ -76,6 +76,7 @@ Automated via GitHub Actions with decoupled workflows.
   - `.github/workflows/deploy-necrobloom-backend.yml`
 - **Triggers:** Changes to `apps/pip/api/**` or `apps/necrobloom/api/**`.
 - **Logic:** Builds the Kotlin project using Gradle and deploys to the respective Function App (`pip-tracker`, `necrobloom-api`).
+- **Troubleshooting:** For issues related to Gradle build timeouts or wrapper validation failures, refer to [Gradle Build Issues Guide](docs/guides/GRADLE_BUILD_ISSUES.md).
 
 ## Azure Infrastructure Quick Reference
 - **Subscription ID:** `892ba278-02fb-4119-90b3-83778aacc71f` (Finnminn Production)
