@@ -59,8 +59,8 @@ class CosmosRepository {
         }
     }
 
-    fun save(item: CaptureItem): CaptureItem {
-        val response: CosmosItemResponse<CaptureItem> = container.upsertItem(item)
+    fun <T> save(item: T): T {
+        val response: CosmosItemResponse<T> = container.upsertItem(item)
         return response.item ?: item
     }
 
@@ -70,21 +70,51 @@ class CosmosRepository {
         return container.queryItems(querySpec, null, CaptureItem::class.java).toList()
     }
 
-    fun deleteCapture(id: String, userId: String): Boolean {
+    fun findAllRitualsByUserId(userId: String): List<Ritual> {
+        val query = "SELECT * FROM c WHERE c.userId = @userId AND c.type = 'ritual' ORDER BY c.timestamp DESC"
+        val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
+        return container.queryItems(querySpec, null, Ritual::class.java).toList()
+    }
+
+    fun findAllHabitLogsByUserIdAndDateRange(userId: String, startDate: String, endDate: String): List<HabitLog> {
+        val query = "SELECT * FROM c WHERE c.userId = @userId AND c.type = 'habitLog' AND c.date >= @startDate AND c.date <= @endDate"
+        val querySpec = SqlQuerySpec(query, 
+            SqlParameter("@userId", userId),
+            SqlParameter("@startDate", startDate),
+            SqlParameter("@endDate", endDate)
+        )
+        return container.queryItems(querySpec, null, HabitLog::class.java).toList()
+    }
+
+    fun findHabitLogByRitualIdAndDate(userId: String, ritualId: String, date: String): HabitLog? {
+        val query = "SELECT * FROM c WHERE c.userId = @userId AND c.type = 'habitLog' AND c.ritualId = @ritualId AND c.date = @date"
+        val querySpec = SqlQuerySpec(query, 
+            SqlParameter("@userId", userId),
+            SqlParameter("@ritualId", ritualId),
+            SqlParameter("@date", date)
+        )
+        return container.queryItems(querySpec, null, HabitLog::class.java).firstOrNull()
+    }
+
+    fun deleteItem(id: String, userId: String): Boolean {
         return try {
             container.deleteItem(id, PartitionKey(userId), null)
             true
         } catch (e: CosmosException) {
             if (e.statusCode == 404) {
-                logger.warning("Capture $id not found for user $userId")
+                logger.warning("Item $id not found for user $userId")
                 true // Idempotent success
             } else {
-                logger.severe("Cosmos error deleting capture $id: ${e.message}")
+                logger.severe("Cosmos error deleting item $id: ${e.message}")
                 false
             }
         } catch (e: Exception) {
-            logger.severe("Unexpected error deleting capture $id: ${e.message}")
+            logger.severe("Unexpected error deleting item $id: ${e.message}")
             false
         }
+    }
+
+    fun deleteCapture(id: String, userId: String): Boolean {
+        return deleteItem(id, userId)
     }
 }
