@@ -112,7 +112,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
             <Button 
               variant="destructive" 
               onClick={onClose} 
-              className="text-[10px] py-1 px-3"
+              className="text-xs py-1 px-3"
             >
               [ ESCAPE ]
             </Button>
@@ -121,7 +121,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
           <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Nickname</label>
+              <label className="text-xs text-toxic/40 uppercase tracking-widest">Nickname</label>
               <input 
                 required
                 className="w-full bg-void border border-toxic/20 p-2 text-toxic focus:border-toxic outline-none font-mono"
@@ -131,7 +131,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Species (OPTIONAL) {identifying && <span className="animate-pulse text-radical">[ SCANNING... ]</span>}</label>
+              <label className="text-xs text-toxic/40 uppercase tracking-widest">Species (OPTIONAL) {identifying && <span className="animate-pulse text-vampire">[ SCANNING... ]</span>}</label>
               <input 
                 className="w-full bg-void border border-toxic/20 p-2 text-toxic focus:border-toxic outline-none font-mono"
                 placeholder="E.g. Pteris"
@@ -143,7 +143,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Climate (Zip Code)</label>
+              <label className="text-xs text-toxic/40 uppercase tracking-widest">Climate (Zip Code)</label>
               <input 
                 required
                 className="w-full bg-void border border-toxic/20 p-2 text-toxic focus:border-toxic outline-none font-mono"
@@ -153,7 +153,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Lighting Environment</label>
+              <label className="text-xs text-toxic/40 uppercase tracking-widest">Lighting Environment</label>
               <select 
                 className="w-full bg-void border border-toxic/20 p-2 text-toxic focus:border-toxic outline-none font-mono"
                 value={formData.lighting}
@@ -167,20 +167,20 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Visual Incarnation (Photo)</label>
+            <label className="text-xs text-toxic/40 uppercase tracking-widest">Visual Incarnation (Photo)</label>
             <div className="border border-dashed border-toxic/30 aspect-video relative overflow-hidden bg-toxic/5 flex items-center justify-center">
               {formData.image ? (
                 <>
                   <img src={formData.image} alt="Preview" className="w-full h-full object-cover grayscale" />
                   {identifying && (
                     <div className="absolute inset-0 bg-void/50 flex items-center justify-center backdrop-blur-sm">
-                      <Typography.Body className="text-radical animate-pulse">CONSULTING ORACLE...</Typography.Body>
+                      <Typography.Body className="text-vampire animate-pulse">CONSULTING ORACLE...</Typography.Body>
                     </div>
                   )}
                   {!identifying && (
                     <button 
                       onClick={handleIdentifyClick}
-                      className="absolute bottom-2 right-2 bg-void/80 border border-toxic text-toxic px-2 py-1 text-[10px] uppercase hover:bg-toxic hover:text-void transition-colors"
+                      className="absolute bottom-2 right-2 bg-void/80 border border-toxic text-toxic px-2 py-1 text-xs uppercase hover:bg-toxic hover:text-void transition-colors"
                     >
                       [ IDENTIFY ]
                     </button>
@@ -202,7 +202,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
             </div>
             {oracleWhisper && (
               <div className="p-2 border border-toxic/20 bg-toxic/5 text-xs text-toxic font-mono">
-                <span className="text-radical">[ ORACLE ]</span> {oracleWhisper}
+                <span className="text-vampire">[ ORACLE ]</span> {oracleWhisper}
               </div>
             )}
           </div>

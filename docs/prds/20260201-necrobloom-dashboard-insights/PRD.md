@@ -16,7 +16,7 @@ Necrobloom currently offers individual plant tracking but lacks a high-level ove
 ## 4. User Journeys
 1. **The Morning Audit:** User opens the app; the header reveals "12 specimens bound, 80% Harmony, 4 require hydration."
 2. **The Sunday Ritual:** User expands the "Weekly Cycle" cohort to see all plants requiring weekly care and performs a batch watering session.
-3. **Emergency Triage:** User spots a "Radical Red" segment on the health meter and clicks it to instantly filter for only "In Peril" specimens.
+3. **Emergency Triage:** User spots a "Vampire Red" segment on the health meter and clicks it to instantly filter for only "In Peril" specimens.
 
 ## 5. Functional Requirements
 ### 5.1 Vessel Metadata Header
@@ -28,7 +28,7 @@ Necrobloom currently offers individual plant tracking but lacks a high-level ove
 - A segmented "Vitality Bar" representing the breakdown of the collection:
     - **Thriving (Ectoplasm/#05FFA1):** Plants with positive health diagnoses.
     - **Stable (Witchcraft/#7D5FFF):** Plants with neutral or "Unknown" status.
-    - **In Peril (Radical/#FF0055):** Plants identified as "dying," "thirsty," or "troubled."
+    - **In Peril (Vampire/#FF0055):** Plants identified as "dying," "thirsty," or "troubled."
 
 ### 5.3 Watering Cohorts (Grouping)
 - **Aggregation Logic:** Group plants by `carePlan.waterFrequency` string values.

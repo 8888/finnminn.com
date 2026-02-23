@@ -9,7 +9,7 @@ Pip Capture Mode is a "Quick Capture" interface designed for maximum speed and m
 - **Atmosphere:** Fireflies/Mana Motes animated background.
 - **Capture Interface:**
     - Large centered `textarea` with a subtle pulse when focused.
-    - Large floating microphone button (Radical Pink/Witchcraft).
+    - Large floating microphone button (Vampire Pink/Witchcraft).
     - Success feedback: Glitch animation on text submission.
 
 ## 3. Technical Architecture

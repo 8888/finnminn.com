@@ -1,91 +1,170 @@
-import { Button, Terminal, Typography, Card } from "@finnminn/ui";
+import { useState, useMemo } from 'react';
+import { Typography, Atmosphere, Button } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { Mascot } from "../components/Mascot";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
-const FIREFLIES = Array.from({ length: 12 }, (_, i) => i);
-
-const Atmosphere = () => {
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-       {FIREFLIES.map((i) => (
-         <div key={i} className="firefly" />
-       ))}
-    </div>
-  );
-};
+import { useRitualManager, Ritual } from "../hooks/useRitualManager";
+import { useHabitLogManager } from "../hooks/useHabitLogManager";
+import { useVitality } from "../hooks/useVitality";
+import { VitalityBar } from "../components/habits/VitalityBar";
+import { RitualList } from "../components/habits/RitualList";
+import { RitualModal } from "../components/habits/RitualModal";
+import { OracleTrends } from "../components/habits/OracleTrends";
 
 export function TrackerPage() {
-  const { user, login, logout, isAuthenticated, getIdToken } = useAuth();
-  const navigate = useNavigate();
-  const [apiResult, setApiResult] = useState<string>("Awaiting input");
-  const API_BASE = import.meta.env.VITE_API_URL || '';
+  const { isAuthenticated, login } = useAuth();
+  
+  // Date state for tracking
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  
+  // Rituals and logs management
+  const { rituals, saveRitual, deleteRitual } = useRitualManager();
+  
+  // Fetch logs for the last 90 days to support all trend views
+  const dateRange = useMemo(() => {
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - 90);
+    return {
+        start: start.toISOString().split('T')[0],
+        end: end.toISOString().split('T')[0]
+    };
+  }, []);
 
-  const callApi = async () => {
-    try {
-        const token = await getIdToken();
-        setApiResult("Calling API...");
-        const res = await fetch(`${API_BASE}/api/hello`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-        const text = await res.text();
-        setApiResult(`API Response: ${text}`);
-    } catch (e: unknown) {
-        setApiResult(`Error: ${e instanceof Error ? e.message : String(e)}`);
+  const { logs, toggleLog } = useHabitLogManager(dateRange.start, dateRange.end);
+  const { vitality, streak } = useVitality(rituals, logs);
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingRitual, setEditingRitual] = useState<Ritual | undefined>();
+
+  // Analytics state
+  const [trendRange, setTrendRange] = useState<7 | 30 | 90>(7);
+
+  const handlePrevDate = () => {
+    const d = new Date(selectedDate);
+    d.setDate(d.getDate() - 1);
+    setSelectedDate(d.toISOString().split('T')[0]);
+  };
+
+  const handleNextDate = () => {
+    const d = new Date(selectedDate);
+    d.setDate(d.getDate() + 1);
+    const today = new Date().toISOString().split('T')[0];
+    if (d.toISOString().split('T')[0] <= today) {
+        setSelectedDate(d.toISOString().split('T')[0]);
     }
   };
 
+  const mascotDialog = useMemo(() => {
+    if (vitality > 80) return "Your spirit burns bright. The vessel is stable.";
+    if (vitality > 50) return "Your essence is flickering, but holding strong.";
+    if (vitality > 20) return "The void is encroaching. You must fuel your spirit.";
+    return "Your spirit is fading... Return to the light rituals.";
+  }, [vitality]);
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-magic-void p-4">
+        <Mascot />
+        <Typography.H1 className="mt-8">Pip</Typography.H1>
+        <div className="mt-8 w-full max-w-md text-center p-8 border-2 border-overlay bg-surface shadow-pixel">
+          <Typography.Body className="mb-6">Initialize Connection to Track Rituals</Typography.Body>
+          <Button onClick={() => login()} variant="primary" className="w-full">
+            Login
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-8 p-4 bg-magic-void relative overflow-hidden">
+    <div className="w-full max-w-5xl mx-auto py-12 px-4 flex flex-col gap-12 animate-fade-in relative z-10">
       <Atmosphere />
       
-      <div className="z-10 flex flex-col items-center gap-8 w-full max-w-md">
-        <Mascot />
-        
-        <Typography.H1>Pip</Typography.H1>
-        
-        <Card className="w-full" variant={isAuthenticated ? "magic" : "default"}>
-          {isAuthenticated ? (
-            <div className="flex flex-col gap-6">
-              <Typography.Body className="text-center">
-                Welcome, <span className="text-witchcraft">{user?.name}</span>
+      {/* Header & Vitality Section */}
+      <div className="flex flex-col md:flex-row gap-8 items-center">
+        <div className="flex flex-col items-center gap-4 min-w-[200px]">
+           <Mascot />
+           <div className="bg-surface/30 border border-overlay p-4 text-center max-w-[200px] relative">
+              <Typography.Body size="xs" className="italic text-witchcraft italic-glow">
+                "{mascotDialog}"
               </Typography.Body>
-              
-              <div className="grid grid-cols-1 gap-3">
-                  <Button onClick={() => navigate("/")} variant="secondary" className="w-full">
-                    Quick Capture
-                  </Button>
-                  <Button onClick={() => navigate("/character")} variant="primary" className="w-full">
-                    Character Profile
-                  </Button>
-                  <Button onClick={callApi} variant="secondary" className="w-full">
-                    Test Spectral Link
-                  </Button>
-                  <Button onClick={() => logout()} variant="destructive" className="w-full">
-                    Sever Connection
-                  </Button>
-              </div>
-
-              <Terminal title="API Console" className="mt-4">
-                <Typography.Body className="text-xs break-all">
-                  &gt; {apiResult}
-                </Typography.Body>
-                <p className="animate-pulse text-xs">_</p>
-              </Terminal>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-6 text-center">
-               <Typography.Body>Authentication Required</Typography.Body>
-               <Button onClick={() => login()} variant="primary" className="w-full">
-                  Initialize Login
-               </Button>
-            </div>
-          )}
-        </Card>
+              <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-surface border-t border-l border-overlay rotate-45" />
+           </div>
+        </div>
+        
+        <div className="flex-grow flex flex-col gap-6 w-full">
+           <Typography.H1 variant="vampire" className="text-4xl tracking-widest mb-2">
+             VESSEL STATUS
+           </Typography.H1>
+           <VitalityBar vitality={vitality} streak={streak} />
+        </div>
       </div>
+
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+         {/* Ritual List (8 cols) */}
+         <div className="lg:col-span-7 flex flex-col gap-8">
+            <RitualList 
+              rituals={rituals}
+              logs={logs}
+              date={selectedDate}
+              onToggle={(id) => toggleLog(id, selectedDate)}
+              onAdd={() => {
+                setEditingRitual(undefined);
+                setIsModalOpen(true);
+              }}
+              onEdit={(ritual) => {
+                setEditingRitual(ritual);
+                setIsModalOpen(true);
+              }}
+              onDelete={deleteRitual}
+              onPrevDate={handlePrevDate}
+              onNextDate={handleNextDate}
+            />
+         </div>
+
+         {/* Analytics Section (5 cols) */}
+         <div className="lg:col-span-5 flex flex-col gap-8">
+            <div className="flex gap-2">
+               <button 
+                 onClick={() => setTrendRange(7)}
+                 className={`px-3 py-1 text-[12px] font-header border-2 transition-all ${trendRange === 7 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
+               >
+                 <Typography.Body size="xs" className="mb-0 font-header">7 DAYS</Typography.Body>
+               </button>
+               <button 
+                 onClick={() => setTrendRange(30)}
+                 className={`px-3 py-1 text-[12px] font-header border-2 transition-all ${trendRange === 30 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
+               >
+                 <Typography.Body size="xs" className="mb-0 font-header">30 DAYS</Typography.Body>
+               </button>
+               <button 
+                 onClick={() => setTrendRange(90)}
+                 className={`px-3 py-1 text-[12px] font-header border-2 transition-all ${trendRange === 90 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
+               >
+                 <Typography.Body size="xs" className="mb-0 font-header">90 DAYS</Typography.Body>
+               </button>
+            </div>
+            
+            <OracleTrends 
+               rituals={rituals}
+               logs={logs}
+               range={trendRange}
+            />
+         </div>
+      </div>
+
+      {/* Ritual Modal */}
+      <RitualModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        ritual={editingRitual}
+        onSave={async (name, nature, id) => {
+           await saveRitual(name, nature, id);
+           setIsModalOpen(false);
+        }}
+      />
     </div>
   );
 }

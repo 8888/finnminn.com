@@ -41,7 +41,7 @@ This project contains the source code and configuration for the `finnminn.com` a
     - **Background:** Grape Charcoal `void` (#120B18) with animated gradients and noise texture.
     - **Typography:** Headers (`VT323` / `Press Start 2P`), Body (`Space Mono`).
     - **Palette:**
-        - Primary: Witchcraft (#A890FF) / Radical (#FF5A8D)
+        - Primary: Witchcraft (#A890FF) / Vampire (#FF5A8D)
         - Secondary: Ectoplasm (#05FFA1) / Toxic (#00FF41)
         - Base: Void (#120B18)
 - **Navigation Standards:** 

@@ -36,8 +36,8 @@ const Main = () => {
   if (!isAuthenticated) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
-        <Card className="max-w-md w-full p-8 border-radical/50 text-center space-y-6">
-          <Typography.H1 className="text-radical">
+        <Card className="max-w-md w-full p-8 border-vampire/50 text-center space-y-6">
+          <Typography.H1 className="text-vampire">
             ACCESS DENIED
           </Typography.H1>
           <Typography.Body className="text-toxic/70">

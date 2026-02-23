@@ -30,7 +30,7 @@
 -   **Spinner:** Custom ASCII spinner or just the pulsing text.
 
 #### Content Section
--   **Header:** `text-3xl text-[#ff0055]` (Radical) `border-b-2 border-[#ff0055] pb-2 mb-6`.
+-   **Header:** `text-3xl text-[#ff0055]` (Vampire) `border-b-2 border-[#ff0055] pb-2 mb-6`.
 -   **User Greeting:** Highlight username in `text-[#00ff41]` (Toxic).
 
 #### Buttons
@@ -63,7 +63,7 @@
           crypt: '#1a0b14',
           bone: '#fbe9d0',
           ash: '#8a7d85',
-          radical: '#ff0055',
+          vampire: '#ff0055',
           toxic: '#00ff41',
           spirit: '#00f2ff',
           gloom: '#4b0082',
@@ -73,7 +73,7 @@
           body: ['"Space Mono"', 'monospace'],
         },
         boxShadow: {
-          'hard-radical': '4px 4px 0px 0px #ff0055',
+          'hard-vampire': '4px 4px 0px 0px #ff0055',
           'hard-toxic': '4px 4px 0px 0px #00ff41',
           'hard-spirit': '4px 4px 0px 0px #00f2ff',
           'hard-void': '4px 4px 0px 0px #0d0208',

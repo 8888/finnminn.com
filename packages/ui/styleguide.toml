@@ -57,7 +57,7 @@ mood = "Retro hacker, toxic sludge."
 
 [theme.colors.destructive]
 name = "Vampire Kiss"
-hex = "#FF5A8D"        # Radical Raspberry (AA Compliant). Juicy and warm.
+hex = "#FF5A8D"        # Vampire Raspberry (AA Compliant). Juicy and warm.
 usage = "Destructive actions, critical alerts, heart icons."
 mood = "Aggressive, dangerous, punk rock."
 

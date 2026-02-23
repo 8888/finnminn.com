@@ -13,7 +13,7 @@ tailwind.config = {
                 crypt: '#1a0b14',
                 bone: '#fbe9d0',
                 ash: '#8a7d85',
-                radical: '#ff0055',
+                vampire: '#ff0055',
                 toxic: '#00ff41',
                 spirit: '#00f2ff',
                 gloom: '#4b0082',

@@ -34,4 +34,4 @@ We will use Tailwind's breakpoint prefixes (`md:`, `lg:`) to enhance the mobile-
 
 ## Technical Details
 - **Toggle Logic:** Simple vanilla JavaScript to toggle the `hidden` class on the mobile menu.
-- **Tailwind Config:** Ensure `radical`, `toxic`, `spirit`, `gloom` colors are correctly mapped (already done in `index.html`).
+- **Tailwind Config:** Ensure `vampire`, `toxic`, `spirit`, `gloom` colors are correctly mapped (already done in `index.html`).

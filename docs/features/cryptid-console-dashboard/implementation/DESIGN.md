@@ -11,7 +11,7 @@ The dashboard will use a CSS Grid/Flexbox layout:
 ## Components
 
 ### 1. Navigation Bar
-- **Left:** Title "FINNMINN // CONSOLE" (VT323, Radical).
+- **Left:** Title "FINNMINN // CONSOLE" (VT323, Vampire).
 - **Right:** User name (Space Mono, Bone) and Sign Out button (Toxic border).
 
 ### 2. App Launcher (Grid - span 2)
@@ -25,7 +25,7 @@ The dashboard will use a CSS Grid/Flexbox layout:
 ### 3. Tool Box (Sidebar - span 1)
 - Header: "TOOLS.SYS" (VT323, Spirit).
 - Content:
-  - Button: "GET TOKEN" (Radical).
+  - Button: "GET TOKEN" (Vampire).
   - Output Area: Hidden by default, shows token in a code-block style text area with a "COPY" button.
 
 ## Visual Design Details

@@ -9,7 +9,7 @@
 **Acceptance Criteria:**
 
 1.  **Layout:**
-    *   A top navigation bar contains the title "Finnminn.exe" (font-pixel, radical color) and a "[ LOGIN ]" button.
+    *   A top navigation bar contains the title "Finnminn.exe" (font-pixel, vampire color) and a "[ LOGIN ]" button.
     *   The "[ LOGIN ]" button redirects to `/app`.
     *   The main content below the navigation bar is the image of Finn.
     *   The page is non-scrolling (fixed height/width to fit the viewport).
@@ -84,7 +84,7 @@
 
     *   Primary Text: Bone (#fbe9d0)
 
-    *   Accents: Radical Pink (#ff0055) and Toxic Green (#00ff41).
+    *   Accents: Vampire Pink (#ff0055) and Toxic Green (#00ff41).
 
 4.  Styling Rules:
 
@@ -146,7 +146,7 @@
 
     - Tiles adhere to the `components.app_tile` design specs (hover states, borders, fonts).
 
-5.  **Design Compliance:** All elements strictly follow the "Cryptid Console" design system (Colors: Void, Radical, Toxic, Spirit; Fonts: VT323, Space Mono; Hard shadows).
+5.  **Design Compliance:** All elements strictly follow the "Cryptid Console" design system (Colors: Void, Vampire, Toxic, Spirit; Fonts: VT323, Space Mono; Hard shadows).
 
 ## User Story 7: Apply PixelGrim Design System to Web App
 
@@ -178,7 +178,7 @@
         *   Provide a "COPY" button that copies the token to the clipboard.
     4.  **Design System:**
         *   Utilize `@finnminn/ui` components (`Terminal`, `Button`, `Card`, `Typography`).
-        *   Adhere to the PixelGrim aesthetic (void background, terminal fonts, radical/toxic accents).
+        *   Adhere to the PixelGrim aesthetic (void background, terminal fonts, vampire/toxic accents).
     5.  **Access:** The page must be protected by the `AuthProvider` (redirect if not logged in).
     
 ## User Story 10: Pip Capture Mode (Quick Thoughts)

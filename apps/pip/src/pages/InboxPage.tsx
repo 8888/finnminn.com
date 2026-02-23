@@ -29,7 +29,7 @@ export function InboxPage() {
       <div className="flex justify-between items-baseline">
         <div className="flex gap-4 items-baseline">
           <Typography.H1 className="text-4xl">The Vault</Typography.H1>
-          {isSyncing && <Typography.Body className="text-[10px] text-toxic animate-pulse font-body">SYNCING_STREAM...</Typography.Body>}
+          {isSyncing && <Typography.Body className="text-xs text-toxic animate-pulse font-body">SYNCING_STREAM...</Typography.Body>}
         </div>
         <Button
           variant="ghost"
@@ -56,14 +56,14 @@ export function InboxPage() {
               <div className="p-2">
                 <Typography.Body className="whitespace-pre-wrap text-lg leading-relaxed">{capture.content}</Typography.Body>
                 <div className="mt-6 flex justify-between items-end pt-4 border-t border-text-muted/10">
-                  <div className="opacity-30 text-[9px] flex flex-col font-body gap-1">
+                  <div className="opacity-30 text-xs flex flex-col font-body gap-1">
                     <span>ORIGIN: {capture.source.toUpperCase()}</span>
                     <span>UID: {capture.id.slice(0, 12)}...</span>
                   </div>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-[10px] text-vampire hover:text-radical hover:bg-vampire/10 px-2 py-1 h-auto"
+                    className="text-xs text-vampire hover:text-vampire hover:bg-vampire/10 px-2 py-1 h-auto"
                     onClick={() => handlePurge(capture.id)}
                   >
                     [ VOID_MEMORY ]

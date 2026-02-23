@@ -59,32 +59,102 @@ class CosmosRepository {
         }
     }
 
-    fun save(item: CaptureItem): CaptureItem {
-        val response: CosmosItemResponse<CaptureItem> = container.upsertItem(item)
-        return response.item ?: item
+    fun <T> save(item: T): T {
+        return try {
+            val response: CosmosItemResponse<T> = container.upsertItem(item)
+            response.item ?: item
+        } catch (e: CosmosException) {
+            logger.severe("Cosmos error saving item: ${e.message} (Status: ${e.statusCode})")
+            throw e
+        } catch (e: Exception) {
+            logger.severe("Unexpected error saving item: ${e.message}")
+            throw e
+        }
     }
 
     fun findAllCapturesByUserId(userId: String): List<CaptureItem> {
-        val query = "SELECT TOP 50 * FROM c WHERE c.userId = @userId AND c.type = 'capture' ORDER BY c.timestamp DESC"
-        val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
-        return container.queryItems(querySpec, null, CaptureItem::class.java).toList()
+        return try {
+            val query = "SELECT TOP 50 * FROM c WHERE c.userId = @userId AND c.type = 'capture' ORDER BY c.timestamp DESC"
+            val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
+            container.queryItems(querySpec, null, CaptureItem::class.java).toList()
+        } catch (e: CosmosException) {
+            logger.severe("Cosmos error finding captures for user $userId: ${e.message} (Status: ${e.statusCode})")
+            emptyList()
+        } catch (e: Exception) {
+            logger.severe("Unexpected error finding captures for user $userId: ${e.message}")
+            emptyList()
+        }
     }
 
-    fun deleteCapture(id: String, userId: String): Boolean {
+    fun findAllRitualsByUserId(userId: String): List<Ritual> {
+        return try {
+            val query = "SELECT * FROM c WHERE c.userId = @userId AND c.type = 'ritual' ORDER BY c.timestamp DESC"
+            val querySpec = SqlQuerySpec(query, SqlParameter("@userId", userId))
+            container.queryItems(querySpec, null, Ritual::class.java).toList()
+        } catch (e: CosmosException) {
+            logger.severe("Cosmos error finding rituals for user $userId: ${e.message} (Status: ${e.statusCode})")
+            emptyList()
+        } catch (e: Exception) {
+            logger.severe("Unexpected error finding rituals for user $userId: ${e.message}")
+            emptyList()
+        }
+    }
+
+    fun findAllHabitLogsByUserIdAndDateRange(userId: String, startDate: String, endDate: String): List<HabitLog> {
+        return try {
+            val query = "SELECT * FROM c WHERE c.userId = @userId AND c.type = 'habitLog' AND c.date >= @startDate AND c.date <= @endDate"
+            val querySpec = SqlQuerySpec(query, 
+                SqlParameter("@userId", userId),
+                SqlParameter("@startDate", startDate),
+                SqlParameter("@endDate", endDate)
+            )
+            container.queryItems(querySpec, null, HabitLog::class.java).toList()
+        } catch (e: CosmosException) {
+            logger.severe("Cosmos error finding logs for user $userId in range $startDate to $endDate: ${e.message} (Status: ${e.statusCode})")
+            emptyList()
+        } catch (e: Exception) {
+            logger.severe("Unexpected error finding logs for user $userId: ${e.message}")
+            emptyList()
+        }
+    }
+
+    fun findHabitLogByRitualIdAndDate(userId: String, ritualId: String, date: String): HabitLog? {
+        return try {
+            val query = "SELECT * FROM c WHERE c.userId = @userId AND c.type = 'habitLog' AND c.ritualId = @ritualId AND c.date = @date"
+            val querySpec = SqlQuerySpec(query, 
+                SqlParameter("@userId", userId),
+                SqlParameter("@ritualId", ritualId),
+                SqlParameter("@date", date)
+            )
+            container.queryItems(querySpec, null, HabitLog::class.java).firstOrNull()
+        } catch (e: CosmosException) {
+            logger.severe("Cosmos error finding log for ritual $ritualId on $date: ${e.message} (Status: ${e.statusCode})")
+            null
+        } catch (e: Exception) {
+            logger.severe("Unexpected error finding log for ritual $ritualId: ${e.message}")
+            null
+        }
+    }
+
+    fun deleteItem(id: String, userId: String, itemType: String = "Item"): Boolean {
         return try {
             container.deleteItem(id, PartitionKey(userId), null)
             true
         } catch (e: CosmosException) {
             if (e.statusCode == 404) {
-                logger.warning("Capture $id not found for user $userId")
+                logger.warning("$itemType $id not found for user $userId")
                 true // Idempotent success
             } else {
-                logger.severe("Cosmos error deleting capture $id: ${e.message}")
+                logger.severe("Cosmos error deleting $itemType $id: ${e.message}")
                 false
             }
         } catch (e: Exception) {
-            logger.severe("Unexpected error deleting capture $id: ${e.message}")
+            logger.severe("Unexpected error deleting $itemType $id: ${e.message}")
             false
         }
+    }
+
+    fun deleteCapture(id: String, userId: String): Boolean {
+        return deleteItem(id, userId, "Capture")
     }
 }
