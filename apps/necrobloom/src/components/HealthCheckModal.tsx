@@ -115,7 +115,7 @@ export const HealthCheckModal: React.FC<HealthCheckModalProps> = ({ plantId, pla
         ) : (
           <div className="space-y-6">
             <div className="p-4 border border-toxic bg-toxic/5 font-mono text-sm text-toxic">
-              <span className="text-radical block mb-2">[ DIAGNOSIS ]</span>
+              <span className="text-vampire block mb-2">[ DIAGNOSIS ]</span>
               {diagnosis}
             </div>
             <Button 

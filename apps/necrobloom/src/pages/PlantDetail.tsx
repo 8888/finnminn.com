@@ -81,7 +81,7 @@ export const PlantDetail: React.FC = () => {
   if (notFound) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-6">
-        <Typography.H2 className="text-radical">
+        <Typography.H2 className="text-vampire">
           SPECIMEN NOT FOUND
         </Typography.H2>
         <Typography.Body className="text-toxic/70">

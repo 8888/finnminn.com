@@ -44,9 +44,9 @@ export const RitualModal: React.FC<RitualModalProps> = ({
           </Typography.H2>
           <button 
             onClick={onClose}
-            className="text-text-muted hover:text-radical transition-colors text-2xl"
+            className="text-text-muted hover:text-vampire transition-colors text-2xl"
           >
-            [X]
+            <Typography.Body size="xs" className="mb-0">[X]</Typography.Body>
           </button>
         </div>
 
@@ -72,19 +72,19 @@ export const RitualModal: React.FC<RitualModalProps> = ({
                     ? 'border-ectoplasm bg-ectoplasm/10 shadow-pixel-ectoplasm scale-105' 
                     : 'border-overlay hover:border-text-muted opacity-50'}`}
               >
-                <span className="text-2xl group-hover:animate-bounce">✨</span>
-                <Typography.Body className="font-header text-[10px] tracking-tighter uppercase text-ectoplasm">Light (Positive)</Typography.Body>
+                <Typography.Body className="text-2xl group-hover:animate-bounce">✨</Typography.Body>
+                <Typography.Body className="font-header text-[12px] tracking-tighter uppercase text-ectoplasm">Light (Positive)</Typography.Body>
               </button>
               
               <button
                 onClick={() => setNature('void')}
                 className={`p-4 border-2 transition-all flex flex-col items-center gap-2 group
                   ${nature === 'void' 
-                    ? 'border-radical bg-radical/10 shadow-pixel-radical scale-105' 
+                    ? 'border-vampire bg-vampire/10 shadow-pixel-vampire scale-105' 
                     : 'border-overlay hover:border-text-muted opacity-50'}`}
               >
-                <span className="text-2xl group-hover:animate-pulse">💀</span>
-                <Typography.Body className="font-header text-[10px] tracking-tighter uppercase text-radical">Void (Negative)</Typography.Body>
+                <Typography.Body className="text-2xl group-hover:animate-pulse">💀</Typography.Body>
+                <Typography.Body className="font-header text-[12px] tracking-tighter uppercase text-vampire">Void (Negative)</Typography.Body>
               </button>
             </div>
           </div>

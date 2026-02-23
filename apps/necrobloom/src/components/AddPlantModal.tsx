@@ -131,7 +131,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Species (OPTIONAL) {identifying && <span className="animate-pulse text-radical">[ SCANNING... ]</span>}</label>
+              <label className="text-[10px] text-toxic/40 uppercase tracking-widest">Species (OPTIONAL) {identifying && <span className="animate-pulse text-vampire">[ SCANNING... ]</span>}</label>
               <input 
                 className="w-full bg-void border border-toxic/20 p-2 text-toxic focus:border-toxic outline-none font-mono"
                 placeholder="E.g. Pteris"
@@ -174,7 +174,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
                   <img src={formData.image} alt="Preview" className="w-full h-full object-cover grayscale" />
                   {identifying && (
                     <div className="absolute inset-0 bg-void/50 flex items-center justify-center backdrop-blur-sm">
-                      <Typography.Body className="text-radical animate-pulse">CONSULTING ORACLE...</Typography.Body>
+                      <Typography.Body className="text-vampire animate-pulse">CONSULTING ORACLE...</Typography.Body>
                     </div>
                   )}
                   {!identifying && (
@@ -202,7 +202,7 @@ export const AddPlantModal: React.FC<AddPlantModalProps> = ({ onClose, onSuccess
             </div>
             {oracleWhisper && (
               <div className="p-2 border border-toxic/20 bg-toxic/5 text-xs text-toxic font-mono">
-                <span className="text-radical">[ ORACLE ]</span> {oracleWhisper}
+                <span className="text-vampire">[ ORACLE ]</span> {oracleWhisper}
               </div>
             )}
           </div>

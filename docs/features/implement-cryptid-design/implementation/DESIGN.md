@@ -18,8 +18,8 @@
 - **Position:** Fixed top.
 - **Height:** Minimal.
 - **Content:**
-    - Left: "Finnminn.exe" title (`text-radical`, `font-pixel`, `text-4xl`).
-    - Right: `[ LOGIN ]` button (`border-radical`, `text-radical`, hover effects).
+    - Left: "Finnminn.exe" title (`text-vampire`, `font-pixel`, `text-4xl`).
+    - Right: `[ LOGIN ]` button (`border-vampire`, `text-vampire`, hover effects).
 
 ### 3. Main Content
 - **Layout:** Flexbox centered (`flex`, `justify-center`, `items-center`, `h-screen`).

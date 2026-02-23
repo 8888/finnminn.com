@@ -33,7 +33,7 @@ As a **Gothic Gardener**, I want a visual health distribution bar, so that I can
 - The bar must be divided into three segments based on plant health:
     - **Thriving (Ectoplasm/#05FFA1):** Positive health diagnosis.
     - **Stable (Witchcraft/#7D5FFF):** Neutral or "Unknown" status.
-    - **In Peril (Radical/#FF0055):** Thirsty, troubled, or dying status.
+    - **In Peril (Vampire/#FF0055):** Thirsty, troubled, or dying status.
 - Each segment's width must be proportional to the percentage of plants in that category.
 - Segments must include a tooltip or text overlay indicating the count (e.g., "5 THRIVING").
 - Adhere to accessibility standards by ensuring color contrasts are high and text labels are present.

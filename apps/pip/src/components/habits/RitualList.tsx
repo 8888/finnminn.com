@@ -44,7 +44,7 @@ export const RitualList: React.FC<RitualListProps> = ({
              onClick={onPrevDate}
              className="w-8 h-8 border border-overlay hover:border-witchcraft hover:text-witchcraft flex items-center justify-center transition-all hover:scale-110 active:scale-90"
            >
-             &lt;
+             <Typography.Body size="xs" className="mb-0">&lt;</Typography.Body>
            </button>
            <Typography.Body size="sm" className="font-mono min-w-[120px] text-center uppercase text-ectoplasm">
              {isToday ? 'TODAY' : dateFormatted}
@@ -53,7 +53,7 @@ export const RitualList: React.FC<RitualListProps> = ({
              onClick={onNextDate}
              className="w-8 h-8 border border-overlay hover:border-witchcraft hover:text-witchcraft flex items-center justify-center transition-all hover:scale-110 active:scale-90"
            >
-             &gt;
+             <Typography.Body size="xs" className="mb-0">&gt;</Typography.Body>
            </button>
         </div>
       </div>

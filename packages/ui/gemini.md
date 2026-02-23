@@ -64,7 +64,7 @@ Ensure the component is exported in **`src/index.tsx`**.
 - **Colors (WCAG AA Compliant):**
   - Primary: `text-witchcraft` (#A890FF)
   - Secondary: `text-ectoplasm` (#05FFA1)
-  - Danger/Radical: `text-vampire` (#FF5A8D)
+  - Danger/Vampire: `text-vampire` (#FF5A8D)
   - Growth: `text-toxic` (#00FF41)
   - Background: `bg-void` (#120B18) / `bg-surface` (#221528)
 - **Glitch Effect:** Use `glitch-hover` class on text or the `Image` component's artifact variant.

@@ -94,7 +94,7 @@ export function TrackerPage() {
         </div>
         
         <div className="flex-grow flex flex-col gap-6 w-full">
-           <Typography.H1 variant="vampire" className="text-4xl tracking-widest text-witchcraft mb-2">
+           <Typography.H1 variant="vampire" className="text-4xl tracking-widest mb-2">
              VESSEL STATUS
            </Typography.H1>
            <VitalityBar vitality={vitality} streak={streak} />
@@ -129,21 +129,21 @@ export function TrackerPage() {
             <div className="flex gap-2">
                <button 
                  onClick={() => setTrendRange(7)}
-                 className={`px-3 py-1 text-[10px] font-header border-2 transition-all ${trendRange === 7 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
+                 className={`px-3 py-1 text-[12px] font-header border-2 transition-all ${trendRange === 7 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
                >
-                 7 DAYS
+                 <Typography.Body size="xs" className="mb-0 font-header">7 DAYS</Typography.Body>
                </button>
                <button 
                  onClick={() => setTrendRange(30)}
-                 className={`px-3 py-1 text-[10px] font-header border-2 transition-all ${trendRange === 30 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
+                 className={`px-3 py-1 text-[12px] font-header border-2 transition-all ${trendRange === 30 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
                >
-                 30 DAYS
+                 <Typography.Body size="xs" className="mb-0 font-header">30 DAYS</Typography.Body>
                </button>
                <button 
                  onClick={() => setTrendRange(90)}
-                 className={`px-3 py-1 text-[10px] font-header border-2 transition-all ${trendRange === 90 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
+                 className={`px-3 py-1 text-[12px] font-header border-2 transition-all ${trendRange === 90 ? 'border-witchcraft text-witchcraft shadow-pixel-witchcraft scale-105' : 'border-overlay opacity-50'}`}
                >
-                 90 DAYS
+                 <Typography.Body size="xs" className="mb-0 font-header">90 DAYS</Typography.Body>
                </button>
             </div>
             

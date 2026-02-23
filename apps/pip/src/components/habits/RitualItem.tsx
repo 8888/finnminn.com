@@ -25,7 +25,7 @@ export const RitualItem: React.FC<RitualItemProps> = ({
   return (
     <div className="flex items-center justify-between p-3 border-b border-overlay last:border-0 group hover:bg-surface/50 transition-colors">
       <div className="flex items-center gap-4 flex-grow cursor-pointer" onClick={onToggle}>
-        <Typography.Body className={`font-mono text-sm uppercase ${isLight ? 'text-ectoplasm' : 'text-radical'}`}>
+        <Typography.Body className={`font-mono text-sm uppercase ${isLight ? 'text-ectoplasm' : 'text-vampire'}`}>
           {prefix}
         </Typography.Body>
         <Typography.Body 
@@ -59,7 +59,7 @@ export const RitualItem: React.FC<RitualItemProps> = ({
              <Typography.Body size="xs" className="text-witchcraft uppercase font-header hover:underline">Edit</Typography.Body>
            </button>
            <button onClick={onDelete} className="hover:scale-110 transition-transform">
-             <Typography.Body size="xs" className="text-radical uppercase font-header hover:underline">Void</Typography.Body>
+             <Typography.Body size="xs" className="text-vampire uppercase font-header hover:underline">Void</Typography.Body>
            </button>
         </div>
       </div>

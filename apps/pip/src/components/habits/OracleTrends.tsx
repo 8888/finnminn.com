@@ -81,7 +81,7 @@ export const OracleTrends: React.FC<OracleTrendsProps> = ({ rituals, logs, range
             <select 
               value={selectedRitual2} 
               onChange={(e) => setSelectedRitual2(e.target.value)}
-              className="bg-surface border border-overlay text-radical font-mono p-2 outline-none focus:border-witchcraft"
+              className="bg-surface border border-overlay text-vampire font-mono p-2 outline-none focus:border-witchcraft"
             >
                <option value="">Select Ritual...</option>
                {rituals.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
@@ -94,17 +94,17 @@ export const OracleTrends: React.FC<OracleTrendsProps> = ({ rituals, logs, range
            <div key={i} className="flex-grow flex flex-col items-center justify-end h-full gap-1 group relative">
              {/* Tooltip on hover */}
              <div className="absolute bottom-full mb-2 bg-overlay p-2 opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none whitespace-nowrap">
-                <Typography.Body size="xs" className="text-[8px]">{d.date}</Typography.Body>
+                <Typography.Body size="xs" className="text-[12px]">{d.date}</Typography.Body>
              </div>
              
              <div className={`w-full max-w-[12px] transition-all duration-500 ${d.val1 ? 'h-1/2 bg-ectoplasm shadow-pixel-ectoplasm' : 'h-[2px] bg-overlay'}`} />
-             <div className={`w-full max-w-[12px] transition-all duration-500 ${d.val2 ? 'h-1/2 bg-radical shadow-pixel-radical' : 'h-[2px] bg-overlay'}`} />
+             <div className={`w-full max-w-[12px] transition-all duration-500 ${d.val2 ? 'h-1/2 bg-vampire shadow-pixel-vampire' : 'h-[2px] bg-overlay'}`} />
            </div>
          ))}
       </div>
 
       <div className="bg-surface/50 p-6 border-l-4 border-witchcraft flex gap-4">
-         <span className="text-2xl animate-pulse">👁️</span>
+         <Typography.Body className="text-2xl animate-pulse">👁️</Typography.Body>
          <div className="flex flex-col gap-1">
             <Typography.Body variant="muted" size="xs" className="uppercase tracking-widest text-witchcraft opacity-60">ORACLE INSIGHT</Typography.Body>
             <Typography.Body size="sm" className="italic italic-glow">{insight}</Typography.Body>

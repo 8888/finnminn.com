@@ -63,7 +63,7 @@ export function InboxPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-[10px] text-vampire hover:text-radical hover:bg-vampire/10 px-2 py-1 h-auto"
+                    className="text-[10px] text-vampire hover:text-vampire hover:bg-vampire/10 px-2 py-1 h-auto"
                     onClick={() => handlePurge(capture.id)}
                   >
                     [ VOID_MEMORY ]
