@@ -39,12 +39,12 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build and Test with Gradle
-        run: ./gradlew clean build azureFunctionsPackage
+        run: ./gradlew clean build azureFunctionsPackageZip
 
       - name: Deploy to Azure Functions
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: './apps/pip/api/build/azure-functions/${{ env.AZURE_FUNCTIONAPP_NAME }}'
+          package: './apps/pip/api/build/azure-functions/${{ env.AZURE_FUNCTIONAPP_NAME }}.zip'
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
