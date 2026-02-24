@@ -1,5 +1,9 @@
 name: Deploy Pip Backend
 
+permissions:
+  id-token: write
+  contents: read
+
 on:
   push:
     branches:
@@ -41,10 +45,17 @@ jobs:
       - name: Build and Test with Gradle
         run: ./gradlew clean build azureFunctionsPackageZip
 
+      - name: 'Login to Azure via OIDC'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
       - name: Deploy to Azure Functions
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: Azure/functions-action@v1
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: './apps/pip/api/build/azure-functions/${{ env.AZURE_FUNCTIONAPP_NAME }}.zip'
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
