@@ -1,4 +1,4 @@
-import { Terminal, Typography, Card, Button, Skeleton, useDebouncedAction } from "@finnminn/ui";
+import { Terminal, Typography, Card, Button, Skeleton, useThrottledAction } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useCaptureManager } from "../hooks/useCaptureManager";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ export function InboxPage() {
   const navigate = useNavigate();
   const [voidingIds, setVoidingIds] = useState<string[]>([]);
 
-  const { execute: debouncedPurge, isPending: isPurging } = useDebouncedAction(purgeCapture, { cooldown: 500 });
+  const { execute: debouncedPurge, isPending: isPurging } = useThrottledAction(purgeCapture, { cooldown: 500 });
 
   if (!isAuthenticated) {
     navigate('/');

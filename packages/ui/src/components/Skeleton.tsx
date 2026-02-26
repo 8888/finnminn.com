@@ -37,7 +37,11 @@ export const Skeleton = ({ className, variant = "rect", size = "md" }: SkeletonP
 };
 
 export const Spinner = ({ className }: { className?: string }) => (
-  <div className={`inline-block animate-spin rounded-full border-2 border-current border-t-transparent ${className || "h-4 w-4"}`} role="status">
+  <div
+    className={`inline-block border-4 border-current border-t-transparent animate-spin ${className || "h-6 w-6"}`}
+    style={{ borderRadius: '0', clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 20% 20%, 20% 80%, 80% 80%, 80% 20%, 20% 20%)' }}
+    role="status"
+  >
     <span className="sr-only">Loading...</span>
   </div>
 );

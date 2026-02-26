@@ -35,8 +35,8 @@ export const Skeletons: StoryObj = {
 export const SpinningOracle: StoryObj = {
   render: () => (
     <div className="flex flex-col items-center gap-4">
-      <Spinner className="h-8 w-8 text-witchcraft" />
-      <Typography.Body className="animate-pulse">PROCESSING_DATA...</Typography.Body>
+      <Spinner className="h-10 w-10 text-witchcraft" />
+      <Typography.Body className="animate-pulse">ASCENDING_FROM_VOID...</Typography.Body>
     </div>
   ),
 };

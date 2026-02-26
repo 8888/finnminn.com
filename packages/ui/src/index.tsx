@@ -15,4 +15,4 @@ export * from "./components/Atmosphere";
 export * from "./components/Skeleton";
 
 export * from "./hooks/useLoading";
-export * from "./hooks/useDebouncedAction";
+export * from "./hooks/useThrottledAction";

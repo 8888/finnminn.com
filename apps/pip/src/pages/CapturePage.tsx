@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Terminal, Typography, useDebouncedAction } from "@finnminn/ui";
+import { Button, Terminal, Typography, useThrottledAction } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useVoiceCapture } from "../hooks/useVoiceCapture";
 import { useCaptureManager } from "../hooks/useCaptureManager";
@@ -13,7 +13,7 @@ export function CapturePage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { execute: debouncedSave, isPending: isSaving } = useDebouncedAction(saveCapture);
+  const { execute: debouncedSave, isPending: isSaving } = useThrottledAction(saveCapture);
 
 
   useEffect(() => {

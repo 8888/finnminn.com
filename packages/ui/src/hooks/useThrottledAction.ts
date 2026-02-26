@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 
-interface DebouncedActionOptions {
+interface ThrottledActionOptions {
   /**
    * Minimum time between executions in milliseconds.
    */
@@ -10,10 +10,11 @@ interface DebouncedActionOptions {
 /**
  * A hook to wrap an async action, preventing it from being executed again
  * if it's already pending or if the cooldown period hasn't elapsed.
+ * This implements a leading-edge throttle/lockout pattern.
  */
-export function useDebouncedAction<T extends (...args: any[]) => Promise<any>>(
+export function useThrottledAction<T extends (...args: any[]) => Promise<any>>(
   action: T,
-  options: DebouncedActionOptions = {}
+  options: ThrottledActionOptions = {}
 ) {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
