@@ -1,4 +1,4 @@
-import { Terminal, Typography, Card, Button } from "@finnminn/ui";
+import { Terminal, Typography, Card, Button, Skeleton, useDebouncedAction } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useCaptureManager } from "../hooks/useCaptureManager";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,11 @@ import { useState } from "react";
 
 export function InboxPage() {
   const { isAuthenticated } = useAuth();
-  const { captures, isSyncing, purgeCapture } = useCaptureManager();
+  const { captures, isSyncing, purgeCapture, initialLoading } = useCaptureManager();
   const navigate = useNavigate();
   const [voidingIds, setVoidingIds] = useState<string[]>([]);
+
+  const { execute: debouncedPurge, isPending: isPurging } = useDebouncedAction(purgeCapture, { cooldown: 500 });
 
   if (!isAuthenticated) {
     navigate('/');
@@ -18,8 +20,8 @@ export function InboxPage() {
   const handlePurge = async (id: string) => {
     setVoidingIds(prev => [...prev, id]);
     // Allow animation to play
-    setTimeout(() => {
-      purgeCapture(id);
+    setTimeout(async () => {
+      await debouncedPurge(id);
       setVoidingIds(prev => prev.filter(vid => vid !== id));
     }, 300);
   };
@@ -29,7 +31,7 @@ export function InboxPage() {
       <div className="flex justify-between items-baseline">
         <div className="flex gap-4 items-baseline">
           <Typography.H1 className="text-4xl">The Vault</Typography.H1>
-          {isSyncing && <Typography.Body className="text-xs text-toxic animate-pulse font-body">SYNCING_STREAM...</Typography.Body>}
+          {(isSyncing || isPurging) && <Typography.Body className="text-xs text-toxic animate-pulse font-body">SYNCING_STREAM...</Typography.Body>}
         </div>
         <Button
           variant="ghost"
@@ -42,7 +44,13 @@ export function InboxPage() {
       </div>
 
       <div className="flex flex-col gap-6">
-        {captures.length === 0 ? (
+        {initialLoading ? (
+          <>
+            <Skeleton variant="rect" className="w-full h-40" />
+            <Skeleton variant="rect" className="w-full h-40" />
+            <Skeleton variant="rect" className="w-full h-40" />
+          </>
+        ) : captures.length === 0 ? (
           <Card className="text-center p-12 border-dashed border-text-muted/20">
             <Typography.Body className="opacity-30 italic">No memories stored in this vessel...</Typography.Body>
           </Card>
@@ -65,6 +73,7 @@ export function InboxPage() {
                     size="sm"
                     className="text-xs text-vampire hover:text-vampire hover:bg-vampire/10 px-2 py-1 h-auto"
                     onClick={() => handlePurge(capture.id)}
+                    isLoading={voidingIds.includes(capture.id)}
                   >
                     [ VOID_MEMORY ]
                   </Button>

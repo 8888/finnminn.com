@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useAuth } from '@finnminn/auth';
+import { useLoading } from '@finnminn/ui';
 
 export interface CaptureItem {
   id: string;
@@ -17,25 +18,28 @@ const API_BASE = import.meta.env.VITE_API_URL || '/api';
 export function useCaptureManager() {
   const { getIdToken } = useAuth();
   const [captures, setCaptures] = useState<CaptureItem[]>([]);
+  const { isLoading: initialLoading, withLoading } = useLoading();
   const [isSyncing, setIsSyncing] = useState(false);
 
   const fetchCaptures = useCallback(async () => {
-    try {
-      const token = await getIdToken();
-      if (!token) return;
-      const res = await fetch(`${API_BASE}/captures`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setCaptures(Array.isArray(data) ? data : []);
+    await withLoading(async () => {
+      try {
+        const token = await getIdToken();
+        if (!token) return;
+        const res = await fetch(`${API_BASE}/captures`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setCaptures(Array.isArray(data) ? data : []);
+        }
+      } catch (e) {
+        console.error('Failed to fetch captures', e);
       }
-    } catch (e) {
-      console.error('Failed to fetch captures', e);
-    }
-  }, [getIdToken]);
+    });
+  }, [getIdToken, withLoading]);
 
   const purgeCapture = useCallback(
     async (id: string) => {
@@ -45,7 +49,7 @@ export function useCaptureManager() {
       if (!navigator.onLine) {
         const pending = JSON.parse(localStorage.getItem(DELETE_STORAGE_KEY) || '[]');
         if (!pending.includes(id)) {
-           localStorage.setItem(DELETE_STORAGE_KEY, JSON.stringify([...pending, id]));
+          localStorage.setItem(DELETE_STORAGE_KEY, JSON.stringify([...pending, id]));
         }
         return;
       }
@@ -67,7 +71,7 @@ export function useCaptureManager() {
         console.error('Failed to delete capture, queuing for retry', e);
         const pending = JSON.parse(localStorage.getItem(DELETE_STORAGE_KEY) || '[]');
         if (!pending.includes(id)) {
-            localStorage.setItem(DELETE_STORAGE_KEY, JSON.stringify([...pending, id]));
+          localStorage.setItem(DELETE_STORAGE_KEY, JSON.stringify([...pending, id]));
         }
       }
     },
@@ -198,6 +202,7 @@ export function useCaptureManager() {
     saveCapture,
     purgeCapture,
     isSyncing,
+    initialLoading,
     refresh: fetchCaptures,
   };
 }

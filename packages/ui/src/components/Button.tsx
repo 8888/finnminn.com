@@ -1,12 +1,23 @@
 import * as React from "react";
+import { Spinner } from "./Skeleton";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "destructive" | "ghost";
   size?: "sm" | "md" | "lg";
   isCircle?: boolean;
+  isLoading?: boolean;
 }
 
-export const Button = ({ children, className, variant = "primary", size = "md", isCircle = false, ...props }: ButtonProps) => {
+export const Button = ({
+  children,
+  className,
+  variant = "primary",
+  size = "md",
+  isCircle = false,
+  isLoading = false,
+  disabled,
+  ...props
+}: ButtonProps) => {
   const variants = {
     primary: "bg-witchcraft text-void hover:shadow-pixel-witchcraft active:shadow-none",
     secondary: "bg-ectoplasm text-void hover:shadow-pixel-ectoplasm active:shadow-none",
@@ -33,9 +44,16 @@ export const Button = ({ children, className, variant = "primary", size = "md", 
         ${variants[variant]}
         ${sizes[size]}
         ${className || ""}
+        ${isLoading ? "relative !text-transparent pointer-events-none" : ""}
       `}
+      disabled={disabled || isLoading}
       {...props}
     >
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center text-void">
+          <Spinner className={size === "sm" ? "h-3 w-3" : size === "lg" ? "h-8 w-8" : "h-5 w-5"} />
+        </div>
+      )}
       {children}
     </button>
   );

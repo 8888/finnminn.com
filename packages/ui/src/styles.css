@@ -196,4 +196,13 @@
   .animate-glitch-2 {
     animation: glitch-anim-2 0.25s 1 linear forwards;
   }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 1.5s infinite;
+  }
 }
