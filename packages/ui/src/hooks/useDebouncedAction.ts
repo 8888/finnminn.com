@@ -18,11 +18,11 @@ export function useDebouncedAction<T extends (...args: any[]) => Promise<any>>(
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const lastCallRef = useRef<number>(0);
+  const { cooldown = 0 } = options;
 
   const execute = useCallback(
     async (...args: Parameters<T>): Promise<ReturnType<T> | undefined> => {
       const now = Date.now();
-      const cooldown = options.cooldown || 0;
 
       if (isPending || now - lastCallRef.current < cooldown) {
         return undefined;
@@ -42,7 +42,7 @@ export function useDebouncedAction<T extends (...args: any[]) => Promise<any>>(
         setIsPending(false);
       }
     },
-    [action, isPending, options.cooldown]
+    [action, isPending, cooldown]
   );
 
   return {
