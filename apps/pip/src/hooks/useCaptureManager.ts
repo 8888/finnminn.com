@@ -88,15 +88,24 @@ export function useCaptureManager() {
       const optimisticItem = { ...newItem, id: tempId, status: 'inbox' } as CaptureItem;
       setCaptures((prev) => [optimisticItem, ...prev]);
 
-      if (!navigator.onLine) {
+      const queueForRetry = () => {
         const pending = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         localStorage.setItem(STORAGE_KEY, JSON.stringify([...pending, newItem]));
+      };
+
+      if (!navigator.onLine) {
+        queueForRetry();
         return;
       }
 
       try {
         const token = await getIdToken();
-        if (!token) return;
+        if (!token) {
+          console.warn('No token available for save, queuing for retry');
+          queueForRetry();
+          return;
+        }
+
         const res = await fetch(`${API_BASE}/capture`, {
           method: 'POST',
           headers: {
@@ -114,8 +123,7 @@ export function useCaptureManager() {
         setCaptures((prev) => prev.map((item) => (item.id === tempId ? savedItem : item)));
       } catch (e) {
         console.error('Failed to save capture, queuing for retry', e);
-        const pending = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        localStorage.setItem(STORAGE_KEY, JSON.stringify([...pending, newItem]));
+        queueForRetry();
       }
     },
     [getIdToken]
@@ -124,7 +132,7 @@ export function useCaptureManager() {
   const syncPending = useCallback(async () => {
     const pendingCaptures = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     const pendingDeletes = JSON.parse(localStorage.getItem(DELETE_STORAGE_KEY) || '[]');
-    
+
     if ((pendingCaptures.length === 0 && pendingDeletes.length === 0) || !navigator.onLine) return;
 
     setIsSyncing(true);
@@ -172,7 +180,7 @@ export function useCaptureManager() {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(remainingCaptures));
     localStorage.setItem(DELETE_STORAGE_KEY, JSON.stringify(remainingDeletes));
-    
+
     setIsSyncing(false);
     if (remainingCaptures.length < pendingCaptures.length || remainingDeletes.length < pendingDeletes.length) {
       fetchCaptures();

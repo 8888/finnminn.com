@@ -6,7 +6,7 @@ import { useCaptureManager } from "../hooks/useCaptureManager";
 import { Mascot } from "../components/Mascot";
 
 export function CapturePage() {
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, login, inProgress } = useAuth();
   const { isListening, transcript, start, stop, isSupported } = useVoiceCapture();
   const { saveCapture } = useCaptureManager();
   const [text, setText] = useState('');
@@ -44,36 +44,47 @@ export function CapturePage() {
   };
 
   if (!isAuthenticated) {
+    const isInitializing = inProgress !== 'none';
+
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-magic-void p-4">
         <Mascot />
         <Typography.H1 className="mt-8">Pip</Typography.H1>
         <div className="mt-8 w-full max-w-md text-center p-8 border-2 border-overlay bg-surface shadow-pixel">
-          <Typography.Body className="mb-6">Initialize Connection to Access Memory</Typography.Body>
-          <div className="flex flex-col gap-4">
-            <Button onClick={() => login()} variant="primary" className="w-full">
-              Login
-            </Button>
-            <button
-              onClick={async () => {
-                localStorage.clear();
-                sessionStorage.clear();
+          {isInitializing ? (
+            <div className="flex flex-col items-center gap-4 py-4">
+              <div className="w-8 h-8 border-2 border-witchcraft border-t-transparent rounded-full animate-spin" />
+              <Typography.Body className="animate-pulse italic">INITIALIZING_VESSEL...</Typography.Body>
+            </div>
+          ) : (
+            <>
+              <Typography.Body className="mb-6">Initialize Connection to Access Memory</Typography.Body>
+              <div className="flex flex-col gap-4">
+                <Button onClick={() => login()} variant="primary" className="w-full">
+                  Login
+                </Button>
+                <button
+                  onClick={async () => {
+                    localStorage.clear();
+                    sessionStorage.clear();
 
-                // Unregister all service workers
-                if ('serviceWorker' in navigator) {
-                  const registrations = await navigator.serviceWorker.getRegistrations();
-                  for (const registration of registrations) {
-                    await registration.unregister();
-                  }
-                }
+                    // Unregister all service workers
+                    if ('serviceWorker' in navigator) {
+                      const registrations = await navigator.serviceWorker.getRegistrations();
+                      for (const registration of registrations) {
+                        await registration.unregister();
+                      }
+                    }
 
-                window.location.reload();
-              }}
-              className="text-xs text-witchcraft opacity-50 hover:opacity-100 transition-opacity uppercase font-header"
-            >
-              [ PURGE_VESSEL_CACHE ]
-            </button>
-          </div>
+                    window.location.reload();
+                  }}
+                  className="text-xs text-witchcraft opacity-50 hover:opacity-100 transition-opacity uppercase font-header"
+                >
+                  [ PURGE_VESSEL_CACHE ]
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     );
