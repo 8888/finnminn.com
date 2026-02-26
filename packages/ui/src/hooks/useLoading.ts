@@ -10,8 +10,9 @@ export function useLoading() {
     try {
       return await fn();
     } catch (e) {
-      setError(e instanceof Error ? e : new Error(String(e)));
-      return undefined;
+      const err = e instanceof Error ? e : new Error(String(e));
+      setError(err);
+      throw err;
     } finally {
       setIsLoading(false);
     }

@@ -21,11 +21,14 @@ export function useThrottledAction<T extends (...args: any[]) => Promise<any>>(
   const lastCallRef = useRef<number>(0);
   const { cooldown = 0 } = options;
 
+  const cooldownRef = useRef(cooldown);
+  cooldownRef.current = cooldown;
+
   const execute = useCallback(
     async (...args: Parameters<T>): Promise<ReturnType<T> | undefined> => {
       const now = Date.now();
 
-      if (isPending || now - lastCallRef.current < cooldown) {
+      if (isPending || now - lastCallRef.current < cooldownRef.current) {
         return undefined;
       }
 
@@ -43,7 +46,7 @@ export function useThrottledAction<T extends (...args: any[]) => Promise<any>>(
         setIsPending(false);
       }
     },
-    [action, isPending, cooldown]
+    [action, isPending]
   );
 
   return {

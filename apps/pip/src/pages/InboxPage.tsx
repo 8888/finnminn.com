@@ -44,7 +44,7 @@ export function InboxPage() {
       </div>
 
       <div className="flex flex-col gap-6">
-        {initialLoading ? (
+        {initialLoading && captures.length === 0 ? (
           <>
             <Skeleton variant="rect" className="w-full h-40" />
             <Skeleton variant="rect" className="w-full h-40" />
