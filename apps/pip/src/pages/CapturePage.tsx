@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Terminal, Typography } from "@finnminn/ui";
+import { Button, Terminal, Typography, useThrottledAction } from "@finnminn/ui";
 import { useAuth } from "@finnminn/auth";
 import { useVoiceCapture } from "../hooks/useVoiceCapture";
 import { useCaptureManager } from "../hooks/useCaptureManager";
@@ -12,6 +12,9 @@ export function CapturePage() {
   const [text, setText] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const { execute: debouncedSave, isPending: isSaving } = useThrottledAction(saveCapture);
+
 
   useEffect(() => {
     if (transcript) {
@@ -28,7 +31,7 @@ export function CapturePage() {
   const handleSave = async () => {
     if (!text.trim()) return;
 
-    await saveCapture(text, isListening ? 'voice' : 'text');
+    await debouncedSave(text, isListening ? 'voice' : 'text');
     setText('');
     setIsSuccess(true);
     setTimeout(() => setIsSuccess(false), 2000);
@@ -117,6 +120,7 @@ export function CapturePage() {
             variant="secondary"
             size="md"
             disabled={text.trim().length === 0}
+            isLoading={isSaving}
             className={`${isSuccess ? 'animate-glitch' : ''} min-w-[120px] relative z-20`}
           >
             SUBMIT

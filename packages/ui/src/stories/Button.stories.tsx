@@ -14,6 +14,7 @@ const meta = {
       control: 'select',
       options: ['primary', 'secondary', 'destructive', 'ghost'],
     },
+    isLoading: { control: 'boolean' },
   },
 } satisfies Meta<typeof Button>;
 
@@ -41,9 +42,10 @@ export const Destructive: Story = {
   },
 };
 
-export const Ghost: Story = {
+export const Loading: Story = {
   args: {
-    children: 'Dismiss',
-    variant: 'ghost',
+    children: 'Cast Spell',
+    variant: 'primary',
+    isLoading: true,
   },
 };

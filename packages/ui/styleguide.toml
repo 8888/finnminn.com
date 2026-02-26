@@ -128,9 +128,20 @@ glitch_text = "H1 headers that burst into RGB-shifted fragments on hover. The gl
 [components.interactions]
 hover_state = "Transform: translate(-2px, -2px); Box-shadow: 6px 6px 0px 0px {color}."
 active_state = "Transform: translate(2px, 2px); Box-shadow: 0px 0px 0px 0px;"
-loading_state = "Blinking cursor '_' or pixelated hourglass/bat spinning."
+loading_state = "Buttons show a centered spinning pixel/bat (Spinner). Other containers show 'Skeleton' rectangles with horizontal shimmers. Use `useThrottledAction` for lockout behavior."
 cursor = "Default cursor is used to maintain precision, enhanced by the surrounding atmospheric effects."
 scroll = "Custom scrollbars: thick, blocky thumb, contrasting track."
+
+[components.skeleton]
+name = "Skeleton"
+description = "Placeholder UI for pending data streams."
+variants = ["Rect (Default)", "Circle (Avatar)", "Text (Line-height based)"]
+animation = "Shimmer: A horizontal gradient sweep that flows from left-to-right indefinitely."
+
+[components.spinner]
+name = "Spinner"
+description = "A minimalist, spinning pixel-art ring indicating active processing."
+usage = "Nested inside Buttons or centered in empty viewports."
 
 [components.feedback]
 success = "Green text, 'System Operational' sound/text."
