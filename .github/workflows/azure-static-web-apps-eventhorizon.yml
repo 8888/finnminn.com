@@ -49,8 +49,8 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_EVENTHORIZON }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/" # Look for the output folder from the root (relative to working dir if set, but we didn't set it here)
-          output_location: "apps/eventhorizon/dist"
+          app_location: "apps/eventhorizon/dist"
+          output_location: ""
           skip_app_build: true
 
   close_pull_request_job:
