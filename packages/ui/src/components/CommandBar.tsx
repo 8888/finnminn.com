@@ -142,7 +142,7 @@ export const CommandBar = ({
                         onClick={() => { onProfileClick?.(); setIsProfileOpen(false); }}
                         className="w-full text-left px-4 py-2 font-header hover:bg-witchcraft hover:text-void text-text-body transition-colors"
                       >
-                        [ PROFILE_DATA ]
+                        [ CONSOLE ]
                       </button>
                       <a
                         href={appLauncherUrl}
@@ -225,7 +225,7 @@ export const CommandBar = ({
                   onClick={() => { onProfileClick?.(); setIsMobileOpen(false); }}
                   className="w-full justify-start"
                 >
-                  PROFILE SETTINGS
+                  CONSOLE
                 </Button>
                 <a
                   href={appLauncherUrl}
