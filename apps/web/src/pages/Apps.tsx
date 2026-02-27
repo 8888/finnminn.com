@@ -63,6 +63,13 @@ export const Apps = () => {
         status="beta"
         icon={<span className="text-3xl">🥀</span>}
       />
+      <AppTile
+        title="Event Horizon"
+        description="Knowledge repository, research notes, and learning materials."
+        href="https://eventhorizon.finnminn.com"
+        status="online"
+        icon={<span className="text-3xl">🔭</span>}
+      />
     </AppLauncher>
   );
 };

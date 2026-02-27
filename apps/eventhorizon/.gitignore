@@ -1,0 +1,8 @@
+node_modules
+.vitepress/dist
+.vitepress/cache
+.venv
+*.md
+!index.md
+!learning-articles/index.md
+!learning-articles/*.md
