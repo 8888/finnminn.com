@@ -37,16 +37,21 @@ jobs:
           npm install
         working-directory: apps/eventhorizon
 
-      - name: Build And Deploy
+      - name: Build Site
+        run: |
+          npm run build
+        working-directory: apps/eventhorizon
+
+      - name: Deploy to Azure
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_EVENTHORIZON }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "apps/eventhorizon"
-          output_location: ".vitepress/dist"
-          skip_app_build: false
+          app_location: "/" # Look for the output folder from the root (relative to working dir if set, but we didn't set it here)
+          output_location: "apps/eventhorizon/dist"
+          skip_app_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

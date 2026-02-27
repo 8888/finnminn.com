@@ -28,9 +28,11 @@ def convert_notebooks():
             ], check=True)
         except subprocess.CalledProcessError as e:
             print(f"Error converting {notebook}: {e}")
+            sys.exit(1)
         except FileNotFoundError:
             print(f"Error: '{jupyter_path}' command not found. Please ensure nbconvert is installed.")
-            break
+            sys.exit(1)
 
 if __name__ == "__main__":
+    import sys
     convert_notebooks()

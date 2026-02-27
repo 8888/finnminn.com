@@ -4,8 +4,8 @@ Welcome to the **Event Horizon**, the central repository for learning materials,
 
 ## Core Areas
 
-- [Learning Articles](/learning-articles/)
-- [Jupyter Notebooks Index](/mechanics)
+- [Learning Articles](./learning-articles/)
+- [Jupyter Notebooks Index](./mechanics)
 
 ---
 
