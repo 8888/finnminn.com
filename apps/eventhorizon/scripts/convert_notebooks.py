@@ -1,6 +1,7 @@
 import os
 import subprocess
 import glob
+import sys
 
 def convert_notebooks():
     # Find all .ipynb files in the current directory
@@ -34,5 +35,4 @@ def convert_notebooks():
             sys.exit(1)
 
 if __name__ == "__main__":
-    import sys
     convert_notebooks()

@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Event Horizon",
   description: "Knowledge Repository & Learning Materials",
+  appearance: 'dark',
   outDir: './dist',
   themeConfig: {
     nav: [
