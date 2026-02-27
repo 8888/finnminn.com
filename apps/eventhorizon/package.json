@@ -1,0 +1,15 @@
+{
+  "name": "eventhorizon",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run convert && vitepress dev .",
+    "build": "npm run convert && vitepress build .",
+    "preview": "vitepress preview .",
+    "convert": "python3 scripts/convert_notebooks.py"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}

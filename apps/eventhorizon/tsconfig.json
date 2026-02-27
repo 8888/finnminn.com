@@ -1,0 +1,10 @@
+{
+  "extends": "@finnminn/config/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": [
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.mts"
+  ]
+}

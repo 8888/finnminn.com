@@ -1,0 +1,8 @@
+node_modules
+.vitepress/dist
+.vitepress/cache
+.venv
+
+# Ignore generated notebook markdowns in the root
+/*.md
+!/index.md
