@@ -5,6 +5,9 @@ export default defineConfig({
   description: "Knowledge Repository & Learning Materials",
   appearance: 'dark',
   outDir: './dist',
+  markdown: {
+    math: true
+  },
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },

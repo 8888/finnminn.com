@@ -10,6 +10,7 @@
     "convert": "python3 scripts/convert_notebooks.py"
   },
   "devDependencies": {
+    "markdown-it-mathjax3": "^4.3.2",
     "vitepress": "^1.6.3"
   }
 }
