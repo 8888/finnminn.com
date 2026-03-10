@@ -33,12 +33,18 @@ Starts both backend and frontend for a specific app (e.g., `pip`, `necrobloom`, 
 ```
 
 ### 3. Start Everything
-Starts the entire suite simultaneously on isolated ports.
+Starts the entire suite simultaneously on isolated ports and verifies readiness.
 ```bash
 ./.agents/skills/local_env/scripts/manage_env.sh start_all
 ```
 
-### 4. Cleanup
+### 4. Wait for Ready
+Polls all assigned ports and only returns when all services are responsive.
+```bash
+./.agents/skills/local_env/scripts/manage_env.sh wait_for_ready
+```
+
+### 5. Cleanup
 Terminate all background processes associated with the dev environment.
 ```bash
 ./.agents/skills/local_env/scripts/manage_env.sh cleanup
@@ -57,5 +63,7 @@ Terminate all background processes associated with the dev environment.
 - **Hosts**: Always use `localhost` for testing in the browser to ensure the local proxy and mock authentication work correctly.
 - **Authentication**: After starting services, verify the authentication state in the browser. If the "Login" page is visible or "NO_ACTIVE_ACCOUNT" is encountered, you **MUST** stop and ask the USER to sign in manually before continuing.
 - **Port Isolation**: Each app is assigned a unique port to allow simultaneous local development without collisions.
-- **Logs**: If a service fails to start, check the `.log` files in the app's directory or the root. **CRITICAL:** Use `run_shell_command("cat <log_file>")` to read logs, as they may be ignored by standard file reading tools.
+- **Logs**: All background process logs are stored in the root `logs/` directory.
+    - `logs/backend-<app>.log`
+    - `logs/frontend-<app>.log`
 - **Monorepo Orchestration**: For frontends, prefer using `npx turbo run dev -- --host localhost` from the monorepo root to leverage Turborepo's orchestration and automatic port conflict handling.
