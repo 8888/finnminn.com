@@ -32,7 +32,7 @@ azurefunctions {
     resourceGroup = "pip-rg"
     region = "canadacentral"
     // runtime configuration removed for now
-    localDebug = "transport=dt_socket,server=y,suspend=n,address=5005"
+    localDebug = "transport=dt_socket,server=y,suspend=n,address=5006"
 }
 
 // Ensure local.settings.json is propagated correctly to the local runner

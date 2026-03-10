@@ -46,14 +46,16 @@ Terminate all background processes associated with the dev environment.
 
 ## 🔍 Verification & Port Map
 
-| App | Frontend Port | Backend Port | Verification URL |
-| :--- | :--- | :--- | :--- |
-| **Pip** | 5173 | 7071 | `http://localhost:7071/api/hello` |
-| **Necrobloom** | 5174 | 7072 | `http://localhost:7072/api/health` |
-| **Web** | 5175 | N/A | `http://localhost:5175` |
+| App | Frontend Port | Backend Port | Debug Port | Verification URL |
+| :--- | :--- | :--- | :--- | :--- |
+| **Pip** | 5173 | 7071 | 5006 | `http://localhost:7071/api/hello` |
+| **Necrobloom** | 5174 | 7072 | 5005 | `http://localhost:7072/api/Ping` |
+| **Web** | 5175 | N/A | N/A | `http://localhost:5175` |
+| **EventHorizon** | 5176 | N/A | N/A | `http://localhost:5176` |
 
 ## ⚠️ Important Notes
 - **Hosts**: Always use `localhost` for testing in the browser to ensure the local proxy and mock authentication work correctly.
 - **Authentication**: After starting services, verify the authentication state in the browser. If the "Login" page is visible or "NO_ACTIVE_ACCOUNT" is encountered, you **MUST** stop and ask the USER to sign in manually before continuing.
 - **Port Isolation**: Each app is assigned a unique port to allow simultaneous local development without collisions.
-- **Logs**: If a service fails to start, check the `.log` files in the app's directory or the root.
+- **Logs**: If a service fails to start, check the `.log` files in the app's directory or the root. **CRITICAL:** Use `run_shell_command("cat <log_file>")` to read logs, as they may be ignored by standard file reading tools.
+- **Monorepo Orchestration**: For frontends, prefer using `npx turbo run dev -- --host localhost` from the monorepo root to leverage Turborepo's orchestration and automatic port conflict handling.

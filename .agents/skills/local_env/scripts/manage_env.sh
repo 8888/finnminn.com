@@ -40,7 +40,16 @@ case $COMMAND in
     ;;
   cleanup)
     echo "Cleaning up local processes..."
-    lsof -ti:5171-5175,7071-7075,10000 | xargs kill -9 2>/dev/null
+    # Kill common port-bound processes
+    lsof -ti:5171-5176,7071-7075,10000 | xargs kill -9 2>/dev/null
+    
+    # Kill any lingering tail -f processes from this script
+    ps aux | grep "tail -f" | grep -E "backend.log|frontend.log|turbo_dev.log" | awk '{print $2}' | xargs kill -9 2>/dev/null
+
+    # Stop Gradle daemons for each API app to free up memory and ports
+    [ -f apps/pip/api/gradlew ] && (cd apps/pip/api && ./gradlew --stop)
+    [ -f apps/necrobloom/api/gradlew ] && (cd apps/necrobloom/api && ./gradlew --stop)
+    
     echo "Cleanup complete."
     ;;
   *)
