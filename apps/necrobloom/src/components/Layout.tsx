@@ -31,7 +31,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         onLogout={logout}
         onLogin={login}
         links={links}
-        onProfileClick={() => window.location.href = (import.meta as any).env.DEV ? "http://localhost:5173/profile" : "https://finnminn.com/profile"}
+        onProfileClick={() => window.location.href = (import.meta as any).env.DEV ? "http://localhost:5173/console" : "https://finnminn.com/console"}
         onLinkClick={(href) => navigate(href)}
       />
 
