@@ -42,7 +42,7 @@ if (typeof window !== "undefined") {
             // Attempt SSO Silent if no accounts are found in local cache
             // This leverages the session cookie from other subdomains
             msalInstance.ssoSilent({
-                scopes: ["openid", "profile", "User.Read"]
+                scopes: ["openid", "profile"]
             }).then((ssoResponse) => {
                 if (ssoResponse.account) {
                     msalInstance.setActiveAccount(ssoResponse.account);
@@ -74,11 +74,21 @@ export const useAuth = () => {
     const { instance, accounts, inProgress } = useMsal();
     const isAuthenticated = useIsAuthenticated();
 
-    const login = useCallback(() => {
-        instance.loginRedirect({
-            scopes: ["User.Read"],
-            prompt: "select_account"
-        });
+    const login = useCallback(async () => {
+        const request = { scopes: ["User.Read"], prompt: "select_account" };
+        if (isStandalone()) {
+            try {
+                const response = await instance.loginPopup(request);
+                if (response.account) {
+                    instance.setActiveAccount(response.account);
+                }
+            } catch (popupError) {
+                console.warn("Popup login failed in PWA, falling back to redirect:", popupError);
+                instance.loginRedirect(request);
+            }
+        } else {
+            instance.loginRedirect(request);
+        }
     }, [instance]);
 
     const logout = useCallback(() => {
@@ -98,14 +108,16 @@ export const useAuth = () => {
             });
             return response.accessToken;
         } catch (error) {
-            // If in PWA standalone, popups usually fail or feel broken. Prefer Redirect.
             if (isStandalone()) {
-                console.warn("Silent token acquisition failed in PWA, triggering redirect...");
-                instance.acquireTokenRedirect({
-                    scopes: ["User.Read"],
-                    account: account
-                });
-                return null;
+                console.warn("Silent token acquisition failed in PWA, attempting popup...", error);
+                try {
+                    const response = await instance.acquireTokenPopup({ scopes: ["User.Read"], account });
+                    return response.accessToken;
+                } catch (popupError) {
+                    console.warn("Popup failed in PWA, falling back to redirect...", popupError);
+                    instance.acquireTokenRedirect({ scopes: ["User.Read"], account });
+                    return null;
+                }
             }
 
             console.warn("Silent token acquisition failed, attempting popup...", error);
@@ -134,12 +146,15 @@ export const useAuth = () => {
             return response.idToken;
         } catch (error) {
             if (isStandalone()) {
-                console.warn("Silent ID token acquisition failed in PWA, triggering redirect...");
-                instance.acquireTokenRedirect({
-                    scopes: ["openid", "profile"],
-                    account: account
-                });
-                return null;
+                console.warn("Silent ID token acquisition failed in PWA, attempting popup...", error);
+                try {
+                    const response = await instance.acquireTokenPopup({ scopes: ["openid", "profile"], account });
+                    return response.idToken;
+                } catch (popupError) {
+                    console.warn("Popup failed in PWA, falling back to redirect...", popupError);
+                    instance.acquireTokenRedirect({ scopes: ["openid", "profile"], account });
+                    return null;
+                }
             }
 
             console.warn("Silent ID token acquisition failed, attempting popup...", error);
