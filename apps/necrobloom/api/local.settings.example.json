@@ -7,7 +7,10 @@
     "COSMOS_KEY": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
     "COSMOS_ENDPOINT": "https://localhost:8081/",
     "COSMOS_DATABASE": "NecroBloomDB",
-    "COSMOS_CONTAINER": "Plants"
+    "COSMOS_CONTAINER": "Plants",
+    "STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UKvz9U/jSLAQ==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;",
+    "STORAGE_CONTAINER": "vessel-images",
+    "GEMINI_API_KEY": "YOUR_GEMINI_API_KEY_HERE"
   },
   "Host": {
     "LocalHttpPort": 7072,

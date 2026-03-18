@@ -36,6 +36,16 @@ else
     echo -e "${GREEN}✓ apps/pip/api/local.settings.json already exists.${NC}"
 fi
 
+# Credential audit for Pip
+if [ -f "apps/pip/api/local.settings.json" ]; then
+    pip_cosmos=$(grep -o '"COSMOS_ENDPOINT"[[:space:]]*:[[:space:]]*"[^"]*"' apps/pip/api/local.settings.json | grep -v 'localhost' || true)
+    if [ -n "$pip_cosmos" ]; then
+        echo -e "${RED}⚠ WARNING: apps/pip/api/local.settings.json contains a non-localhost COSMOS_ENDPOINT.${NC}"
+        echo -e "${RED}  This file may be pointing at production. Reset it with:${NC}"
+        echo -e "  ${YELLOW}cp apps/pip/api/local.settings.example.json apps/pip/api/local.settings.json${NC}"
+    fi
+fi
+
 # 3. Check for local.settings.json in Necrobloom
 echo -e "${YELLOW}Checking Necrobloom API configuration...${NC}"
 if [ ! -f "apps/necrobloom/api/local.settings.json" ]; then
@@ -45,6 +55,19 @@ if [ ! -f "apps/necrobloom/api/local.settings.json" ]; then
     fi
 else
     echo -e "${GREEN}✓ apps/necrobloom/api/local.settings.json already exists.${NC}"
+fi
+
+# Credential audit for Necrobloom
+if [ -f "apps/necrobloom/api/local.settings.json" ]; then
+    nb_cosmos=$(grep -o '"COSMOS_ENDPOINT"[[:space:]]*:[[:space:]]*"[^"]*"' apps/necrobloom/api/local.settings.json | grep -v 'localhost' || true)
+    nb_storage=$(grep -o '"STORAGE_CONNECTION_STRING"[[:space:]]*:[[:space:]]*"[^"]*"' apps/necrobloom/api/local.settings.json | grep 'core\.windows\.net' || true)
+    if [ -n "$nb_cosmos" ] || [ -n "$nb_storage" ]; then
+        echo -e "${RED}⚠ WARNING: apps/necrobloom/api/local.settings.json contains production endpoint(s).${NC}"
+        [ -n "$nb_cosmos" ]   && echo -e "${RED}  - COSMOS_ENDPOINT is not localhost${NC}"
+        [ -n "$nb_storage" ]  && echo -e "${RED}  - STORAGE_CONNECTION_STRING points to core.windows.net${NC}"
+        echo -e "${RED}  Reset with:${NC}"
+        echo -e "  ${YELLOW}cp apps/necrobloom/api/local.settings.example.json apps/necrobloom/api/local.settings.json${NC}"
+    fi
 fi
 
 # 4. SSL Certificate Management
