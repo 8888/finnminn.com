@@ -177,6 +177,10 @@
     text-shadow: 0 0 4px #58a6ff, 0 0 8px rgba(88, 166, 255, 0.5);
   }
 
+  .glow-gold {
+    text-shadow: 0 0 4px #FFB800, 0 0 8px rgba(255, 184, 0, 0.5);
+  }
+
   .animate-spectral {
     animation:
       spectral-float 6s ease-in-out infinite,

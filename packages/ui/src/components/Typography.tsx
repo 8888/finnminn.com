@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export type TypographyVariant = "default" | "muted" | "witchcraft" | "vampire" | "ectoplasm" | "toxic" | "pip";
+export type TypographyVariant = "default" | "muted" | "witchcraft" | "vampire" | "ectoplasm" | "toxic" | "pip" | "gold";
 export type TypographySize = "xs" | "sm" | "md" | "lg" | "xl";
 
 const colorClasses: Record<TypographyVariant, string> = {
@@ -11,6 +11,7 @@ const colorClasses: Record<TypographyVariant, string> = {
   ectoplasm: "text-ectoplasm",
   toxic: "text-toxic",
   pip: "text-pip",
+  gold: "text-gold",
 };
 
 const glowClasses: Partial<Record<TypographyVariant, string>> = {
@@ -19,6 +20,7 @@ const glowClasses: Partial<Record<TypographyVariant, string>> = {
   ectoplasm: "glow-ectoplasm",
   toxic: "glow-toxic",
   pip: "glow-pip",
+  gold: "glow-gold",
 };
 
 const sizeClasses: Record<TypographySize, string> = {
