@@ -46,7 +46,28 @@ if [ -f "apps/pip/api/local.settings.json" ]; then
     fi
 fi
 
-# 3. Check for local.settings.json in Necrobloom
+# 3. Check for .env in Necrobloom
+echo -e "${YELLOW}Checking Necrobloom frontend configuration...${NC}"
+if [ ! -f "apps/necrobloom/.env" ]; then
+    if [ -f "apps/necrobloom/.env.example" ]; then
+        cp apps/necrobloom/.env.example apps/necrobloom/.env
+        echo -e "${GREEN}✓ Created apps/necrobloom/.env from example.${NC}"
+    fi
+else
+    echo -e "${GREEN}✓ apps/necrobloom/.env already exists.${NC}"
+fi
+
+# Credential audit for Necrobloom frontend .env
+if [ -f "apps/necrobloom/.env" ]; then
+    nb_api_url=$(grep -o 'VITE_API_URL=http://localhost:[0-9]*' apps/necrobloom/.env || true)
+    if [ -n "$nb_api_url" ]; then
+        echo -e "${RED}⚠ WARNING: apps/necrobloom/.env has VITE_API_URL set to a localhost port.${NC}"
+        echo -e "${RED}  This bypasses the Vite proxy and breaks auth header injection.${NC}"
+        echo -e "${RED}  Reset with: ${YELLOW}cp apps/necrobloom/.env.example apps/necrobloom/.env${NC}"
+    fi
+fi
+
+# 5. Check for local.settings.json in Necrobloom
 echo -e "${YELLOW}Checking Necrobloom API configuration...${NC}"
 if [ ! -f "apps/necrobloom/api/local.settings.json" ]; then
     if [ -f "apps/necrobloom/api/local.settings.example.json" ]; then
@@ -70,7 +91,7 @@ if [ -f "apps/necrobloom/api/local.settings.json" ]; then
     fi
 fi
 
-# 4. SSL Certificate Management
+# 6. SSL Certificate Management
 if lsof -ti:8081 &> /dev/null; then
     echo -e "${YELLOW}Attempting to automate Cosmos SSL certificate import...${NC}"
     openssl s_client -connect 127.0.0.1:8081 </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > emulator.cer
