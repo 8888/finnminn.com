@@ -1,3 +1,4 @@
+.specify/extensions/.cache/
 node_modules
 dist
 .turbo
