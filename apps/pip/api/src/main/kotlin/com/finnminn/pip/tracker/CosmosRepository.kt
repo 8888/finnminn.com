@@ -136,6 +136,23 @@ class CosmosRepository {
         }
     }
 
+    fun findAllHabitLogsByUserIdAndRitualId(userId: String, ritualId: String): List<HabitLog> {
+        return try {
+            val query = "SELECT * FROM c WHERE c.userId = @userId AND c.type = 'habitLog' AND c.ritualId = @ritualId"
+            val querySpec = SqlQuerySpec(query,
+                SqlParameter("@userId", userId),
+                SqlParameter("@ritualId", ritualId)
+            )
+            container.queryItems(querySpec, null, HabitLog::class.java).toList()
+        } catch (e: CosmosException) {
+            logger.severe("Cosmos error finding logs for ritual $ritualId for user $userId: ${e.message} (Status: ${e.statusCode})")
+            emptyList()
+        } catch (e: Exception) {
+            logger.severe("Unexpected error finding logs for ritual $ritualId: ${e.message}")
+            emptyList()
+        }
+    }
+
     fun deleteItem(id: String, userId: String, itemType: String = "Item"): Boolean {
         return try {
             container.deleteItem(id, PartitionKey(userId), null)

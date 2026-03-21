@@ -4,6 +4,7 @@ import { CapturePage } from "./pages/CapturePage";
 import { InboxPage } from "./pages/InboxPage";
 import { TrackerPage } from "./pages/TrackerPage";
 import { Character } from "./pages/Character";
+import { RitualDetailPage } from "./pages/RitualDetailPage";
 import { Layout } from "./components/Layout";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<CapturePage />} />
             <Route path="/inbox" element={<InboxPage />} />
             <Route path="/tracker" element={<TrackerPage />} />
+            <Route path="/tracker/ritual/:ritualId" element={<RitualDetailPage />} />
             <Route path="/character" element={<Character />} />
           </Routes>
         </Layout>

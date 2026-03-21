@@ -41,6 +41,46 @@ class HabitLogFunctionsTest {
     }
 
     @Test
+    fun testGetHabitLogsByRitualId() {
+        val function = HabitLogFunctions()
+        val repository = mock(CosmosRepository::class.java)
+        function.repository = repository
+
+        val request = mock(HttpRequestMessage::class.java) as HttpRequestMessage<Optional<String>>
+        val context = mock(ExecutionContext::class.java)
+
+        val mockPrincipal = "eyJ1c2VySWQiOiAidGVzdHVzZXIifQ=="
+        `when`(request.headers).thenReturn(mapOf("x-ms-client-principal" to mockPrincipal))
+        `when`(request.queryParameters).thenReturn(mapOf("ritualId" to "ritual-abc"))
+        `when`(context.logger).thenReturn(Logger.getGlobal())
+
+        val responseBuilder = mock(HttpResponseMessage.Builder::class.java)
+        `when`(request.createResponseBuilder(any(HttpStatus::class.java))).thenReturn(responseBuilder)
+        `when`(responseBuilder.body(any())).thenReturn(responseBuilder)
+        `when`(responseBuilder.header(any(), any())).thenReturn(responseBuilder)
+
+        val response = mock(HttpResponseMessage::class.java)
+        `when`(responseBuilder.build()).thenReturn(response)
+        `when`(response.status).thenReturn(HttpStatus.OK)
+
+        val mockLog = HabitLog(
+            id = "log-1",
+            userId = "testuser",
+            type = "habitLog",
+            ritualId = "ritual-abc",
+            date = "2026-03-21",
+            completed = true,
+            timestamp = "2026-03-21T08:00:00Z"
+        )
+        `when`(repository.findAllHabitLogsByUserIdAndRitualId("testuser", "ritual-abc")).thenReturn(listOf(mockLog))
+
+        val actualResponse = function.getHabitLogs(request, context)
+
+        assertEquals(HttpStatus.OK, actualResponse.status)
+        verify(repository).findAllHabitLogsByUserIdAndRitualId("testuser", "ritual-abc")
+    }
+
+    @Test
     fun testToggleHabitLogSuccess() {
         val function = HabitLogFunctions()
         val repository = mock(CosmosRepository::class.java)

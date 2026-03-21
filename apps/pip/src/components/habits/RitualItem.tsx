@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Button } from "@finnminn/ui";
 
 interface RitualItemProps {
+  id: string;
   name: string;
   nature: 'light' | 'void';
   isCompleted: boolean;
@@ -10,14 +12,16 @@ interface RitualItemProps {
   onDelete: () => void;
 }
 
-export const RitualItem: React.FC<RitualItemProps> = ({ 
-  name, 
-  nature, 
-  isCompleted, 
+export const RitualItem: React.FC<RitualItemProps> = ({
+  id,
+  name,
+  nature,
+  isCompleted,
   onToggle,
   onEdit,
-  onDelete 
+  onDelete,
 }) => {
+  const navigate = useNavigate();
   const isLight = nature === 'light';
   const prefix = isLight ? '[+]' : '[-]';
   const impact = isLight ? '+1' : '-1';
@@ -55,6 +59,9 @@ export const RitualItem: React.FC<RitualItemProps> = ({
         </div>
         
         <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+           <button onClick={() => navigate(`/tracker/ritual/${id}`)} className="hover:scale-110 transition-transform">
+             <Typography.Body size="xs" className="text-ectoplasm uppercase font-header hover:underline">View</Typography.Body>
+           </button>
            <button onClick={onEdit} className="hover:scale-110 transition-transform">
              <Typography.Body size="xs" className="text-witchcraft uppercase font-header hover:underline">Edit</Typography.Body>
            </button>

@@ -163,6 +163,12 @@ interactions = [
     "Pop: No opacity filters. Colors remain true to 'pop' against the void."
 ]
 
+[components.tabs]
+name = "Tabs"
+label = "Tabs"
+description = "Pixel-art tab navigation container for switching between named content panels. Composed of a <Tabs> wrapper that manages active state and <Tab> sub-components as named panels."
+category = "Navigation"
+
 [components.navigation]
 name = "CommandDeck"
 description = "The primary HUD (Heads-Up Display) for the application. Static position at the top."
