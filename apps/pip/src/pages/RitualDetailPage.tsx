@@ -23,6 +23,12 @@ export const RitualDetailPage: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-6 p-6 max-w-4xl mx-auto">
+      <button
+        onClick={() => navigate('/tracker')}
+        className="self-start flex items-center gap-1 text-overlay hover:text-witchcraft transition-colors"
+      >
+        <Typography.Body size="sm" variant="muted">← Back</Typography.Body>
+      </button>
       <Typography.H1>{ritual?.name ?? '...'}</Typography.H1>
 
       {error && (
