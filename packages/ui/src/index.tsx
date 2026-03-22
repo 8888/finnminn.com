@@ -14,5 +14,7 @@ export * from "./components/AsciiMarquee";
 export * from "./components/Atmosphere";
 export * from "./components/Skeleton";
 
+export * from "./components/Tabs";
+
 export * from "./hooks/useLoading";
 export * from "./hooks/useThrottledAction";

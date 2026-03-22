@@ -24,11 +24,18 @@ class HabitLogFunctions {
         val userId = SecurityUtils.getUserId(request.headers)
             ?: return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).build()
 
-        val startDate = request.queryParameters["startDate"] ?: return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Missing startDate").build()
-        val endDate = request.queryParameters["endDate"] ?: return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Missing endDate").build()
+        val ritualId = request.queryParameters["ritualId"]
 
         return try {
-            val logs = repository.findAllHabitLogsByUserIdAndDateRange(userId, startDate, endDate)
+            val logs = if (ritualId != null) {
+                repository.findAllHabitLogsByUserIdAndRitualId(userId, ritualId)
+            } else {
+                val startDate = request.queryParameters["startDate"]
+                    ?: return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Missing startDate or ritualId").build()
+                val endDate = request.queryParameters["endDate"]
+                    ?: return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Missing endDate or ritualId").build()
+                repository.findAllHabitLogsByUserIdAndDateRange(userId, startDate, endDate)
+            }
             request.createResponseBuilder(HttpStatus.OK)
                 .body(mapper.writeValueAsString(logs))
                 .header("Content-Type", "application/json")

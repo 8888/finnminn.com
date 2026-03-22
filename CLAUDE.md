@@ -85,3 +85,10 @@ npm run test -- --filter=pip -- --run src/path/to/file.test.tsx  # Single test f
 - **New app setup**: `docs/guides/MIGRATION_AND_SETUP.md`
 - **Gradle issues**: `docs/guides/GRADLE_BUILD_ISSUES.md`
 - **UI component rules**: `packages/ui/gemini.md`
+
+## Active Technologies
+- TypeScript (React 18, Vite) — frontend; Kotlin 1.9.22 (Java 17) — backend + React Router v6.22, `@finnminn/ui`, `@finnminn/auth`, Azure Functions SDK, Azure Cosmos 4.53.0 (001-pip-metric-detail)
+- Cosmos DB (existing Items container, partition key `/userId`) (001-pip-metric-detail)
+
+## Recent Changes
+- 001-pip-metric-detail: Added TypeScript (React 18, Vite) — frontend; Kotlin 1.9.22 (Java 17) — backend + React Router v6.22, `@finnminn/ui`, `@finnminn/auth`, Azure Functions SDK, Azure Cosmos 4.53.0

@@ -70,6 +70,7 @@ export const RitualList: React.FC<RitualListProps> = ({
             return (
               <RitualItem
                 key={ritual.id}
+                id={ritual.id!}
                 name={ritual.name}
                 nature={ritual.nature}
                 isCompleted={!!log?.completed}

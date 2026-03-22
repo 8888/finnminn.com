@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button, Input, Badge, Card, Terminal, Typography, Image, CommandBar, Skeleton, Spinner } from '../index';
+import { Button, Input, Badge, Card, Terminal, Typography, Image, CommandBar, Skeleton, Spinner, Tabs, Tab } from '../index';
 
 const meta = {
   title: 'System/Overview',
@@ -52,6 +52,19 @@ export const AllComponents: Story = {
               ]}
               user={{ name: "Necromancer", avatarUrl: "https://github.com/shadcn.png", email: "demo@void.net" }}
             />
+          </div>
+          <div className="border-2 border-dashed border-text-muted/30 p-4">
+            <Tabs>
+              <Tab label="Activity Log">
+                <Typography.Body>All check-in entries, most recent first.</Typography.Body>
+              </Tab>
+              <Tab label="Trend">
+                <Typography.Body>Check-in trend graph.</Typography.Body>
+              </Tab>
+              <Tab label="Streak">
+                <Typography.Body>Consecutive-day streak graph.</Typography.Body>
+              </Tab>
+            </Tabs>
           </div>
         </section>
 
