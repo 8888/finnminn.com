@@ -80,7 +80,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T014 [US3] Migrate OracleTrends in apps/pip/src/components/habits/OracleTrends.tsx to use the shared BarChart from @finnminn/ui — convert dual-ritual data to two ChartDataSeries (color: ectoplasm for ritual 1, vampire for ritual 2), use multi-series BarChart for the comparison visualization, keep the oracle insight text and ritual selector dropdowns as pip-specific wrapping logic outside the BarChart, preserve 7d/30d/90d range selector behavior
+- [ ] T014 [US3] Migrate OracleTrends in apps/pip/src/components/habits/OracleTrends.tsx to use the shared BarChart from @finnminn/ui — convert dual-ritual data to two ChartDataSeries (color: ectoplasm for ritual 1, vampire for ritual 2), use multi-series BarChart for the comparison visualization without timeRange/onTimeRangeChange (parent component owns the range and passes pre-filtered data), keep the oracle insight text, ritual selector dropdowns, and range control as pip-specific wrapping logic outside the BarChart
 - [ ] T015 [US3] Add BarChart, LineChart, and ProgressBar components to the Kitchen Sink in packages/ui/src/stories/DesignSystem.stories.tsx — add a "Data Visualization" section with representative examples of each chart type (single bar, multi-series bar, line chart, progress bar)
 
 **Checkpoint**: User Story 3 complete — all chart components visible in Kitchen Sink, OracleTrends uses shared BarChart

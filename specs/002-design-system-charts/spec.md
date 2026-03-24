@@ -98,8 +98,9 @@ The pip app has a custom "vitality bar" (horizontal progress bar) that shows a h
 - **FR-009**: The pip app's existing ritual trend graph MUST be migrated to use the shared bar chart component with no regression in functionality
 - **FR-010**: The pip app's existing ritual streak graph MUST be migrated to use the shared line chart component with no regression in functionality
 - **FR-013**: The pip app's existing OracleTrends dual-ritual comparison view MUST be migrated to use the shared multi-series bar chart component with no regression in functionality; any pip-specific supplementary text (e.g., the "magic insight" summary) remains outside the shared component and is rendered by pip
-- **FR-011**: Bar and line chart components MUST support a time-range filter (7 days, 30 days, all time) when used with time-series data
-- **FR-012**: Bar and line chart components MUST support horizontal scrolling when the dataset exceeds the available display width
+- **FR-014**: The pip app's existing VitalityBar MUST be migrated to use the shared ProgressBar component with no regression in functionality
+- **FR-011**: Bar and line chart components MUST support a time-range filter (7 days, 30 days, 90 days, all time) when used with time-series data
+- **FR-012**: The bar chart component MUST support horizontal scrolling when the dataset exceeds the available display width
 
 ### Key Entities
 

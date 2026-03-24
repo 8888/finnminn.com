@@ -35,7 +35,7 @@ interface ChartDataSeries {
   color?: string; // PixelGrim token: 'ectoplasm' | 'vampire' | 'witchcraft' | 'gold' | 'pip' | 'toxic'
 }
 
-type TimeRange = "7d" | "30d" | "all";
+type TimeRange = "7d" | "30d" | "90d" | "all";
 ```
 
 ## BarChart
@@ -58,7 +58,7 @@ declare const BarChart: React.FC<BarChartProps>;
 - **Single series** (`series.length === 1`): Renders one bar per data point. No legend.
 - **Multiple series** (`series.length > 1`): Renders grouped bars per label. Legend rendered below the chart showing each series name + color swatch.
 - **Tooltip**: Hovering a bar cluster shows a combined tooltip with the label and all series values for that label.
-- **Time range selector**: Rendered above the chart when `timeRange` is provided. Three buttons: "7d", "30d", "all".
+- **Time range selector**: Rendered above the chart when `timeRange` is provided. Buttons for each `TimeRange` value: "7d", "30d", "90d", "all".
 - **Empty state**: When all series have empty `data` arrays, renders `emptyMessage` text centered in the chart area.
 - **Scrolling**: When bars exceed the container width, horizontal scrolling is enabled.
 
@@ -66,7 +66,7 @@ declare const BarChart: React.FC<BarChartProps>;
 
 - Bar fill: series color with 2px black stroke
 - Bar corners: sharp (radius 0)
-- Drop shadow: `4px 4px 0px #000000` on bar group
+- Drop shadow: `shadow-pixel` on bar group
 - Container: `border-2 border-overlay rounded-none`
 - Background: `bg-void`
 - Tooltip: `bg-void border-2 border-overlay shadow-pixel` with Typography components
