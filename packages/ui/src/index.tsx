@@ -16,5 +16,9 @@ export * from "./components/Skeleton";
 
 export * from "./components/Tabs";
 
+export * from "./components/BarChart";
+export * from "./components/LineChart";
+export * from "./components/ProgressBar";
+
 export * from "./hooks/useLoading";
 export * from "./hooks/useThrottledAction";

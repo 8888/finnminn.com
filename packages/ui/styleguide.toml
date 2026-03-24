@@ -196,6 +196,24 @@ variants = ["Default (Standard)", "Featured (Larger, animated border)"]
 content = "Icon (48px), Title (H3), Description (Body Small), Status Indicator (optional)."
 interaction = "Hover: Border becomes Witchcraft (Purple) or Ectoplasm (Green). Card lifts (-2px, -2px) with colored shadow."
 
+[components.bar_chart]
+name = "BarChart"
+label = "Bar Chart"
+description = "Proportionally-scaled vertical bar chart supporting single-series and multi-series grouped layouts. Renders time-range selector, hover tooltips, legend for multi-series, and empty state. Powered by Recharts."
+category = "Primitives"
+
+[components.line_chart]
+name = "LineChart"
+label = "Line Chart"
+description = "Connected line chart through ordered data points with circle markers for hover targeting. Renders time-range selector, hover tooltips, and empty state. Powered by Recharts."
+category = "Primitives"
+
+[components.progress_bar]
+name = "ProgressBar"
+label = "Progress Bar"
+description = "Horizontal progress bar that renders a fill percentage (0-100) with optional label and value display. Animated diagonal stripe overlay."
+category = "Primitives"
+
 [accessibility.standards]
 contrast_ratio = "AA (4.5:1) minimum for text."
 focus_indicators = "Thick, dashed outline in 'Witchcraft' purple or 'Vampire Kiss' pink."

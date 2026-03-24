@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button, Input, Badge, Card, Terminal, Typography, Image, CommandBar, Skeleton, Spinner, Tabs, Tab } from '../index';
+import { Button, Input, Badge, Card, Terminal, Typography, Image, CommandBar, Skeleton, Spinner, Tabs, Tab, BarChart, LineChart, ProgressBar } from '../index';
 
 const meta = {
   title: 'System/Overview',
@@ -115,6 +115,89 @@ export const AllComponents: Story = {
             <Image src="/finn.jpg" alt="Finn Evidence" size="thumbnail" variant="artifact" caption="ID: 001" />
             <div className="w-64">
               <Image src="/finn.jpg" alt="Specimen Finn" size="full" variant="artifact" caption="Fig 1. Specimen 'Finn'" />
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <Typography.H2>Data Visualization</Typography.H2>
+
+          <div className="space-y-6">
+            <div>
+              <Typography.Body variant="muted" size="sm" className="mb-2">Bar Chart (Single Series)</Typography.Body>
+              <BarChart
+                series={[{
+                  name: "Check-ins",
+                  data: [
+                    { label: "Mon", value: 3 },
+                    { label: "Tue", value: 1 },
+                    { label: "Wed", value: 5 },
+                    { label: "Thu", value: 2 },
+                    { label: "Fri", value: 4 },
+                    { label: "Sat", value: 0 },
+                    { label: "Sun", value: 6 },
+                  ],
+                }]}
+                height={200}
+              />
+            </div>
+
+            <div>
+              <Typography.Body variant="muted" size="sm" className="mb-2">Bar Chart (Multi-Series)</Typography.Body>
+              <BarChart
+                series={[
+                  {
+                    name: "Morning",
+                    color: "ectoplasm",
+                    data: [
+                      { label: "Mon", value: 1 },
+                      { label: "Tue", value: 0 },
+                      { label: "Wed", value: 1 },
+                      { label: "Thu", value: 1 },
+                    ],
+                  },
+                  {
+                    name: "Evening",
+                    color: "vampire",
+                    data: [
+                      { label: "Mon", value: 1 },
+                      { label: "Tue", value: 1 },
+                      { label: "Wed", value: 0 },
+                      { label: "Thu", value: 1 },
+                    ],
+                  },
+                ]}
+                height={200}
+              />
+            </div>
+
+            <div>
+              <Typography.Body variant="muted" size="sm" className="mb-2">Line Chart</Typography.Body>
+              <LineChart
+                series={{
+                  name: "Streak",
+                  color: "witchcraft",
+                  data: [
+                    { label: "Mon", value: 3 },
+                    { label: "Tue", value: 4 },
+                    { label: "Wed", value: 5 },
+                    { label: "Thu", value: 0 },
+                    { label: "Fri", value: 1 },
+                    { label: "Sat", value: 2 },
+                    { label: "Sun", value: 3 },
+                  ],
+                }}
+                height={200}
+              />
+            </div>
+
+            <div>
+              <Typography.Body variant="muted" size="sm" className="mb-2">Progress Bars</Typography.Body>
+              <div className="space-y-3">
+                <ProgressBar value={75} color="witchcraft" label="VITALITY" showValue />
+                <ProgressBar value={45} color="ectoplasm" label="MANA" showValue />
+                <ProgressBar value={90} color="vampire" label="HEALTH" showValue />
+              </div>
             </div>
           </div>
         </section>

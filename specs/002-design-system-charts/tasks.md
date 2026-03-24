@@ -19,8 +19,8 @@
 
 **Purpose**: Install dependencies and register new components in the design system
 
-- [ ] T001 Install recharts as a dependency in packages/ui/package.json and run npm install from repo root
-- [ ] T002 [P] Add BarChart, LineChart, and ProgressBar component entries to packages/ui/styleguide.toml following existing component definition patterns
+- [x] T001 Install recharts as a dependency in packages/ui/package.json and run npm install from repo root
+- [x] T002 [P] Add BarChart, LineChart, and ProgressBar component entries to packages/ui/styleguide.toml following existing component definition patterns
 
 ---
 
@@ -30,9 +30,9 @@
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 [P] Create chart color palette utility with PixelGrim color cycle (ectoplasm, vampire, witchcraft, gold, pip, toxic) and token-to-hex resolver in packages/ui/src/components/chartColors.ts
-- [ ] T004 [P] Create shared ChartTooltip component with PixelGrim styling (bg-void, border-2 border-overlay, shadow-pixel, Typography) that receives Recharts tooltip payload and renders formatted label + values in packages/ui/src/components/ChartTooltip.tsx
-- [ ] T005 [P] Create shared ChartLegend component that renders series name + color swatch pairs horizontally using Typography.Body in packages/ui/src/components/ChartLegend.tsx
+- [x] T003 [P] Create chart color palette utility with PixelGrim color cycle (ectoplasm, vampire, witchcraft, gold, pip, toxic) and token-to-hex resolver in packages/ui/src/components/chartColors.ts
+- [x] T004 [P] Create shared ChartTooltip component with PixelGrim styling (bg-void, border-2 border-overlay, shadow-pixel, Typography) that receives Recharts tooltip payload and renders formatted label + values in packages/ui/src/components/ChartTooltip.tsx
+- [x] T005 [P] Create shared ChartLegend component that renders series name + color swatch pairs horizontally using Typography.Body in packages/ui/src/components/ChartLegend.tsx
 
 **Checkpoint**: Foundation ready — chart component implementation can now begin
 
@@ -46,10 +46,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [US1] Implement BarChart component in packages/ui/src/components/BarChart.tsx — accepts ChartDataSeries[], supports single-series and multi-series grouped layouts, renders time-range selector when timeRange prop provided, uses ChartTooltip for combined cluster tooltips, renders ChartLegend when multiple series, shows empty state message, enables horizontal scroll for overflow, applies PixelGrim styling (border-2 rounded-none bg-void shadow-pixel, bar fill with 2px stroke, radius 0)
-- [ ] T007 [US1] Create BarChart Storybook stories in packages/ui/src/stories/BarChart.stories.tsx — stories for: single-series with typical data, single-series empty state, single-series single data point, single-series large dataset (30+ bars), multi-series grouped bars (2 series), multi-series with legend, with time-range selector, narrow container (375px) with scroll. Follow Storybook hierarchy: Primitives/BarChart
-- [ ] T008 [US1] Export BarChart component and all chart types (ChartDataPoint, ChartDataSeries, TimeRange, BarChartProps) from packages/ui/src/index.tsx
-- [ ] T009 [US1] Migrate RitualTrendGraph in apps/pip/src/components/habits/RitualTrendGraph.tsx to use the shared BarChart from @finnminn/ui — convert HabitLog[] data to ChartDataSeries format (group by date, count per day), pass timeRange and onTimeRangeChange props, remove custom bar rendering and tooltip code, preserve existing range selector behavior (7d, 30d, all)
+- [x] T006 [US1] Implement BarChart component in packages/ui/src/components/BarChart.tsx — accepts ChartDataSeries[], supports single-series and multi-series grouped layouts, renders time-range selector when timeRange prop provided, uses ChartTooltip for combined cluster tooltips, renders ChartLegend when multiple series, shows empty state message, enables horizontal scroll for overflow, applies PixelGrim styling (border-2 rounded-none bg-void shadow-pixel, bar fill with 2px stroke, radius 0)
+- [x] T007 [US1] Create BarChart Storybook stories in packages/ui/src/stories/BarChart.stories.tsx — stories for: single-series with typical data, single-series empty state, single-series single data point, single-series large dataset (30+ bars), multi-series grouped bars (2 series), multi-series with legend, with time-range selector, narrow container (375px) with scroll. Follow Storybook hierarchy: Primitives/BarChart
+- [x] T008 [US1] Export BarChart component and all chart types (ChartDataPoint, ChartDataSeries, TimeRange, BarChartProps) from packages/ui/src/index.tsx
+- [x] T009 [US1] Migrate RitualTrendGraph in apps/pip/src/components/habits/RitualTrendGraph.tsx to use the shared BarChart from @finnminn/ui — convert HabitLog[] data to ChartDataSeries format (group by date, count per day), pass timeRange and onTimeRangeChange props, remove custom bar rendering and tooltip code, preserve existing range selector behavior (7d, 30d, all)
 
 **Checkpoint**: User Story 1 complete — pip's trend tab shows a readable bar chart via the shared BarChart component
 
@@ -63,10 +63,10 @@
 
 ### Implementation for User Story 2
 
-- [ ] T010 [US2] Implement LineChart component in packages/ui/src/components/LineChart.tsx — accepts single ChartDataSeries, renders connected line via Recharts Line with circle markers at data points, uses ChartTooltip for hover, shows empty state, renders time-range selector when timeRange prop provided, applies PixelGrim styling (line stroke in series color, dot fill in ectoplasm, glow effect, container border-2 rounded-none bg-void)
-- [ ] T011 [US2] Create LineChart Storybook stories in packages/ui/src/stories/LineChart.stories.tsx — stories for: typical time-series data, empty state, single data point (dot only), data with zero values, large dataset, with time-range selector. Follow Storybook hierarchy: Primitives/LineChart
-- [ ] T012 [US2] Export LineChart component and LineChartProps type from packages/ui/src/index.tsx
-- [ ] T013 [US2] Migrate RitualStreakGraph in apps/pip/src/components/habits/RitualStreakGraph.tsx to use the shared LineChart from @finnminn/ui — convert StreakDataPoint[] from calculateStreakHistory() to ChartDataSeries format, pass timeRange and onTimeRangeChange props, remove custom SVG polyline/circle rendering and foreignObject tooltips, preserve existing range selector behavior and Card glow-witchcraft wrapper
+- [x] T010 [US2] Implement LineChart component in packages/ui/src/components/LineChart.tsx — accepts single ChartDataSeries, renders connected line via Recharts Line with circle markers at data points, uses ChartTooltip for hover, shows empty state, renders time-range selector when timeRange prop provided, applies PixelGrim styling (line stroke in series color, dot fill in ectoplasm, glow effect, container border-2 rounded-none bg-void)
+- [x] T011 [US2] Create LineChart Storybook stories in packages/ui/src/stories/LineChart.stories.tsx — stories for: typical time-series data, empty state, single data point (dot only), data with zero values, large dataset, with time-range selector. Follow Storybook hierarchy: Primitives/LineChart
+- [x] T012 [US2] Export LineChart component and LineChartProps type from packages/ui/src/index.tsx
+- [x] T013 [US2] Migrate RitualStreakGraph in apps/pip/src/components/habits/RitualStreakGraph.tsx to use the shared LineChart from @finnminn/ui — convert StreakDataPoint[] from calculateStreakHistory() to ChartDataSeries format, pass timeRange and onTimeRangeChange props, remove custom SVG polyline/circle rendering and foreignObject tooltips, preserve existing range selector behavior and Card glow-witchcraft wrapper
 
 **Checkpoint**: User Story 2 complete — pip's streak tab shows a clear line chart via the shared LineChart component
 
@@ -80,8 +80,8 @@
 
 ### Implementation for User Story 3
 
-- [ ] T014 [US3] Migrate OracleTrends in apps/pip/src/components/habits/OracleTrends.tsx to use the shared BarChart from @finnminn/ui — convert dual-ritual data to two ChartDataSeries (color: ectoplasm for ritual 1, vampire for ritual 2), use multi-series BarChart for the comparison visualization without timeRange/onTimeRangeChange (parent component owns the range and passes pre-filtered data), keep the oracle insight text, ritual selector dropdowns, and range control as pip-specific wrapping logic outside the BarChart
-- [ ] T015 [US3] Add BarChart, LineChart, and ProgressBar components to the Kitchen Sink in packages/ui/src/stories/DesignSystem.stories.tsx — add a "Data Visualization" section with representative examples of each chart type (single bar, multi-series bar, line chart, progress bar)
+- [x] T014 [US3] Migrate OracleTrends in apps/pip/src/components/habits/OracleTrends.tsx to use the shared BarChart from @finnminn/ui — convert dual-ritual data to two ChartDataSeries (color: ectoplasm for ritual 1, vampire for ritual 2), use multi-series BarChart for the comparison visualization without timeRange/onTimeRangeChange (parent component owns the range and passes pre-filtered data), keep the oracle insight text, ritual selector dropdowns, and range control as pip-specific wrapping logic outside the BarChart
+- [x] T015 [US3] Add BarChart, LineChart, and ProgressBar components to the Kitchen Sink in packages/ui/src/stories/DesignSystem.stories.tsx — add a "Data Visualization" section with representative examples of each chart type (single bar, multi-series bar, line chart, progress bar)
 
 **Checkpoint**: User Story 3 complete — all chart components visible in Kitchen Sink, OracleTrends uses shared BarChart
 
@@ -95,10 +95,10 @@
 
 ### Implementation for User Story 4
 
-- [ ] T016 [US4] Implement ProgressBar component in packages/ui/src/components/ProgressBar.tsx — accepts value (0-100, clamped), optional color (default witchcraft), optional label, optional showValue, renders horizontal bar with bg-surface track and color fill, h-4 height, animated diagonal stripe overlay, PixelGrim styling (border border-overlay), uses Typography.Body for label and value text
-- [ ] T017 [US4] Create ProgressBar Storybook stories in packages/ui/src/stories/ProgressBar.stories.tsx — stories for: 0% empty, 25% partial, 50% half, 75% typical, 100% full, with label, with showValue, custom color (ectoplasm), custom color (vampire). Follow Storybook hierarchy: Primitives/ProgressBar
-- [ ] T018 [US4] Export ProgressBar component and ProgressBarProps type from packages/ui/src/index.tsx
-- [ ] T019 [US4] Migrate VitalityBar in apps/pip/src/components/habits/VitalityBar.tsx to use the shared ProgressBar from @finnminn/ui — pass vitality percentage as value, color as witchcraft, preserve the "VITALITY" and "CURRENT STREAK" labels rendered via Typography.Body, remove custom progress bar rendering and stripe animation (now handled by shared component)
+- [x] T016 [US4] Implement ProgressBar component in packages/ui/src/components/ProgressBar.tsx — accepts value (0-100, clamped), optional color (default witchcraft), optional label, optional showValue, renders horizontal bar with bg-surface track and color fill, h-4 height, animated diagonal stripe overlay, PixelGrim styling (border border-overlay), uses Typography.Body for label and value text
+- [x] T017 [US4] Create ProgressBar Storybook stories in packages/ui/src/stories/ProgressBar.stories.tsx — stories for: 0% empty, 25% partial, 50% half, 75% typical, 100% full, with label, with showValue, custom color (ectoplasm), custom color (vampire). Follow Storybook hierarchy: Primitives/ProgressBar
+- [x] T018 [US4] Export ProgressBar component and ProgressBarProps type from packages/ui/src/index.tsx
+- [x] T019 [US4] Migrate VitalityBar in apps/pip/src/components/habits/VitalityBar.tsx to use the shared ProgressBar from @finnminn/ui — pass vitality percentage as value, color as witchcraft, preserve the "VITALITY" and "CURRENT STREAK" labels rendered via Typography.Body, remove custom progress bar rendering and stripe animation (now handled by shared component)
 
 **Checkpoint**: User Story 4 complete — pip's vitality bar uses shared ProgressBar, Storybook stories cover all states
 
@@ -108,8 +108,8 @@
 
 **Purpose**: Regression verification and final validation
 
-- [ ] T020 Run pip test suite via `npm run test --filter=pip` to verify zero regressions across all 4 component migrations
-- [ ] T021 Verify Storybook builds successfully via `npm run storybook` and confirm all chart stories render correctly (BarChart, LineChart, ProgressBar, Kitchen Sink section)
+- [x] T020 Run pip test suite via `npm run test --filter=pip` to verify zero regressions across all 4 component migrations
+- [x] T021 Verify Storybook builds successfully via `npm run storybook` and confirm all chart stories render correctly (BarChart, LineChart, ProgressBar, Kitchen Sink section)
 
 ---
 
